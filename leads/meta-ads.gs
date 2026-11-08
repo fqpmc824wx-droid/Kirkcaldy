@@ -29,7 +29,7 @@ var ADS_HEADERS = ["Date", "Campaign ID", "Campaign", "Ad set ID", "Ad set", "Ad
   "Spend", "Spend inc fee+VAT", "Impressions", "Reach", "Frequency", "CPM", "Clicks (all)", "CTR (all) %",
   "Link clicks", "Link CTR %", "Cost per link click", "Leads (Meta)", "CPL (Meta)",
   "3s plays", "ThruPlays", "p25", "p50", "p75", "p100", "Avg watch (s)",
-  "Post engagement", "Reactions", "Comments", "Shares", "Saves", "Pulled at"];
+  "Post engagement", "Reactions", "Comments", "Shares", "Saves", "Pulled at", "All actions (raw)"];
 
 function adsInstallTriggers() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
@@ -121,7 +121,8 @@ function adsPullInsights() {
       adsAction(r.actions, "video_view"), v0(r.video_thruplay_watched_actions), v0(r.video_p25_watched_actions), v0(r.video_p50_watched_actions),
       v0(r.video_p75_watched_actions), v0(r.video_p100_watched_actions), v0(r.video_avg_time_watched_actions),
       adsAction(r.actions, "post_engagement"), adsAction(r.actions, "post_reaction"), adsAction(r.actions, "comment"),
-      adsAction(r.actions, "post"), adsAction(r.actions, "onsite_conversion.post_save"), now];
+      adsAction(r.actions, "post"), adsAction(r.actions, "onsite_conversion.post_save"), now,
+      JSON.stringify((r.actions || []).reduce(function (o, a) { o[a.action_type] = adsNum(a.value); return o; }, {})).slice(0, 2000)];
   });
   // upsert: drop the dates Meta just returned (plus the whole 7-day window), then write back sorted
   var sh = adsTab(ADS_TAB, ADS_HEADERS), data = sh.getDataRange().getValues(), keep = [], drop = {};
@@ -133,8 +134,34 @@ function adsPullInsights() {
   if (all.length) sh.getRange(2, 1, all.length, ADS_HEADERS.length).setValues(all.map(function (r) {
     r = r.slice(0, ADS_HEADERS.length); while (r.length < ADS_HEADERS.length) r.push(""); return r; }));
   adsBackfillAdNames(all);
+  adsPullReach();
   SpreadsheetApp.flush();
   adsKpiAlarms();
+}
+
+// One row per ad set per day: rolling 7-day reach/frequency and reach since launch -> "Ads 7-day" tab.
+function adsPullReach() {
+  var acct = adsAccount(), p = adsProps();
+  if (!acct) return;
+  var asOf = adsDate(adsDay(new Date(Date.now() - 864e5))), launch = p.getProperty("LAUNCH_DATE");
+  var r7 = adsGraphGet(acct + "/insights", { level: "adset", date_preset: "last_7d", fields: "adset_id,adset_name,spend,impressions,reach,frequency,inline_link_clicks,actions" }) || [];
+  var toDate = {};
+  if (launch && adsDate(launch) <= asOf)
+    (adsGraphGet(acct + "/insights", { level: "adset", time_range: { since: launch, until: adsDay(asOf) }, fields: "adset_id,reach,frequency,impressions,spend" }) || [])
+      .forEach(function (r) { toDate[r.adset_id] = r; });
+  var H = ["As of", "Ad set ID", "Ad set", "7d spend", "7d impressions", "7d reach", "7d frequency", "7d link clicks", "7d leads (Meta)", "Reach to date", "Frequency to date", "Pulled at"];
+  var sh = adsTab("Ads 7-day", H), maxF = 0;
+  var rows = r7.map(function (r) {
+    var t = toDate[r.adset_id] || {}; maxF = Math.max(maxF, adsNum(r.frequency));
+    return [asOf, "'" + r.adset_id, r.adset_name, adsNum(r.spend), adsNum(r.impressions), adsNum(r.reach), adsNum(r.frequency), adsNum(r.inline_link_clicks),
+      adsAction(r.actions, ["onsite_conversion.lead_grouped", "lead", "leadgen_grouped"]), adsNum(t.reach), adsNum(t.frequency), new Date()];
+  });
+  var data = sh.getDataRange().getValues(), key = adsDay(asOf), keep = [];
+  for (var i = 1; i < data.length; i++) if (!(data[i][0] instanceof Date) || adsDay(data[i][0]) !== key) keep.push(data[i]);   // re-runs replace the day
+  var all = keep.concat(rows);
+  if (data.length > 1) sh.getRange(2, 1, data.length - 1, H.length).clearContent();
+  if (all.length) sh.getRange(2, 1, all.length, H.length).setValues(all);
+  p.setProperty("ADS_FREQ_7D", String(maxF));
 }
 
 // Fill blank "Ad name" cells in the Waiting list from the Ads tab (matched on Ad ID).
@@ -180,15 +207,18 @@ function adsTotalsByDay() {
 
 // ---------- alarms after the daily pull ----------
 function adsKpiAlarms() {
-  var p = adsProps(), now = new Date(), byDay = adsTotalsByDay(), sheetBy = adsSheetMetaLeadsByDay();
+  var p = adsProps(), now = new Date(), byDay = adsTotalsByDay(), sheetBy = adsSheetMetaLeadsByDay(), launch = p.getProperty("LAUNCH_DATE");
   var day = function (n) { return adsDay(new Date(now.getTime() - n * 864e5)); };
   var url = SpreadsheetApp.getActiveSpreadsheet().getUrl();
-  var launch = p.getProperty("LAUNCH_DATE"), daysLive = launch ? Math.floor((now - adsDate(launch)) / 864e5) : 99;
+  var daysLive = launch ? Math.floor((now - adsDate(launch)) / 864e5) : 99;
   // 1. cost per lead, last 3 full days (spend ÷ unique paid sheet leads)
   var sp = 0, ld = 0;
   for (var d = 1; d <= 3; d++) { sp += (byDay[day(d)] || {}).spend || 0; ld += sheetBy[day(d)] || 0; }
   var cplAlarm = Number(p.getProperty("CPL_ALARM") || 3.5);
-  if (daysLive >= 3 && sp >= 30 && (ld === 0 || sp / ld > cplAlarm))
+  if (daysLive >= 3 && sp >= 30 && (ld === 0 || sp / ld > 5))
+    healthNotifyOnce("ADS_CPL5_LAST", "⛔ PAUSE the ads: cost per lead over £5 (" + (ld ? "£" + (sp / ld).toFixed(2) : "0 leads") + ")",
+      "Last 3 days: £" + sp.toFixed(2) + " spent (before VAT), " + ld + " Facebook/Instagram sign-ups. Rule: over £5 → pause the campaign in Ads Manager and ask the ads chat to rebuild the ad or form.\n\n" + url);
+  else if (daysLive >= 3 && sp >= 30 && (ld === 0 || sp / ld > cplAlarm))
     healthNotifyOnce("ADS_CPL_LAST", "⚠️ Cost per lead is high: £" + (ld ? (sp / ld).toFixed(2) : sp.toFixed(2) + " spent, 0 leads"),
       "Last 3 days: £" + sp.toFixed(2) + " spent (before VAT), " + ld + " Facebook/Instagram sign-ups in the sheet.\n" +
       "Rule: over £" + cplAlarm + " for 3 days → fix the ad or form (don't add money). Over £5 → pause and ask the ads chat.\n\n" + url);
@@ -209,15 +239,86 @@ function adsKpiAlarms() {
     healthNotifyOnce("ADS_PACING_LAST", "⚠️ Ads spent under half the budget 2 days running",
       "Daily budget £" + budget + ". Yesterday £" + (((byDay[day(1)] || {}).spend) || 0).toFixed(2) +
       ". Usually a rejected ad, a payment problem or an audience that's too small. Check Ads Manager.\n\n" + url);
-  // 5. frequency (7-day, ad set level)
-  var acct = adsAccount();
-  if (acct && daysLive >= 7) {
-    var f = adsGraphGet(acct + "/insights", { level: "adset", date_preset: "last_7d", fields: "adset_name,frequency,reach" }) || [];
-    f.forEach(function (r) {
-      if (adsNum(r.frequency) > 3) healthNotifyOnce("ADS_FREQ_LAST", "⚠️ Ads are being seen too often (frequency " + adsNum(r.frequency).toFixed(1) + ")",
-        "People in the area have seen the ads " + adsNum(r.frequency).toFixed(1) + " times on average this week. Ask the ads chat for 1–2 fresh versions of the winning ad.\n\n" + url);
-    });
+  // 5. frequency (7-day, ad set level, stored daily by adsPullReach)
+  var freq = Number(p.getProperty("ADS_FREQ_7D") || 0);
+  if (daysLive >= 7 && freq > 3)
+    healthNotifyOnce("ADS_FREQ_LAST", "⚠️ Ads are being seen too often (frequency " + freq.toFixed(1) + ")",
+      "People in the area have seen the ads " + freq.toFixed(1) + " times on average this week. Ask the ads chat for 1–2 fresh versions of the winning ad.\n\n" + url);
+  // 6. fatigue: an ad's 3-day link click rate under 0.8% (2,000+ views), or under 60% of its own first 7 days
+  var tired = adsFatigue();
+  if (tired.length)
+    healthNotifyOnce("ADS_FATIGUE_LAST", "⚠️ An ad is getting tired: " + tired.map(function (t) { return t.name; }).join(", "),
+      tired.map(function (t) { return t.name + ": link click rate " + t.ctr3.toFixed(2) + "% in the last 3 days (first week " + t.ctr1.toFixed(2) + "%)"; }).join("\n") +
+      "\n\nAsk the ads chat for a fresh version of this ad.\n\n" + url);
+  // 7. spend running ahead of the plan (only if the leaflet chat's KPIs tab defines KPI_PLAN_CUM)
+  var plan = adsNamed("KPI_PLAN_CUM");
+  if (plan && launch) {
+    var cum = 0; Object.keys(byDay).forEach(function (k) { if (k >= launch && k < day(0)) cum += byDay[k].spend; });
+    if (cum > plan * 1.1) healthNotifyOnce("ADS_OVERPLAN_LAST", "⚠️ Ad spend is more than 10% over the plan",
+      "Spent £" + cum.toFixed(2) + " since launch against a plan of £" + Number(plan).toFixed(2) + " (before VAT). Check the budget in Ads Manager.\n\n" + url);
   }
+  // 8. more sign-ups than the callers can ring: add a caller (owner: staff are available)
+  var callers = String(p.getProperty("ONCALL_MOBILE") || "").split(",").filter(function (x) { return x.trim(); }).length || 1;
+  var allBy = adsAllSignupsByDay();
+  if ([1, 2].every(function (n) { return (allBy[day(n)] || 0) > 25 * callers; }))
+    healthNotifyOnce("ADS_CALLERS_LAST", "☎️ Add a caller: " + (allBy[day(1)] || 0) + " sign-ups yesterday for " + callers + " caller" + (callers > 1 ? "s" : ""),
+      "Sign-ups have been above " + 25 * callers + " a day (about 25 per caller) for 2 days. Add another caller: Script Property ONCALL_MOBILE = all callers' mobiles, comma-separated, and ALERT_MODE = rotate.\n\n" + url);
+}
+
+function adsNamed(name) {
+  try { var r = SpreadsheetApp.getActiveSpreadsheet().getRangeByName(name); var v = r ? Number(r.getValue()) : 0; return isFinite(v) ? v : 0; }
+  catch (e) { return 0; }
+}
+
+// Ads whose last-3-day link click rate is weak, from the Ads tab.
+function adsFatigue() {
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ADS_TAB);
+  if (!sh) return [];
+  var data = sh.getDataRange().getValues(), now = Date.now(), ads = {};
+  for (var i = 1; i < data.length; i++) {
+    var d = data[i][0]; if (!(d instanceof Date)) continue;
+    var id = String(data[i][5]), a = ads[id] = ads[id] || { name: data[i][6], first: null, rows: [] };
+    a.rows.push({ t: d.getTime(), imp: adsNum(data[i][9]), lc: adsNum(data[i][15]) });
+    a.first = a.first === null ? d.getTime() : Math.min(a.first, d.getTime());
+  }
+  var out = [];
+  Object.keys(ads).forEach(function (id) {
+    var a = ads[id], i3 = 0, c3 = 0, i1 = 0, c1 = 0;
+    a.rows.forEach(function (r) {
+      if (now - r.t <= 3.5 * 864e5) { i3 += r.imp; c3 += r.lc; }
+      if (r.t - a.first < 7 * 864e5) { i1 += r.imp; c1 += r.lc; }
+    });
+    if (i3 < 2000) return;
+    var ctr3 = 100 * c3 / i3, ctr1 = i1 ? 100 * c1 / i1 : 0, ageDays = (now - a.first) / 864e5;
+    if (ctr3 < 0.8 || (ageDays >= 10 && ctr1 > 0 && ctr3 < 0.6 * ctr1)) out.push({ name: a.name, ctr3: ctr3, ctr1: ctr1 });
+  });
+  return out;
+}
+
+// All sign-ups per day (every source), unique (not Duplicate).
+function adsAllSignupsByDay() {
+  var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String), out = {};
+  var tc = h.indexOf("Signup Time"), sc = h.indexOf("Status");
+  for (var i = 1; i < data.length; i++) {
+    var t = data[i][tc]; if (!(t instanceof Date)) continue;
+    if (sc !== -1 && String(data[i][sc]) === "Duplicate") continue;
+    var k = adsDay(t); out[k] = (out[k] || 0) + 1;
+  }
+  return out;
+}
+
+// People on the waiting list now: "No. of People" summed over rows that aren't duplicates or opted out ("4+" counts as 4, blank as 1).
+function adsPeopleOnList() {
+  var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String), n = 0, rows = 0;
+  var pc = h.indexOf("No. of People"), sc = h.indexOf("Status"), tc = h.indexOf("Signup Time");
+  var skip = { "DUPLICATE": 1, "DO NOT CONTACT": 1, "NOT INTERESTED": 1, "WRONG NUMBER": 1, "WITHDREW": 1 };
+  for (var i = 1; i < data.length; i++) {
+    if (tc !== -1 && !(data[i][tc] instanceof Date)) continue;
+    if (sc !== -1 && skip[String(data[i][sc]).trim().toUpperCase()]) continue;
+    var m = String(pc === -1 ? "" : data[i][pc]).match(/\d+/);
+    n += m ? Number(m[0]) : 1; rows++;
+  }
+  return { people: n, households: rows };
 }
 
 // ---------- every 2 hours: are the ads healthy? ----------
@@ -279,6 +380,11 @@ function adsStatusCheck(force) {
         "£" + spend.toFixed(2) + " spent today, but no facebook/instagram row has reached the Waiting list for 4 hours.\n" +
         "Either the lead script is broken (check Apps Script → Executions, the token, Meta app in Live mode, Leads access) " +
         "or the ad has stopped converting. Compare with Ads Manager's lead count.\n\n" + url);
+  }
+  if (last._day !== today) {
+    var pid = p.getProperty("META_PAGE_ID"), ig = p.getProperty("META_IG_USER_ID");
+    if (pid) { var pg = (adsGraphGet(pid, { fields: "name,followers_count,fan_count" }) || [])[0]; if (pg) note("Facebook followers", pid, pg.name, pg.followers_count || pg.fan_count || 0); }
+    if (ig) { var ia = (adsGraphGet(ig, { fields: "username,followers_count" }) || [])[0]; if (ia) note("Instagram followers", ig, ia.username, ia.followers_count || 0); }
   }
   last._day = today;
   p.setProperty("ADS_STATUS_LAST", JSON.stringify(last));
@@ -360,6 +466,8 @@ function adsEveningLines() {
     if (!sp && !y.spend && t[0] !== day(0)) return "";
     return "\n\nFacebook/Instagram ads\n  Yesterday: £" + y.spend.toFixed(2) + " spent, " + y.leads + " leads (Meta), " + (sheetBy[day(1)] || 0) + " in the sheet" +
       "\n  Cost per lead, last 3 days: " + (ld ? "£" + (sp / ld).toFixed(2) : "n/a") + " (before VAT)" +
-      "\n  Today so far: " + todaySpend;
+      "\n  Today so far: " + todaySpend +
+      "\n  Frequency (7 days): " + (Number(adsProps().getProperty("ADS_FREQ_7D") || 0).toFixed(1)) +
+      (function () { var l = adsPeopleOnList(); return "\n\nOn the waiting list: " + l.people + " people in " + l.households + " sign-ups"; })();
   } catch (e) { return ""; }
 }
