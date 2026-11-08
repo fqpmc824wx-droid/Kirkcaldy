@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-GB"><head><meta charset="utf-8">
-<title>Kirkcaldy Dental – Banner 160x60cm</title>
+<title>Kirkcaldy Dental – Banner 180x60cm</title>
 <style>
 @font-face{font-family:"InterS";font-weight:700;src:url(inter-700.woff2) format("woff2");}
 @font-face{font-family:"InterS";font-weight:800;src:url(inter-800.woff2) format("woff2");}
@@ -13,30 +13,30 @@
   :root { --b: 10mm; --cream:#F6F2EA; --gold:#8A6A2C; --ink:#262B30; --panel:#30363B; }
   @page { margin: 0; }
   html,body { margin:0; padding:0; }
-  body { width: calc(1600mm + 2*var(--b)); height: calc(600mm + 2*var(--b)); position: relative;
+  body { width: calc(1800mm + 2*var(--b)); height: calc(600mm + 2*var(--b)); position: relative;
          background: var(--cream); font-family: "InterS", sans-serif; overflow: hidden; }
   /* everything below is positioned in FINISHED-size mm, offset by the bleed */
   .abs { position:absolute; }
-  .left  { left:0; top:0; width: calc(1150mm + var(--b)); height:100%; background: var(--cream); }
-  .right { left: calc(1150mm + var(--b)); top:0; right:0; height:100%; background: var(--panel); }
-  .logo { left: calc(var(--b) + 575mm - 118mm); top: calc(var(--b) + 36mm); width:236mm; }
-  .head { left: calc(var(--b) + 50mm); width:1050mm; top: calc(var(--b) + 210mm); text-align:center;
+  .left  { left:0; top:0; width: calc(1300mm + var(--b)); height:100%; background: var(--cream); }
+  .right { left: calc(1300mm + var(--b)); top:0; right:0; height:100%; background: var(--panel); }
+  .logo { left: calc(var(--b) + 650mm - 125mm); top: calc(var(--b) + 36mm); width:250mm; }
+  .head { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 210mm); text-align:center;
           color: var(--ink); font-family:'Playfair',serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; }
   .head div { white-space:nowrap; line-height:1.0; }
   .head .l2 { color: var(--gold); margin-top: 6mm; }
-  .strip { left:0; width: calc(1150mm + var(--b)); top: calc(var(--b) + 410mm); bottom:0; background: var(--gold); }
-  .striptext { left: calc(var(--b) + 50mm); width:1050mm; top: calc(var(--b) + 410mm); height:160mm;
+  .strip { left:0; width: calc(1300mm + var(--b)); top: calc(var(--b) + 410mm); bottom:0; background: var(--gold); }
+  .striptext { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 410mm); height:160mm;
                display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Playfair',serif; font-weight:800;
                text-transform:uppercase; white-space:nowrap; letter-spacing:0.04em; }
-  .scan { left: calc(1150mm + var(--b)); width:450mm; top: calc(var(--b) + 42mm); text-align:center;
+  .scan { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 42mm); text-align:center;
           color:#fff; font-family:"Playfair",serif; font-weight:800; text-transform:uppercase; line-height:1.05; font-size:40mm; letter-spacing:0.02em; }
   .scan span { color:#D9BD82; }
-  .tile { left: calc(1150mm + var(--b) + 75mm); top: calc(var(--b) + 165mm); width:300mm; height:300mm;
+  .tile { left: calc(1300mm + var(--b) + 85mm); top: calc(var(--b) + 160mm); width:330mm; height:330mm;
           background:#fff; border-radius:14mm; }
-  .qr { left: calc(1150mm + var(--b) + 85mm); top: calc(var(--b) + 175mm); width:280mm; height:280mm; }
-  .url { left: calc(1150mm + var(--b)); width:450mm; top: calc(var(--b) + 492mm); text-align:center;
+  .qr { left: calc(1300mm + var(--b) + 95mm); top: calc(var(--b) + 170mm); width:310mm; height:310mm; }
+  .url { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 512mm); text-align:center;
          color:#fff; font-weight:700; font-size:21mm; white-space:nowrap; }
-  .divider { left: calc(1150mm + var(--b) - 4mm); top:0; width:8mm; height:100%; background:#B8964F; }
+  .divider { left: calc(1300mm + var(--b) - 4mm); top:0; width:8mm; height:100%; background:#B8964F; }
 </style></head>
 <body>
   <div class="abs left"></div>
@@ -57,11 +57,11 @@
   function fit(el, targetMm, maxMm){ el.style.fontSize=maxMm+'mm';
     const w=el.scrollWidth/MM; if(w>targetMm) el.style.fontSize=(maxMm*targetMm/w)+'mm'; }
   window.layout=async()=>{ await document.fonts.ready;
-    fit(document.querySelector('.head .l1'),1050,140);
+    fit(document.querySelector('.head .l1'),1200,150);
     document.querySelector('.head .l2').style.fontSize=document.querySelector('.head .l1').style.fontSize;
     const s=document.getElementById('strip'); s.style.fontSize='64mm';
-    const w=s.getBoundingClientRect().width/MM; if(w>960) s.style.fontSize=(64*960/w)+'mm';
-    fit(document.getElementById('url'),400,21); fit(document.getElementById('sc2'),400,40); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
+    const w=s.getBoundingClientRect().width/MM; if(w>1100) s.style.fontSize=(64*1100/w)+'mm';
+    fit(document.getElementById('url'),450,23); fit(document.getElementById('sc2'),450,44); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
     return {head:document.querySelector('.head .l1').style.fontSize, strip:s.style.fontSize,
             headBottom:(document.getElementById('head').getBoundingClientRect().bottom/MM).toFixed(1)}; };
 </script>
