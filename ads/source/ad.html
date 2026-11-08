@@ -46,7 +46,8 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 <script>
 const C={
   A:{photo:'photo-woman.jpg',pos:'38% 30%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'Kirkcaldy · Fife'},
-  B:{photo:'photo-family.jpg',pos:'50% 75%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families'}
+  B:{photo:'photo-family.jpg',pos:'50% 75%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families'},
+  B2:{photo:'photo-family.jpg',pos:'50% 75%',l1:'New NHS Dental Practice',l2:'for Kirkcaldy Families',kicker:'',st1:'Opening Soon!',st2:'Join our waiting list'}
 };
 // px layout per format: [H, photoTop, photoH, logoW, kickerTop, headTop, headMax, stripTop, stripH, panelTop, btnTop, btnW, btnH, btnFont, urlTop, urlFont]
 const L={
@@ -54,7 +55,7 @@ const L={
   story:{H:1920,pT:320,pH:920,logoW:380,logoX:350,logoTop:40,kT:0,hT:1200,hMax:82,sT:1440,sH:480,pnT:1920,bT:0,bW:10,bH:10,bF:10,uT:0,uF:10}
 };
 const q=new URLSearchParams(location.search), c=C[q.get('ad')||'A'], l={...L[q.get('fmt')||'feed']};
-if(q.get('fmt')!=='story') l.logoX=(q.get('ad')==='B')?40:720;
+if(q.get('fmt')!=='story') l.logoX=(q.get('ad')||'A').startsWith('B')?40:720;
 const $=id=>document.getElementById(id), px=v=>v+'px';
 document.body.style.height=px(l.H);
 Object.assign($('photo').style,{top:px(l.pT),height:px(l.pH),backgroundImage:`url(${c.photo})`,backgroundPosition:c.pos});
@@ -62,6 +63,7 @@ $('fade').style.top=px(l.pT+l.pH-160);
 const lt=$('logoTile'); Object.assign(lt.style,{left:px(l.logoX-24),top:px(l.logoTop),width:px(l.logoW+48),padding:'34px 24px 26px',boxSizing:'border-box'});
 if(q.get('fmt')==='story'){lt.style.background='transparent';lt.style.boxShadow='none';lt.style.width=px(l.logoW);lt.style.left=px(l.logoX);lt.style.padding='0';}
 $('kicker').textContent=c.kicker; $('kicker').style.top=px(l.kT);
+if(c.st1){$('st1').textContent=c.st1;$('st2').textContent=c.st2;}
 $('l1').textContent=c.l1; $('l2').textContent=c.l2; $('head').style.top=px(l.hT);
 Object.assign($('strip').style,{top:px(l.sT),height:px(l.sH)});
 if(q.get('fmt')==='story'){$('strip').style.justifyContent='flex-start';$('strip').style.paddingTop='48px';$('strip').style.boxSizing='border-box';}
