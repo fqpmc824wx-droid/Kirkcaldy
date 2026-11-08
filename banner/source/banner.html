@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<title>Kirkcaldy Dental – Banner 160x60cm</title>
+<style>
+@font-face{font-family:"InterS";font-weight:700;src:url(inter-700.woff2) format("woff2");}
+@font-face{font-family:"InterS";font-weight:800;src:url(inter-800.woff2) format("woff2");}
+@font-face{font-family:"InterS";font-weight:900;src:url(inter-900.woff2) format("woff2");}
+</style>
+<style>
+  /* B = bleed (mm), set by the render script via ?bleed= */
+  :root { --b: 10mm; --cream:#F6F2EA; --gold:#8A6A2C; --ink:#262B30; --panel:#30363B; }
+  @page { margin: 0; }
+  html,body { margin:0; padding:0; }
+  body { width: calc(1600mm + 2*var(--b)); height: calc(600mm + 2*var(--b)); position: relative;
+         background: var(--cream); font-family: "InterS", sans-serif; overflow: hidden; }
+  /* everything below is positioned in FINISHED-size mm, offset by the bleed */
+  .abs { position:absolute; }
+  .left  { left:0; top:0; width: calc(1150mm + var(--b)); height:100%; background: var(--cream); }
+  .right { left: calc(1150mm + var(--b)); top:0; right:0; height:100%; background: var(--panel); }
+  .logo { left: calc(var(--b) + 575mm - 118mm); top: calc(var(--b) + 36mm); width:236mm; }
+  .head { left: calc(var(--b) + 50mm); width:1050mm; top: calc(var(--b) + 210mm); text-align:center;
+          color: var(--ink); font-weight:900; text-transform:uppercase; letter-spacing:-0.01em; }
+  .head div { white-space:nowrap; line-height:1.0; }
+  .head .l2 { color: var(--gold); margin-top: 6mm; }
+  .strip { left:0; width: calc(1150mm + var(--b)); top: calc(var(--b) + 410mm); bottom:0; background: var(--gold); }
+  .striptext { left: calc(var(--b) + 50mm); width:1050mm; top: calc(var(--b) + 410mm); height:160mm;
+               display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800;
+               text-transform:uppercase; white-space:nowrap; letter-spacing:0.01em; }
+  .scan { left: calc(1150mm + var(--b)); width:450mm; top: calc(var(--b) + 42mm); text-align:center;
+          color:#fff; font-weight:900; text-transform:uppercase; line-height:1.02; font-size:44mm; }
+  .scan span { color:#D9BD82; }
+  .tile { left: calc(1150mm + var(--b) + 75mm); top: calc(var(--b) + 165mm); width:300mm; height:300mm;
+          background:#fff; border-radius:14mm; }
+  .qr { left: calc(1150mm + var(--b) + 85mm); top: calc(var(--b) + 175mm); width:280mm; height:280mm; }
+  .url { left: calc(1150mm + var(--b)); width:450mm; top: calc(var(--b) + 492mm); text-align:center;
+         color:#fff; font-weight:700; font-size:21mm; white-space:nowrap; }
+  .divider { left: calc(1150mm + var(--b) - 4mm); top:0; width:8mm; height:100%; background:#B8964F; }
+</style></head>
+<body>
+  <div class="abs left"></div>
+  <div class="abs right"></div>
+  <div class="abs divider"></div>
+  <img class="abs logo" src="logo.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
+  <div class="abs head" id="head"><div class="l1">New NHS Dental Practice</div><div class="l2">Opening Soon!</div></div>
+  <div class="abs strip"></div>
+  <div class="abs striptext" id="strip">Register now to join our waiting list</div>
+  <div class="abs scan">Scan here<br><span>to register</span></div>
+  <div class="abs tile"></div>
+  <img class="abs qr" src="qr.svg" alt="QR code to kirkcaldydental.co.uk/register">
+  <div class="abs url" id="url">kirkcaldydental.co.uk/register</div>
+<script>
+  const p=new URLSearchParams(location.search); document.documentElement.style.setProperty('--b',(p.get('bleed')||'10')+'mm');
+  // fit a single-line element to a target width (mm) by scaling font-size
+  const MM=96/25.4;
+  function fit(el, targetMm, maxMm){ el.style.fontSize=maxMm+'mm';
+    const w=el.scrollWidth/MM; if(w>targetMm) el.style.fontSize=(maxMm*targetMm/w)+'mm'; }
+  window.layout=async()=>{ await document.fonts.ready;
+    fit(document.querySelector('.head .l1'),1050,140);
+    document.querySelector('.head .l2').style.fontSize=document.querySelector('.head .l1').style.fontSize;
+    const s=document.getElementById('strip'); s.style.fontSize='60mm';
+    const w=s.scrollWidth/MM; if(w>1000) s.style.fontSize=(60*1000/w)+'mm';
+    fit(document.getElementById('url'),400,21);
+    return {head:document.querySelector('.head .l1').style.fontSize, strip:s.style.fontSize,
+            headBottom:(document.getElementById('head').getBoundingClientRect().bottom/MM).toFixed(1)}; };
+</script>
+</body></html>
