@@ -66,7 +66,7 @@
   <form id="reg" novalidate>
     <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
     <div class="field"><label for="phone">Mobile number</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
-    <div class="field"><label for="email">Email <span class="opt">(optional)</span></label><input id="email" name="email" type="email" autocomplete="email"></div>
+    <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
     <div class="field"><label for="postcode">Postcode <span class="opt">(optional)</span></label><input id="postcode" name="postcode" type="text" autocomplete="postal-code" autocapitalize="characters"></div>
 
     <fieldset><legend>How many people are you registering?</legend>
@@ -133,7 +133,7 @@
     var email = f.email.value.trim(), postcode = f.postcode.value.trim();
     if (!f.name.value.trim()) return show("Please enter your name.");
     if (phone.replace(/\D/g, "").length < 10) return show("Please enter a valid mobile number.");
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("Please check your email address, or leave it blank.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("Please enter a valid email address.");
     if (postcode && !/^[A-Za-z]{1,2}\d[A-Za-z\d]?\s*\d[A-Za-z]{2}$/.test(postcode)) return show("Please check your postcode, or leave it blank.");
     if (!f.people.value) return show("Please choose how many people you're registering.");
 
