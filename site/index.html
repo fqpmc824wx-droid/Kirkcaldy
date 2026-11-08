@@ -37,7 +37,18 @@
   </div>
 </main>
 <footer>
-  © 2026 Kirkcaldy Dental &amp; Implant Clinic · <a href="mailto:info@kirkcaldydentist.co.uk">info@kirkcaldydentist.co.uk</a> · <a href="privacy.html">Privacy, complaints &amp; regulation</a>
+  © 2026 Kirkcaldy Dental &amp; Implant Clinic · <a href="mailto:info@kirkcaldydental.co.uk">info@kirkcaldydental.co.uk</a> · <a href="privacy.html">Privacy, complaints &amp; regulation</a>
 </footer>
+<script>
+  // Counts home-page visits by source (?src=fb-page, ig-bio …; default "home"). Only the tag and a random
+  // per-page-load ID are sent: no cookies, nothing personal. Paste the same /exec URL as in register/index.html.
+  (function () {
+    var ENDPOINT = "PASTE_APPS_SCRIPT_URL_HERE";
+    if (!/^https:\/\/script\.google\.com\/macros\/s\/[^\/]+\/exec$/.test(ENDPOINT)) return;
+    var src = new URLSearchParams(location.search).get("src") || "home";
+    var vid = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    try { fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams({ action: "visit", source: src, vid: vid }) }); } catch (e) {}
+  })();
+</script>
 </body>
 </html>

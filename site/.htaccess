@@ -1,0 +1,8 @@
+# Short links and common typos all reach the waiting-list page.
+# /b and /l also work as folders (b/index.html, l/index.html) if this file is ignored.
+Options -Indexes
+RewriteEngine On
+RewriteRule ^b/?$ /register/?src=banner [R=302,L]
+RewriteRule ^l/?$ /register/?src=leaflet [R=302,L]
+RewriteRule ^register$ /register/ [R=301,L]
+RewriteRule ^(waitinglist|waiting_list|join|signup|sign-up)/?$ /register/ [R=302,L,NC]
