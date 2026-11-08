@@ -6,8 +6,9 @@ update THIS file first, commit to `main`, and send the other chat a message.
 ## Who owns what
 | Area | Owner chat | Files |
 |---|---|---|
-| Meta ads (images + videos), Meta launch, lead form, HANDOFF.md | **Ads chat** (`claude/determined-heisenberg-d02bac`) | `ads/`, `HANDOFF.md` |
-| Leaflet, banner, website, register page, Apps Script, trackers | **Leaflet chat** (`claude/brave-allen-i14xnx`) | `leaflet/`, `banner/`, `site/`, trackers |
+| Meta ads (images + videos), Meta launch, lead form, HANDOFF.md | **Ads chat** (`claude/determined-heisenberg-d02bac`, session_013umgPt6TGNXXMN4VEpExxU) | `ads/`, `HANDOFF.md` |
+| Leaflet, banner, Apps Script, trackers & sheets | **Leaflet chat** (`claude/brave-allen-i14xnx`, session_013umgPubjfb3bgTfLwUbuPv) | `leaflet/`, `banner/`, trackers |
+| Website: Hostinger deploy, SSL, DNS, sign-up/register page | **Website chat** "Hostinger plugin installation" (session_013umgPu69C1HEnqqdhNQd6i) | `site/` |
 | Logo | Leaflet chat (ads chat reuses its files) | `brand/` |
 Don't edit the other chat's folders – message them instead.
 
