@@ -35,7 +35,7 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 ## Step 2 – Meta lead form (Meta Business Suite → All tools → Instant Forms)
 - Form type: Higher intent
 - Intro headline: "Be first in line – join our waiting list"
-- Intro text: "Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon in Kirkcaldy. Join our waiting list and we'll keep you updated with opening news."
+- Intro text: "Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. Join our waiting list and we'll keep you updated with opening news."
 - Questions: Full name, Phone, Email (prefill) + Post code + multiple choice:
   - "How many people are you registering interest for?" 1 / 2 / 3 / 4+
   - "Are you currently registered with a dentist?" Yes / No / Not sure
@@ -56,7 +56,7 @@ Trigger: Facebook Lead Ads → New Lead (clinic page + form above)
    Subject: "Thanks for registering your interest – Kirkcaldy Dental & Implant Clinic"
    Body:
    "Hi {First Name},
-   Thank you for registering your interest in Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon in Kirkcaldy.
+   Thank you for registering your interest in Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW.
    We'll be in touch with opening dates and practice information as soon as they're confirmed.
    Any questions? Email info@kirkcaldydental.co.uk.
    Kirkcaldy Dental & Implant Clinic
@@ -69,8 +69,8 @@ Trigger: Facebook Lead Ads → New Lead (clinic page + form above)
 - Two ads in the same ad set, both using the form above:
   - Ad A: feed = `ad-A-feed-4x5.png`, Stories/Reels = `ad-A-video-9x16.mp4` (fallback `ad-A-stories-9x16.png`)
   - Ad B: feed = `ad-B-feed-4x5.png`, Stories/Reels = `ad-B-video-9x16.mp4` (fallback `ad-B-stories-9x16.png`)
-- Primary text (Ad A): "🦷 A new NHS dental practice is opening soon in Kirkcaldy! Be first in line – tap Sign up to join our waiting list."
-- Primary text (Ad B): "👨‍👩‍👧 Looking for an NHS dentist for the whole family? A new NHS practice is opening soon in Kirkcaldy. Join our waiting list in 30 seconds."
+- Primary text (Ad A): "🦷 A new NHS dental practice is opening soon at 23–25 Tolbooth Street, Kirkcaldy! Be first in line – tap Sign up to join our waiting list."
+- Primary text (Ad B): "👨‍👩‍👧 Looking for an NHS dentist for the whole family? A new NHS practice is opening soon on Tolbooth Street, Kirkcaldy. Join our waiting list in 30 seconds."
 - Headline: "New NHS dental practice – opening soon". CTA button: Sign up.
 - After 5–7 days compare cost per lead; pause the weaker ad.
 
