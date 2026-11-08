@@ -37,6 +37,11 @@ Scan the QR code on the PDF with your phone and submit your own details. Check t
 
 Delete the test row afterwards.
 
+## Tracking
+- Every sign-up gets a **Source** (leaflet, banner, facebook, website, phone) and a postcode in the Waiting List sheet.
+- Every visit to the waiting-list page (e.g. a QR scan) is counted on the **Visits** tab: time and source only, nothing personal, no cookies. This works once the Apps Script URL is pasted into `register/index.html`.
+- The **Summary** tab shows visits, sign-ups and the sign-up rate by source, all-time and for the last 7 days.
+
 ## Printing
 - **Size:** A5 (148 × 210 mm), double-sided, 4-colour.
 - **Paper:** 150–170 gsm silk or matt for door drops; 300 gsm if you'll hand them out or leave them on a counter.

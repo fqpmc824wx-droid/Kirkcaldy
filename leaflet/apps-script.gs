@@ -18,6 +18,7 @@ var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "
 
 function doPost(e) {
   var p = (e && e.parameter) || {};
+  if (p.action === "visit") return logVisit(p);
   if (!p.name || !p.email) return out("missing");
 
   var lock = LockService.getScriptLock();
@@ -65,6 +66,16 @@ function doPost(e) {
     MailApp.sendEmail(NOTIFY, "New sign-up (" + (p.source || "website") + "): " + first,
       "A new person joined the waiting list on the website. See the Waiting List sheet.");
   }
+  return out("ok");
+}
+
+// Counts page visits (e.g. QR scans) on the "Visits" tab: time + source only, nothing personal.
+function logVisit(p) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName("Visits") || ss.insertSheet("Visits");
+  if (sh.getLastRow() === 0) sh.appendRow(["Visit Time", "Source"]);
+  var src = String(p.source || "website").replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) || "website";
+  sh.appendRow([new Date(), src]);
   return out("ok");
 }
 

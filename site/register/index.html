@@ -113,6 +113,11 @@
   var params = new URLSearchParams(location.search);
   var source = params.get("src") || params.get("utm_source") || "website";
 
+  // Count this visit (e.g. a QR scan): sends only the source tag, no cookies, nothing personal.
+  if (ENDPOINT.indexOf("http") === 0) {
+    try { fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams({ action: "visit", source: source }) }); } catch (e) {}
+  }
+
   function show(msg) { err.textContent = msg; err.style.display = "block"; }
 
   form.addEventListener("submit", function (e) {
