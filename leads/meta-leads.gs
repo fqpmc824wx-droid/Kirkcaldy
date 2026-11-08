@@ -4,8 +4,9 @@
  * Every minute it checks Meta for new Instant Form leads, then for each one:
  *   1. adds a row to the Waiting List sheet (Source = "facebook")
  *   2. texts the lead straight away ("thanks, we'll be in touch")
- *   3. 8am–9pm: texts the on-call mobile "NEW LEAD – call now"
- *      9pm–8am: marks the row "Call 8am"; at 8am the on-call mobile gets a summary
+ *   3. 8am–9pm: texts the caller(s) "NEW LEAD – call now".
+ *      9pm–8am: no calls – the lead is texted "we'll call you tomorrow from 8am", the row is marked "Call 8am",
+ *      and the team gets an 8am summary. (Script Property CALL_HOURS, default "8-21"; "24h" = round the clock.)
  *   4. emails the lead a confirmation
  *
  * INSTALL – in the SAME Apps Script project as apps-script.gs (Waiting List sheet → Extensions → Apps Script):
@@ -15,12 +16,12 @@
  *     META_FORM_IDS   = the Instant Form ID(s), comma-separated
  *     CLICKSEND_USER / CLICKSEND_KEY (already used by apps-script.gs)
  *     ONCALL_MOBILE   = one or more mobiles, comma-separated – all get the team alerts
+ *     CALL_HOURS      = "8-21" (default, no calls after 9pm) or "24h"
  *   Then run installLeadTriggers() once and allow the permissions.
  * Uses sendSms() and ukMobile() from apps-script.gs.
  */
 
 var GRAPH = "https://graph.facebook.com/v21.0/";
-var CALL_FROM_HOUR = 8, CALL_TO_HOUR = 21;   // calling window, UK time
 var LEADS_TAB = "Waiting list";               // NEVER the first tab – that is the Dashboard
 
 function leadsSheet() {
@@ -29,11 +30,47 @@ function leadsSheet() {
   return sh;
 }
 
-// ONCALL_MOBILE can hold several numbers, comma-separated, e.g. "07700900111, 07700900222".
-// Everyone listed gets every team alert (e.g. the on-call person AND the owner).
-function alertTeam(msg) {
-  var list = PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE") || "";
-  list.split(",").map(function (n) { return n.trim(); }).filter(String).forEach(function (n) { sendSms(n, msg); });
+// Team alerts.
+//   ONCALL_MOBILE = the callers' mobiles, comma-separated.
+//   ALERT_MODE    = "all" (default: every caller gets every lead) or
+//                   "rotate" (each lead goes to the NEXT caller in turn – no two people ring the same lead).
+//   OWNER_MOBILE  = optional mobile(s) that get a copy of every alert whatever the mode.
+// Returns the caller(s) the lead was sent to (written into the sheet's "Assigned to" column if it exists).
+function alertTeam(msg, rotate) {
+  var props = PropertiesService.getScriptProperties();
+  var split = function (v) { return String(v || "").split(",").map(function (n) { return n.trim(); }).filter(String); };
+  var callers = split(props.getProperty("ONCALL_MOBILE")), owners = split(props.getProperty("OWNER_MOBILE"));
+  var mode = String(props.getProperty("ALERT_MODE") || "all").toLowerCase();
+  var to = callers;
+  if (rotate !== false && mode === "rotate" && callers.length) {
+    var i = Number(props.getProperty("ALERT_NEXT") || 0) % callers.length;
+    to = [callers[i]];
+    props.setProperty("ALERT_NEXT", String(i + 1));
+  }
+  to.concat(owners.filter(function (o) { return to.indexOf(o) === -1; })).forEach(function (n) { sendSms(n, msg); });
+  return to.join(", ");
+}
+
+// Lead thank-you text: kept within ONE text message (160 plain characters, no emoji/curly quotes)
+// so each costs a single SMS. Long first names fall back to a slightly shorter version.
+function niceFirstName(name) {
+  var f = String(name || "").trim().split(/\s+/)[0] || "";
+  f = f.normalize("NFD").replace(/[\u0300-\u036f]/g, "")   // "Zoë" -> "Zoe" (accents would make it a pricier Unicode SMS)
+       .replace(/[\u2018\u2019]/g, "'").replace(/[^A-Za-z\-']/g, "");
+  if (!f) return "there";
+  if (f === f.toLowerCase() || f === f.toUpperCase() || /^[a-z]/.test(f))   // "sarah"/"SARAH"/"sARAH" -> "Sarah"; "McKenzie" kept
+    f = f.toLowerCase().replace(/(^|[-'])([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
+  return f;
+}
+function leadText(first, inHours) {
+  var when = inHours ? "very soon" : "tomorrow from 8am";
+  var options = [
+    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you " + when + ". We can't wait to welcome you!",
+    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! Our team will call you " + when + ". We can't wait to welcome you!",
+    "Hi " + first + ", thanks for joining the Kirkcaldy Dental waiting list! We'll call you " + when + "."
+  ];
+  for (var i = 0; i < options.length; i++) if (options[i].length <= 160) return options[i];
+  return options[options.length - 1].slice(0, 160);
 }
 
 function installLeadTriggers() {
@@ -41,7 +78,7 @@ function installLeadTriggers() {
     if (["pollMetaLeads", "morningSummary"].indexOf(t.getHandlerFunction()) !== -1) ScriptApp.deleteTrigger(t);
   });
   ScriptApp.newTrigger("pollMetaLeads").timeBased().everyMinutes(1).create();
-  ScriptApp.newTrigger("morningSummary").timeBased().atHour(CALL_FROM_HOUR).nearMinute(0).everyDays(1)
+  ScriptApp.newTrigger("morningSummary").timeBased().atHour(callWindow().from === 0 ? 8 : callWindow().from).nearMinute(0).everyDays(1)
     .inTimezone("Europe/London").create();
   pollMetaLeads();
 }
@@ -90,16 +127,24 @@ function field(l, keys) {
   return "";
 }
 
+// Calling hours come from Script Property CALL_HOURS:
+//   "8-21" (default – owner: no calls after 9pm) or "24h" for round-the-clock calling.
+function callWindow() {
+  var v = String(PropertiesService.getScriptProperties().getProperty("CALL_HOURS") || "8-21").trim().toLowerCase();
+  var m = v.match(/^(\d{1,2})\s*-\s*(\d{1,2})$/);
+  return m ? { from: Number(m[1]), to: Number(m[2]) } : { from: 0, to: 24 };
+}
 function inCallHours(d) {
+  var w = callWindow();
   var h = Number(Utilities.formatDate(d, "Europe/London", "H"));
-  return h >= CALL_FROM_HOUR && h < CALL_TO_HOUR;
+  return h >= w.from && h < w.to;
 }
 
 function handleLead(l) {
   var created = new Date(l.created_time);
   var name = field(l, ["full_name", "name"]) || (field(l, ["first_name"]) + " " + field(l, ["last_name"])).trim();
   var phone = field(l, ["phone"]), email = field(l, ["email"]);
-  var first = String(name || "there").trim().split(/\s+/)[0];
+  var first = niceFirstName(name);
   var inHours = inCallHours(new Date());
   var clean = function (v) { v = String(v || "").slice(0, 200); return /^[=+\-@]/.test(v) ? "'" + v : v; };
 
@@ -118,15 +163,13 @@ function handleLead(l) {
     "Source": l.platform === "ig" ? "instagram" : "facebook",
     "Status": inHours ? "" : "Call 8am"
   };
+  // 3. alert the team (in calling hours) – done before the row is written so the sheet shows who has it
+  if (inHours) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + name + " " + phone);
   sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
 
-  // 2. instant text to the lead
-  sendSms(phone, "Hi " + first + ", thanks for joining the waiting list for Kirkcaldy Dental & Implant Clinic, " +
-    "the new NHS dental practice opening soon on Tolbooth Street, Kirkcaldy. " +
-    (inHours ? "We'll call you shortly." : "We'll give you a call from 8am."));
+  // 2. instant text to the lead (one SMS, 160 characters max)
+  sendSms(phone, leadText(first, inHours));
 
-  // 3. alert the on-call mobile (in calling hours only)
-  if (inHours) alertTeam("🦷 NEW LEAD (" + values.Source + ") – call now: " + name + " " + phone);
 
   // 4. confirmation email
   if (email) {
@@ -150,5 +193,5 @@ function morningSummary() {
   if (col === -1) return;
   var n = data.slice(1).filter(function (r) { return r[col] === "Call 8am"; }).length;
   if (n) alertTeam("🦷 Good morning – " + n + " overnight lead" + (n > 1 ? "s" : "") +
-    " to call. Filter the Waiting List sheet by Status = \"Call 8am\".");
+    " to call. Filter the Waiting List sheet by Status = \"Call 8am\".", false);
 }
