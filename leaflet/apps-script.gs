@@ -53,9 +53,9 @@ function doPost(e) {
       to: p.email,
       name: "Kirkcaldy Dental & Implant Clinic",
       replyTo: "info@kirkcaldydental.co.uk",
-      subject: "Thanks for registering your interest – Kirkcaldy Dental & Implant Clinic",
+      subject: "You're on our waiting list – Kirkcaldy Dental & Implant Clinic",
       body: "Hi " + first + ",\n\n" +
-        "Thank you for registering your interest in Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon in Kirkcaldy.\n\n" +
+        "Thank you for joining the waiting list for Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon in Kirkcaldy.\n\n" +
         "We'll be in touch with opening dates and practice information as soon as they're confirmed.\n\n" +
         "Any questions? Email info@kirkcaldydental.co.uk.\n\n" +
         "Kirkcaldy Dental & Implant Clinic\nkirkcaldydental.co.uk"

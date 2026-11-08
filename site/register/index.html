@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Register Your Interest – Kirkcaldy Dental &amp; Implant Clinic</title>
-<meta name="description" content="Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon in Kirkcaldy. Register your interest to be the first to hear when we open.">
+<title>Join Our Waiting List – Kirkcaldy Dental &amp; Implant Clinic</title>
+<meta name="description" content="Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon in Kirkcaldy. Join our waiting list to be the first to hear when we open.">
 <link rel="icon" href="../assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +57,7 @@
     <a href="../"><img class="logo" src="../assets/logo-stacked.svg" alt="Kirkcaldy Dental &amp; Implant Clinic"></a>
     <div><span class="badge">Opening soon</span></div>
     <h1>New NHS Dental Practice<br><span>Opening in Kirkcaldy</span></h1>
-    <p class="lead">Register your interest and be the first to hear when we open. It takes about 30 seconds.</p>
+    <p class="lead">Be first in line – join our waiting list and hear first when we open. It takes about 30 seconds.</p>
   </div>
 
   <form id="reg" novalidate>
@@ -66,7 +66,7 @@
     <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
     <div class="field"><label for="postcode">Postcode</label><input id="postcode" name="postcode" type="text" autocomplete="postal-code" autocapitalize="characters" required></div>
 
-    <fieldset><legend>How many people are you registering interest for?</legend>
+    <fieldset><legend>How many people would you like to add to the list?</legend>
       <div class="choices">
         <label><input type="radio" name="people" value="1" required><span>1</span></label>
         <label><input type="radio" name="people" value="2"><span>2</span></label>
@@ -93,14 +93,14 @@
     <div class="field"><label class="consent"><input type="checkbox" name="consent" required>
       <span>I'm happy for Kirkcaldy Dental &amp; Implant Clinic to contact me by text and email with opening news. See our <a href="../privacy.html">privacy policy</a>.</span></label></div>
 
-    <button type="submit" id="btn">Register Interest</button>
+    <button type="submit" id="btn">Join Waiting List</button>
     <div class="err" id="err" role="alert"></div>
   </form>
 
   <div class="thanks" id="thanks" role="status">
     <div class="tick">✓</div>
     <h2>Thank you!</h2>
-    <p>We've got your details and we'll keep you updated with opening news.</p>
+    <p>You're on our waiting list. We'll keep you updated with opening news.</p>
   </div>
 </main>
 <footer>© 2026 Kirkcaldy Dental &amp; Implant Clinic · <a href="mailto:info@kirkcaldydental.co.uk">info@kirkcaldydental.co.uk</a> · <a href="../privacy.html">Privacy</a></footer>
@@ -137,7 +137,7 @@
     // no-cors: Apps Script doesn't send CORS headers; the request still arrives.
     fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: data })
       .then(function () { form.style.display = "none"; document.getElementById("thanks").style.display = "block"; window.scrollTo(0, 0); })
-      .catch(function () { btn.disabled = false; btn.textContent = "Register Interest";
+      .catch(function () { btn.disabled = false; btn.textContent = "Join Waiting List";
         show("Sorry, something went wrong. Please try again or email info@kirkcaldydental.co.uk."); });
   });
 </script>
