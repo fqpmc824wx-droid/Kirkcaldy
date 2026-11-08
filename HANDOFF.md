@@ -49,7 +49,7 @@ Sign up, top up ~£20, Sender ID `KirkDental`, copy username + API key.
 
 ## Step 4 – Zapier (Starter plan)
 Trigger: Facebook Lead Ads → New Lead (clinic page + form above)
-1. Google Sheets → Create Spreadsheet Row → sheet above. Signup Time = lead Created Time; map the other columns; Source = facebook; leave Status/Notes blank.
+1. Google Sheets → Create Spreadsheet Row → sheet above. Signup Time = lead Created Time; map the other columns; Source = `facebook` (type it exactly, lowercase – the Dashboard tab counts on it); leave Status/Notes blank.
 2. ClickSend → Send SMS → To: phone, From: KirkDental, Message:
    "Hi {First Name}, thanks for registering your interest in Kirkcaldy Dental & Implant Clinic, the new NHS dental practice opening in Kirkcaldy. We'll keep you updated with opening news. kirkcaldydental.co.uk"
 3. Gmail (or Hostinger mail) → Send Email → To: email
