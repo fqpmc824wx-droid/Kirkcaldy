@@ -42,26 +42,87 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
   - "Who is this for?" Adult / Child / Family
 - Privacy policy URL: https://kirkcaldydental.co.uk/privacy.html
 - Completion screen: "Thanks – you're on our waiting list! We'll keep you updated with opening news." Button: View website → https://kirkcaldydental.co.uk
-- Business Settings → Integrations → Leads access → allow Zapier for the page.
+- Business Settings → Integrations → Leads access → allow Make (or Zapier) for the page.
 
-## Step 3 – ClickSend
-Sign up, top up ~£20, Sender ID `KirkDental`, copy username + API key.
+## Step 3 – Free lead alerts on the team phones
+1. Install the **Meta Business Suite** app on every team phone. Log in with a page admin/editor account.
+2. Turn on notifications for **Leads**. Every new lead then pops up on the phone with name and number. It's free.
+3. Install the **Gmail** app on the team phones with info@kirkcaldydental.co.uk and turn on notifications, so the "New lead" email from Step 4 also pops up.
+4. ClickSend: pay-as-you-go ~£20 top-up. Sender ID `KirkDental`. Copy the username and API key into Make.
 
-## Step 4 – Zapier (Starter plan)
-Trigger: Facebook Lead Ads → New Lead (clinic page + form above)
-1. Google Sheets → Create Spreadsheet Row → sheet above. Signup Time = lead Created Time; map the other columns; Source = `facebook` (type it exactly, lowercase – the Dashboard tab counts on it); leave Status/Notes blank.
-2. ClickSend → Send SMS → To: phone, From: KirkDental, Message:
-   "Hi {First Name}, thanks for registering your interest in Kirkcaldy Dental & Implant Clinic, the new NHS dental practice opening in Kirkcaldy. We'll keep you updated with opening news. kirkcaldydental.co.uk"
-3. Gmail (or Hostinger mail) → Send Email → To: email
-   Subject: "Thanks for registering your interest – Kirkcaldy Dental & Implant Clinic"
-   Body:
-   "Hi {First Name},
-   Thank you for registering your interest in Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW.
-   We'll be in touch with opening dates and practice information as soon as they're confirmed.
-   Any questions? Email info@kirkcaldydental.co.uk.
-   Kirkcaldy Dental & Implant Clinic
-   kirkcaldydental.co.uk"
-4. Test with Meta's Lead Ads Testing Tool: row appears in the sheet, SMS arrives, email arrives. Then publish the Zap.
+> **The instant confirmation text to every lead is a must-have (owner).**
+
+## Step 4 – Automation sized for a FLOOD of leads
+**➜ FIRST CHOICE (free): our own lead handler, `leads/meta-leads.gs` – see `leads/README.md`.**
+- It does everything below inside the Waiting List sheet's Apps Script.
+- You only pay for the texts.
+- Use Make.com only if the Meta app/token setup can't be done.
+
+Demand evidence:
+- **Glenrothes Dental House launch (opened Feb 2026), NHS registrations per month:** Feb 1,187 · **Mar 2,598** (peak ~600 a week, ~85 a day) · Apr 1,200 · May 762 · Jun–Oct ~480–660. That's ~8,800 in 9 months.
+- These are registrations. Raw leads and enquiries will be higher.
+- **2,445 active patients with Kirkcaldy KY1/KY2 postcodes** already travel to the owner's Leven, Glenrothes and Cupar practices.
+- An aggregator showed 1 of 57 Kirkcaldy NHS dentists accepting new patients (Aug 2026). NHS Fife says "very few" practices can register new NHS patients. Kirkcaldy has ~50,000 residents.
+- **Plan for:** 1,200–2,600+ leads in each of the first 2 months, a peak of ~85–100+ a day, settling to 500–700 a month. Ads drive the volume; leaflets add ~10–30 per 1,000 dropped.
+
+**Tool: Make.com (Core plan or above), not Zapier.**
+- At that volume Zapier Professional runs out: about 750 tasks, roughly 150 leads. Higher Zapier tiers get expensive.
+- Make charges per operation and is far cheaper at volume. Its Facebook Lead Ads, Google Sheets, Gmail and ClickSend modules are all available.
+- About 5 operations per lead, so 10,000 ops ≈ 2,000 leads.
+- Check make.com/pricing and pick the ops tier for the expected volume. Zapier is fine only if leads stay under ~150/month.
+
+Scenario: Facebook Lead Ads "Watch new leads" (instant) → Router by time (UK):
+
+**Route A – 8am to 9pm:**
+1. **ClickSend → SMS to the on-duty/on-call mobile(s)** (fastest alert):
+   "🦷 NEW LEAD – call now: {Full Name} {Phone} · {Who is this for} · {No. of people}"
+2. **Google Sheets → Create Spreadsheet Row** → Waiting List sheet. Signup Time = created time; map the other columns; Source = `facebook` (exactly, lowercase); Status blank.
+3. **ClickSend → SMS to the lead**, From: KirkDental:
+   "Hi {First Name}, thanks for joining the waiting list for Kirkcaldy Dental & Implant Clinic, the new NHS dental practice opening soon on Tolbooth Street, Kirkcaldy. We'll call you shortly."
+4. **Gmail → email the lead**, text below.
+
+**Route B – 9pm to 8am:**
+1. Google Sheets row as above, with Status = `Call 8am`.
+2. ClickSend SMS to the lead: "...thanks for joining our waiting list! We'll give you a call from 8am."
+3. Gmail email to the lead, text below.
+4. Optional: a scheduled 8am scenario that texts → ClickSend SMS to the on-call mobile with the lead's details, so it's the first call of the morning.
+
+**Lead email** (Subject: "You're on our waiting list – Kirkcaldy Dental & Implant Clinic"):
+"Hi {First Name},
+Thank you for joining the waiting list for Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW.
+A member of our team will be in touch, and we'll keep you updated with opening dates.
+Any questions? Email info@kirkcaldydental.co.uk.
+Kirkcaldy Dental & Implant Clinic
+kirkcaldydental.co.uk"
+
+**Free backups on the team phones:**
+- Meta Business Suite app with Leads notifications on.
+- Gmail app for info@kirkcaldydental.co.uk.
+
+**Test** with Meta's Lead Ads Testing Tool once in hours and once out of hours. Check all of these:
+- the on-call text arrives within ~1 minute
+- the sheet row appears
+- the lead's text and email arrive
+Then turn the Zap on.
+
+**Costs at volume (check current prices):**
+- Make ops tier for ~2,500–3,000 leads/month at launch (~15,000 ops). Drop the tier later when it settles.
+- ClickSend: about 2 texts per lead (lead + on-call) at a few pence each, so budget roughly **£150–300 per 1,000 leads**. Turn on auto top-up.
+- To save money, send the on-call alert by Gmail push instead of SMS (free) and keep the SMS for the lead only.
+
+**Calling capacity:**
+- At peak, ~85–100 leads a day is 4–5+ hours of calls a day: **one full-time caller at launch**, plus the evening on-call rota.
+- Dedicate a person or shift to calling leads during launch.
+- If calls fall behind, lower the Meta daily budget rather than leaving leads uncalled.
+- The confirmation text means everyone hears back instantly even when there's a queue.
+
+**Team routine – every lead called the same day, 7 days a week (8am–9pm):**
+- **Opening hours:** reception calls new leads within 15 minutes.
+- **Evenings and weekends:** one person is **on call** each evening/weekend (rota). Their mobile gets the ClickSend text alert (plus Meta app and Gmail alerts). They call within 15–30 minutes, up to 9pm.
+- **After 9pm:** don't phone people late at night. The lead gets the automatic "you're on our waiting list" email/text straight away, and the on-call person calls them from 8am the next morning, including weekends.
+- Mark Status in the sheet after each call: Called / No answer / Booked. If there's no answer, try again within 2 hours and once more the next day.
+
+**Upgrade later (only if needed):** an auto-call service such as Callingly (from about $100/month) rings the team phone and connects to the lead automatically.
 
 ## Step 5 – Campaign (Ads Manager) – confirm with owner before publishing
 - Objective: Leads → Instant forms. One campaign, ONE ad set.
