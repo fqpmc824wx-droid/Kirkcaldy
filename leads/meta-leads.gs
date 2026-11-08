@@ -13,7 +13,8 @@
  *   Project Settings → Script Properties, add:
  *     META_PAGE_TOKEN = a long-lived Page access token with leads_retrieval (see leads/README.md)
  *     META_FORM_IDS   = the Instant Form ID(s), comma-separated
- *     CLICKSEND_USER / CLICKSEND_KEY / ONCALL_MOBILE   (already used by apps-script.gs)
+ *     CLICKSEND_USER / CLICKSEND_KEY (already used by apps-script.gs)
+ *     ONCALL_MOBILE   = one or more mobiles, comma-separated – all get the team alerts
  *   Then run installLeadTriggers() once and allow the permissions.
  * Uses sendSms() and ukMobile() from apps-script.gs.
  */
@@ -26,6 +27,13 @@ function leadsSheet() {
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(LEADS_TAB);
   if (!sh) throw new Error("Tab \"" + LEADS_TAB + "\" not found");
   return sh;
+}
+
+// ONCALL_MOBILE can hold several numbers, comma-separated, e.g. "07700900111, 07700900222".
+// Everyone listed gets every team alert (e.g. the on-call person AND the owner).
+function alertTeam(msg) {
+  var list = PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE") || "";
+  list.split(",").map(function (n) { return n.trim(); }).filter(String).forEach(function (n) { sendSms(n, msg); });
 }
 
 function installLeadTriggers() {
@@ -118,8 +126,7 @@ function handleLead(l) {
     (inHours ? "We'll call you shortly." : "We'll give you a call from 8am."));
 
   // 3. alert the on-call mobile (in calling hours only)
-  var oncall = PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE");
-  if (oncall && inHours) sendSms(oncall, "🦷 NEW LEAD (facebook) – call now: " + name + " " + phone);
+  if (inHours) alertTeam("🦷 NEW LEAD (" + values.Source + ") – call now: " + name + " " + phone);
 
   // 4. confirmation email
   if (email) {
@@ -138,12 +145,10 @@ function handleLead(l) {
 
 // 8am: tell the on-call mobile how many overnight leads are waiting
 function morningSummary() {
-  var oncall = PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE");
-  if (!oncall) return;
   var sh = leadsSheet();
   var data = sh.getDataRange().getValues(), col = data[0].map(String).indexOf("Status");
   if (col === -1) return;
   var n = data.slice(1).filter(function (r) { return r[col] === "Call 8am"; }).length;
-  if (n) sendSms(oncall, "🦷 Good morning – " + n + " overnight lead" + (n > 1 ? "s" : "") +
+  if (n) alertTeam("🦷 Good morning – " + n + " overnight lead" + (n > 1 ? "s" : "") +
     " to call. Filter the Waiting List sheet by Status = \"Call 8am\".");
 }
