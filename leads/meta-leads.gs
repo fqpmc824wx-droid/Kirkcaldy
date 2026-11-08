@@ -73,6 +73,19 @@ function leadText(first, inHours) {
   return options[options.length - 1].slice(0, 160);
 }
 
+// Anyone whose row has Status "DO NOT CONTACT" (same exact text in apps-script.gs) is never texted again.
+function isDoNotContact(phone) {
+  var digits = function (v) { return String(v || "").replace(/\D/g, "").replace(/^44/, "0"); };
+  var target = digits(phone);
+  if (!target) return false;
+  var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String);
+  var pc = h.indexOf("Phone"), sc = h.indexOf("Status");
+  if (pc === -1 || sc === -1) return false;
+  for (var i = 1; i < data.length; i++)
+    if (String(data[i][sc]).trim().toUpperCase() === "DO NOT CONTACT" && digits(data[i][pc]) === target) return true;
+  return false;
+}
+
 function installLeadTriggers() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
     if (["pollMetaLeads", "morningSummary"].indexOf(t.getHandlerFunction()) !== -1) ScriptApp.deleteTrigger(t);
@@ -94,7 +107,7 @@ function pollMetaLeads() {
     var seen = JSON.parse(props.getProperty("META_SEEN") || "[]");
     var newest = since, leads = [];
     forms.split(",").map(function (s) { return s.trim(); }).filter(String).forEach(function (formId) {
-      var url = GRAPH + formId + "/leads?limit=100&fields=id,created_time,field_data,platform&filtering=" +
+      var url = GRAPH + formId + "/leads?limit=100&fields=id,created_time,field_data,platform,custom_disclaimer_responses&filtering=" +
         encodeURIComponent(JSON.stringify([{ field: "time_created", operator: "GREATER_THAN", value: since - 120 }])) +
         "&access_token=" + encodeURIComponent(token);
       while (url) {
@@ -147,6 +160,8 @@ function handleLead(l) {
   var first = niceFirstName(name);
   var inHours = inCallHours(new Date());
   var clean = function (v) { v = String(v || "").slice(0, 200); return /^[=+\-@]/.test(v) ? "'" + v : v; };
+  var blocked = isDoNotContact(phone);
+  var consent = (l.custom_disclaimer_responses || []).some(function (r) { return String(r.is_checked) === "1" || r.is_checked === true; }) ? "Yes" : "No";
 
   // 1. sheet row (matched to the sheet's own column headers)
   var sh = leadsSheet();
@@ -161,18 +176,19 @@ function handleLead(l) {
     "Currently Registered?": clean(field(l, ["registered", "currently"])),
     "Adult/Child/Family": clean(field(l, ["who", "adult", "family"])),
     "Source": l.platform === "ig" ? "instagram" : "facebook",
-    "Status": inHours ? "" : "Call 8am"
+    "Status": blocked ? "DO NOT CONTACT" : (inHours ? "" : "Call 8am"),
+    "Marketing consent": consent
   };
   // 3. alert the team (in calling hours) – done before the row is written so the sheet shows who has it
-  if (inHours) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + name + " " + phone);
+  if (inHours && !blocked) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + name + " " + phone);
   sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
 
   // 2. instant text to the lead (one SMS, 160 characters max)
-  sendSms(phone, leadText(first, inHours));
+  if (!blocked) sendSms(phone, leadText(first, inHours));
 
 
   // 4. confirmation email
-  if (email) {
+  if (email && !blocked) {
     try {
       MailApp.sendEmail({
         to: email, name: "Kirkcaldy Dental & Implant Clinic", replyTo: "info@kirkcaldydental.co.uk",
