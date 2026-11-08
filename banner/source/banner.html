@@ -20,8 +20,8 @@
   .abs { position:absolute; }
   .left  { left:0; top:0; width: calc(1300mm + var(--b)); height:100%; background: var(--cream); }
   .right { left: calc(1300mm + var(--b)); top:0; right:0; height:100%; background: var(--panel); }
-  .logo { left: calc(var(--b) + 650mm - 125mm); top: calc(var(--b) + 36mm); width:250mm; }
-  .head { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 192mm); text-align:center;
+  .logo { left: calc(var(--b) + 650mm - 125mm); top: calc(var(--b) + 30mm); width:250mm; }
+  .head { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 186mm); text-align:center;
           color: var(--ink); font-family:'Playfair',serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; }
   .head div { white-space:nowrap; line-height:1.0; }
   .head .l2 { color: var(--gold); margin-top: 0mm; font-family:'PlayfairI',serif; font-style:italic; text-transform:none; letter-spacing:0; }
@@ -38,14 +38,27 @@
   .url { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 512mm); text-align:center;
          color:#fff; font-weight:700; font-size:21mm; white-space:nowrap; }
   .divider { left: calc(1300mm + var(--b) - 4mm); top:0; width:8mm; height:100%; background:#B8964F; }
+  .flour { height:3.6mm; top:0; }
+  .flour.l { background: linear-gradient(90deg, rgba(138,106,44,0), var(--gold)); }
+  .flour.r { background: linear-gradient(270deg, rgba(138,106,44,0), var(--gold)); }
+  .dia { width:14mm; height:14mm; background: var(--gold); transform: rotate(45deg); }
+  .dia.o { width:7mm; height:7mm; }
+  .sline { left:0; width: calc(1300mm + var(--b)); height:1.6mm; background: rgba(246,242,234,.55); }
+  .pframe { left: calc(1300mm + var(--b) + 22mm); top: calc(var(--b) + 22mm); width:456mm; height:556mm;
+            border:2mm solid #B8964F; border-radius:6mm; box-sizing:border-box; }
 </style></head>
 <body>
   <div class="abs left"></div>
   <div class="abs right"></div>
   <div class="abs divider"></div>
   <img class="abs logo" src="logo.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
-  <div class="abs head" id="head"><div class="l1">New NHS Dental Practice</div><div class="l2">Opening Soon!</div></div>
+  <div class="abs head" id="head"><div class="l1">New NHS Dental Practice</div><div class="l2"><span id="os">Opening Soon!</span></div></div>
   <div class="abs strip"></div>
+  <div class="abs sline" style="top:calc(var(--b) + 430mm)"></div>
+  <div class="abs sline" style="top:calc(var(--b) + 568mm)"></div>
+  <div class="abs pframe"></div>
+  <div class="abs flour l" id="fl"></div><div class="abs flour r" id="fr"></div>
+  <div class="abs dia" id="dl"></div><div class="abs dia" id="dr"></div><div class="abs dia o" id="dl2"></div><div class="abs dia o" id="dr2"></div>
   <div class="abs striptext"><span id="strip">Be first in line – join our waiting list</span></div>
   <div class="abs scan" id="scan"><div id="sc1">Scan to join</div><div id="sc2"><span>our waiting list</span></div></div>
   <div class="abs tile"></div>
@@ -63,6 +76,13 @@
     const s=document.getElementById('strip'); s.style.fontSize='64mm';
     const w=s.getBoundingClientRect().width/MM; if(w>1100) s.style.fontSize=(64*1100/w)+'mm';
     fit(document.getElementById('url'),450,23); fit(document.getElementById('sc2'),450,44); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
+    // flourishes either side of "Opening Soon!"
+    { const r=document.getElementById('os').getBoundingClientRect(), b=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--b'));
+      const L=r.left/MM, R=r.right/MM, cy=(r.top+r.height*0.56)/MM, x0=b+70, x1=b+1230, g=26, d=14, d2=7;
+      const put=(id,l,t,w)=>{const e=document.getElementById(id); e.style.left=l+'mm'; e.style.top=t+'mm'; if(w!==undefined) e.style.width=w+'mm';};
+      put("fl",x0,cy-1.8,(L-g-d-14)-x0); put("fr",R+g+d+14,cy-1.8,x1-(R+g+d+14));
+      put('dl',L-g-d,cy-d/2); put('dr',R+g,cy-d/2);
+      put("dl2",L-g-d-15,cy-d2/2); put("dr2",R+g+d+8,cy-d2/2); }
     return {head:document.querySelector('.head .l1').style.fontSize, strip:s.style.fontSize,
             headBottom:(document.getElementById('head').getBoundingClientRect().bottom/MM).toFixed(1)}; };
 </script>
