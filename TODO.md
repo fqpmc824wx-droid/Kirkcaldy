@@ -1,7 +1,7 @@
 # Kirkcaldy Dental – launch to-do list
 
 The one master list for the waiting-list launch. Kept by the To-do chat.
-Last updated: 8 Nov 2026, 23:35. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
+Last updated: 8 Nov 2026, 23:40. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
 
 Row numbers match research/TODO-whats-left.md, so every chat talks about the same row.
 
@@ -14,6 +14,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 - **Metrics chat** – numbers and the Monday report.
 - **Waiting-list chat** – the staff guide, the call script and the message templates.
 - **Safety chat** – health checks and alarms.
+- **Legal chat** – legal papers, in Drive "11. Legal & compliance".
 
 **Status words:** Done · In progress · Not started · Waiting for owner · Asked (we've asked the chat for news)
 
@@ -26,8 +27,8 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 3. **Open ClickSend and ask for the sender name "KirkDental".** Approval takes days. Without it, no texts go out.
 4. **Pay the ICO data protection fee.** Send us the company's legal name, company number, registered office and ICO number. They go on the privacy page.
 5. **Answer 4 questions.** (a) **Email on the sign-up forms: required or optional?** You told the website chat "required", but the plan said optional, so sign-ups stay quick. Both forms must match, and the Facebook form can't be changed once it's published. (b) Will you also offer private treatment, such as implants? (c) Will the NHS side take both adults and children? (d) Will people be invited in the order they signed up, with households kept together? (If not, "Be first in line" comes off the ads and print.)
-6. **Name the people.** A backup caller and a deputy who gets the alarm emails when you're away. Also choose the one work phone number the callers ring from.
-7. **Read and OK the staff guide** in Drive folder "8. Waiting list – staff guide": the call script, text templates, comment replies and invitation plan.
+6. **Name the people.** A backup caller; a deputy who gets the alarm emails when you're away; and a person (plus a backup) who handles complaints, data requests and data breaches. Also choose the one work phone number the callers ring from.
+7. **Read and sign off:** the staff guide in Drive folder 8 (call script, text templates, comment replies, invitation plan), and the owner sign-off sheet in Drive folder 11.
 8. **GitHub:** make the project private (Settings → Change visibility). Click "merge" when the chats say they're ready.
 
 ---
@@ -66,14 +67,14 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 16 | Lock the header rows on the other sheet tabs; fix 4 dashboard formulas, so a blank household size counts as 1. | Leaflet chat | Before setup night | Partly done. Asked |
 | 17 | Health checks, outside monitor and a fire drill. | Safety chat (or Ads chat – asked who) | Before setup night | Asked |
 | 18 | Owner answers before ads or print: private treatment, adults and children, invitation order. (No NHS letter and no model releases are needed.) | Owner | Before setup night | Waiting for owner (owner list #5) |
-| 19 | ~~Draft a new NHS Fife letter~~. **Dropped**: approval already exists. Just put a copy of it in the legal folder (#26). | Owner | Before ads start | Waiting for owner |
+| 19 | ~~Draft a new NHS Fife letter~~. **Dropped**: approval already exists. Just save a copy of it in Drive folder 11 (#26). | Owner | Before ads start | Waiting for owner |
 | 20 | ClickSend account and sender name "KirkDental". | Owner | Days before setup night | Waiting for owner (owner list #3) |
-| 21 | Pay the ICO fee; send the company details to the website chat. | Owner | Before the first sign-up | Waiting for owner (owner list #4) |
+| 21 | Pay the ICO fee (or update the company's existing entry) and save the certificate in Drive 11; send the company details to the website chat. | Owner | Before the first sign-up | Waiting for owner (owner list #4) |
 | 22 | Make the GitHub project private. | Owner | Before setup night | Waiting for owner (owner list #8) |
 | 23 | Square profile picture and a cover image for the Facebook Page. | Leaflet chat + Ads chat | Before setup night | Partly done |
 | 24 | Replace or bin the old Drive doc "READ ME – How to order & set up". | Leaflet chat | Before setup night | Still there |
 | 25 | One final website package in Drive "5. Website"; bin the old zips. | Website chat | After #2–#5 | Not started |
-| 26 | Drive folder for legal papers: the NHS approval, the ICO receipt, the AI photo tool's name and terms, the supplier agreements. | Ads chat sets it up; Owner files the papers | Before setup night | Not started |
+| 26 | Legal papers in Drive "11. Legal & compliance": the NHS approval, the ICO certificate, the AI photo tool's name and terms, the supplier agreements. | Legal chat set it up; Owner files the papers | Before setup night | Folder made; papers waiting for owner |
 | 27 | OK the staff guide drafts. | Owner | Before setup night | Waiting for owner (owner list #7) |
 | 28 | Merge everything on GitHub, in the order the chats give. | Owner (chats say when) | After the fixes above | Nothing merged yet |
 | 29 | LAST: each chat tidies its own Drive folder and bins old copies. | All chats | After all fixes | Partly done |
@@ -86,7 +87,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 31 | Email safety settings (DMARC), force the secure website address, domain auto-renew. | Browser Claude + Owner | Setup night | Not started |
 | 32 | Old domain kirkcaldydentist.co.uk: forward its email and website. | Owner + Browser Claude | Setup night | Not started |
 | 33 | info@ account: recovery phone and email, and a second admin. | Owner | Setup night | Not started |
-| 34 | Accept and save the supplier data agreements (ClickSend, Google, Meta, Hostinger). | Browser Claude + Owner | Setup night | Not started |
+| 34 | Accept and save the supplier data agreements in Drive 11: ClickSend (plus the UK transfer add-on), Google, Meta lead-ads terms, Hostinger. | Browser Claude + Owner | Setup night | Not started |
 
 ## Before the ads start
 
@@ -103,7 +104,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 43 | Website look matches the leaflet (fonts, colours, logo). | Website chat | Before launch | Not started |
 | 44 | Facebook comments and messages: check the reply bank, blocked words, away message. | Waiting-list chat + Browser Claude | Before launch | Partly done. Asked |
 | 45 | Print: test proofs, scan both QR codes on iPhone and Android, one test sign-up each. | Owner → Leaflet chat → Owner | Before ordering print | Not started |
-| 46 | Banner permission: the building is listed. Ask the landlord and Fife Council. | Owner (email drafted for you) | Before hanging | Not started |
+| 46 | Banner permission: the building is listed. Send the Fife Council email and the landlord note (drafts in Drive 11). Wait for both replies before the banner goes up. | Owner | Before hanging | Drafts ready; waiting for owner |
 | 47 | Leaflet delivery plan: how many, which streets, who delivers. | Leaflet chat → Owner | Before ordering print | Asked |
 | 48 | A way to join without a smartphone, printed on the leaflet. | Owner decides; Leaflet + Website chats | Before ordering print | Waiting for owner |
 | 49 | A4 door notice, and a one-page briefing for reception at the other practices. | Leaflet chat + Waiting-list chat | Before launch | Asked |
@@ -137,3 +138,11 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 67 | Check with Healthcare Improvement Scotland about private work. | Owner | Later | Waiting for owner |
 | 68 | Replace the placeholder phone number in Dentally. | Owner | Before any booking | Not done |
 | 69 | Extra spam guard on the website form. | Leaflet + Website chats | Later | Text limits already done |
+
+## Legal (from the Legal chat)
+
+| # | What | Who | When | Status |
+|---|---|---|---|---|
+| 70 | Sign the owner sign-off sheet (Drive 11). | Owner | Before setup night | Waiting for owner |
+| 71 | Name a lead and a backup for complaints, data requests and data breaches. | Owner | Before the first sign-up | Waiting for owner |
+| 72 | Start a dated log of every ad's wording, with screenshots showing Meta's AI creative options switched off. | Owner + Browser Claude (Legal chat set up the log) | From the first ad | Not started |
