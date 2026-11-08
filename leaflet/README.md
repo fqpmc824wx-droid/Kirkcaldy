@@ -29,10 +29,20 @@ Check that **https://kirkcaldydental.co.uk/register/** loads.
 4. Copy the **Web app URL**, which ends in `/exec`.
 5. In `site/register/index.html`, replace `PASTE_APPS_SCRIPT_URL_HERE` with that URL. Re-upload `register/index.html` to Hostinger at `public_html/register/`.
 
+### 2b. Instant text messages (ClickSend)
+Website and QR sign-ups get the same instant thank-you text as Facebook leads, and the on-call mobile gets a "new lead" alert.
+1. Open a ClickSend account, top up (about £20), and register the sender ID **KirkDental**.
+2. In the Apps Script editor, go to **Project Settings → Script Properties** and add:
+   - `CLICKSEND_USER`: your ClickSend username
+   - `CLICKSEND_KEY`: your ClickSend API key (Dashboard → API Credentials)
+   - `ONCALL_MOBILE`: the mobile that should get new-lead alerts (optional)
+3. Deploy a **new version** of the web app (Deploy → Manage deployments → Edit → New version).
+Until the keys are added, sign-ups still save and email as normal; the texts are just skipped.
+
 ### 3. Test it
 Scan the QR code on the PDF with your phone and submit your own details. Check that:
 - a row appears in the sheet with **Source = leaflet**
-- the thank-you email arrives
+- the thank-you email and text arrive, and the on-call mobile gets the alert
 - info@ gets a "new sign-up" note
 
 Delete the test row afterwards.

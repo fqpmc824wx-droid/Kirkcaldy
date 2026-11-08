@@ -16,6 +16,14 @@ var SHEET_NAME = "";            // leave blank to use the first tab
 var SEND_EMAIL = true;
 var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "" to turn off
 
+// Instant text messages via ClickSend (same as the Facebook leads get through Zapier).
+// Keys are NOT stored here: Apps Script editor → Project Settings → Script Properties:
+//   CLICKSEND_USER   = your ClickSend username
+//   CLICKSEND_KEY    = your ClickSend API key
+//   ONCALL_MOBILE    = the mobile that gets a "new lead" alert (optional, e.g. 07700900123)
+// If CLICKSEND_USER / CLICKSEND_KEY are missing, texts are simply skipped.
+var SMS_FROM = "KirkDental";
+
 function doPost(e) {
   var p = (e && e.parameter) || {};
   if (p.action === "visit") return logVisit(p);
@@ -49,6 +57,13 @@ function doPost(e) {
   }
 
   var first = String(p.name).trim().split(/\s+/)[0];
+  var src = p.source || "website";
+
+  // Instant thank-you text to the person, and a "new lead" alert to the on-call mobile
+  sendSms(p.phone, "Hi " + first + ", thanks for joining the waiting list for Kirkcaldy Dental & Implant Clinic, " +
+    "the new NHS dental practice opening soon on Tolbooth Street, Kirkcaldy. We'll be in touch shortly.");
+  var oncall = PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE");
+  if (oncall) sendSms(oncall, "\uD83E\uDDB7 NEW LEAD (" + src + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || ""));
   if (SEND_EMAIL) {
     MailApp.sendEmail({
       to: p.email,
@@ -77,6 +92,30 @@ function logVisit(p) {
   var src = String(p.source || "website").replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) || "website";
   sh.appendRow([new Date(), src]);
   return out("ok");
+}
+
+// UK numbers to international format for ClickSend (07… → +447…)
+function ukMobile(n) {
+  n = String(n || "").replace(/[^\d+]/g, "");
+  if (n.indexOf("+") === 0) return n;
+  if (n.indexOf("44") === 0) return "+" + n;
+  if (n.indexOf("0") === 0) return "+44" + n.slice(1);
+  return n;
+}
+
+function sendSms(to, body) {
+  var props = PropertiesService.getScriptProperties();
+  var user = props.getProperty("CLICKSEND_USER"), key = props.getProperty("CLICKSEND_KEY");
+  if (!user || !key || !to) return;
+  try {
+    UrlFetchApp.fetch("https://rest.clicksend.com/v3/sms/send", {
+      method: "post",
+      contentType: "application/json",
+      headers: { Authorization: "Basic " + Utilities.base64Encode(user + ":" + key) },
+      payload: JSON.stringify({ messages: [{ source: "apps-script", from: SMS_FROM, to: ukMobile(to), body: body }] }),
+      muteHttpExceptions: true
+    });
+  } catch (err) { console.error("SMS failed: " + err); }
 }
 
 function out(s) { return ContentService.createTextOutput(s); }
