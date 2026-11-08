@@ -76,4 +76,4 @@ Full instructions are in `leaflet/README.md`. Short version:
 1. The website zip now contains `register/`. Make sure https://kirkcaldydentist.co.uk/register/ loads.
 2. In the Interest List sheet, go to Extensions → Apps Script, paste in `leaflet/apps-script.gs` and deploy it as a Web app (Execute as: Me, Access: Anyone). Then paste the /exec URL into `register/index.html` (replace `PASTE_APPS_SCRIPT_URL_HERE`) and re-upload that file.
 3. Test by scanning the QR code on `leaflet/kirkcaldy-dental-leaflet-A5.pdf`. A row should appear with Source = leaflet, and the thank-you email should arrive.
-4. Leaflet artwork in Canva: https://www.canva.com/d/ec8eU4Mk8m2fYAn. For printing, download it as "PDF Print" with crop marks and bleed.
+4. Leaflet artwork in Canva: https://www.canva.com/d/hiwyJHMTNSKTF5v. For printing, download it as "PDF Print" with crop marks and bleed.

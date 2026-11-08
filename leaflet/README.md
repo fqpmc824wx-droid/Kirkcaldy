@@ -8,7 +8,7 @@
 | `qr-leaflet.svg` / `.png` | The QR code on its own (vector + PNG) |
 | `apps-script.gs` | Saves website sign-ups into the Interest List Google Sheet |
 
-- **Canva design (editable):** https://www.canva.com/d/ec8eU4Mk8m2fYAn
+- **Canva design (editable):** https://www.canva.com/d/hiwyJHMTNSKTF5v
 - **The QR code goes to:** `https://kirkcaldydentist.co.uk/register/?src=leaflet`
   - The `?src=leaflet` part tags each sign-up as **leaflet** in the sheet's **Source** column. That lets you count how many sign-ups the leaflets bring in, separately from Facebook.
   - A different leaflet run (for example a second area) can use its own code: change it to `?src=leaflet-dysart` and so on.
