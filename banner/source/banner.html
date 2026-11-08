@@ -5,9 +5,9 @@
 @font-face{font-family:"InterS";font-weight:700;src:url(inter-700.woff2) format("woff2");}
 @font-face{font-family:"InterS";font-weight:800;src:url(inter-800.woff2) format("woff2");}
 @font-face{font-family:"InterS";font-weight:900;src:url(inter-900.woff2) format("woff2");}
-
-
-@font-face{font-family:"Cinzel";font-weight:700;src:url(cinzel-700.woff2) format("woff2");}
+@font-face{font-family:"Playfair";font-weight:800;src:url(playfair-800.woff2) format("woff2");}
+@font-face{font-family:"Playfair";font-weight:900;src:url(playfair-900.woff2) format("woff2");}
+@font-face{font-family:"PlayfairI";font-weight:800;font-style:italic;src:url(playfair-display-latin-800-italic.woff2) format("woff2");}
 </style>
 <style>
   /* B = bleed (mm), set by the render script via ?bleed= */
@@ -21,16 +21,16 @@
   .left  { left:0; top:0; width: calc(1300mm + var(--b)); height:100%; background: var(--cream); }
   .right { left: calc(1300mm + var(--b)); top:0; right:0; height:100%; background: var(--panel); }
   .logo { left: calc(var(--b) + 650mm - 125mm); top: calc(var(--b) + 36mm); width:250mm; }
-  .head { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 210mm); text-align:center;
-          color: var(--ink); font-family:'Cinzel',serif; font-weight:700; text-transform:uppercase; letter-spacing:0.02em; }
+  .head { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 192mm); text-align:center;
+          color: var(--ink); font-family:'Playfair',serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; }
   .head div { white-space:nowrap; line-height:1.0; }
-  .head .l2 { color: var(--gold); margin-top: 6mm; }
+  .head .l2 { color: var(--gold); margin-top: 0mm; font-family:'PlayfairI',serif; font-style:italic; text-transform:none; letter-spacing:0; }
   .strip { left:0; width: calc(1300mm + var(--b)); top: calc(var(--b) + 410mm); bottom:0; background: var(--gold); }
   .striptext { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 410mm); height:160mm;
-               display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Cinzel',serif; font-weight:800;
+               display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Playfair',serif; font-weight:800;
                text-transform:uppercase; white-space:nowrap; letter-spacing:0.04em; }
   .scan { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 42mm); text-align:center;
-          color:#fff; font-family:"Cinzel",serif; font-weight:700; text-transform:uppercase; line-height:1.05; font-size:40mm; letter-spacing:0.02em; }
+          color:#fff; font-family:"Playfair",serif; font-weight:800; text-transform:uppercase; line-height:1.05; font-size:40mm; letter-spacing:0.02em; }
   .scan span { color:#D9BD82; }
   .tile { left: calc(1300mm + var(--b) + 85mm); top: calc(var(--b) + 160mm); width:330mm; height:330mm;
           background:#fff; border-radius:14mm; }
@@ -59,7 +59,7 @@
     const w=el.scrollWidth/MM; if(w>targetMm) el.style.fontSize=(maxMm*targetMm/w)+'mm'; }
   window.layout=async()=>{ await document.fonts.ready;
     fit(document.querySelector('.head .l1'),1200,150);
-    document.querySelector('.head .l2').style.fontSize=document.querySelector('.head .l1').style.fontSize;
+    document.querySelector('.head .l2').style.fontSize=(parseFloat(document.querySelector('.head .l1').style.fontSize)*1.3)+'mm';
     const s=document.getElementById('strip'); s.style.fontSize='64mm';
     const w=s.getBoundingClientRect().width/MM; if(w>1100) s.style.fontSize=(64*1100/w)+'mm';
     fit(document.getElementById('url'),450,23); fit(document.getElementById('sc2'),450,44); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';

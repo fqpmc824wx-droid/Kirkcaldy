@@ -8,7 +8,7 @@
 | `banner-180x60-preview.jpg` | Preview |
 | `source/` | Editable source (HTML + logo/QR SVG + fonts); `node render.js` rebuilds both PDFs |
 
-- Fully vector: logo (SVG), text (Cinzel headline + Inter, embedded) and QR code – sharp at any size.
+- Fully vector: logo (SVG), text (Playfair Display headline + Inter, embedded) and QR code – sharp at any size.
 - Layout: left 130 cm (logo, NEW NHS DENTAL PRACTICE / OPENING SOON!, gold strip BE FIRST IN LINE – JOIN OUR WAITING LIST); right 50 cm charcoal panel (SCAN TO JOIN OUR WAITING LIST + 28 cm QR on a white tile).
 - Safe margin: all text/QR ≥ 40 mm inside the finished edge (clear of hems and eyelets).
 - QR → `https://kirkcaldydental.co.uk/register/?src=banner` (the real register page; it must be live before the sign goes up).
