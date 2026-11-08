@@ -68,7 +68,6 @@ Object.assign($('panel').style,{top:px(l.pnT),height:px(l.H-l.pnT)});
 Object.assign($('btn').style,{top:px(l.bT),width:px(l.bW),height:px(l.bH),fontSize:px(l.bF)});
 Object.assign($('url').style,{top:px(l.uT),fontSize:px(l.uF)});
 function fit(el,target,max){el.style.fontSize=px(max);const w=el.scrollWidth;if(w>target)el.style.fontSize=px(max*target/w);return parseFloat(el.style.fontSize);}
-$('kicker').style.display='none';
 window.layout=async()=>{await document.fonts.ready;
   const f=fit($('l1'),980,l.hMax); $('l2').style.fontSize=px(f*1.15);
   fit($('st1'),900,q.get('fmt')==='story'?76:70); fit($('st2'),760,q.get('fmt')==='story'?38:34);
