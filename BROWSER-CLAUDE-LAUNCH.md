@@ -113,8 +113,13 @@ Budget to tell the owner:
 6. Add the **payment card**. (An ad account 1207154818311419 already exists with **no payment method and no campaigns**. If that is the clinic's account, use it and add the card there. Don't create a second one.)
 7. **Lead Ads terms:** logged in as Page admin, open facebook.com/ads/leadgen/tos, pick the clinic Page and accept. Meta may also prompt for this when you create the form.
 8. **Remove single points of failure:** add a second trusted person (e.g. a family member) as admin on the Page, Business portfolio and ad account.
-9. **Business verification** (Business settings → Security Centre → Start verification). It can take a few days and doesn't block launch. A new ad account has a hidden daily spending limit that rises with verification and good standing.
-10. **Account-wide safety settings. Do these now, because they can take up to 48 hours to apply:**
+9. **Security (pre-mortem):**
+   - Turn on **two-step verification** for every person with access to the Page, Business portfolio, ad account, developer app, Google (info@) and ClickSend.
+   - Add the second admin to the **developer app** too (App roles → Administrators). Without that, only one person can fix the token.
+   - Ad account → Billing → **Account spending limit ≈ £900** (a safety cap for the 4-week plan; raise it on purpose later).
+   - Add a **backup payment card**.
+10. **Business verification** (Business settings → Security Centre → Start verification). It can take a few days and doesn't block launch. A new ad account has a hidden daily spending limit that rises with verification and good standing.
+11. **Account-wide safety settings. Do these now, because they can take up to 48 hours to apply:**
     - Ad account → Advertising settings → Creating ads → Creative features: **untick "Test new creative features"**.
     - Advertising settings → Branding / Identity → restricted words: `accepting`, `taking on`, `first come`, `limited places`, `free dentist`, `guaranteed`, `specialist`. This is only a backstop, because Meta doesn't always obey it.
     - Optional: Account controls → Placement controls (objective Leads) → exclude **Audience Network**, which can bring cheap junk leads. It applies to every Leads campaign in this ad account.
@@ -178,6 +183,13 @@ Use HANDOFF.md Step 2 wording **exactly** (updated 8 Nov from the research). Bui
 | `LAUNCH_DATE` | the day the ads go live, `yyyy-mm-dd` (set it on launch day) |
 | `META_API_VERSION` | leave **empty** (the script uses `v27.0`). If the owner ever gets an email saying the Meta version is deprecated, set it to Meta's newest version, e.g. `v28.0`. |
 Don't touch `ALERT_NEXT`, `META_SINCE`, `META_SINCE_BY_FORM`, `META_SEEN`, `BACKLOG_LAST`, `REPORT_LAST` or any `*_ERR_LAST`. They're set automatically.
+**Sheet access for callers:**
+- The sheet is currently shared with info@ only, so the caller can't open it.
+- Share → add each caller's Google account by name as **Editor**. Never use "anyone with the link".
+- Data → **Protect ranges**: protect row 1 (headers) and the script-written columns (N–X, Z–AH) with "Show a warning".
+- Create a filter view "To call" (Status is empty or "Call 8am" or "No answer").
+- Callers use their own login, not info@.
+
 **Sheet dropdowns:** in the Waiting list tab, the Status column (J) must offer: Called, No answer, Booked, DO NOT CONTACT, Call 8am, Duplicate, Unreachable, Wrong number, Not interested, Withdrew (Data → Data validation, "Show a warning"). The leaflet chat is adding these, plus tracking columns N onwards (Lead ID, Ad name, SMS status…). If they're already there, leave them as they are. Columns K (Assigned to) and L (Marketing consent) must have no restrictive dropdown. Format the Phone column as Plain text. Never set "Reject the input" on columns the scripts write.
 6. **Run `installLeadTriggers()` once:**
    - Open the `meta-leads` file, choose `installLeadTriggers` in the function dropdown, then Run → Review permissions → choose info@.
@@ -226,11 +238,11 @@ What happens with every lead, wherever it comes from:
 | Website sign-up (ticked) | same, with the optional box ticked | Marketing consent **Yes** |
 | Leaflet QR | scan the leaflet PDF QR (Visits tab gets a "leaflet" row), then **fill in and submit** the form | row with Source leaflet |
 | Banner QR | the same with the banner PDF QR | row with Source banner |
-| Real lead (no app role) | after the app is Live: someone with **no role** on the Page, app or Business (e.g. a family member) submits the form from their own phone, from a live ad preview or the Page's form link | arrives like the test lead. If it doesn't, the app is still in Development mode. Delete the row afterwards |
+| **GATE – Real lead (no app role)** | **Don't publish the ads until this passes.** After the app is Live: someone with **no role** on the Page, app or Business (e.g. a family member) submits the form from their own phone, from a live ad preview or the Page's form link | arrives like the test lead. If it doesn't, the app is still in Development mode. Delete the row afterwards |
 | Repeat sign-up | submit the same phone again within 24h | new row Status "Duplicate", Notes "Already on the list…", no alert, no second text |
 | Do not contact | set a test row's Status to `DO NOT CONTACT`, then submit again with the same phone via /register | row saved with Status DO NOT CONTACT; no text, alert or email |
 | Dashboard | open the Dashboard tab | counts by source update |
-| Overload email | set `BACKLOG_ALERT` to `1`; edit a test row's Signup Time to over an hour ago with Status blank; run `backlogCheck()` from the editor (in calling hours or with `CALL_HOURS` 24h) | owner gets "leads waiting over an hour"; then set `BACKLOG_ALERT` back to `15` and delete `BACKLOG_LAST` |
+| Overload email | set `BACKLOG_ALERT` to `1`; edit a test row's Signup Time to over an hour ago with Status blank; run `backlogCheck()` from the editor (in calling hours or with `CALL_HOURS` 24h) | owner gets "leads waiting over an hour"; then set `BACKLOG_ALERT` back to `10` (one caller) or `15` (two or more) and delete `BACKLOG_LAST` |
 
 **Afterwards:**
 - Delete every test row (Waiting list and Visits tabs) **before 8am**, or the 8am summary will text the caller about them. Put `CALL_HOURS` back to `8-21` and `ONCALL_MOBILE` back to the caller.
@@ -292,6 +304,10 @@ Daily rules:
 - Black Friday (27 Nov) and Christmas push ad prices up 15–30%. That's expected; don't panic.
 
 If opening is more than ~6 weeks away, stay at £15–20/day for longer.
+
+**Black Friday and Christmas (pre-mortem):**
+- **No budget rises from 25 Nov to 2 Dec.** Ad prices jump, so lead costs rise for reasons that have nothing to do with the ads.
+- **By 1 Dec, decide the festive plan:** either name who calls from 24 Dec to 2 Jan, or drop the ads to £5–10/day for that period. Overnight and holiday leads still get the instant text.
 
 **Cautious alternative (family suggestion):**
 - Start at **£10/day** with both ads in the one ad set. That brings about 7 leads a day; learning is slower and the first read on the better ad is noisier.
