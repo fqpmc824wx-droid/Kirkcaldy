@@ -29,14 +29,14 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 
 ## Step 2 – Meta lead form (Meta Business Suite → All tools → Instant Forms)
 - Form type: Higher intent
-- Intro headline: "Register your interest"
-- Intro text: "Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon in Kirkcaldy. Register your interest and we'll keep you updated with opening news."
+- Intro headline: "Be first in line – join our waiting list"
+- Intro text: "Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon in Kirkcaldy. Join our waiting list and we'll keep you updated with opening news."
 - Questions: Full name, Phone, Email (prefill) + Post code + multiple choice:
   - "How many people are you registering interest for?" 1 / 2 / 3 / 4+
   - "Are you currently registered with a dentist?" Yes / No / Not sure
   - "Who is this for?" Adult / Child / Family
 - Privacy policy URL: https://kirkcaldydental.co.uk/privacy.html
-- Completion screen: "Thanks! We'll keep you updated with opening news." Button: View website → https://kirkcaldydental.co.uk
+- Completion screen: "Thanks – you're on our waiting list! We'll keep you updated with opening news." Button: View website → https://kirkcaldydental.co.uk
 - Business Settings → Integrations → Leads access → allow Zapier for the page.
 
 ## Step 3 – ClickSend
