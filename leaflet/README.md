@@ -12,7 +12,7 @@
 | `apps-script.gs` | Saves website sign-ups into the Waiting List Google Sheet |
 
 - **Design:** matches the 180 × 60 cm banner (same fonts, gold italic "Opening Soon!", gold strip). The older Canva version is replaced.
-- **The QR code goes to:** `https://kirkcaldydental.co.uk/register/?src=leaflet`
+- **The QR code goes to:** `https://kirkcaldydental.co.uk/l (short link → /register/?src=leaflet)`
   - The `?src=leaflet` part tags each sign-up as **leaflet** in the sheet's **Source** column. That lets you count how many sign-ups the leaflets bring in, separately from Facebook.
   - A different leaflet run (for example a second area) can use its own code: change it to `?src=leaflet-dysart` and so on.
 

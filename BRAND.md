@@ -28,3 +28,9 @@ Upload into the right subfolder and **trash the old version** (no "FINAL v2/v3" 
 - Cream `#F6F2EA` · deep gold `#8A6A2C` / `#8E6B2E` · light gold `#B8964F` / `#D9BD82` · charcoal `#30363B` · ink `#262B30`
 - Fonts: Playfair Display 800/900 (headlines, uppercase), Playfair Display 800 italic (*Opening Soon!*), Inter 700–900 (body, buttons)
 - Logo: ALL GOLD (no two-tone), same fonts; D raised HALFWAY (owner-approved 8 Nov, matches ads/logo-stacked-deepgold-HALFWAY.svg); the K sits on the D: K arm tip meets the D stem, the K foot rests on the D bottom serif, thin cut-out in the D where the K crosses. Print/light: brand/logo/logo-{stacked,horizontal}-deepgold.svg (#8E6B2E); lighter gold: logo-{stacked,horizontal}.svg (#C3A363). Generator brand/source/makelogo.py (params in its docstring).
+
+## QR codes (tracking)
+- Banner QR → https://kirkcaldydental.co.uk/b · Leaflet QR → https://kirkcaldydental.co.uk/l
+- site/b/ and site/l/ forward to /register/?src=banner|leaflet, so visits (Visits tab) and sign-ups (Source column) are tagged. Hostinger stats show hits to /b/ and /l/ as an independent scan count.
+- The printed web address (kirkcaldydental.co.uk/register) counts as Source = website, so typed visits stay separate from scans.
+- Never reprint a QR code without re-checking it decodes to these URLs.
