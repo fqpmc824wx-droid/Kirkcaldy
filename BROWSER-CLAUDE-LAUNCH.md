@@ -299,7 +299,7 @@ Ads Manager → Create:
 Daily rules:
 - Leads arrive faster than the callers can ring within the hour (the owner also gets the overload email) → **add a caller** the same day; only if nobody is available, cut the budget 20%.
 - Cost per lead **above £5 for 3 days** (the owner's expected level) → fix the ad or form, don't add money, and tell the ads chat. **Above £8 → pause** and ask the ads chat. The forecast expects about £1.50; if it's well under £5, keep going.
-- Cost per lead under £2.50 for 3 days, and the backlog email not firing → raise 20% (with enough callers on shift), no more than once every 3–4 days.
+- Cost per lead under £4 for 3 days, and the backlog email not firing → raise 20% (with enough callers on shift), no more than once every 3–4 days.
 - An ad gets rejected → tell the ads chat.
 - Black Friday (27 Nov) and Christmas push ad prices up 15–30%. That's expected; don't panic.
 
