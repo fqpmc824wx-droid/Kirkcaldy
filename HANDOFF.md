@@ -54,10 +54,11 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 
 ## Step 4 – Automation sized for a FLOOD of leads
 Demand evidence:
-- The owner's 4 Fife practices hold **2,445 active patients with Kirkcaldy KY1/KY2 postcodes**, all travelling out of town (Dentally, w/e 8 Nov 2026).
-- Those practices take **~30 new Kirkcaldy patients a week**.
-- Press reports through 2025 say most or all Fife practices are closed to new NHS patients.
-- Plan for **1,000–3,000+ leads in the first month**.
+- **Glenrothes Dental House launch (opened Feb 2026), NHS registrations per month:** Feb 1,187 · **Mar 2,598** (peak ~600 a week, ~85 a day) · Apr 1,200 · May 762 · Jun–Oct ~480–660. That's ~8,800 in 9 months.
+- These are registrations. Raw leads and enquiries will be higher.
+- **2,445 active patients with Kirkcaldy KY1/KY2 postcodes** already travel to the owner's Leven, Glenrothes and Cupar practices.
+- An aggregator showed 1 of 57 Kirkcaldy NHS dentists accepting new patients (Aug 2026). NHS Fife says "very few" practices can register new NHS patients. Kirkcaldy has ~50,000 residents.
+- **Plan for:** 1,200–2,600+ leads in each of the first 2 months, a peak of ~85–100+ a day, settling to 500–700 a month. Ads drive the volume; leaflets add ~10–30 per 1,000 dropped.
 
 **Tool: Make.com (Core plan or above), not Zapier.**
 - At that volume Zapier Professional runs out: about 750 tasks, roughly 150 leads. Higher Zapier tiers get expensive.
@@ -100,12 +101,12 @@ kirkcaldydental.co.uk"
 Then turn the Zap on.
 
 **Costs at volume (check current prices):**
-- Make ops tier for ~2,000 leads/month.
+- Make ops tier for ~2,500–3,000 leads/month at launch (~15,000 ops). Drop the tier later when it settles.
 - ClickSend: about 2 texts per lead (lead + on-call) at a few pence each, so budget roughly **£150–300 per 1,000 leads**. Turn on auto top-up.
 - To save money, send the on-call alert by Gmail push instead of SMS (free) and keep the SMS for the lead only.
 
 **Calling capacity:**
-- 2,000 leads/month ≈ 65 a day ≈ 3+ hours of calls a day.
+- At peak, ~85–100 leads a day is 4–5+ hours of calls a day: **one full-time caller at launch**, plus the evening on-call rota.
 - Dedicate a person or shift to calling leads during launch.
 - If calls fall behind, lower the Meta daily budget rather than leaving leads uncalled.
 - The confirmation text means everyone hears back instantly even when there's a queue.
