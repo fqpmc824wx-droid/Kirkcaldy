@@ -5,7 +5,7 @@
 Every minute it pulls new Facebook/Instagram Instant Form leads from Meta and, for each one:
 - adds a row to the sheet
 - texts the lead straight away
-- texts the on-call mobile between 8am and 9pm; leads after 9pm get a "we'll call from 8am" text, and the on-call mobile gets an 8am summary
+- texts the on-call mobile(s) "NEW LEAD – call now", 24 hours a day by default (`CALL_HOURS`); if hours are limited, out-of-hours leads get a "we'll call from 8am" text and an 8am summary
 - emails the lead a confirmation
 
 **Costs:** £0 for the software. You only pay for the texts, a few pence each through ClickSend, or switch `sendSms()` to Twilio.

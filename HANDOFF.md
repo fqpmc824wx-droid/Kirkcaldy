@@ -116,11 +116,11 @@ Then turn the Zap on.
 - If calls fall behind, lower the Meta daily budget rather than leaving leads uncalled.
 - The confirmation text means everyone hears back instantly even when there's a queue.
 
-**Team routine – every lead called the same day, 7 days a week (8am–9pm):**
-- **Opening hours:** reception calls new leads within 15 minutes.
-- **Evenings and weekends:** one person is **on call** each evening/weekend (rota). Their mobile gets the ClickSend text alert (plus Meta app and Gmail alerts). They call within 15–30 minutes, up to 9pm.
-- **After 9pm:** don't phone people late at night. The lead gets the automatic "you're on our waiting list" email/text straight away, and the on-call person calls them from 8am the next morning, including weekends.
-- Mark Status in the sheet after each call: Called / No answer / Booked. If there's no answer, try again within 2 hours and once more the next day.
+**Team routine – 24-hour service (owner decision):**
+- Someone is on standby at all times, including overnight, and calls every new lead within minutes.
+- The alerts go out 24/7 (`CALL_HOURS` = `24h`).
+- If there's no answer, try again within 2 hours and once more the next day. Mark Status in the sheet after each call: Called / No answer / Booked.
+- To limit calling hours later, set `CALL_HOURS` to e.g. `8-21`. Leads outside those hours then get a "we'll call you tomorrow from 8am" text, and the team gets an 8am summary.
 
 **Upgrade later (only if needed):** an auto-call service such as Callingly (from about $100/month) rings the team phone and connects to the lead automatically.
 
