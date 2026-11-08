@@ -1,0 +1,71 @@
+# Numbers to expect and what to watch
+
+Kirkcaldy Dental & Implant Clinic waiting list · 23–25 Tolbooth Street, Kirkcaldy KY1 1RW · written 8 Nov 2026
+
+These are best guesses until the ads have run for 3–4 days. After that, we use the real numbers.
+
+## 1. What to expect
+
+| | Likely | Slow | Fast |
+|---|---|---|---|
+| Cost per sign-up (what Ads Manager shows) | **about £1.50** | £3.50–£4 | about 65p |
+| Facebook/Instagram sign-ups a day at £20/day | **about 15** | about 6 | about 30 |
+| Sign-ups a day from everything (ads, website, leaflets, banner, word of mouth) | **about 22 in week 1, about 30 in week 2** | | |
+| Facebook/Instagram sign-ups a week | **about 100–170** (rises as the budget rises) | about 40–70 | 200–350 |
+| Waiting list by opening (about 6 weeks) | **about 1,650 sign-ups, about 3,150 people** | about 900 | about 3,000 |
+
+- Each extra week before opening adds about 240 sign-ups.
+- One newspaper story or a busy local Facebook post can add 500–1,000 in a few days.
+- About half of the people on the list are likely to book.
+
+## 2. The 6 numbers to glance at every morning
+
+Look in Ads Manager, the 9pm email and the Waiting List sheet. (The Dashboard tab in the sheet is still being built.)
+
+| # | Number | 🟢 Green: carry on | 🟠 Amber: keep an eye on it | 🔴 Red: do this |
+|---|---|---|---|---|
+| 1 | **Cost per sign-up**, last 3 days (Ads Manager) | Under £2.50 | £2.50–£3.50 | Over £3.50 for 3 days: fix the ad or form, don't add money, tell the ads chat. Over £5: pause and ask the ads chat. |
+| 2 | **Sign-ups yesterday**, all sources (sheet) | 10–20 a day | 21–25 a day (the caller is full) | Over 20 a day for 3 days: bring in the second caller. Fewer than 3 Facebook sign-ups a day for 3 days: check the ads are running and the form works. |
+| 3 | **Leads waiting for a call** (9pm email) | Everyone called within an hour | Some waiting 1–4 hours | The backlog email arrives, or anyone has waited over 24 hours: cut the budget by 20%, or bring in the second caller. |
+| 4 | **Are the ads running?** (Ads Manager) | Spent close to the daily budget, no rejected ads, card OK | Spent under half the budget for 1 day | Nothing spent by midday, an ad rejected, or a payment problem: tell the ads chat the same day. |
+| 5 | **How often people see the ad** ("Frequency", last 7 days) | Under 2 | 2–3 | Over 3: ask the ads chat for 1–2 fresh versions of the best ad. |
+| 6 | **Calls that reach the person**, within 3 tries (sheet Status) | 7 or more in 10 | 6 in 10 | Under 6 in 10: try calling at different times, and tell the ads chat (it may be poor-quality leads). |
+
+**Week 1: change nothing for 3–4 days**, even if the numbers look odd. Meta is still learning.
+
+**When to raise the budget:** only if cost per sign-up is under £2.50 for 3 days, no backlog email, and the caller has spare time. Raise by 20%, no more than once every 3–4 days.
+
+**Black Friday (27 Nov) and Christmas** push prices up 15–30%. That is normal. Don't panic.
+
+## 3. When to add the second caller
+
+One caller can properly handle **about 20–25 new sign-ups a day**. We expect to pass that **in week 2 (around 17–20 Nov)**.
+
+Bring in the second caller as soon as **any one** of these happens:
+
+- Sign-ups stay above 20 a day for 3 days.
+- The backlog email arrives on 2 evenings in one week.
+- The 9pm email shows someone waiting over 24 hours.
+- A newspaper story or busy local post lands. Add the caller **the same day**.
+
+**Don't go above £25 a day until there is a second caller.** If there is no second caller, keep the budget at £20.
+
+## 4. The true cost
+
+Ads Manager shows the budget **before** extras. Meta adds a **2% UK fee** and then **20% VAT**. The clinic can't claim the VAT back, because dental care is VAT-exempt. So every £1 in Ads Manager really costs about **£1.22**.
+
+| Ads Manager says | You really pay a day | You really pay a week |
+|---|---|---|
+| £20 a day | **£24.48** | about £171 |
+| £25 a day | £30.60 | about £214 |
+| £35 a day | £42.84 | about £300 |
+| £50 a day | £61.20 | about £428 |
+
+- **4-week plan:** about £810 in Ads Manager, so **about £990 really paid**.
+- **Cost per sign-up:** about £1.50 in Ads Manager, so **about £1.84 really paid** (range about 80p to £4.90).
+- **Cost per household that books:** about £3.40 really paid.
+- **Texts:** add about 9p per sign-up.
+
+## 5. Every Monday
+
+Ask the Metrics chat **"How are we doing?"**. It will send a short report: sign-ups, cost, how it compares with this forecast, and one clear budget suggestion. It will never change the ads, budget or sheet itself.
