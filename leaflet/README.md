@@ -40,7 +40,7 @@ Delete the test row afterwards.
 ## Tracking
 - Every sign-up gets a **Source** (leaflet, banner, facebook, website, phone) and a postcode in the Waiting List sheet.
 - Every visit to the waiting-list page (e.g. a QR scan) is counted on the **Visits** tab: time and source only, nothing personal, no cookies. This works once the Apps Script URL is pasted into `register/index.html`.
-- The **Summary** tab shows visits, sign-ups and the sign-up rate by source, all-time and for the last 7 days.
+- The **Dashboard** tab shows sign-ups, total people, "no dentist" count, visits vs sign-ups by source, adult/child/family, registered-elsewhere, sign-ups by postcode sector and week by week, with charts. It updates by itself.
 
 ## Printing
 - **Size:** A5 (148 × 210 mm), double-sided, 4-colour.
