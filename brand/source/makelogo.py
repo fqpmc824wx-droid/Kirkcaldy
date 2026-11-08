@@ -2,7 +2,7 @@
 
 Text is converted to outlines so the SVG needs no fonts installed.
 Usage: python3 makelogo.py <fonts_dir> <out_dir>
-Current logo (K sitting on the D): KD_STYLE=overlap K_SX=1.0 D_DX=0.62 D_DY=0.115 KNOCK=0.03 [K_FILL=#262B30 light / #F4EDE3 dark]
+Current logo (K sitting on the D): KD_STYLE=overlap K_SX=1.0 D_DX=0.66 D_DY=0.095 KNOCK=0.028 [K_FILL=#262B30 light / #F4EDE3 dark]
 Fonts: Cormorant Garamond 700 (cormorantb.ttf), Cinzel 600 (cinzel600.ttf), Lato 700 (lato.ttf).
 """
 import os
