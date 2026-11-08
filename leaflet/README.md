@@ -47,12 +47,15 @@ Website and QR sign-ups get the same instant thank-you text as Facebook leads, a
 **Protection against misuse (the form is public)**
 - Texts only go to UK mobiles (+447…). Landlines, premium and foreign numbers are never texted.
 - A hidden `website` field on the form catches bots. Anything that fills it in is ignored.
-- One phone number gets at most 2 thank-you texts or team alerts in 24 hours (`MAX_TEXTS_PER_DAY`). Any further sign-ups are still saved, with the note "Repeat sign-up – no text sent".
+- **Repeat sign-ups** follow the same rule as the Facebook leads, matched on the phone (last 10 digits) or the email:
+  - signed up again within 24 hours, or already Called / Booked / Not interested: Status **Duplicate**, with no alert, no text and no email;
+  - older and never reached: the callers get a "REPEAT" alert, and the person gets one "you're already on the list" text;
+  - DO NOT CONTACT always wins.
 - If ClickSend refuses a text (wrong key, no credit, sender ID not approved), it's logged and OWNER_EMAIL gets an email, at most once an hour.
 
 **Consent and do-not-contact (PECR / GDPR)**
 - **Marketing consent** column: `Yes` only when the person ticked the optional, unticked box on the form (field `marketing`), otherwise `No`. Only `Yes` people may ever get promotional texts or emails. The thank-you text and email are service messages only, with no offers.
-- **Status** dropdown: Called · No answer · Booked · DO NOT CONTACT · Call 8am. It only warns, so the scripts can still write other values. After calling, replace "Call 8am" with the real result.
+- **Status** dropdown: Called · No answer · Booked · DO NOT CONTACT · Call 8am · Duplicate · Unreachable · Wrong number · Not interested · Withdrew. It only warns, so the scripts can still write other values. After calling, replace "Call 8am" with the real result.
 - Set a row's **Status** to exactly `DO NOT CONTACT` to stop all texts, calls and emails to that phone number or email address (numbers match however they're written: 07…, +44 7…, +44 (0)7…). Any new sign-up with the same number is still saved (with Status `DO NOT CONTACT`), but gets no text, no team alert and no email. The Facebook leads script uses the same string.
 3. Deploy a **new version** of the web app (Deploy → Manage deployments → Edit → New version).
 Until the keys are added, sign-ups still save and email as normal; the texts are just skipped.
@@ -79,3 +82,7 @@ Delete the test row afterwards.
 ## Wording rules (same as the banner and ads)
 Allowed: "New NHS dental practice – opening soon", "Be first in line – join our waiting list", "Join waiting list".
 NOT allowed until after the NHS inspection: "taking on / accepting / registering NHS patients", "limited places", "first come, first served". No NHS logo.
+
+## Tracking columns (N onwards)
+Columns N–AR are written by name, so their order doesn't matter: Lead ID (website rows are `W-yyMMddHHmmss-xxx`), Logged at, Ad name, Ad ID, Form ID, Organic?, Duplicate of, How heard, SMS ID, SMS status, Email status, Call outcome, call timings, Appt date, People booked, Not booked reason, Current practice, Private interest, Dentally fields, and Visit ID. N–X and Z–AH are hidden, so callers see A–M, **Call outcome (Y)** and AI–AM. Don't put formulas in the Waiting list tab.
+The website form can send `heard` (How heard) and `visit` (Visit ID).

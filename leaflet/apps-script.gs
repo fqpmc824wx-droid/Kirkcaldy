@@ -13,7 +13,6 @@
  */
 
 var LEADS_TAB = "Waiting list";               // NEVER the first tab – that is the Dashboard (same as meta-leads.gs)
-var SHEET_NAME = "Waiting list"; // the sign-ups tab (the first tab is the Dashboard, so always use the name)
 var SEND_EMAIL = true;
 var DO_NOT_CONTACT = "DO NOT CONTACT"; // Status value that stops all texts, calls and emails (exact same string in meta-leads.gs)
 var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "" to turn off
@@ -29,7 +28,6 @@ var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "
 //   ALERT_NEXT       = rotation pointer, set automatically – don't edit
 // If CLICKSEND_USER / CLICKSEND_KEY are missing, texts are simply skipped.
 var SMS_FROM = "KirkDental";
-var MAX_TEXTS_PER_DAY = 2;   // per phone number, website sign-ups (stops anyone using the form to send us texts)
 
 function doPost(e) {
   var p = (e && e.parameter) || {};
@@ -38,107 +36,119 @@ function doPost(e) {
   if (!p.name || !p.email) return out("missing");
 
   var inHours = inCallHours(new Date());   // CALL_HOURS unset = 8-21 (owner: no calls after 9pm)
+  var name = String(p.name).trim(), first = niceFirstName(name);
 
   var lock = LockService.getScriptLock();
   // tryLock (not waitLock): if the Facebook poller holds the shared lock, still save the sign-up rather than lose it
   var locked = lock.tryLock(20000);
   if (!locked) console.warn("Script lock busy – saving the sign-up without it");
   try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sh = SHEET_NAME ? ss.getSheetByName(SHEET_NAME) : ss.getSheets()[0];
+    var sh = leadsSheet();
     var headers = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].map(String);
-    if (headers.indexOf("Source") === -1) {
-      sh.getRange(1, headers.length + 1).setValue("Source");
-      headers.push("Source");
-    }
     var clean = function (v) { v = String(v || "").slice(0, 200); return /^[=+\-@]/.test(v) ? "'" + v : v; };
+    // Same repeat rule as the Facebook leads (meta-leads.gs): match on last 10 phone digits or email.
+    //  - DO NOT CONTACT always wins: row saved, no contact of any kind.
+    //  - signed up again within 24h, or already Called / Booked / Not interested -> "Duplicate", no alert, no new call.
+    //  - older and never reached -> "REPEAT" alert so the callers try again. Repeats get the "already on the list" text, max 1 a day.
+    var seen = websiteLookup(p.phone, p.email), blocked = seen.blocked, repeat = seen.repeat && !blocked;
+    var quiet = repeat && (seen.recent || seen.handled);
+    var src = String(p.source || "website").replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) || "website";
+    var leadId = "W-" + Utilities.formatDate(new Date(), "Europe/London", "yyMMddHHmmss") + "-" + Math.random().toString(36).slice(2, 5);
     var values = {
       "Signup Time": new Date(),
-      "Name": clean(p.name),
+      "Name": clean(name),
       "Phone": "'" + String(p.phone || "").slice(0, 20),   // keep the leading 0 / +
       "Email": clean(p.email),
       "Postcode": clean(p.postcode),
       "No. of People": clean(p.people),
       "Currently Registered?": clean(p.registered),
       "Adult/Child/Family": clean(p.who),
-      "Source": String(p.source || "website").replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) || "website",
-      "Status": inHours ? "" : "Call 8am",   // out of hours: picked up by the 8am summary (meta-leads.gs)
+      "Source": src,
+      "Status": blocked ? DO_NOT_CONTACT : quiet ? "Duplicate" : (inHours ? "" : "Call 8am"),   // "Call 8am": picked up by the 8am summary
       // optional, unticked-by-default box on /register/; only "Yes" people may ever get promotional texts/emails
-      "Marketing consent": /^(yes|true|on|1)$/i.test(String(p.marketing || "").trim()) ? "Yes" : "No"
+      "Marketing consent": /^(yes|true|on|1)$/i.test(String(p.marketing || "").trim()) ? "Yes" : "No",
+      "Lead ID": "'" + leadId,
+      "Logged at": new Date(),
+      "Duplicate of": seen.repeat ? "'" + seen.firstId : "",
+      "How heard": clean(p.heard),
+      "Visit ID": p.visit ? "'" + String(p.visit).replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) : ""
     };
-    // Anyone whose phone already has a row with Status "DO NOT CONTACT" gets no texts, calls or emails (same string as meta-leads.gs)
-    var dnc = isDoNotContact(p.phone, p.email);
-    // abuse cap: no more than MAX_TEXTS_PER_DAY sign-ups per phone number in 24h get a text/alert (row still saved)
-    var capped = !dnc && websiteRecentSignups(sh, headers, p.phone) >= MAX_TEXTS_PER_DAY;
-    if (capped) values["Notes"] = "Repeat sign-up – no text sent";
-    if (dnc) values["Status"] = DO_NOT_CONTACT;
+    if (repeat) values["Notes"] = "Already on the list (same phone/email) - see " + seen.firstId + (seen.recent ? "; no text sent" : "");
     // "new lead" alert (calling hours only) – sent before the row is written so the sheet shows who has it.
-    // ALERT_MODE "rotate" gives each lead to the next ONCALL_MOBILE in turn (ALERT_NEXT is shared with meta-leads.gs).
-    if (inHours && !dnc && !capped) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + String(p.name).trim().slice(0, 40) + " " + String(p.phone || "").slice(0, 20));
+    if (inHours && !blocked && !quiet) values["Assigned to"] = "'" + alertTeam((repeat ? "REPEAT \u2013 " : "") +
+      "\uD83E\uDDB7 NEW LEAD (" + src + ") \u2013 call now: " + name.slice(0, 40) + " " + String(p.phone || "").slice(0, 20));
+
+    // Thank-you text (one SMS) and email – also before the row is written, so SMS/Email status go in the same row
+    var r = null;
+    if (!blocked && !repeat) r = sendSms(p.phone, leadText(first, inHours));
+    if (repeat && !seen.recent) r = sendSms(p.phone, websiteRepeatText(first));
+    if (r && typeof r === "object") { values["SMS ID"] = "'" + String(r.id || ""); values["SMS status"] = r.status === "SUCCESS" ? "Sent" : "Failed: " + r.status; }
+    if (SEND_EMAIL && !blocked && !repeat) values["Email status"] = websiteConfirmEmail(p.email, first);
+
     sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
   } finally {
     if (locked) lock.releaseLock();
   }
 
-  if (dnc) return out("ok");   // row kept for the record, but no contact of any kind
-  if (capped) return out("ok");
-  var first = String(p.name).trim().split(/\s+/)[0];
-
-  // Instant thank-you text to the person (the team alert was sent above)
-  sendSms(p.phone, leadText(niceFirstName(p.name), inHours));
-  if (SEND_EMAIL) {
-    MailApp.sendEmail({
-      to: p.email,
-      name: "Kirkcaldy Dental & Implant Clinic",
-      replyTo: "info@kirkcaldydental.co.uk",
-      subject: "You're on our waiting list – Kirkcaldy Dental & Implant Clinic",
-      body: "Hi " + first + ",\n\n" +
-        "Thank you for joining the waiting list for Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon in Kirkcaldy.\n\n" +
-        "We'll be in touch with opening dates and practice information as soon as they're confirmed.\n\n" +
-        "Any questions? Email info@kirkcaldydental.co.uk.\n\n" +
-        "Kirkcaldy Dental & Implant Clinic\nkirkcaldydental.co.uk"
-    });
-  }
   // In calling hours the owner already got the NEW LEAD alert by email (alertTeam → OWNER_EMAIL), so this note is only sent out of hours
-  if (NOTIFY && !(inHours && PropertiesService.getScriptProperties().getProperty("OWNER_EMAIL"))) {
-    MailApp.sendEmail(NOTIFY, "New sign-up (" + (p.source || "website") + "): " + first,
-      "A new person joined the waiting list on the website. See the Waiting List sheet.");
+  if (NOTIFY && !blocked && !quiet && !(inHours && PropertiesService.getScriptProperties().getProperty("OWNER_EMAIL"))) {
+    try { MailApp.sendEmail(NOTIFY, "New sign-up (" + src + "): " + first, "A new person joined the waiting list on the website. See the Waiting List sheet."); }
+    catch (err) { console.error("Notify email failed: " + err); }
   }
   return out("ok");
 }
 
-// Anyone whose row has Status "DO NOT CONTACT" (same phone or same email) is never texted, emailed or alerted again.
-// (meta-leads.gs has its own metaDoNotContact(); leadsSheet() below is shared and identical.)
-function isDoNotContact(phone, email) {
-  // last 10 digits, so 07…, +447…, +44 (0)7…, 00447… and numbers stored as numbers (leading 0 lost) all match
+// Earlier rows with the same phone (last 10 digits) or email – same logic as metaLookup() in meta-leads.gs
+function websiteLookup(phone, email) {
   var digits = function (v) { var d = String(v || "").replace(/\D/g, ""); return d.length >= 10 ? d.slice(-10) : d; };
   var target = digits(phone), mail = String(email || "").trim().toLowerCase();
-  if (!target && !mail) return false;
+  var res = { blocked: false, repeat: false, recent: false, handled: false, firstId: "" };
+  if (!target && !mail) return res;
   var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String);
-  var pc = h.indexOf("Phone"), ec = h.indexOf("Email"), sc = h.indexOf("Status");
-  if (sc === -1) return false;
+  var pc = h.indexOf("Phone"), sc = h.indexOf("Status"), ec = h.indexOf("Email"), tc = h.indexOf("Signup Time"), ic = h.indexOf("Lead ID");
   for (var i = 1; i < data.length; i++) {
-    if (String(data[i][sc]).trim().toUpperCase() !== "DO NOT CONTACT") continue;
-    if (target && pc !== -1 && digits(data[i][pc]) === target) return true;
-    if (mail && ec !== -1 && String(data[i][ec]).trim().toLowerCase() === mail) return true;
+    var same = (target.length >= 10 && pc !== -1 && digits(data[i][pc]) === target) ||
+               (mail && ec !== -1 && String(data[i][ec]).trim().toLowerCase() === mail);
+    if (!same) continue;
+    if (!res.repeat) res.firstId = (ic !== -1 && String(data[i][ic])) || "row " + (i + 1);
+    res.repeat = true;
+    var st = sc === -1 ? "" : String(data[i][sc]).trim().toUpperCase();
+    if (st === DO_NOT_CONTACT) res.blocked = true;
+    if (st === "CALLED" || st === "BOOKED" || st === "NOT INTERESTED") res.handled = true;
+    var t = tc === -1 ? null : data[i][tc];
+    if (t instanceof Date && Date.now() - t.getTime() < 864e5) res.recent = true;
   }
-  return false;
+  return res;
+}
+// Same wording as metaRepeatText() in meta-leads.gs (service message only, no offers)
+function websiteRepeatText(first) {
+  return "Hi " + first + ", good news - you're already on the Kirkcaldy Dental waiting list, so there's nothing more to do. We'll be in touch.";
+}
+// Confirmation email (admin only – no offers or links). Returns the "Email status" value.
+function websiteConfirmEmail(to, first) {
+  if (MailApp.getRemainingDailyQuota() < 25) {      // keep the last emails of the day for owner alerts
+    if (typeof healthNotifyOnce === "function") healthNotifyOnce("MAIL_QUOTA_LAST", "\u26A0\uFE0F Daily email limit nearly used up",
+      "Google's daily email allowance is almost used, so lead confirmation emails are paused until tomorrow. Texts still go out.");
+    return "Not sent: daily limit";
+  }
+  try {
+    MailApp.sendEmail({
+      to: to, name: "Kirkcaldy Dental & Implant Clinic", replyTo: "info@kirkcaldydental.co.uk",
+      subject: "You're on our waiting list – Kirkcaldy Dental & Implant Clinic",
+      body: "Hi " + first + ",\n\nThank you for joining the waiting list for Kirkcaldy Dental & Implant Clinic, " +
+        "a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW.\n\n" +
+        "A member of our team will call you to confirm your details, and we'll keep you updated with opening dates. " +
+        "Joining the waiting list doesn't register you with the practice yet - we'll contact you before we open. " +
+        "You only need to sign up once.\n\n" +
+        "Any questions? Email info@kirkcaldydental.co.uk.\n\nKirkcaldy Dental & Implant Clinic\nkirkcaldydental.co.uk"
+    });
+    return "Sent";
+  } catch (err) { console.error("Email failed: " + err); return "Failed: " + String(err).slice(0, 80); }
 }
 function leadsSheet() {
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(LEADS_TAB);
   if (!sh) throw new Error("Tab \"" + LEADS_TAB + "\" not found");
   return sh;
-}
-
-// How many rows with this phone number were added in the last 24 hours
-function websiteRecentSignups(sh, headers, phone) {
-  var pc = headers.indexOf("Phone"), tc = headers.indexOf("Signup Time"), n = sh.getLastRow() - 1;
-  var tail = function (v) { var d = String(v || "").replace(/\D/g, ""); return d.length >= 10 ? d.slice(-10) : d; };
-  var want = tail(phone), since = Date.now() - 24 * 3600 * 1000, count = 0;
-  if (pc === -1 || tc === -1 || n < 1 || !want) return 0;
-  var rows = sh.getRange(Math.max(2, n - 498), 1, Math.min(n, 500), headers.length).getValues();   // newest 500 rows is plenty
-  rows.forEach(function (r) { if (tail(r[pc]) === want && new Date(r[tc]).getTime() > since) count++; });
-  return count;
 }
 
 // Counts page visits (e.g. QR scans) on the "Visits" tab: time + source only, nothing personal.
@@ -163,11 +173,13 @@ function niceFirstName(name) {
   return f;
 }
 function leadText(first, inHours) {
-  var when = inHours ? "very soon" : "tomorrow from 8am";
+  // No time promise ("very soon") – if the list gets busy, calls can take longer. Out of hours it says when calling starts.
+  var f = callWindow().from, start = f === 0 || f === 12 ? (f ? "12pm" : "8am") : f < 12 ? f + "am" : (f - 12) + "pm";
+  var when = inHours ? "" : " from " + start;
   var options = [
-    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you " + when + ". We can't wait to welcome you!",
-    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! Our team will call you " + when + ". We can't wait to welcome you!",
-    "Hi " + first + ", thanks for joining the Kirkcaldy Dental waiting list! We'll call you " + when + "."
+    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you" + when + " to confirm your details. We can't wait to welcome you!",
+    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! Our team will call you" + when + " to confirm your details. We can't wait to welcome you!",
+    "Hi " + first + ", thanks for joining the Kirkcaldy Dental waiting list! We'll call you" + when + " to confirm your details."
   ];
   for (var i = 0; i < options.length; i++) if (options[i].length <= 160) return options[i];
   return options[options.length - 1].slice(0, 160);
@@ -215,6 +227,7 @@ function ukMobile(n) {
   return n;
 }
 
+// Returns {id, status, price} from ClickSend (status "SUCCESS" when accepted), or nothing if the text was skipped.
 function sendSms(to, body) {
   var props = PropertiesService.getScriptProperties();
   var user = props.getProperty("CLICKSEND_USER"), key = props.getProperty("CLICKSEND_KEY");
@@ -232,7 +245,9 @@ function sendSms(to, body) {
     var code = res.getResponseCode(), txt = res.getContentText(), bad = [];
     try { ((JSON.parse(txt).data || {}).messages || []).forEach(function (m) { if (m.status !== "SUCCESS") bad.push(m.status); }); } catch (e) { bad.push("unreadable reply"); }
     if (code !== 200 || bad.length) smsFailed("HTTP " + code + (bad.length ? ", status " + bad.join("/") : "") + " – " + txt.slice(0, 300));
-  } catch (err) { smsFailed(String(err)); }
+    var m0 = {}; try { m0 = ((JSON.parse(txt).data || {}).messages || [])[0] || {}; } catch (e) {}
+    return { id: m0.message_id || "", status: m0.status || (code === 200 ? "UNKNOWN" : "HTTP " + code), price: m0.message_price || "" };
+  } catch (err) { smsFailed(String(err)); return { id: "", status: "ERROR", price: "" }; }
 }
 
 // Logs a failed text and tells the owner by email (wrong keys, no credit, sender ID not approved…)
