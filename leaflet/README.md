@@ -35,6 +35,7 @@ Website and QR sign-ups get the same instant thank-you text as Facebook leads, a
 2. In the Apps Script editor, go to **Project Settings → Script Properties** and add:
    - `CLICKSEND_USER`: your ClickSend username
    - `CLICKSEND_KEY`: your ClickSend API key (Dashboard → API Credentials)
+   - `CALL_HOURS` (optional): leave unset for a 24-hour service (texts say "we'll call you very soon"); or e.g. `8-21` so out-of-hours sign-ups are told "tomorrow from 8am"
    - `ONCALL_MOBILE`: one or more mobiles for new-lead alerts, comma-separated, e.g. `07700900123, 07700900456` (optional)
 3. Deploy a **new version** of the web app (Deploy → Manage deployments → Edit → New version).
 Until the keys are added, sign-ups still save and email as normal; the texts are just skipped.

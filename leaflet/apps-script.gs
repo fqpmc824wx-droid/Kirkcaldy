@@ -103,7 +103,7 @@ function niceFirstName(name) {
   f = f.normalize("NFD").replace(/[\u0300-\u036f]/g, "")   // "Zoë" -> "Zoe" (accents would make it a pricier Unicode SMS)
        .replace(/[\u2018\u2019]/g, "'").replace(/[^A-Za-z\-']/g, "");
   if (!f) return "there";
-  if (f === f.toLowerCase() || f === f.toUpperCase())        // "sarah" / "SARAH" -> "Sarah"; "McKenzie" kept as typed
+  if (f === f.toLowerCase() || f === f.toUpperCase() || /^[a-z]/.test(f))   // "sarah"/"SARAH"/"sARAH" -> "Sarah"; "McKenzie" kept
     f = f.toLowerCase().replace(/(^|[-'])([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
   return f;
 }
@@ -117,10 +117,16 @@ function leadText(first, inHours) {
   for (var i = 0; i < options.length; i++) if (options[i].length <= 160) return options[i];
   return options[options.length - 1].slice(0, 160);
 }
-// Call hours 8am-9pm UK time (same as meta-leads.gs)
+// Call hours from Script Property CALL_HOURS: "24h" (default, 24-hour service) or e.g. "8-21" (same as meta-leads.gs)
+function callWindow() {
+  var v = String(PropertiesService.getScriptProperties().getProperty("CALL_HOURS") || "24h").trim().toLowerCase();
+  var m = v.match(/^(\d{1,2})\s*-\s*(\d{1,2})$/);
+  return m ? { from: Number(m[1]), to: Number(m[2]) } : { from: 0, to: 24 };
+}
 function inCallHours(d) {
+  var w = callWindow();
   var h = Number(Utilities.formatDate(d, "Europe/London", "H"));
-  return h >= 8 && h < 21;
+  return h >= w.from && h < w.to;
 }
 
 // UK numbers to international format for ClickSend (07… → +447…)
