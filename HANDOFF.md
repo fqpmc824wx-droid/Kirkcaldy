@@ -53,6 +53,11 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 > **The instant confirmation text to every lead is a must-have (owner).**
 
 ## Step 4 – Automation sized for a FLOOD of leads
+**➜ FIRST CHOICE (free): our own lead handler, `leads/meta-leads.gs` – see `leads/README.md`.**
+- It does everything below inside the Waiting List sheet's Apps Script.
+- You only pay for the texts.
+- Use Make.com only if the Meta app/token setup can't be done.
+
 Demand evidence:
 - **Glenrothes Dental House launch (opened Feb 2026), NHS registrations per month:** Feb 1,187 · **Mar 2,598** (peak ~600 a week, ~85 a day) · Apr 1,200 · May 762 · Jun–Oct ~480–660. That's ~8,800 in 9 months.
 - These are registrations. Raw leads and enquiries will be higher.
