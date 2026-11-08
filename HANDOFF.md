@@ -50,6 +50,11 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 3. Install the **Gmail** app on the team phones with info@kirkcaldydental.co.uk and turn on notifications, so the "New lead" email from Step 4 also pops up.
 4. ClickSend: pay-as-you-go ~£20 top-up. Sender ID `KirkDental`. Copy the username and API key into Zapier.
 
+> **The instant confirmation text to every lead is a must-have (owner).** The Zapier FREE plan can't do it: Facebook Lead Ads is a premium app, and free Zaps are limited to one action. Cheapest options:
+> - Zapier Professional (~$20/mo), as below. Recommended.
+> - Make.com free plan + ClickSend, with the same steps.
+> QR/leaflet sign-ups get the same text from the website's Apps Script (leaflet chat).
+
 ## Step 4 – Zapier Professional (~$20/month billed yearly, ~$30 monthly; check zapier.com/pricing)
 Professional includes Facebook Lead Ads (a premium app), multi-step Zaps, Filters and Paths, and about 750 tasks a month.
 Each lead uses about 4–5 tasks, so that covers around 150 leads a month. Upgrade the task tier if you get more.
