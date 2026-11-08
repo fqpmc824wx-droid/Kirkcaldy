@@ -1,0 +1,37 @@
+--- a/banner/source/banner.html
++++ b/banner/source/banner.html
+@@ -34,12 +34,12 @@
+   .scan { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 72mm); text-align:center;
+           color:#fff; font-family:"Playfair",serif; font-weight:800; text-transform:uppercase; line-height:1.05; font-size:40mm; letter-spacing:0.02em; }
+   .scan span { color:#D9BD82; }
+-  .tile { left: calc(1300mm + var(--b) + 90mm); top: calc(var(--b) + 178mm); width:320mm; height:320mm;
++  .tile { left: calc(1300mm + var(--b) + 90mm); top: calc(var(--b) + 160mm); width:320mm; height:320mm;
+           background:#fff; border-radius:12mm; }
+-  .qr { left: calc(1300mm + var(--b) + 100mm); top: calc(var(--b) + 188mm); width:300mm; height:300mm; }
+-  .url { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 512mm); text-align:center;
+-         color:#fff; font-weight:700; font-size:21mm; white-space:nowrap; }
+-  .addr { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 528mm); text-align:center; color:#D9BD82; font-weight:700; white-space:nowrap; }
++  .qr { left: calc(1300mm + var(--b) + 100mm); top: calc(var(--b) + 170mm); width:300mm; height:300mm; }
++  .url { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 490mm); text-align:center;
++         color:#fff; font-weight:700; font-size:21mm; white-space:nowrap; line-height:1; }
++  .addr { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 526mm); text-align:center; color:#D9BD82; font-weight:700; white-space:nowrap; line-height:1; }
+   .divider { left: calc(1300mm + var(--b) - 4mm); top:0; width:8mm; height:100%; background:#B8964F; }
+   .flour { height:3.6mm; top:0; }
+   .flour.l { background: linear-gradient(90deg, rgba(138,106,44,0), var(--gold)); }
+@@ -71,14 +71,14 @@
+   // fit a single-line element to a target width (mm) by scaling font-size
+   const MM=96/25.4;
+   function fit(el, targetMm, maxMm){ el.style.fontSize=maxMm+'mm';
+-    const w=el.scrollWidth/MM; if(w>targetMm) el.style.fontSize=(maxMm*targetMm/w)+'mm'; }
++    const rg=document.createRange(); rg.selectNodeContents(el); const w=rg.getBoundingClientRect().width/MM; if(w>targetMm) el.style.fontSize=(maxMm*targetMm/w)+'mm'; }
+   window.layout=async()=>{ await document.fonts.ready;
+     fit(document.querySelector('.head .l1'),1200,150);
+     document.querySelector('.head .l2').style.fontSize=(parseFloat(document.querySelector('.head .l1').style.fontSize)*1.3)+'mm';
+     const s=document.getElementById('st1'), s2=document.getElementById('st2');
+     s.style.fontSize='84mm'; let w=s.getBoundingClientRect().width/MM; if(w>1150) s.style.fontSize=(84*1150/w)+'mm';
+     s2.style.fontSize='44mm'; w=s2.getBoundingClientRect().width/MM; if(w>1000) s2.style.fontSize=(44*1000/w)+'mm';
+-    fit(document.getElementById('url'),350,23); fit(document.getElementById('addr'),350,17); fit(document.getElementById('sc2'),350,44); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
++    fit(document.getElementById('url'),360,24); fit(document.getElementById('addr'),360,15.5); fit(document.getElementById('sc2'),350,30.8); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
+     // flourishes either side of "Opening Soon!"
+     { const r=document.getElementById('os').getBoundingClientRect(), b=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--b'));
+       const L=r.left/MM, R=r.right/MM, cy=(r.top+r.height*0.56)/MM, x0=b+70, x1=b+1230, g=26, d=14, d2=7;
