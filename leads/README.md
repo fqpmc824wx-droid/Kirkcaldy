@@ -30,7 +30,7 @@ Every minute it pulls new Facebook/Instagram Instant Form leads from Meta and, f
 5. **Apps Script:**
    - In the Waiting List sheet, go to Extensions → Apps Script and add the file `meta-leads`.
    - Paste the code in, then add the Script Properties `META_PAGE_TOKEN` and `META_FORM_IDS`.
-   - The ClickSend keys and `ONCALL_MOBILE` are shared with the website form.
+   - The ClickSend keys and `ONCALL_MOBILE` are shared with the website form. `ONCALL_MOBILE` can list several mobiles, comma-separated (e.g. on-call person + owner); everyone listed gets every alert.
 6. Run `installLeadTriggers()` once and allow the permissions.
 7. **Test:**
    - Use Meta's Lead Ads Testing Tool (developers.facebook.com/tools/lead-ads-testing) to create a test lead.
