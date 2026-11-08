@@ -93,11 +93,13 @@ function metaDoNotContact(phone) {
 
 function installLeadTriggers() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
-    if (["pollMetaLeads", "morningSummary"].indexOf(t.getHandlerFunction()) !== -1) ScriptApp.deleteTrigger(t);
+    if (["pollMetaLeads", "morningSummary", "backlogCheck", "eveningReport"].indexOf(t.getHandlerFunction()) !== -1) ScriptApp.deleteTrigger(t);
   });
   ScriptApp.newTrigger("pollMetaLeads").timeBased().everyMinutes(1).create();
   ScriptApp.newTrigger("morningSummary").timeBased().atHour(callWindow().from === 0 ? 8 : callWindow().from).nearMinute(0).everyDays(1)
     .inTimezone("Europe/London").create();
+  ScriptApp.newTrigger("backlogCheck").timeBased().everyMinutes(15).create();
+  ScriptApp.newTrigger("eveningReport").timeBased().atHour(21).nearMinute(0).everyDays(1).inTimezone("Europe/London").create();
   pollMetaLeads();
 }
 
@@ -215,4 +217,76 @@ function morningSummary() {
   var n = data.slice(1).filter(function (r) { return r[col] === "Call 8am"; }).length;
   if (n) alertTeam("🦷 Good morning – " + n + " overnight lead" + (n > 1 ? "s" : "") +
     " to call. Filter the Waiting List sheet by Status = \"Call 8am\".", false);
+}
+
+// ---------- Overload guard + evening report (Facebook script only) ----------
+// Every 15 min in calling hours: count leads still not called after 60 min (Status blank).
+// If that backlog reaches BACKLOG_ALERT (Script Property, default 15) the owner is emailed
+// (OWNER_EMAIL) at most once every 2 hours, so the ad budget can be cut before people wait too long.
+function metaBacklog() {
+  var sh = leadsSheet(), data = sh.getDataRange().getValues(), h = data[0].map(String);
+  var tc = h.indexOf("Signup Time"), sc = h.indexOf("Status");
+  if (tc === -1 || sc === -1) return { waiting: 0, oldestMins: 0 };
+  var now = new Date().getTime(), waiting = 0, oldest = 0;
+  var from = callWindow().from;                       // overnight "Call 8am" leads count from opening time
+  var dayStart = new Date(Utilities.formatDate(new Date(), "Europe/London", "yyyy-MM-dd'T'") +
+    ("0" + from).slice(-2) + ":00:00" + Utilities.formatDate(new Date(), "Europe/London", "XXX")).getTime();
+  for (var i = 1; i < data.length; i++) {
+    var st = String(data[i][sc]).trim(), t = data[i][tc];
+    if (!(t instanceof Date) || (st !== "" && st !== "Call 8am")) continue;
+    var start = st === "Call 8am" ? Math.max(t.getTime(), dayStart) : t.getTime();
+    var mins = (now - start) / 60000;
+    if (mins >= 60) { waiting++; oldest = Math.max(oldest, mins); }
+  }
+  return { waiting: waiting, oldestMins: Math.round(oldest) };
+}
+
+function backlogCheck() {
+  if (!inCallHours(new Date())) return;
+  var props = PropertiesService.getScriptProperties();
+  var limit = Number(props.getProperty("BACKLOG_ALERT") || 15);
+  var b = metaBacklog();
+  if (b.waiting < limit) return;
+  var last = Number(props.getProperty("BACKLOG_LAST") || 0);
+  if (new Date().getTime() - last < 2 * 60 * 60 * 1000) return;
+  props.setProperty("BACKLOG_LAST", String(new Date().getTime()));
+  var to = String(props.getProperty("OWNER_EMAIL") || "").split(",").map(function (e) { return e.trim(); }).filter(String);
+  to.forEach(function (e) {
+    try {
+      MailApp.sendEmail(e, "\u26A0\uFE0F " + b.waiting + " leads waiting over an hour \u2013 Kirkcaldy Dental",
+        b.waiting + " waiting-list leads have not been called yet (oldest " + b.oldestMins + " minutes).\n\n" +
+        "To catch up: lower the Meta ad budget by about 20% (Ads Manager \u2192 ad set \u2192 budget), " +
+        "or add a second caller (Script Property ONCALL_MOBILE: add their number, and set ALERT_MODE to rotate).\n\n" +
+        "Remember to fill in Status (Called / No answer / Booked) after each call, otherwise leads count as waiting.\n\n" +
+        "Waiting List sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl());
+    } catch (err) { console.error("Backlog email failed: " + err); }
+  });
+}
+
+// 9pm: one email to the owner with today's numbers.
+function eveningReport() {
+  var props = PropertiesService.getScriptProperties();
+  var to = String(props.getProperty("OWNER_EMAIL") || "").split(",").map(function (e) { return e.trim(); }).filter(String);
+  if (!to.length) return;
+  var sh = leadsSheet(), data = sh.getDataRange().getValues(), h = data[0].map(String);
+  var tc = h.indexOf("Signup Time"), sc = h.indexOf("Status"), src = h.indexOf("Source");
+  var today = Utilities.formatDate(new Date(), "Europe/London", "yyyy-MM-dd");
+  var n = 0, called = 0, booked = 0, noans = 0, bySrc = {};
+  for (var i = 1; i < data.length; i++) {
+    var t = data[i][tc];
+    if (!(t instanceof Date) || Utilities.formatDate(t, "Europe/London", "yyyy-MM-dd") !== today) continue;
+    n++;
+    var st = String(data[i][sc]).trim().toLowerCase();
+    if (st === "called") called++; else if (st === "booked") booked++; else if (st === "no answer") noans++;
+    var so = String(src === -1 ? "" : data[i][src]) || "unknown"; bySrc[so] = (bySrc[so] || 0) + 1;
+  }
+  var b = metaBacklog();
+  var lines = Object.keys(bySrc).map(function (k) { return "  " + k + ": " + bySrc[k]; }).join("\n");
+  to.forEach(function (e) {
+    try {
+      MailApp.sendEmail(e, "Today: " + n + " new waiting-list sign-ups \u2013 Kirkcaldy Dental",
+        "New sign-ups today: " + n + "\n" + lines + "\n\nCalled: " + called + "   Booked: " + booked + "   No answer: " + noans +
+        "\nStill waiting over an hour: " + b.waiting + "\n\nWaiting List sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl());
+    } catch (err) { console.error("Evening report failed: " + err); }
+  });
 }

@@ -21,7 +21,7 @@ Ask the owner to merge PR #1 and PR #2 into `main` first, if they're happy to. O
 | Google login **info@kirkcaldydental.co.uk** (owns the Waiting List sheet) | owner |
 | Owner's personal Facebook login (will be admin of the clinic Page) | owner |
 | Payment card (Meta ads + text credit) | owner |
-| Mobile numbers: **2 callers** + **owner** | owner |
+| Mobile number of the **one caller** who gets the lead texts (owner gets email alerts instead) | owner |
 | Daily ad budget: **£20/day to start** (2 ads; the family's alternative is £10/day, see section 8) | agreed |
 | Clinic phone number 01592 … (optional; can be added later) | owner |
 
@@ -99,13 +99,14 @@ Follow **leads/README.md** "One-time setup":
 | `CLICKSEND_KEY` | ClickSend API key |
 | `META_PAGE_TOKEN` | the Page token |
 | `META_FORM_IDS` | the Form ID (comma-separate if more than one) |
-| `ONCALL_MOBILE` | the **2 callers' mobiles**, comma-separated |
-| `ALERT_MODE` | `rotate` (each lead goes to the next caller in turn) |
+| `ONCALL_MOBILE` | the **one caller's mobile** (owner decision: only one person gets the lead text) |
+| `ALERT_MODE` | leave empty (only needed if more callers are added later; then use `rotate`) |
 | `OWNER_EMAIL` | `info@kirkcaldydental.co.uk` (owner gets a free **email** copy of every alert; Gmail app on the owner's phone with notifications ON for this account) |
 | `OWNER_MOBILE` | leave **empty** (owner chose email alerts instead of text copies) |
 | `CALL_HOURS` | `8-21` (owner decision: **no calls after 9pm**) |
+| `BACKLOG_ALERT` | `15` (owner is emailed if 15+ leads have waited over an hour; lower it to e.g. `10` for one caller if preferred) |
 Don't touch `ALERT_NEXT`, `META_SINCE` or `META_SEEN`. They are set automatically.
-6. Run **`installLeadTriggers()`** once and allow permissions. It checks Meta every minute and sends the 8am summary.
+6. Run **`installLeadTriggers()`** once and allow permissions. It checks Meta every minute, sends the 8am summary, checks for a call backlog every 15 minutes (emails the owner if leads are piling up) and emails the owner a 9pm daily report.
 7. **Deploy the website script** as a Web app:
    - Execute as Me, access Anyone.
    - Paste the `/exec` URL into `site/register/index.html` (`PASTE_APPS_SCRIPT_URL_HERE`) and re-upload it.
@@ -115,7 +116,7 @@ What happens with every lead, wherever it comes from:
 - **8am–9pm:**
   - The row is added to the sheet.
   - The lead gets the thank-you text: "Hi Sarah, thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you very soon. We can't wait to welcome you!"
-  - The next caller in turn gets the text alert "🦷 NEW LEAD – call now…". The owner gets the same alert as an **email** to info@kirkcaldydental.co.uk.
+  - The caller gets the text alert "🦷 NEW LEAD – call now…". The owner gets the same alert as an **email** to info@kirkcaldydental.co.uk.
   - The lead gets a confirmation email.
 - **9pm–8am:**
   - The text says "…will call you tomorrow from 8am…".
@@ -126,13 +127,13 @@ What happens with every lead, wherever it comes from:
 ## 6. Test everything, using the owner's own phone and email
 | Test | How | Expect |
 |---|---|---|
-| Facebook lead | Meta **Lead Ads Testing Tool** (developers.facebook.com/tools/lead-ads-testing) | within ~1–2 min: row in Waiting list with Source facebook; thank-you text and email; text alert to one caller; **owner alert email arrives in info@ and the Gmail app shows a notification** (if not, see note below); "Assigned to" filled |
+| Facebook lead | Meta **Lead Ads Testing Tool** (developers.facebook.com/tools/lead-ads-testing) | within ~1–2 min: row in Waiting list with Source facebook; thank-you text and email; text alert to the caller; **owner alert email arrives in info@ and the Gmail app shows a notification** (if not, see note below); "Assigned to" filled |
 | Website sign-up | fill in kirkcaldydental.co.uk/register | row with Source website + same texts/alerts |
 | Leaflet QR | scan the QR on the leaflet PDF | row with Source leaflet; Visits tab counts the scan |
 | Banner QR | scan the QR on the banner PDF | row with Source banner |
-| Rotation | submit 2 more test leads | alerts alternate between the 2 callers |
 | Do not contact | set a test row's Status to DO NOT CONTACT, submit again with the same phone | row saved, but no text, alert or email |
 | Dashboard | open the Dashboard tab | counts by source update |
+| Overload email | temporarily set `BACKLOG_ALERT` to `1`, leave a test row with blank Status and a Signup Time over an hour old, run `backlogCheck()` from the editor | owner gets the "leads waiting over an hour" email; then set `BACKLOG_ALERT` back to `15` and delete `BACKLOG_LAST` |
 Delete all test rows afterwards.
 **Owner email alerts:** the script sends from info@ to info@. If the Gmail app doesn't notify for these self-sent emails, set `OWNER_EMAIL` to the owner's personal Gmail address instead, or add a Gmail filter "From: info@… Subject contains NEW LEAD → Mark as important" with notifications set to "All". If anything fails, check Apps Script → **Executions** for errors. "Meta API 190" means the token is wrong or expired.
 
@@ -155,7 +156,7 @@ Ads Manager → Create:
 | 1 | **£20** | check everything works, first data | change nothing for 3–4 days; check approvals, leads, texts, callers daily |
 | 2 | £20 → **£25** | pick the winner | pause the ad whose cost per lead is 30%+ worse after ~7 days; add 1–2 new versions of the winner (ask the ads chat) |
 | 3 | £25 → **£35** | scale carefully | raise budget ~20–25% every 3–4 days; if frequency > ~3, widen to 15 miles or add fresh ads |
-| 4 | £35 → **£50** | run at caller capacity | settle at the level the 2 callers can call within the hour (~60–80 leads/day max) |
+| 4 | £35 → **£50** | run at caller capacity | settle at the level the caller can ring within the hour (~30–40 leads/day for one person; add a second caller to ONCALL_MOBILE with ALERT_MODE `rotate` if more) |
 Total ≈ **£800–850** for 4 weeks, plus texts.
 
 Daily rules:
@@ -181,6 +182,21 @@ If opening is more than ~6 weeks away, stay at £15–20/day longer.
   - The ads chat reads the Dashboard and, once the ad account is connected, Meta results.
   - It recommends budget, winner and new creatives, and logs what worked.
 - Any wording change: update BRAND.md first and tell all chats.
+
+## 11. When the clinic's 01592 phone number exists: add it everywhere (owner wants it on the ads)
+Some people would rather phone than fill in a form, so show the number. Keep the form as the main route, because it captures details and gets cheaper leads.
+1. **BRAND.md:** add the number under contact details first. Tell all three chats (ads, leaflet, website).
+2. **Ad images and videos:** the ads chat sets `PHONE` in `ads/source/ad.html` and re-renders. The number appears as "kirkcaldydental.co.uk/register · Call 01592 …" on all 4 ads and videos. Then replace the files in Drive "1. Meta Ads" and in Ads Manager.
+3. **Primary text:** add a last line to both ads: "Prefer to talk? Call us on 01592 … (8am–9pm)."
+4. **Instant Form completion screen:** set the button to **Call business** with the number. Another option is a second button "View website".
+5. **Facebook Page:** add the number and a **Call now** button.
+6. **Leaflet and banner:** the leaflet chat re-renders with the number (`node render.js "01592 …"`).
+7. **Website:** the website chat adds it to the footer and the register page.
+8. **Phone answering:**
+   - Answer 8am–9pm.
+   - The voicemail message says: "Thanks for calling Kirkcaldy Dental. Leave your name and number and we'll call you back, or join our waiting list at kirkcaldydental.co.uk/register."
+   - Log every caller in the Waiting list tab with **Source = phone**, so the Dashboard counts them.
+9. Optional later: test a separate **Calls** ad (click-to-call) against the form ad, if lots of people phone.
 
 ---
 *Being added when the research teams finish:*

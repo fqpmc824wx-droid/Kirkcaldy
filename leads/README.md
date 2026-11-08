@@ -52,3 +52,8 @@ If the token ever stops working, the script logs "Meta API 190" (Apps Script →
 - **"Marketing consent" column:** "Yes" only if the person ticked the optional consent box on the Meta form. Only "Yes" people may ever get promotional messages.
 - The texts follow `CALL_HOURS` (8am–9pm).
 - Full checklist: HANDOFF.md → "Text messages – legal checklist".
+
+## Overload guard and evening report (emails to OWNER_EMAIL)
+- **Every 15 minutes** in calling hours, the script counts leads not yet called after 60 minutes (Status still blank, or "Call 8am" leads an hour after opening). If there are **15 or more** (Script Property `BACKLOG_ALERT` to change it), the owner gets an email: "⚠️ 16 leads waiting over an hour". It suggests lowering the ad budget ~20% or adding a second caller. It sends at most one email every 2 hours.
+- **At 9pm** the owner gets one email with today's numbers: new sign-ups by source, called, booked, no answer, and still waiting.
+- Callers must fill in **Status** after every call, otherwise leads keep counting as waiting.
