@@ -4,162 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kirkcaldy Dental &amp; Implant Clinic – New NHS Dental Practice Opening in Kirkcaldy</title>
-<meta name="description" content="Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening in Kirkcaldy, Fife. Register your interest to be the first to hear opening news and updates.">
+<meta name="description" content="Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon in Kirkcaldy, Fife.">
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold: #c3a363;
-    --gold-dark: #9a7a3f;
-    --gold-soft: #f6efe3;
-    --ink: #2f2f2f;
-    --muted: #6b6b6b;
-    --bg: #ffffff;
-    --line: #e8e1d4;
-  }
+  :root { --gold: #c3a363; --gold-dark: #9a7a3f; --soft: #f6efe3; --ink: #2f2f2f; --muted: #6b6b6b; }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; font-family: "Lato", system-ui, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; }
-  a { color: var(--gold-dark); }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-
-  header { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 10; }
-  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 16px; }
-  header img { height: 44px; width: auto; }
-  .btn { display: inline-block; background: linear-gradient(135deg, #c9a566, var(--gold-dark)); color: #fff; text-decoration: none; font-weight: 700; padding: 14px 28px; border-radius: 999px; border: 0; cursor: pointer; font-size: 1rem; box-shadow: 0 6px 18px rgba(154,122,63,.25); }
-  .btn:hover { filter: brightness(1.05); }
-  .btn-sm { padding: 10px 20px; font-size: .9rem; white-space: nowrap; }
-
-  .hero { background: linear-gradient(180deg, var(--gold-soft), #fff); text-align: center; padding: 72px 0 64px; }
-  .hero img.logo { width: min(320px, 70vw); height: auto; margin-bottom: 28px; }
-  .badge { display: inline-block; border: 1px solid var(--gold); color: var(--gold-dark); border-radius: 999px; padding: 6px 16px; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
-  h1, h2 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.15; margin: 0 0 16px; }
-  h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
+  html, body { height: 100%; }
+  body { margin: 0; font-family: "Lato", system-ui, sans-serif; color: var(--ink); line-height: 1.6;
+         background: linear-gradient(180deg, var(--soft), #fff 70%); display: flex; flex-direction: column; }
+  main { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 56px 20px; }
+  .inner { max-width: 720px; }
+  img.logo { width: min(340px, 72vw); height: auto; margin-bottom: 32px; }
+  .badge { display: inline-block; border: 1px solid var(--gold); color: var(--gold-dark); border-radius: 999px; padding: 6px 16px;
+           font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 20px; }
+  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.12; margin: 0 0 18px; font-size: clamp(2.3rem, 6.5vw, 3.8rem); }
   h1 span { color: var(--gold); }
-  h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
-  .lead { font-size: 1.2rem; color: var(--muted); max-width: 640px; margin: 0 auto 28px; }
-  .urgent { font-weight: 700; color: var(--gold-dark); margin-top: 18px; }
-
-  section { padding: 64px 0; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-  .card { border: 1px solid var(--line); border-radius: 14px; padding: 26px; background: #fff; }
-  .card .num { font-family: "Cormorant Garamond", serif; font-size: 2.4rem; color: var(--gold); line-height: 1; }
-  .card h3 { margin: 10px 0 6px; font-size: 1.1rem; }
-  .card p { margin: 0; color: var(--muted); }
-  .center { text-align: center; }
-  .alt { background: var(--gold-soft); }
-
-  ul.services { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-  ul.services li { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; }
-  ul.services li::before { content: "✦"; color: var(--gold); margin-right: 10px; }
-
-  .contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-  .contact .card strong { display: block; color: var(--gold-dark); text-transform: uppercase; font-size: .8rem; letter-spacing: .08em; margin-bottom: 6px; }
-
-  .info { background: var(--gold-soft); padding: 48px 0; font-size: .95rem; color: var(--muted); }
-  .info h2 { font-size: 1.6rem; }
-  .info .grid { gap: 28px; }
-  .info h3 { font-size: 1rem; margin: 0 0 6px; }
-  .info p { margin: 0 0 8px; }
-
-  footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); font-size: .9rem; }
-  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
-
-  @media (max-width: 520px) {
-    header img { height: 34px; }
-    .hero { padding: 48px 0; }
-  }
+  p.lead { font-size: 1.2rem; color: var(--muted); margin: 0 auto; max-width: 560px; }
+  footer { text-align: center; padding: 20px; font-size: .85rem; color: var(--muted); }
+  footer a { color: var(--gold-dark); }
 </style>
 </head>
 <body>
-
-<header>
-  <div class="wrap">
-    <a href="#top" aria-label="Kirkcaldy Dental &amp; Implant Clinic home"><img src="assets/logo-horizontal.svg" alt="Kirkcaldy Dental &amp; Implant Clinic"></a>
-    <a class="btn btn-sm" href="#register">Register interest</a>
+<main>
+  <div class="inner">
+    <img class="logo" src="assets/logo-stacked.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
+    <div><span class="badge">Coming soon</span></div>
+    <h1>New NHS Dental Practice<br><span>Opening in Kirkcaldy</span></h1>
+    <p class="lead">Our website is coming soon. Follow us on Facebook and Instagram for opening news.</p>
   </div>
-</header>
-
-<main id="top">
-  <section class="hero">
-    <div class="wrap">
-      <img class="logo" src="assets/logo-stacked.svg" alt="Kirkcaldy Dental &amp; Implant Clinic logo">
-      <div><span class="badge">Opening soon</span></div>
-      <h1>New NHS Dental Practice<br><span>Opening in Kirkcaldy</span></h1>
-      <p class="lead">Kirkcaldy Dental &amp; Implant Clinic is coming soon. Register your interest and we'll keep you updated with opening news and information.</p>
-      <a class="btn" href="#register">Register your interest</a>
-      <p class="urgent">Be the first to know when we open.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <h2 class="center">How it works</h2>
-      <div class="grid" style="margin-top:28px">
-        <div class="card"><div class="num">1</div><h3>Register your interest</h3><p>Sign up through our Facebook or Instagram form, or contact us. It takes less than a minute.</p></div>
-        <div class="card"><div class="num">2</div><h3>Get your confirmation</h3><p>You'll receive a text and email confirming we have your details.</p></div>
-        <div class="card"><div class="num">3</div><h3>Stay informed</h3><p>We'll keep you updated with opening dates and practice information as soon as they're confirmed.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="alt">
-    <div class="wrap">
-      <h2 class="center">Our services</h2>
-      <p class="lead center">Modern, friendly dentistry for the whole family.</p>
-      <ul class="services">
-        <li>Check-ups &amp; hygiene</li>
-        <li>Fillings &amp; extractions</li>
-        <li>Children's dentistry</li>
-        <li>Dental implants</li>
-        <li>Invisalign &amp; clear aligners</li>
-        <li>Teeth whitening &amp; veneers</li>
-      </ul>
-    </div>
-  </section>
-
-  <section id="register">
-    <div class="wrap">
-      <h2 class="center">Register your interest</h2>
-      <p class="lead center">Sign up on our Facebook or Instagram page, or contact us directly.</p>
-      <div class="contact">
-        <div class="card"><strong>Call us</strong><a href="tel:[PHONE]">[PHONE]</a></div>
-        <div class="card"><strong>Email</strong><a href="mailto:info@kirkcaldydentist.co.uk">info@kirkcaldydentist.co.uk</a></div>
-        <div class="card"><strong>Find us</strong>[ADDRESS LINE 1]<br>Kirkcaldy, Fife [POSTCODE]</div>
-      </div>
-    </div>
-  </section>
-  <section class="info" id="patient-information">
-    <div class="wrap">
-      <h2>Patient information</h2>
-      <div class="grid">
-        <div>
-          <h3>NHS &amp; private care</h3>
-          <p>Kirkcaldy Dental &amp; Implant Clinic is a new NHS dental practice that will also offer private treatments. Full details of NHS and private services and fees will be published before we open.</p>
-        </div>
-        <div>
-          <h3>Complaints</h3>
-          <p>If you're unhappy with any aspect of our service, please contact the Practice Manager on [PHONE] or at <a href="mailto:info@kirkcaldydentist.co.uk">info@kirkcaldydentist.co.uk</a>.</p>
-          <p>For NHS treatment, you can also contact NHS Fife Patient Experience Team or the <a href="https://www.spso.org.uk" rel="noopener">Scottish Public Services Ombudsman</a>. For private treatment, you can contact the <a href="https://dentalcomplaints.org.uk" rel="noopener">Dental Complaints Service</a>.</p>
-        </div>
-        <div>
-          <h3>Regulation</h3>
-          <p>All dental professionals working at the practice are registered with the General Dental Council (GDC). You can check a dental professional's registration at <a href="https://www.gdc-uk.org" rel="noopener">gdc-uk.org</a>.</p>
-          <p>Website last updated: November 2026.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
-
 <footer>
-  <div class="wrap">
-    <span>© <span id="yr">2026</span> Kirkcaldy Dental &amp; Implant Clinic</span>
-    <span><a href="#patient-information">Complaints &amp; regulation</a> · <a href="privacy.html">Privacy policy</a></span>
-  </div>
+  © 2026 Kirkcaldy Dental &amp; Implant Clinic · <a href="mailto:info@kirkcaldydentist.co.uk">info@kirkcaldydentist.co.uk</a> · <a href="privacy.html">Privacy, complaints &amp; regulation</a>
 </footer>
-<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>
 </html>
