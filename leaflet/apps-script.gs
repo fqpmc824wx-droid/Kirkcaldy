@@ -60,8 +60,7 @@ function doPost(e) {
   var src = p.source || "website";
 
   // Instant thank-you text to the person, and a "new lead" alert to the on-call mobile
-  sendSms(p.phone, "Hi " + first + ", thanks for joining the waiting list for Kirkcaldy Dental & Implant Clinic, " +
-    "the new NHS dental practice opening soon on Tolbooth Street, Kirkcaldy. We'll be in touch shortly.");
+  sendSms(p.phone, leadText(niceFirstName(p.name), inCallHours(new Date())));
   var alertMsg = "\uD83E\uDDB7 NEW LEAD (" + src + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || "");
   // ONCALL_MOBILE can hold several numbers, comma-separated (on-call person, owner…)
   String(PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE") || "")
@@ -95,6 +94,33 @@ function logVisit(p) {
   var src = String(p.source || "website").replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) || "website";
   sh.appendRow([new Date(), src]);
   return out("ok");
+}
+
+// Same lead thank-you text as Facebook leads (copied unchanged from leads/meta-leads.gs, keep them identical).
+// ONE text message: at most 160 plain characters, no emoji or curly quotes.
+function niceFirstName(name) {
+  var f = String(name || "").trim().split(/\s+/)[0] || "";
+  f = f.normalize("NFD").replace(/[\u0300-\u036f]/g, "")   // "Zoë" -> "Zoe" (accents would make it a pricier Unicode SMS)
+       .replace(/[\u2018\u2019]/g, "'").replace(/[^A-Za-z\-']/g, "");
+  if (!f) return "there";
+  if (f === f.toLowerCase() || f === f.toUpperCase())        // "sarah" / "SARAH" -> "Sarah"; "McKenzie" kept as typed
+    f = f.toLowerCase().replace(/(^|[-'])([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
+  return f;
+}
+function leadText(first, inHours) {
+  var when = inHours ? "very soon" : "tomorrow from 8am";
+  var options = [
+    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you " + when + ". We can't wait to welcome you!",
+    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! Our team will call you " + when + ". We can't wait to welcome you!",
+    "Hi " + first + ", thanks for joining the Kirkcaldy Dental waiting list! We'll call you " + when + "."
+  ];
+  for (var i = 0; i < options.length; i++) if (options[i].length <= 160) return options[i];
+  return options[options.length - 1].slice(0, 160);
+}
+// Call hours 8am-9pm UK time (same as meta-leads.gs)
+function inCallHours(d) {
+  var h = Number(Utilities.formatDate(d, "Europe/London", "H"));
+  return h >= 8 && h < 21;
 }
 
 // UK numbers to international format for ClickSend (07… → +447…)
