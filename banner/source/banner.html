@@ -45,7 +45,7 @@
   <img class="abs logo" src="logo.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
   <div class="abs head" id="head"><div class="l1">New NHS Dental Practice</div><div class="l2">Opening Soon!</div></div>
   <div class="abs strip"></div>
-  <div class="abs striptext" id="strip">Join our waiting list today</div>
+  <div class="abs striptext"><span id="strip">Be first in line – join our waiting list</span></div>
   <div class="abs scan" id="scan"><div id="sc1">Scan to join</div><div id="sc2"><span>our waiting list</span></div></div>
   <div class="abs tile"></div>
   <img class="abs qr" src="qr.svg" alt="QR code to the waiting-list page">
@@ -60,7 +60,7 @@
     fit(document.querySelector('.head .l1'),1050,140);
     document.querySelector('.head .l2').style.fontSize=document.querySelector('.head .l1').style.fontSize;
     const s=document.getElementById('strip'); s.style.fontSize='64mm';
-    const w=s.scrollWidth/MM; if(w>980) s.style.fontSize=(64*980/w)+'mm';
+    const w=s.getBoundingClientRect().width/MM; if(w>960) s.style.fontSize=(64*960/w)+'mm';
     fit(document.getElementById('url'),400,21); fit(document.getElementById('sc2'),400,40); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
     return {head:document.querySelector('.head .l1').style.fontSize, strip:s.style.fontSize,
             headBottom:(document.getElementById('head').getBoundingClientRect().bottom/MM).toFixed(1)}; };
