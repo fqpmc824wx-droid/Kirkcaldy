@@ -108,7 +108,7 @@ Full click-by-click steps are in BROWSER-CLAUDE-LAUNCH.md section 7. Summary:
   - Never KY6, KY7 or KY8: the owner's own Glenrothes and Leven practices.
 - Minimum age **18**. No detailed interests. Placements: Advantage+, now the only option.
 - **Every Advantage+ creative enhancement OFF**, including generated text, image text rewriting and "Test new creative features". Meta's AI could otherwise write "accepting NHS patients".
-- Two ads, A and B (Drive "1. Meta Ads"): 4:5 image for Feeds; 9:16 video (fallback image) for Stories/Reels via placement asset customisation.
+- Two ads, A and B: Drive "1. Meta Ads" → folders "Ad A – Woman (USE THESE)" and "Ad B – Family (USE THESE)". Each has a 4:5 Feed video and image and a 9:16 Stories/Reels video and image, set via placement asset customisation. Ignore "Old versions – not used".
 - Primary text (Ad A): "🦷 New NHS dental practice – opening soon in Kirkcaldy. Be first in line – join our waiting list. We'll offer NHS and private dental care at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. It's free and quick to join our waiting list, and we'll keep you updated with opening news."
 - Primary text (Ad B): "👩‍👧 Kirkcaldy families: new NHS dental practice opening soon. Be first in line – join our waiting list. We'll offer NHS and private dental care at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. It's free and quick to join our waiting list, and you can tell us how many people in your household would like to join. We'll keep you updated with opening news."
   - The old "Looking for an NHS dentist for the whole family?" is gone. Questions about the viewer's dental situation risk Meta's personal-attributes policy, and it came close to "taking on patients".

@@ -256,9 +256,9 @@ Ads Manager → Create:
     - Never add EH (Leith and Granton are 9 miles away across the Forth), KY6, KY7 or KY8 (the owner's own Glenrothes and Leven practices).
   - **Age: minimum 18** (set it as the hard minimum-age control, not just a suggestion). **No detailed interests.** **Placements:** Advantage+ (the only option now).
   - No ad scheduling.
-- **Two ads** (Drive "1. Meta Ads"; if a file appears twice, use the NEWEST copy: images 8 Nov 21:54, videos 8 Nov 22:03):
-  - **Ad A:** Feeds = `Ad A – Feed 4x5 (woman).png`. Stories/Reels = `Ad A – VIDEO Stories-Reels 9x16 (woman).mp4`, backup `Ad A – Stories 9x16 (woman).png` (placement asset customisation).
-  - **Ad B:** the same with the `Ad B … (family)` files.
+- **Two ads.** Drive "1. Meta Ads" has a "READ ME – which ad file goes where" doc. **Use only the folders marked "(USE THESE)"**; ignore "Old versions – not used".
+  - **Ad A:** folder "Ad A – Woman (USE THESE)". Feeds = `2 – Ad A – FEED video (4x5).mp4` (backup `1 – Ad A – FEED image (4x5).png`). Stories/Reels = `4 – Ad A – STORIES & REELS video (9x16).mp4` (backup `3 – … image (9x16).png`). Use placement asset customisation.
+  - **Ad B:** folder "Ad B – Family (USE THESE)", with the same four files.
   - Text: copy **exactly** from HANDOFF.md Step 5 (primary text A and B, Stories/Reels text, three headlines, description). **CTA: Sign up.**
   - **Advantage+ creative: switch EVERY enhancement OFF.** Check both the creative step and "Advanced preview / Review defaults". Untick generated text variations, image text rewriting/"text improvements", "add overlays", music, image expansion, visual touch-ups and every AI-generated variant.
   - Optional sound for the videos: pick one calm instrumental from Meta's Sound Collection.
