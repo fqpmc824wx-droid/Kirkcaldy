@@ -89,7 +89,7 @@ def monogram(cx, top, cap_h):
     d_w = (d_b[2] - d_b[0]) * s
     # Offsets measured from the original artwork (relative to cap height)
     d_dx = float(os.environ.get("D_DX", "0.64")) * cap_h          # D starts this far right of K's left edge
-    d_dy = 0.355 * cap_h         # D sits this much lower than K
+    d_dy = float(os.environ.get("D_DY", "0.355")) * cap_h  # D sits this much lower than K
     total_w = d_dx + d_w
     kx = cx - total_w / 2 - k_b[0] * s * K_SX
     k_base = top + cap_h
@@ -103,7 +103,13 @@ def monogram(cx, top, cap_h):
     clip_id = f"kclip{int(cx)}{int(top)}"
     clip = (f'<clipPath id="{clip_id}"><rect x="{-big}" y="{-big}" width="{big + d_left + 1:.1f}" height="{2 * big}"/>'
             f'<rect x="{-big}" y="{-big}" width="{2 * big}" height="{big + d_top + 1:.1f}"/></clipPath>')
-    svg_frag = (f'<defs>{clip}</defs><path clip-path="url(#{clip_id})" d="{k_path}"/><path d="{d_path}"/>')
+    if os.environ.get("KD_STYLE") == "overlap":
+        # K sits on the D: no clipping, D drawn first, K on top (two-tone: K colour set by K_FILL)
+        kf = os.environ.get("K_FILL")
+        kattr = f' fill="{kf}"' if kf else ""
+        svg_frag = f'<path d="{d_path}"/><path data-kd="K"{kattr} d="{k_path}"/>'
+    else:
+        svg_frag = (f'<defs>{clip}</defs><path clip-path="url(#{clip_id})" d="{k_path}"/><path d="{d_path}"/>')
     return svg_frag, total_w, cap_h + d_dy
 
 
