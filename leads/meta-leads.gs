@@ -4,8 +4,8 @@
  * Every minute it checks Meta for new Instant Form leads, then for each one:
  *   1. adds a row to the Waiting List sheet (Source = "facebook")
  *   2. texts the lead straight away ("thanks, we'll be in touch")
- *   3. 8am–9pm: texts the on-call mobile "NEW LEAD – call now"
- *      9pm–8am: marks the row "Call 8am"; at 8am the on-call mobile gets a summary
+ *   3. texts the on-call mobile(s) "NEW LEAD – call now" – 24 hours a day by default (CALL_HOURS="24h").
+ *      If CALL_HOURS is set to e.g. "8-21", leads outside those hours are marked "Call 8am" and summarised at 8am.
  *   4. emails the lead a confirmation
  *
  * INSTALL – in the SAME Apps Script project as apps-script.gs (Waiting List sheet → Extensions → Apps Script):
@@ -15,12 +15,12 @@
  *     META_FORM_IDS   = the Instant Form ID(s), comma-separated
  *     CLICKSEND_USER / CLICKSEND_KEY (already used by apps-script.gs)
  *     ONCALL_MOBILE   = one or more mobiles, comma-separated – all get the team alerts
+ *     CALL_HOURS      = "24h" (default) or e.g. "8-21"
  *   Then run installLeadTriggers() once and allow the permissions.
  * Uses sendSms() and ukMobile() from apps-script.gs.
  */
 
 var GRAPH = "https://graph.facebook.com/v21.0/";
-var CALL_FROM_HOUR = 8, CALL_TO_HOUR = 21;   // calling window, UK time
 var LEADS_TAB = "Waiting list";               // NEVER the first tab – that is the Dashboard
 
 function leadsSheet() {
@@ -43,7 +43,7 @@ function niceFirstName(name) {
   f = f.normalize("NFD").replace(/[\u0300-\u036f]/g, "")   // "Zoë" -> "Zoe" (accents would make it a pricier Unicode SMS)
        .replace(/[\u2018\u2019]/g, "'").replace(/[^A-Za-z\-']/g, "");
   if (!f) return "there";
-  if (f === f.toLowerCase() || f === f.toUpperCase())        // "sarah" / "SARAH" -> "Sarah"; "McKenzie" kept as typed
+  if (f === f.toLowerCase() || f === f.toUpperCase() || /^[a-z]/.test(f))   // "sarah"/"SARAH"/"sARAH" -> "Sarah"; "McKenzie" kept
     f = f.toLowerCase().replace(/(^|[-'])([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
   return f;
 }
@@ -63,7 +63,7 @@ function installLeadTriggers() {
     if (["pollMetaLeads", "morningSummary"].indexOf(t.getHandlerFunction()) !== -1) ScriptApp.deleteTrigger(t);
   });
   ScriptApp.newTrigger("pollMetaLeads").timeBased().everyMinutes(1).create();
-  ScriptApp.newTrigger("morningSummary").timeBased().atHour(CALL_FROM_HOUR).nearMinute(0).everyDays(1)
+  ScriptApp.newTrigger("morningSummary").timeBased().atHour(callWindow().from === 0 ? 8 : callWindow().from).nearMinute(0).everyDays(1)
     .inTimezone("Europe/London").create();
   pollMetaLeads();
 }
@@ -112,9 +112,17 @@ function field(l, keys) {
   return "";
 }
 
+// Calling hours come from Script Property CALL_HOURS:
+//   "24h" (default – owner runs a 24-hour service with someone on standby) or e.g. "8-21" for 8am–9pm.
+function callWindow() {
+  var v = String(PropertiesService.getScriptProperties().getProperty("CALL_HOURS") || "24h").trim().toLowerCase();
+  var m = v.match(/^(\d{1,2})\s*-\s*(\d{1,2})$/);
+  return m ? { from: Number(m[1]), to: Number(m[2]) } : { from: 0, to: 24 };
+}
 function inCallHours(d) {
+  var w = callWindow();
   var h = Number(Utilities.formatDate(d, "Europe/London", "H"));
-  return h >= CALL_FROM_HOUR && h < CALL_TO_HOUR;
+  return h >= w.from && h < w.to;
 }
 
 function handleLead(l) {
