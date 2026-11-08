@@ -27,4 +27,4 @@ Upload into the right subfolder and **trash the old version** (no "FINAL v2/v3" 
 ## Look
 - Cream `#F6F2EA` · deep gold `#8A6A2C` / `#8E6B2E` · light gold `#B8964F` / `#D9BD82` · charcoal `#30363B` · ink `#262B30`
 - Fonts: Playfair Display 800/900 (headlines, uppercase), Playfair Display 800 italic (*Opening Soon!*), Inter 700–900 (body, buttons)
-- Logo: deep-gold KD monogram (stacked or horizontal)
+- Logo: two-tone KD monogram: **K charcoal #262B30 + D gold #8E6B2E** on light backgrounds; **K cream #F4EDE3 + D gold #C9A764** on dark (navy/charcoal) backgrounds. Files: brand/logo/logo-{stacked,horizontal}-twotone(.svg|.png) and -twotone-dark. KIRKCALDY wording stays gold.
