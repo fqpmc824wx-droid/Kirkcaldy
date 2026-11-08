@@ -1,10 +1,10 @@
-# Banner – 160 × 60 cm (exterior sign)
+# Banner – 180 × 60 cm (exterior sign)
 
 
 | File | Use |
 |---|---|
-| `kirkcaldy-dental-banner-180 × 60cm-PRINT-with-10mm-bleed.pdf` | **Send this to the printer.** 1820 × 620 mm = 160 × 60 cm + 10 mm bleed on every side |
-| `kirkcaldy-dental-banner-180 × 60cm-finished-size.pdf` | Exactly 1800 × 600 mm, no bleed – only if the printer asks for "no bleed / finished size" |
+| `kirkcaldy-dental-banner-180x60cm-PRINT-with-10mm-bleed.pdf` | **Send this to the printer.** 1820 × 620 mm = 180 × 60 cm + 10 mm bleed on every side |
+| `kirkcaldy-dental-banner-180x60cm-finished-size.pdf` | Exactly 1800 × 600 mm, no bleed – only if the printer asks for "no bleed / finished size" |
 | `banner-180 × 60-preview.jpg` | Preview |
 | `source/` | Editable source (HTML + logo/QR SVG + fonts); `node render.js` rebuilds both PDFs |
 
