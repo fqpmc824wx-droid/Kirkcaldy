@@ -1,7 +1,7 @@
 # Kirkcaldy Dental – launch to-do list
 
 The one master list for the waiting-list launch. Kept by the To-do chat.
-Last updated: 8 Nov 2026, 23:40. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
+Last updated: 8 Nov 2026, 23:50. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
 
 Row numbers match research/TODO-whats-left.md, so every chat talks about the same row.
 
@@ -27,7 +27,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 3. **Open ClickSend and ask for the sender name "KirkDental".** Approval takes days. Without it, no texts go out.
 4. **Pay the ICO data protection fee.** Send us the company's legal name, company number, registered office and ICO number. They go on the privacy page.
 5. **Answer 4 questions.** (a) **Email on the sign-up forms: required or optional?** You told the website chat "required", but the plan said optional, so sign-ups stay quick. Both forms must match, and the Facebook form can't be changed once it's published. (b) Will you also offer private treatment, such as implants? (c) Will the NHS side take both adults and children? (d) Will people be invited in the order they signed up, with households kept together? (If not, "Be first in line" comes off the ads and print.)
-6. **Name the people.** A backup caller; a deputy who gets the alarm emails when you're away; and a person (plus a backup) who handles complaints, data requests and data breaches. Also choose the one work phone number the callers ring from.
+6. **Name the people, with their email addresses.** A backup caller; a deputy who gets the alarm emails when you're away; and a person (plus a backup) who handles complaints, data requests and data breaches. Also choose the one work phone number the callers ring from.
 7. **Read and sign off:** the staff guide in Drive folder 8 (call script, text templates, comment replies, invitation plan), and the owner sign-off sheet in Drive folder 11.
 8. **GitHub:** make the project private (Settings → Change visibility). Click "merge" when the chats say they're ready.
 
@@ -51,7 +51,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 |---|---|---|---|---|
 | 1 | Put the final Facebook form into the runbook: name, phone with text code, optional email, one optional box. The button goes to the home page. | Ads chat | Before the form is published | Spec written. **On hold until the owner answers the email question (#5a)** |
 | 2 | New /register/ page: name, phone (landlines OK) and optional email; the waiting-list notice plus an optional news box. | Website chat | Before setup night. **Ships with #3** | Built in PR #2 (honest thank-you, honeypot, news box, 8am–9pm notice). It currently has email required, postcode optional and "how many people" required: waiting for the owner (#5a). Blocked on hosting |
-| 3 | Website form script: name and phone required, email optional; no email sent when there's none; leaflet, banner and Google sources kept. **Urgent: today it throws away sign-ups with no email.** | Leaflet chat | **Ships with #2** | Fixes sent 8 Nov. Asked |
+| 3 | Website form script: name and phone required, email optional; no email sent when there's none; leaflet, banner and Google sources kept. **Urgent: today it throws away sign-ups with no email.** | Leaflet chat | **Ships with #2** | Done (PR #1). Works whether or not email is required. **PR #1 and PR #2 must be merged together** |
 | 4 | Only say "Thank you" when the sign-up is really saved; otherwise show the email address to use. | Website chat | With #2 | Done in PR #2 (thank-you shown only on "ok") |
 | 5 | Rewrite the privacy page: no Zapier, calls and texts 8am–9pm, "waiting list" wording, a "delete your data" section, complaints, company details. | Website chat drafts; Owner gives details (owner list #4) and approves | Before setup night | Fixes done in PR #2; company and ICO details still needed from the owner |
 | 6 | "How the waiting list works" page. No longer a blocker: the Facebook button goes to the home page. | Website chat | Before launch (nice to have) | Not started |
@@ -63,27 +63,27 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 12 | Runbook fixes, other: call tracking switched on, test rows cleaned, email safety settings, remove old zip steps. | Ads chat (+ Leaflet chat for its own read-me) | Before setup night | Partly done. Asked |
 | 13 | Facebook script reads the news box properly and slows down if Facebook says "too many requests". | Ads chat | Before setup night | Asked |
 | 14 | Call script uses the exact sheet choices for call outcomes. Callers ask postcode, household size, adult/child, current dentist and "how did you hear". | Waiting-list chat + Leaflet chat | Before setup night | Asked |
-| 15 | Check the call-tracking script and fill in the budget and spend columns. | Leaflet chat | Before setup night | Asked |
-| 16 | Lock the header rows on the other sheet tabs; fix 4 dashboard formulas, so a blank household size counts as 1. | Leaflet chat | Before setup night | Partly done. Asked |
-| 17 | Health checks, outside monitor and a fire drill. | Safety chat (or Ads chat – asked who) | Before setup night | Asked |
+| 15 | Check the call-tracking script and fill in the budget and spend columns. | Leaflet chat | Before setup night | Call tracking and logs built. Budget columns: Asked |
+| 16 | Lock the header rows on the other sheet tabs; fix 4 dashboard formulas, so a blank household size counts as 1. | Leaflet chat | Before setup night | Dashboard and postcode formulas done live. Header locks: Asked |
+| 17 | Health checks, outside monitor and a fire drill. | Safety chat (or Ads chat – asked who) | Before setup night | Asked. The leaflet chat's hooks wait for the health.gs names |
 | 18 | Owner answers before ads or print: private treatment, adults and children, invitation order. (No NHS letter and no model releases are needed.) | Owner | Before setup night | Waiting for owner (owner list #5) |
 | 19 | ~~Draft a new NHS Fife letter~~. **Dropped**: approval already exists. Just save a copy of it in Drive folder 11 (#26). | Owner | Before ads start | Waiting for owner |
 | 20 | ClickSend account and sender name "KirkDental". | Owner | Days before setup night | Waiting for owner (owner list #3) |
 | 21 | Pay the ICO fee (or update the company's existing entry) and save the certificate in Drive 11; send the company details to the website chat. | Owner | Before the first sign-up | Waiting for owner (owner list #4) |
 | 22 | Make the GitHub project private. | Owner | Before setup night | Waiting for owner (owner list #8) |
 | 23 | Square profile picture and a cover image for the Facebook Page. | Leaflet chat + Ads chat | Before setup night | Partly done |
-| 24 | Replace or bin the old Drive doc "READ ME – How to order & set up". | Leaflet chat | Before setup night | Still there |
+| 24 | Replace or bin the old Drive doc "READ ME – How to order & set up". | Leaflet chat | Before setup night | Asked (leaflet chat says its Drive is tidied) |
 | 25 | One final website package in Drive "5. Website"; bin the old zips. | Website chat | After #2–#5 | Not started |
 | 26 | Legal papers in Drive "11. Legal & compliance": the NHS approval, the ICO certificate, the AI photo tool's name and terms, the supplier agreements. | Legal chat set it up; Owner files the papers | Before setup night | Folder made; papers waiting for owner |
 | 27 | OK the staff guide drafts. | Owner | Before setup night | Waiting for owner (owner list #7) |
 | 28 | Merge everything on GitHub, in the order the chats give. | Owner (chats say when) | After the fixes above | Nothing merged yet |
-| 29 | LAST: each chat tidies its own Drive folder and bins old copies. | All chats | After all fixes | Partly done |
+| 29 | LAST: each chat tidies its own Drive folder and bins old copies. | All chats | After all fixes | Leaflet chat done (banner v3, leaflet v5-FINAL). Others: Asked |
 
 ## Setup night
 
 | # | What | Who | When | Status |
 |---|---|---|---|---|
-| 30 | Share the sheet with each caller and test call tracking from a phone. | Browser Claude | Setup night | In the runbook; phone test to add |
+| 30 | Share the sheet with each caller and test call tracking from a phone. | Browser Claude | Setup night | In the runbook; needs each caller's email address from the owner |
 | 31 | Email safety settings (DMARC), force the secure website address, domain auto-renew. | Browser Claude + Owner | Setup night | Not started |
 | 32 | Old domain kirkcaldydentist.co.uk: forward its email and website. | Owner + Browser Claude | Setup night | Not started |
 | 33 | info@ account: recovery phone and email, and a second admin. | Owner | Setup night | Not started |
@@ -99,11 +99,11 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 38 | One-page owner card: daily 5 minutes, Monday 15 minutes, "if this alarm, do this". Alarms: £5 warning, £8 pause. | Ads chat + Metrics chat | Before launch | Done (NUMBERS-TO-EXPECT.md). Ads chat to re-upload it to Drive 7 |
 | 39 | Caller training pack and confidentiality note; the owner runs a short session. | Waiting-list chat; Owner runs it | Before the first call | Partly done. Asked |
 | 40 | Data protection papers: risk check, complaints steps, how long we keep data, "delete one person everywhere". | Ads chat drafts; Owner signs | Before launch | Asked |
-| 41 | Weekly and KPI tabs in the sheet, so the Monday email and overspend alarm work. | Leaflet chat builds; Metrics chat checks | Before launch | In progress |
+| 41 | Weekly and KPI tabs in the sheet, so the Monday email and overspend alarm work. | Leaflet chat builds; Metrics chat checks | Before launch | Not done yet (KPIs, Weekly, scorecard) |
 | 42 | Website legal details: phone, dentists' names and GDC numbers, company name in the footer. | Owner → Website chat | Before launch | Partly done |
 | 43 | Website look matches the leaflet (fonts, colours, logo). | Website chat | Before launch | Not started |
 | 44 | Facebook comments and messages: check the reply bank, blocked words, away message. | Waiting-list chat + Browser Claude | Before launch | Partly done. Asked |
-| 45 | Print: test proofs, scan both QR codes on iPhone and Android, one test sign-up each. | Owner → Leaflet chat → Owner | Before ordering print | Not started |
+| 45 | Print: test proofs, scan both QR codes on iPhone and Android, one test sign-up each. | Owner → Leaflet chat → Owner | Before ordering print | Print files final. Proofs and QR scans not started |
 | 46 | Banner permission: the building is listed. Send the Fife Council email and the landlord note (drafts in Drive 11). Wait for both replies before the banner goes up. | Owner | Before hanging | Drafts ready; waiting for owner |
 | 47 | Leaflet delivery plan: how many, which streets, who delivers. | Leaflet chat → Owner | Before ordering print | Asked |
 | 48 | A way to join without a smartphone, printed on the leaflet. | Owner decides; Leaflet + Website chats | Before ordering print | Waiting for owner |
