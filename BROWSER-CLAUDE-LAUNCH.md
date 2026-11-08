@@ -195,7 +195,7 @@ Don't touch `ALERT_NEXT`, `META_SINCE`, `META_SINCE_BY_FORM`, `META_SEEN`, `BACK
    - Open the `meta-leads` file, choose `installLeadTriggers` in the function dropdown, then Run → Review permissions → choose info@.
    - If "Google hasn't verified this app" appears: Advanced → Go to … (unsafe) → Allow. This is normal for the clinic's own script.
    - It sets up: checking Meta every minute, the 8am summary, the backlog check every 15 minutes, and the 9pm report to the owner.
-   - **On launch day (after the ads are published):** open the `meta-ads` file → run `adsInstallTriggers` once. The Executions log should show the ad account name, "Europe/London" and "GBP". It adds the 06:00 ad-results sync ("Ads" tab), the Monday breakdowns and the 2-hourly ad health check. The owner is emailed if an ad is rejected, the ads stop spending, the cost per lead goes above £3.50, or leads that Meta counted are missing from the sheet.
+   - **On launch day (after the ads are published):** open the `meta-ads` file → run `adsInstallTriggers` once. The Executions log should show the ad account name, "Europe/London" and "GBP". It adds the 06:00 ad-results sync ("Ads" tab), the Monday breakdowns and the 2-hourly ad health check. The owner is emailed if an ad is rejected, the ads stop spending, the cost per lead goes above £5 (warning) or £8 (pause), or leads that Meta counted are missing from the sheet.
    - Then Apps Script → **Triggers** (clock icon) → for every trigger, pencil → **Failure notification settings: Notify me immediately** → Save. Do `pollMetaLeads` first.
 7. **Deploy the website script:**
    - Deploy → **New deployment** → type **Web app** → Execute as **Me (info@)** → Who has access **Anyone**. Not "Anyone with Google account": if "Anyone" isn't offered, stop and tell the owner, because a Google Admin sharing setting is blocking it.
@@ -298,7 +298,7 @@ Ads Manager → Create:
 
 Daily rules:
 - Leads arrive faster than the callers can ring within the hour (the owner also gets the overload email) → **add a caller** the same day; only if nobody is available, cut the budget 20%.
-- Cost per lead **above £3.50 for 3 days** → fix the ad or form, don't add money, and tell the ads chat. **Above £5 → pause** and ask the ads chat.
+- Cost per lead **above £5 for 3 days** (the owner's expected level) → fix the ad or form, don't add money, and tell the ads chat. **Above £8 → pause** and ask the ads chat. The forecast expects about £1.50; if it's well under £5, keep going.
 - Cost per lead under £2.50 for 3 days, and the backlog email not firing → raise 20% (with enough callers on shift), no more than once every 3–4 days.
 - An ad gets rejected → tell the ads chat.
 - Black Friday (27 Nov) and Christmas push ad prices up 15–30%. That's expected; don't panic.
