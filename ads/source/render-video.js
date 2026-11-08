@@ -2,8 +2,9 @@
 const { chromium } = require('playwright'); const { execFileSync } = require('child_process'); const fs=require('fs');
 const FPS=30, DUR=8;
 (async () => { const b = await chromium.launch();
-  for (const [ad,fmt,out,H] of [['A','story','ad-A-video-9x16.mp4',1920],['B','story','ad-B-video-9x16.mp4',1920],
+  const ONLY=process.env.ONLY; for (const [ad,fmt,out,H] of [['A','story','ad-A-video-9x16.mp4',1920],['B','story','ad-B-video-9x16.mp4',1920],
                                  ['A','feed','ad-A-video-4x5.mp4',1350],['B','feed','ad-B-video-4x5.mp4',1350]]) {
+    if(ONLY && fmt!==ONLY) continue;
     const dir=`/tmp/claude-0/-home-user/f778202c-7a7e-561e-ac12-c600a726fed0/scratchpad/frames_${ad}_${fmt}`; fs.rmSync(dir,{recursive:true,force:true}); fs.mkdirSync(dir,{recursive:true});
     const p = await b.newPage({ viewport:{width:1080,height:H}, deviceScaleFactor:1 });
     await p.goto('file://'+__dirname+`/ad.html?ad=${ad}&fmt=${fmt}`,{waitUntil:'networkidle'});

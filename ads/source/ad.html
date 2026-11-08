@@ -31,6 +31,7 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
      box-shadow:0 8px 0 #6B5122}
 .url{left:0;width:1080px;text-align:center;color:#fff;font-weight:700;white-space:nowrap}
 .url b{color:var(--light);font-weight:800}
+.foot{left:0;width:1080px;text-align:center;color:var(--gold);font-family:Playfair,serif;font-weight:800;text-transform:uppercase;letter-spacing:.18em;font-size:26px;display:none}
 </style></head>
 <body>
 <div class="abs photo" id="photo"></div>
@@ -42,6 +43,7 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 <div class="abs flour l" id="fl"></div><div class="abs flour r" id="fr"></div><div class="abs dia" id="dl"></div><div class="abs dia" id="dr"></div><div class="abs dia o" id="dl2"></div><div class="abs dia o" id="dr2"></div>
 <div class="abs panel" id="panel"></div>
 <div class="abs btn" id="btn">Join Waiting List&nbsp;&nbsp;→</div>
+<div class="abs foot" id="foot">Kirkcaldy Dental &amp; Implant Clinic</div>
 <div class="abs url" id="url">kirkcaldydental.co.uk<b>/register</b></div>
 <script>
 const C={
@@ -51,7 +53,7 @@ const C={
 // px layout per format: [H, photoTop, photoH, logoW, kickerTop, headTop, headMax, stripTop, stripH, panelTop, btnTop, btnW, btnH, btnFont, urlTop, urlFont]
 const L={
   feed:{H:1350,pT:0,pH:700,logoW:300,logoX:390,logoTop:0,kT:632,hT:676,hMax:76,sT:880,sH:176,pnT:1056,bT:1104,bW:620,bH:112,bF:42,uT:1264,uF:34},
-  story:{H:1920,pT:290,pH:640,logoW:340,logoX:370,logoTop:30,kT:885,hT:930,hMax:80,sT:1150,sH:186,pnT:1336,bT:1362,bW:660,bH:108,bF:44,uT:1484,uF:32}
+  story:{H:1920,pT:290,pH:640,logoW:340,logoX:370,logoTop:30,kT:885,hT:930,hMax:80,sT:1150,sH:186,pnT:1336,pnB:1590,bT:1362,bW:660,bH:108,bF:44,uT:1484,uF:32}
 };
 const q=new URLSearchParams(location.search), c=C[q.get('ad')||'A'], l={...L[q.get('fmt')||'feed']};
 if(q.get('fmt')!=='story') l.logoX=(q.get('ad')==='B')?40:720;
@@ -64,7 +66,8 @@ if(q.get('fmt')==='story'){lt.style.background='transparent';lt.style.boxShadow=
 $('kicker').textContent=c.kicker; $('kicker').style.top=px(l.kT);
 $('l1').textContent=c.l1; $('l2').textContent=c.l2; $('head').style.top=px(l.hT);
 Object.assign($('strip').style,{top:px(l.sT),height:px(l.sH)});
-Object.assign($('panel').style,{top:px(l.pnT),height:px(l.H-l.pnT)});
+Object.assign($('panel').style,{top:px(l.pnT),height:px((l.pnB||l.H)-l.pnT)});
+if(l.pnB){$('panel').style.borderBottom='8px solid var(--gold2)';$('foot').style.display='block';$('foot').style.top=px(l.pnB+70);}
 Object.assign($('btn').style,{top:px(l.bT),width:px(l.bW),height:px(l.bH),fontSize:px(l.bF)});
 Object.assign($('url').style,{top:px(l.uT),fontSize:px(l.uF)});
 function fit(el,target,max){el.style.fontSize=px(max);const w=el.scrollWidth;if(w>target)el.style.fontSize=px(max*target/w);return parseFloat(el.style.fontSize);}
