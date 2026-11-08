@@ -21,7 +21,7 @@ Ask the owner to merge PR #1 and PR #2 into `main` first, if they're happy to. O
 | Google login **info@kirkcaldydental.co.uk** (owns the Waiting List sheet) | owner |
 | Owner's personal Facebook login (will be admin of the clinic Page) | owner |
 | Payment card (Meta ads + text credit) | owner |
-| Mobile numbers: **2 callers** + **owner** | owner |
+| Mobile number of the **one caller** who gets the lead texts (owner gets email alerts instead) | owner |
 | Daily ad budget: **£20/day to start** (2 ads; the family's alternative is £10/day, see section 8) | agreed |
 | Clinic phone number 01592 … (optional; can be added later) | owner |
 
@@ -99,8 +99,8 @@ Follow **leads/README.md** "One-time setup":
 | `CLICKSEND_KEY` | ClickSend API key |
 | `META_PAGE_TOKEN` | the Page token |
 | `META_FORM_IDS` | the Form ID (comma-separate if more than one) |
-| `ONCALL_MOBILE` | the **2 callers' mobiles**, comma-separated |
-| `ALERT_MODE` | `rotate` (each lead goes to the next caller in turn) |
+| `ONCALL_MOBILE` | the **one caller's mobile** (owner decision: only one person gets the lead text) |
+| `ALERT_MODE` | leave empty (only needed if more callers are added later; then use `rotate`) |
 | `OWNER_EMAIL` | `info@kirkcaldydental.co.uk` (owner gets a free **email** copy of every alert; Gmail app on the owner's phone with notifications ON for this account) |
 | `OWNER_MOBILE` | leave **empty** (owner chose email alerts instead of text copies) |
 | `CALL_HOURS` | `8-21` (owner decision: **no calls after 9pm**) |
@@ -115,7 +115,7 @@ What happens with every lead, wherever it comes from:
 - **8am–9pm:**
   - The row is added to the sheet.
   - The lead gets the thank-you text: "Hi Sarah, thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you very soon. We can't wait to welcome you!"
-  - The next caller in turn gets the text alert "🦷 NEW LEAD – call now…". The owner gets the same alert as an **email** to info@kirkcaldydental.co.uk.
+  - The caller gets the text alert "🦷 NEW LEAD – call now…". The owner gets the same alert as an **email** to info@kirkcaldydental.co.uk.
   - The lead gets a confirmation email.
 - **9pm–8am:**
   - The text says "…will call you tomorrow from 8am…".
@@ -126,11 +126,10 @@ What happens with every lead, wherever it comes from:
 ## 6. Test everything, using the owner's own phone and email
 | Test | How | Expect |
 |---|---|---|
-| Facebook lead | Meta **Lead Ads Testing Tool** (developers.facebook.com/tools/lead-ads-testing) | within ~1–2 min: row in Waiting list with Source facebook; thank-you text and email; text alert to one caller; **owner alert email arrives in info@ and the Gmail app shows a notification** (if not, see note below); "Assigned to" filled |
+| Facebook lead | Meta **Lead Ads Testing Tool** (developers.facebook.com/tools/lead-ads-testing) | within ~1–2 min: row in Waiting list with Source facebook; thank-you text and email; text alert to the caller; **owner alert email arrives in info@ and the Gmail app shows a notification** (if not, see note below); "Assigned to" filled |
 | Website sign-up | fill in kirkcaldydental.co.uk/register | row with Source website + same texts/alerts |
 | Leaflet QR | scan the QR on the leaflet PDF | row with Source leaflet; Visits tab counts the scan |
 | Banner QR | scan the QR on the banner PDF | row with Source banner |
-| Rotation | submit 2 more test leads | alerts alternate between the 2 callers |
 | Do not contact | set a test row's Status to DO NOT CONTACT, submit again with the same phone | row saved, but no text, alert or email |
 | Dashboard | open the Dashboard tab | counts by source update |
 Delete all test rows afterwards.
@@ -155,7 +154,7 @@ Ads Manager → Create:
 | 1 | **£20** | check everything works, first data | change nothing for 3–4 days; check approvals, leads, texts, callers daily |
 | 2 | £20 → **£25** | pick the winner | pause the ad whose cost per lead is 30%+ worse after ~7 days; add 1–2 new versions of the winner (ask the ads chat) |
 | 3 | £25 → **£35** | scale carefully | raise budget ~20–25% every 3–4 days; if frequency > ~3, widen to 15 miles or add fresh ads |
-| 4 | £35 → **£50** | run at caller capacity | settle at the level the 2 callers can call within the hour (~60–80 leads/day max) |
+| 4 | £35 → **£50** | run at caller capacity | settle at the level the caller can ring within the hour (~30–40 leads/day for one person; add a second caller to ONCALL_MOBILE with ALERT_MODE `rotate` if more) |
 Total ≈ **£800–850** for 4 weeks, plus texts.
 
 Daily rules:
