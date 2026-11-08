@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register Your Interest – Kirkcaldy Dental &amp; Implant Clinic</title>
+<meta name="description" content="Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon in Kirkcaldy. Register your interest to be the first to hear when we open.">
+<link rel="icon" href="../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --gold: #c3a363; --gold-dark: #9a7a3f; --soft: #f6efe3; --ink: #2f2f2f; --muted: #6b6b6b; --line: #e3d9c6; --error: #a8322d; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Lato", system-ui, sans-serif; color: var(--ink); line-height: 1.6;
+         background: linear-gradient(180deg, var(--soft), #fff 55%); }
+  main { max-width: 560px; margin: 0 auto; padding: 36px 16px 48px; }
+  .top { text-align: center; }
+  img.logo { width: min(260px, 66vw); height: auto; margin-bottom: 22px; }
+  .badge { display: inline-block; border: 1px solid var(--gold); color: var(--gold-dark); border-radius: 999px; padding: 5px 14px;
+           font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px; }
+  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.1; margin: 0 0 12px; font-size: clamp(2.1rem, 8vw, 2.9rem); }
+  h1 span { color: var(--gold); }
+  p.lead { color: var(--muted); font-size: 1.08rem; margin: 0 auto 26px; max-width: 460px; }
+  form { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 24px 20px; box-shadow: 0 10px 30px rgba(154,122,63,.08); }
+  .field { margin-bottom: 18px; }
+  label, legend { display: block; font-weight: 700; font-size: .95rem; margin-bottom: 6px; }
+  .opt { font-weight: 400; color: var(--muted); }
+  input[type=text], input[type=tel], input[type=email] {
+    width: 100%; font: inherit; font-size: 1rem; padding: 12px 14px; border: 1px solid #d6ccb9; border-radius: 10px; background: #fff; color: var(--ink); }
+  input:focus { outline: 2px solid var(--gold); outline-offset: 1px; border-color: var(--gold); }
+  fieldset { border: 0; margin: 0 0 18px; padding: 0; }
+  .choices { display: flex; flex-wrap: wrap; gap: 8px; }
+  .choices label { margin: 0; font-weight: 400; }
+  .choices input { position: absolute; opacity: 0; pointer-events: none; }
+  .choices span { display: inline-block; padding: 9px 16px; border: 1px solid #d6ccb9; border-radius: 999px; cursor: pointer; min-width: 48px; text-align: center; }
+  .choices input:checked + span { background: var(--gold); border-color: var(--gold); color: #fff; font-weight: 700; }
+  .choices input:focus-visible + span { outline: 2px solid var(--gold-dark); outline-offset: 2px; }
+  .consent { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; font-size: .92rem; color: var(--muted); }
+  .consent input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--gold); flex: none; }
+  .consent a { color: var(--gold-dark); }
+  button { width: 100%; font: inherit; font-weight: 700; font-size: 1.08rem; color: #fff; border: 0; border-radius: 10px; padding: 14px;
+           background: linear-gradient(180deg, #cdb074, var(--gold-dark)); cursor: pointer; margin-top: 6px; }
+  button[disabled] { opacity: .6; cursor: wait; }
+  .err { color: var(--error); font-size: .9rem; margin-top: 10px; display: none; }
+  .thanks { display: none; text-align: center; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 32px 20px; }
+  .thanks h2 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 2rem; margin: 0 0 8px; }
+  .tick { width: 56px; height: 56px; border-radius: 50%; background: var(--gold); color: #fff; font-size: 30px; line-height: 56px; margin: 0 auto 14px; }
+  footer { text-align: center; padding: 8px 16px 28px; font-size: .85rem; color: var(--muted); }
+  footer a { color: var(--gold-dark); }
+  .hp { position: absolute; left: -9999px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <a href="../"><img class="logo" src="../assets/logo-stacked.svg" alt="Kirkcaldy Dental &amp; Implant Clinic"></a>
+    <div><span class="badge">Opening soon</span></div>
+    <h1>New NHS Dental Practice<br><span>Opening in Kirkcaldy</span></h1>
+    <p class="lead">Register your interest and be the first to hear when we open. It takes about 30 seconds.</p>
+  </div>
+
+  <form id="reg" novalidate>
+    <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+    <div class="field"><label for="phone">Mobile number</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
+    <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="postcode">Postcode</label><input id="postcode" name="postcode" type="text" autocomplete="postal-code" autocapitalize="characters" required></div>
+
+    <fieldset><legend>How many people are you registering interest for?</legend>
+      <div class="choices">
+        <label><input type="radio" name="people" value="1" required><span>1</span></label>
+        <label><input type="radio" name="people" value="2"><span>2</span></label>
+        <label><input type="radio" name="people" value="3"><span>3</span></label>
+        <label><input type="radio" name="people" value="4+"><span>4+</span></label>
+      </div></fieldset>
+
+    <fieldset><legend>Are you currently registered with a dentist?</legend>
+      <div class="choices">
+        <label><input type="radio" name="registered" value="Yes" required><span>Yes</span></label>
+        <label><input type="radio" name="registered" value="No"><span>No</span></label>
+        <label><input type="radio" name="registered" value="Not sure"><span>Not sure</span></label>
+      </div></fieldset>
+
+    <fieldset><legend>Who is this for?</legend>
+      <div class="choices">
+        <label><input type="radio" name="who" value="Adult" required><span>Adult</span></label>
+        <label><input type="radio" name="who" value="Child"><span>Child</span></label>
+        <label><input type="radio" name="who" value="Family"><span>Family</span></label>
+      </div></fieldset>
+
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <div class="field"><label class="consent"><input type="checkbox" name="consent" required>
+      <span>I'm happy for Kirkcaldy Dental &amp; Implant Clinic to contact me by text and email with opening news. See our <a href="../privacy.html">privacy policy</a>.</span></label></div>
+
+    <button type="submit" id="btn">Register Interest</button>
+    <div class="err" id="err" role="alert"></div>
+  </form>
+
+  <div class="thanks" id="thanks" role="status">
+    <div class="tick">✓</div>
+    <h2>Thank you!</h2>
+    <p>We've got your details and we'll keep you updated with opening news.</p>
+  </div>
+</main>
+<footer>© 2026 Kirkcaldy Dental &amp; Implant Clinic · <a href="mailto:info@kirkcaldydentist.co.uk">info@kirkcaldydentist.co.uk</a> · <a href="../privacy.html">Privacy</a></footer>
+
+<script>
+  // Paste the Google Apps Script web-app URL here (see leaflet/README.md, step 2).
+  var ENDPOINT = "PASTE_APPS_SCRIPT_URL_HERE";
+
+  var form = document.getElementById("reg"), err = document.getElementById("err"), btn = document.getElementById("btn");
+  var params = new URLSearchParams(location.search);
+  var source = params.get("src") || params.get("utm_source") || "website";
+
+  function show(msg) { err.textContent = msg; err.style.display = "block"; }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    err.style.display = "none";
+    var f = form.elements;
+    if (f.website.value) return;                       // spam bot
+    var phone = f.phone.value.replace(/[^\d+]/g, "");
+    if (!f.name.value.trim()) return show("Please enter your name.");
+    if (phone.replace(/\D/g, "").length < 10) return show("Please enter a valid mobile number.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim())) return show("Please enter a valid email address.");
+    if (!/^[A-Za-z]{1,2}\d[A-Za-z\d]?\s*\d[A-Za-z]{2}$/.test(f.postcode.value.trim())) return show("Please enter a valid UK postcode.");
+    if (!f.people.value || !f.registered.value || !f.who.value) return show("Please answer the three quick questions.");
+    if (!f.consent.checked) return show("Please tick the box so we can contact you.");
+
+    var data = new URLSearchParams({
+      name: f.name.value.trim(), phone: phone, email: f.email.value.trim(),
+      postcode: f.postcode.value.trim().toUpperCase(), people: f.people.value,
+      registered: f.registered.value, who: f.who.value, source: source
+    });
+    btn.disabled = true; btn.textContent = "Sending…";
+    // no-cors: Apps Script doesn't send CORS headers; the request still arrives.
+    fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: data })
+      .then(function () { form.style.display = "none"; document.getElementById("thanks").style.display = "block"; window.scrollTo(0, 0); })
+      .catch(function () { btn.disabled = false; btn.textContent = "Register Interest";
+        show("Sorry, something went wrong. Please try again or email info@kirkcaldydentist.co.uk."); });
+  });
+</script>
+</body>
+</html>

@@ -70,3 +70,10 @@ Trigger: Facebook Lead Ads → New Lead (clinic page + form above)
 - Primary text (Ad B): "👨‍👩‍👧 A new NHS dental practice for Kirkcaldy families is opening soon. Register your interest in 30 seconds and we'll keep you updated with opening news."
 - Headline: "New NHS dental practice opening in Kirkcaldy". CTA button: Sign up.
 - After 5–7 days compare cost per lead; pause the weaker ad.
+
+## Step 6 – Leaflet sign-up page (QR code)
+Full instructions are in `leaflet/README.md`. Short version:
+1. The website zip now contains `register/`. Make sure https://kirkcaldydentist.co.uk/register/ loads.
+2. In the Interest List sheet, go to Extensions → Apps Script, paste in `leaflet/apps-script.gs` and deploy it as a Web app (Execute as: Me, Access: Anyone). Then paste the /exec URL into `register/index.html` (replace `PASTE_APPS_SCRIPT_URL_HERE`) and re-upload that file.
+3. Test by scanning the QR code on `leaflet/kirkcaldy-dental-leaflet-A5.pdf`. A row should appear with Source = leaflet, and the thank-you email should arrive.
+4. Leaflet artwork in Canva: https://www.canva.com/d/g-cSkyL9W_XqpW4. For printing, download it as "PDF Print" with crop marks and bleed.
