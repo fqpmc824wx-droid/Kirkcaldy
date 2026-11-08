@@ -72,7 +72,25 @@ Ads Manager shows the budget **before** extras. Meta adds a **2% UK fee** and th
 - **Cost per sign-up:** about £1.50 in Ads Manager, so **about £1.84 really paid** (range about 80p to £4.90).
 - **Cost per household that books:** about £3.40 really paid.
 - **Texts:** add about 9p per sign-up.
+- **Safety cap:** set the Ads Manager **account spending limit to about £900** (Billing → Payment settings). The 4-week plan is about £810, so this stops any mistake or hacked account from overspending. You'll get an email before it runs out.
 
-## 5. Every Monday
+## 5. Calendar: dates that change the budget
 
-Ask the Metrics chat **"How are we doing?"**. It will send a short report: sign-ups, cost, how it compares with this forecast, and one clear budget suggestion. It will never change the ads, budget or sheet itself.
+| Date | What to do |
+|---|---|
+| Ads start (about 10 Nov) | £20 a day. Change nothing for 3–4 days. |
+| **24 Nov** | Last day to raise the budget before Black Friday. |
+| **25 Nov – 2 Dec** | **No budget rises.** Black Friday (27 Nov) and Cyber Monday (30 Nov) make ads dearer. |
+| **1 Dec** | Decide Christmas cover: a named caller for every day from 23 Dec to 4 Jan, **or** cut the ads to £5–10 a day (or pause them) for those dates. |
+| **22 Dec** | Every new sign-up called (no backlog) before the break. Holiday wording on the texts. |
+| 25 & 28 Dec, 1 & 4 Jan | Bank holidays. |
+| **5 Jan** | Back to normal. Put the budget back if it was cut. |
+
+## 6. Every Monday (about 30 minutes, one job)
+
+Ask the Metrics chat **"How are we doing?"**. You get one report with:
+- sign-ups, cost per sign-up and spend, compared with this forecast;
+- **one clear budget decision** for the week (hold, up 20%, or down 20%), using the rules above;
+- a short checklist for you to tick: Ads Manager activity (no strangers or unknown changes), card and spending-limit headroom, who has access to the Page and ad account, ClickSend balance, 5 calls listened to and 10 rows spot-checked, complaints due, backups, and the calendar dates above.
+
+The Metrics chat never changes the ads, the budget or the sheet itself.
