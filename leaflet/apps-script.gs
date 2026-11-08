@@ -12,7 +12,7 @@
  * It also sends the same thank-you email the Facebook leads get.
  */
 
-var SHEET_NAME = "";            // leave blank to use the first tab
+var SHEET_NAME = "Waiting list"; // the sign-ups tab (the first tab is the Dashboard, so always use the name)
 var SEND_EMAIL = true;
 var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "" to turn off
 
@@ -95,6 +95,7 @@ function logVisit(p) {
 }
 
 // UK numbers to international format for ClickSend (07… → +447…)
+// NOTE: ukMobile() and sendSms() are also used by leads/meta-leads.gs (Facebook leads) in the same Apps Script project: don't rename them.
 function ukMobile(n) {
   n = String(n || "").replace(/[^\d+]/g, "");
   if (n.indexOf("+") === 0) return n;
