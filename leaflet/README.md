@@ -40,6 +40,10 @@ Website and QR sign-ups get the same instant thank-you text as Facebook leads, a
    - `ALERT_MODE` (optional): `all` (default, every ONCALL_MOBILE gets each lead) or `rotate` (each lead goes to the next ONCALL_MOBILE in turn, for the remote team). The person it went to is written in the **Assigned to** column
    - `OWNER_MOBILE` (optional): mobile(s) that get a copy of every alert, comma-separated
    - `ALERT_NEXT`: set automatically by the rotation, shared with the Facebook leads script so the turn order runs across both. Don't edit it
+
+**Consent and do-not-contact (PECR / GDPR)**
+- **Marketing consent** column: `Yes` only when the person ticked the optional, unticked box on the form (field `marketing`), otherwise `No`. Only `Yes` people may ever get promotional texts or emails. The thank-you text and email are service messages only, with no offers.
+- Set a row's **Status** to exactly `DO NOT CONTACT` to stop all texts, calls and emails to that phone number. Any new sign-up with the same number is still saved (with Status `DO NOT CONTACT`), but gets no text, no team alert and no email. The Facebook leads script uses the same string.
 3. Deploy a **new version** of the web app (Deploy → Manage deployments → Edit → New version).
 Until the keys are added, sign-ups still save and email as normal; the texts are just skipped.
 

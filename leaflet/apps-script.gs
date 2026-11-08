@@ -14,6 +14,7 @@
 
 var SHEET_NAME = "Waiting list"; // the sign-ups tab (the first tab is the Dashboard, so always use the name)
 var SEND_EMAIL = true;
+var DO_NOT_CONTACT = "DO NOT CONTACT"; // Status value that stops all texts, calls and emails (exact same string in meta-leads.gs)
 var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "" to turn off
 
 // Instant text messages via ClickSend (same as the Facebook leads get through Zapier).
@@ -55,16 +56,22 @@ function doPost(e) {
       "Currently Registered?": clean(p.registered),
       "Adult/Child/Family": clean(p.who),
       "Source": clean(p.source || "website"),
-      "Status": inHours ? "" : "Call 8am"   // out of hours: picked up by the 8am summary (meta-leads.gs)
+      "Status": inHours ? "" : "Call 8am",   // out of hours: picked up by the 8am summary (meta-leads.gs)
+      // optional, unticked-by-default box on /register/; only "Yes" people may ever get promotional texts/emails
+      "Marketing consent": /^(yes|true|on|1)$/i.test(String(p.marketing || "").trim()) ? "Yes" : "No"
     };
+    // Anyone whose phone already has a row with Status "DO NOT CONTACT" gets no texts, calls or emails (same string as meta-leads.gs)
+    var dnc = isDoNotContact(sh, headers, p.phone);
+    if (dnc) values["Status"] = DO_NOT_CONTACT;
     // "new lead" alert (calling hours only) – sent before the row is written so the sheet shows who has it.
     // ALERT_MODE "rotate" gives each lead to the next ONCALL_MOBILE in turn (ALERT_NEXT is shared with meta-leads.gs).
-    if (inHours) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || ""));
+    if (inHours && !dnc) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || ""));
     sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
   } finally {
     lock.releaseLock();
   }
 
+  if (dnc) return out("ok");   // row kept for the record, but no contact of any kind
   var first = String(p.name).trim().split(/\s+/)[0];
 
   // Instant thank-you text to the person (the team alert was sent above)
@@ -87,6 +94,17 @@ function doPost(e) {
       "A new person joined the waiting list on the website. See the Waiting List sheet.");
   }
   return out("ok");
+}
+
+// True if this phone number already has a row whose Status is "DO NOT CONTACT"
+function isDoNotContact(sh, headers, phone) {
+  var pc = headers.indexOf("Phone"), sc = headers.indexOf("Status"), n = sh.getLastRow() - 1;
+  var want = ukMobile(phone);
+  if (pc === -1 || sc === -1 || n < 1 || !want) return false;
+  var rows = sh.getRange(2, 1, n, headers.length).getValues();
+  for (var i = 0; i < rows.length; i++)
+    if (String(rows[i][sc]).trim().toUpperCase() === DO_NOT_CONTACT && ukMobile(rows[i][pc]) === want) return true;
+  return false;
 }
 
 // Counts page visits (e.g. QR scans) on the "Visits" tab: time + source only, nothing personal.
