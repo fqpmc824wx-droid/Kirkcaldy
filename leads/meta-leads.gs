@@ -36,6 +36,27 @@ function alertTeam(msg) {
   list.split(",").map(function (n) { return n.trim(); }).filter(String).forEach(function (n) { sendSms(n, msg); });
 }
 
+// Lead thank-you text: kept within ONE text message (160 plain characters, no emoji/curly quotes)
+// so each costs a single SMS. Long first names fall back to a slightly shorter version.
+function niceFirstName(name) {
+  var f = String(name || "").trim().split(/\s+/)[0] || "";
+  f = f.replace(/[^A-Za-z\-']/g, "");
+  if (!f) return "there";
+  if (f === f.toLowerCase() || f === f.toUpperCase())        // "sarah" / "SARAH" -> "Sarah"; "McKenzie" kept as typed
+    f = f.toLowerCase().replace(/(^|[-'])([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
+  return f;
+}
+function leadText(first, inHours) {
+  var when = inHours ? "very soon" : "tomorrow from 8am";
+  var options = [
+    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you " + when + ". We can't wait to welcome you!",
+    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! Our team will call you " + when + ". We can't wait to welcome you!",
+    "Hi " + first + ", thanks for joining the Kirkcaldy Dental waiting list! We'll call you " + when + "."
+  ];
+  for (var i = 0; i < options.length; i++) if (options[i].length <= 160) return options[i];
+  return options[options.length - 1].slice(0, 160);
+}
+
 function installLeadTriggers() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
     if (["pollMetaLeads", "morningSummary"].indexOf(t.getHandlerFunction()) !== -1) ScriptApp.deleteTrigger(t);
@@ -99,7 +120,7 @@ function handleLead(l) {
   var created = new Date(l.created_time);
   var name = field(l, ["full_name", "name"]) || (field(l, ["first_name"]) + " " + field(l, ["last_name"])).trim();
   var phone = field(l, ["phone"]), email = field(l, ["email"]);
-  var first = String(name || "there").trim().split(/\s+/)[0];
+  var first = niceFirstName(name);
   var inHours = inCallHours(new Date());
   var clean = function (v) { v = String(v || "").slice(0, 200); return /^[=+\-@]/.test(v) ? "'" + v : v; };
 
@@ -120,10 +141,8 @@ function handleLead(l) {
   };
   sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
 
-  // 2. instant text to the lead
-  sendSms(phone, "Hi " + first + ", thanks for joining the waiting list for Kirkcaldy Dental & Implant Clinic, " +
-    "the new NHS dental practice opening soon on Tolbooth Street, Kirkcaldy. " +
-    (inHours ? "We'll call you shortly." : "We'll give you a call from 8am."));
+  // 2. instant text to the lead (one SMS, 160 characters max)
+  sendSms(phone, leadText(first, inHours));
 
   // 3. alert the on-call mobile (in calling hours only)
   if (inHours) alertTeam("🦷 NEW LEAD (" + values.Source + ") – call now: " + name + " " + phone);
