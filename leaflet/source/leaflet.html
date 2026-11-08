@@ -33,7 +33,7 @@
   .fhead { top:calc(var(--b) + 104mm); }
   .fhead .l1 { color:var(--ink); }
   .fhead .l2 { margin-top:1.2mm; }
-  .fwhere { top:calc(var(--b) + 136.5mm); font-weight:700; font-size:3.1mm; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); }
+  .fwhere { top:calc(var(--b) + 136.5mm); font-weight:700; font-size:3.1mm; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); white-space:nowrap; }
   .fstrip { left:0; width:calc(148mm + 2*var(--b)); top:calc(var(--b) + 144mm); height:27mm; background:var(--gold); }
   .fstriptext { top:calc(var(--b) + 144mm); height:27mm; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#fff; }
   .fstriptext .s1 { font-family:"Playfair",serif; font-weight:900; text-transform:uppercase; letter-spacing:.03em; white-space:nowrap; line-height:1; }
@@ -79,7 +79,7 @@
   </div>
   <div class="a flour l" id="ffl"></div><div class="a flour r" id="ffr"></div>
   <div class="a dia" id="fdl"></div><div class="a dia" id="fdr"></div>
-  <div class="a x fwhere">Tolbooth Street · Kirkcaldy</div>
+  <div class="a x fwhere" id="fwhere">23–25 Tolbooth Street · Kirkcaldy KY1 1RW</div>
   <div class="a fstrip"></div>
   <div class="a x fstriptext"><div class="s1" id="fs1">Be first in line</div><div class="s2" id="fs2">Join our waiting list</div></div>
   <div class="a fcta">
@@ -137,7 +137,7 @@
   window.layout=async()=>{ await document.fonts.ready;
     const h=wrapFit(document.getElementById('fl1'),130,11);
     document.getElementById('fos').parentElement.style.fontSize=(h*1.42)+'mm';
-    wrapFit(document.getElementById('fs1'),118,12.5); wrapFit(document.getElementById('fs2'),100,5.6);
+    wrapFit(document.getElementById('fs1'),118,12.5); wrapFit(document.getElementById('fwhere'),128,3.3); wrapFit(document.getElementById('fs2'),100,5.6);
     flourish('fos',['ffl','ffr','fdl','fdr'],8,140,4,2.2,0,.58);
     flourish('b30',['bfl','bfr','bdl','bdr'],18,130,4,2.2,0,.58);
     const os=document.getElementById('fos').getBoundingClientRect(), pg=document.getElementById('front').getBoundingClientRect();

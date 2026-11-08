@@ -39,6 +39,7 @@
   .qr { left: calc(1300mm + var(--b) + 100mm); top: calc(var(--b) + 188mm); width:300mm; height:300mm; }
   .url { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 512mm); text-align:center;
          color:#fff; font-weight:700; font-size:21mm; white-space:nowrap; }
+  .addr { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 528mm); text-align:center; color:#D9BD82; font-weight:700; white-space:nowrap; }
   .divider { left: calc(1300mm + var(--b) - 4mm); top:0; width:8mm; height:100%; background:#B8964F; }
   .flour { height:3.6mm; top:0; }
   .flour.l { background: linear-gradient(90deg, rgba(138,106,44,0), var(--gold)); }
@@ -64,6 +65,7 @@
   <div class="abs tile"></div>
   <img class="abs qr" src="qr.svg" alt="QR code to the waiting-list page">
   <div class="abs url" id="url">kirkcaldydental.co.uk/register</div>
+  <div class="abs addr" id="addr">23–25 Tolbooth Street, Kirkcaldy KY1 1RW</div>
 <script>
   const p=new URLSearchParams(location.search); document.documentElement.style.setProperty('--b',(p.get('bleed')||'10')+'mm');
   // fit a single-line element to a target width (mm) by scaling font-size
@@ -76,7 +78,7 @@
     const s=document.getElementById('st1'), s2=document.getElementById('st2');
     s.style.fontSize='84mm'; let w=s.getBoundingClientRect().width/MM; if(w>1150) s.style.fontSize=(84*1150/w)+'mm';
     s2.style.fontSize='44mm'; w=s2.getBoundingClientRect().width/MM; if(w>1000) s2.style.fontSize=(44*1000/w)+'mm';
-    fit(document.getElementById('url'),350,23); fit(document.getElementById('sc2'),350,44); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
+    fit(document.getElementById('url'),350,23); fit(document.getElementById('addr'),350,17); fit(document.getElementById('sc2'),350,44); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
     // flourishes either side of "Opening Soon!"
     { const r=document.getElementById('os').getBoundingClientRect(), b=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--b'));
       const L=r.left/MM, R=r.right/MM, cy=(r.top+r.height*0.56)/MM, x0=b+70, x1=b+1230, g=26, d=14, d2=7;

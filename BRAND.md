@@ -18,7 +18,7 @@ Upload into the right subfolder and **trash the old version** (no "FINAL v2/v3" 
 ## Approved wording (owner Nas)
 - Headline: **NEW NHS DENTAL PRACTICE** / *Opening Soon!* (gold italic, diamond flourishes)
 - Strip: **BE FIRST IN LINE** / JOIN OUR WAITING LIST
-- Location line: TOLBOOTH STREET · KIRKCALDY · address 23–25 Tolbooth Street, Kirkcaldy KY1 1RW
+- Location line: full address everywhere: **23–25 Tolbooth Street, Kirkcaldy KY1 1RW** (owner wants the full address, not just "Tolbooth Street")
 - CTA: Join waiting list · kirkcaldydental.co.uk/register · info@kirkcaldydental.co.uk
 - Family line (Ad B / leaflet): For Kirkcaldy families · "Adults, children and families can all join"
 - NOT allowed: "taking on / accepting / registering NHS patients", "limited places", "first come first served", NHS logo.
