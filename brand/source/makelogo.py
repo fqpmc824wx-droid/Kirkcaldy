@@ -2,6 +2,8 @@
 
 Text is converted to outlines so the SVG needs no fonts installed.
 Usage: python3 makelogo.py <fonts_dir> <out_dir>
+Current logo (K sitting on the D): KD_STYLE=overlap K_SX=1.0 D_DX=0.62 D_DY=0.115 KNOCK=0.03 [K_FILL=#262B30 light / #F4EDE3 dark]
+Fonts: Cormorant Garamond 700 (cormorantb.ttf), Cinzel 600 (cinzel600.ttf), Lato 700 (lato.ttf).
 """
 import os
 import sys
@@ -107,7 +109,16 @@ def monogram(cx, top, cap_h):
         # K sits on the D: no clipping, D drawn first, K on top (two-tone: K colour set by K_FILL)
         kf = os.environ.get("K_FILL")
         kattr = f' fill="{kf}"' if kf else ""
-        svg_frag = f'<path d="{d_path}"/><path data-kd="K"{kattr} d="{k_path}"/>'
+        knock = float(os.environ.get("KNOCK", "0")) * cap_h
+        if knock > 0:
+            # cut a thin gap into the D around the K, so the K reads as sitting on the D (transparent-safe mask)
+            mid = f"kdmask{int(cx)}{int(top)}"
+            mask = (f'<mask id="{mid}" maskUnits="userSpaceOnUse" x="-10000" y="-10000" width="20000" height="20000">'
+                    f'<rect x="-10000" y="-10000" width="20000" height="20000" fill="#fff"/>'
+                    f'<path d="{k_path}" fill="#000" stroke="#000" stroke-width="{2 * knock:.2f}" stroke-linejoin="round"/></mask>')
+            svg_frag = f'<defs>{mask}</defs><path mask="url(#{mid})" d="{d_path}"/><path data-kd="K"{kattr} d="{k_path}"/>'
+        else:
+            svg_frag = f'<path d="{d_path}"/><path data-kd="K"{kattr} d="{k_path}"/>'
     else:
         svg_frag = (f'<defs>{clip}</defs><path clip-path="url(#{clip_id})" d="{k_path}"/><path d="{d_path}"/>')
     return svg_frag, total_w, cap_h + d_dy
