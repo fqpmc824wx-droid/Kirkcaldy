@@ -237,7 +237,7 @@ function trkLogSms(type, to, result) {
 }
 function trkSmsType(body) {
   var b = String(body || "");
-  return /NEW LEAD/.test(b) ? "caller alert" : /^Hi /.test(b) ? "lead text" : /^Good morning/.test(b) ? "morning summary" : "other";
+  return /^KD (P1|TEST)/.test(b) ? "health" : /NEW LEAD/.test(b) ? "caller alert" : /^Hi /.test(b) ? "lead text" : /^Good morning/.test(b) ? "morning summary" : "other";
 }
 
 // Daily 06:15: delivery results for the last 3 days from ClickSend, plus a low-balance alarm

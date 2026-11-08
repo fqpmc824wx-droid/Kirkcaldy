@@ -120,3 +120,10 @@ Setting Status directly still counts as an attempt (Called, No answer, Booked, N
 - Script-written: Call log, SMS log, Daily log.
 - Formulas only: Lead analysis. Never sort it.
 - Filled in by people: Daily checks, Costs, Change log, Complaints.
+
+## Safety switches (Script Properties)
+- `WEB_SMS_PAUSED` = `true`: website sign-ups are still saved, but get no text (SMS status "Paused").
+- `SMS_HOURLY_MAX` (default 40) and `SMS_DAILY_MAX` (default 300) cap the texts sent. When a cap is hit, the owner gets one email.
+- If saving a sign-up fails, the details go to the **Failed sign-ups** tab, the owner is emailed (P1), and the form gets the reply "error".
+- `…/exec?action=ping` returns `pong <version>` for uptime checks.
+- Only known sources are kept (website, home, leaflet, banner, fb-page, ig-bio, fb-form-done, fb-dm, facebook, instagram, google, email, phone, other). Anything else is saved as "website".

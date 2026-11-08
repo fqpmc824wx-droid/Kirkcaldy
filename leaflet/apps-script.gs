@@ -29,11 +29,44 @@ var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "
 // If CLICKSEND_USER / CLICKSEND_KEY are missing, texts are simply skipped.
 var SMS_FROM = "KirkDental";
 
+// Any error while saving a sign-up: keep the details in "Failed sign-ups", alert the owner, and reply "error" (never a silent loss)
 function doPost(e) {
+  try {
+    var res = websiteHandlePost(e);
+    if (typeof healthMark === "function") healthMark("doPost");
+    return res;
+  } catch (err) {
+    var p = (e && e.parameter) || {};
+    try {
+      var ss = SpreadsheetApp.getActiveSpreadsheet(), fs = ss.getSheetByName("Failed sign-ups") || ss.insertSheet("Failed sign-ups");
+      if (fs.getLastRow() === 0) fs.appendRow(["Time", "Error", "Name", "Phone", "Email", "Postcode", "Source", "All fields"]);
+      fs.appendRow([new Date(), String(err).slice(0, 300), String(p.name || "").slice(0, 100), "'" + String(p.phone || "").slice(0, 20),
+        String(p.email || "").slice(0, 200), String(p.postcode || "").slice(0, 20), String(p.source || "").slice(0, 40), JSON.stringify(p).slice(0, 2000)]);
+    } catch (x) { console.error("Could not save failed sign-up: " + x); }
+    if (typeof healthNotifyOnce === "function") healthNotifyOnce("WEB_SIGNUP_FAIL", "\u26A0\uFE0F P1: a website sign-up failed to save",
+      "The details are in the \"Failed sign-ups\" tab – copy them into the Waiting list and call the person.\n\n" + String(err).slice(0, 500));
+    console.error("doPost failed: " + err);
+    return out("error");
+  }
+}
+
+// Uptime check: GET …/exec?action=ping → "pong <version>" once the Waiting list tab is reachable
+function doGet(e) {
+  var p = (e && e.parameter) || {};
+  if (p.action !== "ping") return out("ok");
+  if (typeof healthAssertSheet === "function") healthAssertSheet(); else leadsSheet();
+  return out("pong " + (typeof HEALTH_VERSION !== "undefined" ? HEALTH_VERSION : ""));
+}
+
+// Sources the website may send (?src=…); anything else is saved as "website"
+var WEB_SOURCES = ["website", "home", "leaflet", "banner", "fb-page", "ig-bio", "fb-form-done", "fb-dm", "facebook", "instagram", "google", "email", "phone", "other"];
+
+function websiteHandlePost(e) {
   var p = (e && e.parameter) || {};
   if (p.action === "visit") return logVisit(p);
   if (p.website) return out("ok");          // honeypot: hidden field only bots fill in – drop silently
   if (!p.name || !p.email) return out("missing");
+  if (typeof healthAssertSheet === "function") healthAssertSheet();
 
   var inHours = inCallHours(new Date());   // CALL_HOURS unset = 8-21 (owner: no calls after 9pm)
   var name = String(p.name).trim(), first = niceFirstName(name);
@@ -52,7 +85,8 @@ function doPost(e) {
     //  - older and never reached -> "REPEAT" alert so the callers try again. Repeats get the "already on the list" text, max 1 a day.
     var seen = websiteLookup(p.phone, p.email), blocked = seen.blocked, repeat = seen.repeat && !blocked;
     var quiet = repeat && (seen.recent || seen.handled);
-    var src = String(p.source || "website").replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) || "website";
+    var src = String(p.source || "website").toLowerCase().replace(/[^a-z0-9\-_]/g, "").slice(0, 40);
+    if (WEB_SOURCES.indexOf(src) === -1) src = "website";
     var leadId = "W-" + Utilities.formatDate(new Date(), "Europe/London", "yyMMddHHmmss") + "-" + Math.random().toString(36).slice(2, 5);
     var values = {
       "Signup Time": new Date(),
@@ -79,9 +113,10 @@ function doPost(e) {
       "\uD83E\uDDB7 NEW LEAD (" + src + ") \u2013 call now: " + name.slice(0, 40) + " " + String(p.phone || "").slice(0, 20));
 
     // Thank-you text (one SMS) and email – also before the row is written, so SMS/Email status go in the same row
-    var r = null;
-    if (!blocked && !repeat) r = sendSms(p.phone, leadText(first, inHours));
-    if (repeat && !seen.recent) r = sendSms(p.phone, websiteRepeatText(first));
+    var r = null, paused = /^(1|true|yes|on)$/i.test(String(PropertiesService.getScriptProperties().getProperty("WEB_SMS_PAUSED") || ""));
+    if (paused && !blocked) values["SMS status"] = "Paused";   // owner switch: Script Property WEB_SMS_PAUSED = true
+    if (!paused && !blocked && !repeat) r = sendSms(p.phone, leadText(first, inHours));
+    if (!paused && repeat && !seen.recent) r = sendSms(p.phone, websiteRepeatText(first));
     if (r && typeof r === "object") { values["SMS ID"] = "'" + String(r.id || ""); values["SMS status"] = r.status === "SUCCESS" ? "Sent" : "Failed: " + r.status; }
     if (SEND_EMAIL && !blocked && !repeat) values["Email status"] = websiteConfirmEmail(p.email, first);
 
@@ -222,10 +257,13 @@ function alertTeam(msg, rotate) {
 // UK numbers to international format for ClickSend (07… → +447…)
 // NOTE: ukMobile() and sendSms() are also used by leads/meta-leads.gs (Facebook leads) in the same Apps Script project: don't rename them.
 function ukMobile(n) {
-  n = String(n || "").replace(/[^\d+]/g, "");
+  n = String(n || "").replace(/\(0\)/g, "").replace(/[^\d+]/g, "");   // "+44 (0)7…" → "+447…"
+  if (n.indexOf("00") === 0) n = "+" + n.slice(2);                     // "0044 7…" → "+447…"
+  if (n.indexOf("+440") === 0) n = "+44" + n.slice(4);                 // "+4407…" → "+447…"
   if (n.indexOf("+") === 0) return n;
   if (n.indexOf("44") === 0) return "+" + n;
   if (n.indexOf("0") === 0) return "+44" + n.slice(1);
+  if (/^7\d{9}$/.test(n)) return "+44" + n;                             // "7700900123" → "+447700900123"
   return n;
 }
 
@@ -234,8 +272,18 @@ function sendSms(to, body) {
   var props = PropertiesService.getScriptProperties();
   var user = props.getProperty("CLICKSEND_USER"), key = props.getProperty("CLICKSEND_KEY");
   var num = ukMobile(to), result;
-  if (!user || !key || !to) return;
-  if (!/^\+447\d{9}$/.test(num)) { console.warn("Not a UK mobile, SMS skipped"); return; }   // no landlines, premium or foreign numbers
+  var isAlert = /NEW LEAD|call-backs due/.test(String(body));
+  if (!user || !key) {
+    if (typeof healthAlert === "function") healthAlert("P1", "ClickSend keys missing – texts are not being sent");
+    return;
+  }
+  if (!to) return;
+  if (!/^\+447\d{9}$/.test(num)) {   // no landlines, premium or foreign numbers
+    console.warn("Not a UK mobile, SMS skipped");
+    if (isAlert && typeof healthAlert === "function") healthAlert("P1", "A caller alert number is not a UK mobile: check ONCALL_MOBILE / OWNER_MOBILE");
+    return;
+  }
+  if (!smsWithinCaps()) return;
   try {
     var res = UrlFetchApp.fetch("https://rest.clicksend.com/v3/sms/send", {
       method: "post",
@@ -252,6 +300,25 @@ function sendSms(to, body) {
   } catch (err) { smsFailed(String(err), "ERROR", body); result = { id: "", status: "ERROR", price: "" }; }
   if (typeof trkLogSms === "function") trkLogSms(trkSmsType(body), num, result);   // tracking.gs: SMS log tab
   return result;
+}
+
+// Hourly / daily safety caps on texts (Script Properties SMS_HOURLY_MAX, default 40, and SMS_DAILY_MAX, default 300)
+function smsWithinCaps() {
+  var props = PropertiesService.getScriptProperties(), now = new Date();
+  var hKey = Utilities.formatDate(now, "Europe/London", "yyyyMMddHH"), dKey = Utilities.formatDate(now, "Europe/London", "yyyyMMdd");
+  var h = String(props.getProperty("SMS_COUNT_HOUR") || "").split(":"), d = String(props.getProperty("SMS_COUNT_DAY") || "").split(":");
+  var hn = h[0] === hKey ? Number(h[1]) || 0 : 0, dn = d[0] === dKey ? Number(d[1]) || 0 : 0;
+  var hMax = Number(props.getProperty("SMS_HOURLY_MAX") || 40), dMax = Number(props.getProperty("SMS_DAILY_MAX") || 300);
+  if (hn >= hMax || dn >= dMax) {
+    console.warn("SMS cap reached (" + hn + "/h, " + dn + "/day) – text skipped");
+    if (typeof healthNotifyOnce === "function") healthNotifyOnce("SMS_CAP", "\u26A0\uFE0F Text limit reached – texts paused",
+      "More than " + (hn >= hMax ? hMax + " texts this hour" : dMax + " texts today") + " were sent, so texts are paused until the limit resets. " +
+      "If this is real demand, raise SMS_HOURLY_MAX / SMS_DAILY_MAX in Script Properties; if not, the form may be being abused.");
+    return false;
+  }
+  props.setProperty("SMS_COUNT_HOUR", hKey + ":" + (hn + 1));
+  props.setProperty("SMS_COUNT_DAY", dKey + ":" + (dn + 1));
+  return true;
 }
 
 // Logs a failed text and tells the owner by email (wrong keys, no credit, sender ID not approved…)
