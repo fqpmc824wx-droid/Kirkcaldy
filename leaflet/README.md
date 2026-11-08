@@ -6,7 +6,7 @@
 | `kirkcaldy-dental-leaflet-A5.pdf` | A5 double-sided leaflet (front + back), exported from Canva |
 | `leaflet-front.png`, `leaflet-back.png` | 300 dpi previews of each side |
 | `qr-leaflet.svg` / `.png` | The QR code on its own (vector + PNG) |
-| `apps-script.gs` | Saves website sign-ups into the Interest List Google Sheet |
+| `apps-script.gs` | Saves website sign-ups into the Waiting List Google Sheet |
 
 - **Canva design (editable):** https://www.canva.com/d/hiwyJHMTNSKTF5v
 - **The QR code goes to:** `https://kirkcaldydental.co.uk/register/?src=leaflet`
@@ -20,7 +20,7 @@ Upload `kirkcaldy-dental-website.zip` to Hostinger and extract it into `public_h
 Check that **https://kirkcaldydental.co.uk/register/** loads.
 
 ### 2. Connect the form to the Google Sheet
-1. Open the Interest List sheet: https://docs.google.com/spreadsheets/d/1YBtbcdnAKaPAr3MyNEJFKimbGt2bJ_AB9d-1jppuTDM/edit
+1. Open the Waiting List sheet: https://docs.google.com/spreadsheets/d/1WxadIcaibszu3YYR3eqNMjaQQ0V3LJ_Mvdsx_I2KBQI/edit
 2. Go to **Extensions → Apps Script**. Delete the sample code and paste in all of `apps-script.gs`, then save.
 3. Go to **Deploy → New deployment**, set the type to **Web app**, set *Execute as* to **Me** and *Who has access* to **Anyone**, then click **Deploy**. Allow the permissions it asks for.
 4. Copy the **Web app URL**, which ends in `/exec`.

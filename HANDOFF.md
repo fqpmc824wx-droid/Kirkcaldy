@@ -11,9 +11,9 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 ## Assets
 - Website zip (upload to Hostinger): `kirkcaldy-dental-website.zip` in the GitHub repo langtounsmiles/Dental, branch `claude/determined-heisenberg-d02bac`
 - Logo pack: `kirkcaldy-dental-logo-pack.zip` (same repo; SVG + PNG)
-- Waitlist Google Sheet: https://docs.google.com/spreadsheets/d/1YBtbcdnAKaPAr3MyNEJFKimbGt2bJ_AB9d-1jppuTDM/edit
-  Columns: Signup Time | Name | Phone | Email | Postcode | No. of People | Currently Registered? | Adult/Child/Family | Contacted? | Notes
-  (Rename the sheet to "Interest List – Kirkcaldy" if you like; keep the columns.)
+- Waiting List Google Sheet (owned by info@kirkcaldydental.co.uk): https://docs.google.com/spreadsheets/d/1WxadIcaibszu3YYR3eqNMjaQQ0V3LJ_Mvdsx_I2KBQI/edit
+  The old Interest List sheet (in a different Google account) keeps the earlier Facebook leads. Point new Facebook leads at this sheet too.
+  Columns: Signup Time | Name | Phone | Email | Postcode | No. of People | Currently Registered? | Adult/Child/Family | Source | Status | Notes
 - Canva ads (white & gold, compliant wording):
   - Ad A feed 4:5 – https://canva.link/br5twhovj89afgo
   - Ad A Stories 9:16 – https://canva.link/aebftyapo4kra99
@@ -81,6 +81,6 @@ Trigger: Facebook Lead Ads → New Lead (clinic page + form above)
 ## Step 6 – Leaflet sign-up page (QR code)
 Full instructions are in `leaflet/README.md`. Short version:
 1. The website zip now contains `register/`. Make sure https://kirkcaldydental.co.uk/register/ loads.
-2. In the Interest List sheet, go to Extensions → Apps Script, paste in `leaflet/apps-script.gs` and deploy it as a Web app (Execute as: Me, Access: Anyone). Then paste the /exec URL into `register/index.html` (replace `PASTE_APPS_SCRIPT_URL_HERE`) and re-upload that file.
+2. In the Waiting List sheet, go to Extensions → Apps Script, paste in `leaflet/apps-script.gs` and deploy it as a Web app (Execute as: Me, Access: Anyone). Then paste the /exec URL into `register/index.html` (replace `PASTE_APPS_SCRIPT_URL_HERE`) and re-upload that file.
 3. Test by scanning the QR code on `leaflet/kirkcaldy-dental-leaflet-A5.pdf`. A row should appear with Source = leaflet, and the thank-you email should arrive.
 4. Leaflet artwork in Canva: https://www.canva.com/d/hiwyJHMTNSKTF5v. For printing, download it as "PDF Print" with crop marks and bleed.

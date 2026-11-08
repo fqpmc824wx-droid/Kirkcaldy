@@ -1,7 +1,7 @@
 /**
- * Kirkcaldy Dental – website "Register your interest" form → Interest List sheet.
+ * Kirkcaldy Dental – website "Register your interest" form → Waiting List sheet (owned by info@kirkcaldydental.co.uk).
  *
- * Install: open the Interest List Google Sheet → Extensions → Apps Script,
+ * Install: open the "Kirkcaldy Dental – Waiting List" Google Sheet → Extensions → Apps Script,
  * paste this whole file over the sample code, save, then
  * Deploy → New deployment → type "Web app" → Execute as: Me →
  * Who has access: Anyone → Deploy. Copy the Web app URL into
@@ -63,7 +63,7 @@ function doPost(e) {
   }
   if (NOTIFY) {
     MailApp.sendEmail(NOTIFY, "New sign-up (" + (p.source || "website") + "): " + first,
-      "A new person registered interest on the website. See the Interest List sheet.");
+      "A new person joined the waiting list on the website. See the Waiting List sheet.");
   }
   return out("ok");
 }
