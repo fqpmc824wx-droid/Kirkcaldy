@@ -12,6 +12,7 @@
  * It also sends the same thank-you email the Facebook leads get.
  */
 
+var LEADS_TAB = "Waiting list";               // NEVER the first tab – that is the Dashboard (same as meta-leads.gs)
 var SHEET_NAME = "Waiting list"; // the sign-ups tab (the first tab is the Dashboard, so always use the name)
 var SEND_EMAIL = true;
 var DO_NOT_CONTACT = "DO NOT CONTACT"; // Status value that stops all texts, calls and emails (exact same string in meta-leads.gs)
@@ -61,7 +62,7 @@ function doPost(e) {
       "Marketing consent": /^(yes|true|on|1)$/i.test(String(p.marketing || "").trim()) ? "Yes" : "No"
     };
     // Anyone whose phone already has a row with Status "DO NOT CONTACT" gets no texts, calls or emails (same string as meta-leads.gs)
-    var dnc = isDoNotContact(sh, headers, p.phone);
+    var dnc = isDoNotContact(p.phone);
     if (dnc) values["Status"] = DO_NOT_CONTACT;
     // "new lead" alert (calling hours only) – sent before the row is written so the sheet shows who has it.
     // ALERT_MODE "rotate" gives each lead to the next ONCALL_MOBILE in turn (ALERT_NEXT is shared with meta-leads.gs).
@@ -96,15 +97,23 @@ function doPost(e) {
   return out("ok");
 }
 
-// True if this phone number already has a row whose Status is "DO NOT CONTACT"
-function isDoNotContact(sh, headers, phone) {
-  var pc = headers.indexOf("Phone"), sc = headers.indexOf("Status"), n = sh.getLastRow() - 1;
-  var want = ukMobile(phone);
-  if (pc === -1 || sc === -1 || n < 1 || !want) return false;
-  var rows = sh.getRange(2, 1, n, headers.length).getValues();
-  for (var i = 0; i < rows.length; i++)
-    if (String(rows[i][sc]).trim().toUpperCase() === DO_NOT_CONTACT && ukMobile(rows[i][pc]) === want) return true;
+// Copied unchanged from leads/meta-leads.gs (same Apps Script project – keep them identical, incl. LEADS_TAB above).
+// Anyone whose row has Status "DO NOT CONTACT" is never texted, emailed or alerted again.
+function isDoNotContact(phone) {
+  var digits = function (v) { return String(v || "").replace(/\D/g, "").replace(/^44/, "0"); };
+  var target = digits(phone);
+  if (!target) return false;
+  var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String);
+  var pc = h.indexOf("Phone"), sc = h.indexOf("Status");
+  if (pc === -1 || sc === -1) return false;
+  for (var i = 1; i < data.length; i++)
+    if (String(data[i][sc]).trim().toUpperCase() === "DO NOT CONTACT" && digits(data[i][pc]) === target) return true;
   return false;
+}
+function leadsSheet() {
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(LEADS_TAB);
+  if (!sh) throw new Error("Tab \"" + LEADS_TAB + "\" not found");
+  return sh;
 }
 
 // Counts page visits (e.g. QR scans) on the "Visits" tab: time + source only, nothing personal.
