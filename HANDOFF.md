@@ -67,17 +67,20 @@ Trigger: Facebook Lead Ads → New Lead (clinic page + form above)
    Any questions? Email info@kirkcaldydental.co.uk.
    Kirkcaldy Dental & Implant Clinic
    kirkcaldydental.co.uk"
-4. Optional, costs pennies: **ClickSend → SMS to the lead**:
+4. Optional, pennies: **ClickSend → SMS to the on-call mobile**: "🦷 NEW LEAD – call now: {Full Name} {Phone}"
+5. Optional, pennies: **ClickSend → SMS to the lead**:
    "Hi {First Name}, thanks for joining the waiting list for Kirkcaldy Dental & Implant Clinic, the new NHS practice opening soon on Tolbooth Street. We'll be in touch. kirkcaldydental.co.uk"
-5. Test with Meta's **Lead Ads Testing Tool** and check all of these:
+6. Test with Meta's **Lead Ads Testing Tool** and check all of these:
    - the phone alerts appear
    - the row appears in the sheet
    - both emails arrive
    Then switch the scenario/Zap on.
 
-**Team routine:**
-- Call new leads within 15 minutes in opening hours, and call evening/weekend leads first thing next working day.
-- Mark Status in the sheet after each call.
+**Team routine – every lead called the same day, 7 days a week (8am–9pm):**
+- **Opening hours:** reception calls new leads within 15 minutes.
+- **Evenings and weekends:** one person is **on call** each evening/weekend (rota). Their phone has the Meta Business Suite and Gmail alerts on, plus an optional ClickSend text alert to their mobile. They call within 15–30 minutes, up to 9pm.
+- **After 9pm:** don't phone people late at night. The lead gets the automatic "you're on our waiting list" email/text straight away, and the on-call person calls them from 8am the next morning, including weekends.
+- Mark Status in the sheet after each call: Called / No answer / Booked. If there's no answer, try again within 2 hours and once more the next day.
 
 **Upgrade later (only if needed):** an auto-call service such as Callingly (from about $100/month) rings the team phone and connects to the lead automatically.
 
