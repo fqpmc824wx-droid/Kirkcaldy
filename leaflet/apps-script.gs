@@ -71,7 +71,7 @@ function doPost(e) {
       "Logged at": new Date(),
       "Duplicate of": seen.repeat ? "'" + seen.firstId : "",
       "How heard": clean(p.heard),
-      "Visit ID": p.visit ? "'" + String(p.visit).replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) : ""
+      "Visit ID": (p.vid || p.visit) ? "'" + String(p.vid || p.visit).replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) : ""
     };
     if (repeat) values["Notes"] = "Already on the list (same phone/email) - see " + seen.firstId + (seen.recent ? "; no text sent" : "");
     // "new lead" alert (calling hours only) – sent before the row is written so the sheet shows who has it.
@@ -155,9 +155,11 @@ function leadsSheet() {
 function logVisit(p) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sh = ss.getSheetByName("Visits") || ss.insertSheet("Visits");
-  if (sh.getLastRow() === 0) sh.appendRow(["Visit Time", "Source"]);
+  if (sh.getLastRow() === 0) sh.appendRow(["Visit Time", "Source", "Visit ID"]);
+  else if (String(sh.getRange(1, 3).getValue()) !== "Visit ID") sh.getRange(1, 3).setValue("Visit ID");
   var src = String(p.source || "website").replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) || "website";
-  sh.appendRow([new Date(), src]);
+  var vid = String(p.vid || p.visit || "").replace(/[^a-z0-9\-_]/gi, "").slice(0, 40);   // random per page load, no cookie
+  sh.appendRow([new Date(), src, vid ? "'" + vid : ""]);
   return out("ok");
 }
 
@@ -231,7 +233,7 @@ function ukMobile(n) {
 function sendSms(to, body) {
   var props = PropertiesService.getScriptProperties();
   var user = props.getProperty("CLICKSEND_USER"), key = props.getProperty("CLICKSEND_KEY");
-  var num = ukMobile(to);
+  var num = ukMobile(to), result;
   if (!user || !key || !to) return;
   if (!/^\+447\d{9}$/.test(num)) { console.warn("Not a UK mobile, SMS skipped"); return; }   // no landlines, premium or foreign numbers
   try {
@@ -244,15 +246,22 @@ function sendSms(to, body) {
     });
     var code = res.getResponseCode(), txt = res.getContentText(), bad = [];
     try { ((JSON.parse(txt).data || {}).messages || []).forEach(function (m) { if (m.status !== "SUCCESS") bad.push(m.status); }); } catch (e) { bad.push("unreadable reply"); }
-    if (code !== 200 || bad.length) smsFailed("HTTP " + code + (bad.length ? ", status " + bad.join("/") : "") + " – " + txt.slice(0, 300));
     var m0 = {}; try { m0 = ((JSON.parse(txt).data || {}).messages || [])[0] || {}; } catch (e) {}
-    return { id: m0.message_id || "", status: m0.status || (code === 200 ? "UNKNOWN" : "HTTP " + code), price: m0.message_price || "" };
-  } catch (err) { smsFailed(String(err)); return { id: "", status: "ERROR", price: "" }; }
+    var result = { id: m0.message_id || "", status: m0.status || (code === 200 ? "UNKNOWN" : "HTTP " + code), price: m0.message_price || "" };
+    if (code !== 200 || bad.length) smsFailed("HTTP " + code + (bad.length ? ", status " + bad.join("/") : "") + " – " + txt.slice(0, 300), result.status, body);
+  } catch (err) { smsFailed(String(err), "ERROR", body); result = { id: "", status: "ERROR", price: "" }; }
+  if (typeof trkLogSms === "function") trkLogSms(trkSmsType(body), num, result);   // tracking.gs: SMS log tab
+  return result;
 }
 
 // Logs a failed text and tells the owner by email (wrong keys, no credit, sender ID not approved…)
-function smsFailed(detail) {
+function smsFailed(detail, status, body) {
   console.error("SMS failed: " + detail);
+  // no credit, or a caller alert that didn't go out: tell the owner straight away (own keys, so the 3h limit of other errors doesn't hide it)
+  if (typeof healthNotifyOnce === "function" && /INSUFFICIENT_CREDIT/.test(String(status)))
+    healthNotifyOnce("SMS_ERR_CREDIT", "\u26A0\uFE0F ClickSend is out of credit – texts are not being sent", "Top up ClickSend now.\n\n" + detail.slice(0, 500));
+  else if (typeof healthNotifyOnce === "function" && /NEW LEAD/.test(String(body)))
+    healthNotifyOnce("SMS_ERR_ALERT", "\u26A0\uFE0F A new-lead alert to the callers failed", "Check the Waiting list for new leads and call them.\n\n" + detail.slice(0, 500));
   // healthNotifyOnce() lives in meta-leads.gs (same project): emails OWNER_EMAIL at most every 3h per key
   if (typeof healthNotifyOnce === "function") return healthNotifyOnce("SMS_ERR_LAST", "\u26A0\uFE0F Texts are failing (ClickSend)",
     "ClickSend did not send a text. Check the ClickSend account (credit, API key, sender ID).\n\n" + detail.slice(0, 500));

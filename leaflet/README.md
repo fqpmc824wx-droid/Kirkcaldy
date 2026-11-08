@@ -86,3 +86,37 @@ NOT allowed until after the NHS inspection: "taking on / accepting / registering
 ## Tracking columns (N onwards)
 Columns N–AR are written by name, so their order doesn't matter: Lead ID (website rows are `W-yyMMddHHmmss-xxx`), Logged at, Ad name, Ad ID, Form ID, Organic?, Duplicate of, How heard, SMS ID, SMS status, Email status, Call outcome, call timings, Appt date, People booked, Not booked reason, Current practice, Private interest, Dentally fields, and Visit ID. N–X and Z–AH are hidden, so callers see A–M, **Call outcome (Y)** and AI–AM. Don't put formulas in the Waiting list tab.
 The website form can send `heard` (How heard) and `visit` (Visit ID).
+
+## Call tracking (tracking.gs)
+`leaflet/tracking.gs` goes in the same Apps Script project, as a second script file. It covers call outcomes, the Call log, the SMS log, call-back reminders, the daily snapshot, delivery reports, bounces and the weekly email. All its names start with `trk`.
+
+**Install once, as info@:**
+1. Project Settings → Time zone → Europe/London.
+2. Add `tracking.gs`.
+3. Run `trkInstallTriggers()` and allow the permissions.
+
+| What | When |
+|---|---|
+| Call tracking | when the sheet is edited |
+| Call-back reminder | every 15 minutes, 8am–9pm |
+| ClickSend delivery reports and low-credit alarm (under £10) | 06:15 |
+| Email bounce scan | 06:45 |
+| Daily snapshot | 21:10 |
+| Weekly email | Monday 07:30 |
+
+**For callers:** after each call, pick the result in **Call outcome** (column Y). The script then:
+- counts the attempt and sets **Status**, the timestamps and **Next call due**;
+- adds a line to **Call history** and a row to the **Call log** tab;
+- clears Call outcome, ready for the next call.
+
+Next call due works like this:
+- 1st no answer: try again in 2 hours, or 10am the next day if that's after 9pm.
+- 2nd no answer: 5:30pm the next day if both calls were before 5pm, otherwise 10am the next day.
+- 3rd no answer: Status becomes **Unreachable**.
+
+Setting Status directly still counts as an attempt (Called, No answer, Booked, Not interested, Wrong number).
+
+**Tabs:**
+- Script-written: Call log, SMS log, Daily log.
+- Formulas only: Lead analysis. Never sort it.
+- Filled in by people: Daily checks, Costs, Change log, Complaints.
