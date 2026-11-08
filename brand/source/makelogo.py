@@ -2,7 +2,7 @@
 
 Text is converted to outlines so the SVG needs no fonts installed.
 Usage: python3 makelogo.py <fonts_dir> <out_dir>
-Current logo (K sitting on the D): KD_STYLE=overlap K_SX=1.0 D_DX=0.66 D_DY=0.095 KNOCK=0.028 [K_FILL=#262B30 light / #F4EDE3 dark]
+Current logo (K sitting on the D): KD_STYLE=overlap K_SX=1.0 D_DX=0.66 D_DY=0.095 KNOCK=0.028 D_LIFT=0.0466667 (D raised halfway, owner-approved 8 Nov) [K_FILL=#262B30 light / #F4EDE3 dark]
 Fonts: Cormorant Garamond 700 (cormorantb.ttf), Cinzel 600 (cinzel600.ttf), Lato 700 (lato.ttf).
 """
 import os
@@ -74,6 +74,30 @@ def draw_text(face, txt, size, tracking, cx, baseline):
     return d, x0 + left, x0 + right
 
 
+
+def vector_knockout(d_path, k_path, knock, lift):
+    """Return the D outline with a gap of `knock` cut around the K, as plain vector path data (no masks)."""
+    import pathops
+    from fontTools.svgLib.path import parse_path
+    from fontTools.pens.transformPen import TransformPen
+
+    def to_pathops(d, dy=0.0):
+        pth = pathops.Path()
+        pen = pth.getPen()
+        parse_path(d, TransformPen(pen, (1, 0, 0, 1, 0, dy)) if dy else pen)
+        return pth
+
+    D = to_pathops(d_path, -lift)
+    K = to_pathops(k_path)
+    halo = to_pathops(k_path)
+    halo.stroke(2 * knock, pathops.LineCap.BUTT_CAP, pathops.LineJoin.ROUND_JOIN, 4)
+    cut = pathops.op(K, halo, pathops.PathOp.UNION)
+    res = pathops.op(D, cut, pathops.PathOp.DIFFERENCE)
+    out = SVGPathPen(None)
+    res.draw(out)
+    return out.getCommands()
+
+
 mono = Face(f"{FD}/cormorantb.ttf")
 word = Face(f"{FD}/cinzel600.ttf")
 sans = Face(f"{FD}/lato.ttf")
@@ -110,13 +134,11 @@ def monogram(cx, top, cap_h):
         kf = os.environ.get("K_FILL")
         kattr = f' fill="{kf}"' if kf else ""
         knock = float(os.environ.get("KNOCK", "0")) * cap_h
+        lift = float(os.environ.get("D_LIFT", "0")) * cap_h
         if knock > 0:
-            # cut a thin gap into the D around the K, so the K reads as sitting on the D (transparent-safe mask)
-            mid = f"kdmask{int(cx)}{int(top)}"
-            mask = (f'<mask id="{mid}" maskUnits="userSpaceOnUse" x="-10000" y="-10000" width="20000" height="20000">'
-                    f'<rect x="-10000" y="-10000" width="20000" height="20000" fill="#fff"/>'
-                    f'<path d="{k_path}" fill="#000" stroke="#000" stroke-width="{2 * knock:.2f}" stroke-linejoin="round"/></mask>')
-            svg_frag = f'<defs>{mask}</defs><path mask="url(#{mid})" d="{d_path}"/><path data-kd="K"{kattr} d="{k_path}"/>'
+            # vector cut-out: subtract a thin halo around the K from the D (pure paths, prints as vector)
+            d_cut = vector_knockout(d_path, k_path, knock, lift)
+            svg_frag = f'<path d="{d_cut}"/><path data-kd="K"{kattr} d="{k_path}"/>'
         else:
             svg_frag = f'<path d="{d_path}"/><path data-kd="K"{kattr} d="{k_path}"/>'
     else:
