@@ -38,7 +38,8 @@ Website and QR sign-ups get the same instant thank-you text as Facebook leads, a
    - `CALL_HOURS` (optional): leave unset for the default `8-21` (no calls after 9pm). Out-of-hours sign-ups get the "we'll call you tomorrow from 8am" text, Status "Call 8am" and no team alert, and the 8am morning summary picks them up. Set `24h` for round-the-clock calling
    - `ONCALL_MOBILE`: one or more mobiles for new-lead alerts, comma-separated, e.g. `07700900123, 07700900456` (optional)
    - `ALERT_MODE` (optional): `all` (default, every ONCALL_MOBILE gets each lead) or `rotate` (each lead goes to the next ONCALL_MOBILE in turn, for the remote team). The person it went to is written in the **Assigned to** column
-   - `OWNER_MOBILE` (optional): mobile(s) that get a copy of every alert, comma-separated
+   - `OWNER_MOBILE` (optional): mobile(s) that get a copy of every alert by text, comma-separated. Leave empty if you use OWNER_EMAIL
+   - `OWNER_EMAIL` (optional): email(s) that get a free copy of every alert, comma-separated, e.g. `info@kirkcaldydental.co.uk` (shows as a Gmail app notification). When it's set, the separate "new sign-up" email is only sent for out-of-hours sign-ups, so you don't get two
    - `ALERT_NEXT`: set automatically by the rotation, shared with the Facebook leads script so the turn order runs across both. Don't edit it
 
 **Consent and do-not-contact (PECR / GDPR)**

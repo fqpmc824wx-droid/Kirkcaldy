@@ -25,6 +25,7 @@ var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "
 //   ONCALL_MOBILE    = one or more mobiles for the "new lead" alert, comma-separated (optional, e.g. 07700900123, 07700900456)
 //   ALERT_MODE       = "all" (default: every ONCALL_MOBILE gets each lead) or "rotate" (one caller per lead, in turn)
 //   OWNER_MOBILE     = mobile(s) that get a copy of every alert, comma-separated (optional)
+//   OWNER_EMAIL      = email(s) that get a free copy of every alert, comma-separated (e.g. info@kirkcaldydental.co.uk)
 //   ALERT_NEXT       = rotation pointer, set automatically – don't edit
 // If CLICKSEND_USER / CLICKSEND_KEY are missing, texts are simply skipped.
 var SMS_FROM = "KirkDental";
@@ -90,7 +91,8 @@ function doPost(e) {
         "Kirkcaldy Dental & Implant Clinic\nkirkcaldydental.co.uk"
     });
   }
-  if (NOTIFY) {
+  // In calling hours the owner already got the NEW LEAD alert by email (alertTeam → OWNER_EMAIL), so this note is only sent out of hours
+  if (NOTIFY && !(inHours && PropertiesService.getScriptProperties().getProperty("OWNER_EMAIL"))) {
     MailApp.sendEmail(NOTIFY, "New sign-up (" + (p.source || "website") + "): " + first,
       "A new person joined the waiting list on the website. See the Waiting List sheet.");
   }
@@ -173,6 +175,10 @@ function alertTeam(msg, rotate) {
     props.setProperty("ALERT_NEXT", String(i + 1));
   }
   to.concat(owners.filter(function (o) { return to.indexOf(o) === -1; })).forEach(function (n) { sendSms(n, msg); });
+  split(props.getProperty("OWNER_EMAIL")).forEach(function (e) {
+    try { MailApp.sendEmail(e, msg.slice(0, 120), msg + "\n\nWaiting List sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl()); }
+    catch (err) { console.error("Owner email failed: " + err); }
+  });
   return to.join(", ");
 }
 
