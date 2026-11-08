@@ -29,6 +29,8 @@ function doPost(e) {
   if (p.action === "visit") return logVisit(p);
   if (!p.name || !p.email) return out("missing");
 
+  var inHours = inCallHours(new Date());   // CALL_HOURS unset = 24h, so always true
+
   var lock = LockService.getScriptLock();
   lock.waitLock(20000);
   try {
@@ -49,7 +51,8 @@ function doPost(e) {
       "No. of People": clean(p.people),
       "Currently Registered?": clean(p.registered),
       "Adult/Child/Family": clean(p.who),
-      "Source": clean(p.source || "website")
+      "Source": clean(p.source || "website"),
+      "Status": inHours ? "" : "Call 8am"   // out of hours: picked up by the 8am summary (meta-leads.gs)
     };
     sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
   } finally {
@@ -59,11 +62,11 @@ function doPost(e) {
   var first = String(p.name).trim().split(/\s+/)[0];
   var src = p.source || "website";
 
-  // Instant thank-you text to the person, and a "new lead" alert to the on-call mobile
-  sendSms(p.phone, leadText(niceFirstName(p.name), inCallHours(new Date())));
+  // Instant thank-you text to the person; "new lead" alert to the on-call mobiles only within call hours
+  sendSms(p.phone, leadText(niceFirstName(p.name), inHours));
   var alertMsg = "\uD83E\uDDB7 NEW LEAD (" + src + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || "");
   // ONCALL_MOBILE can hold several numbers, comma-separated (on-call person, owner…)
-  String(PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE") || "")
+  if (inHours) String(PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE") || "")
     .split(",").map(function (n) { return n.trim(); }).filter(String)
     .forEach(function (n) { sendSms(n, alertMsg); });
   if (SEND_EMAIL) {
