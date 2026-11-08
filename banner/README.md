@@ -3,7 +3,7 @@
 | File | What it is |
 |---|---|
 | `kirkcaldy-dental-banner-180x60cm.pdf` | Print file – exactly 1800 × 600 mm, single-sided |
-| `banner-preview.png` | Small preview |
+| `banner-preview.jpg` | High-resolution preview (zoomable) |
 | `qr-banner.svg` / `.png` | The banner's QR code on its own |
 
 - **Design:** no photo – large vector logo on the left, headline + "Scan to Register" in the middle, big QR code on the right, gold swirls in the corners.
