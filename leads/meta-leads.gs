@@ -4,8 +4,9 @@
  * Every minute it checks Meta for new Instant Form leads, then for each one:
  *   1. adds a row to the Waiting List sheet (Source = "facebook")
  *   2. texts the lead straight away ("thanks, we'll be in touch")
- *   3. texts the on-call mobile(s) "NEW LEAD – call now" – 24 hours a day by default (CALL_HOURS="24h").
- *      If CALL_HOURS is set to e.g. "8-21", leads outside those hours are marked "Call 8am" and summarised at 8am.
+ *   3. 8am–9pm: texts the caller(s) "NEW LEAD – call now".
+ *      9pm–8am: no calls – the lead is texted "we'll call you tomorrow from 8am", the row is marked "Call 8am",
+ *      and the team gets an 8am summary. (Script Property CALL_HOURS, default "8-21"; "24h" = round the clock.)
  *   4. emails the lead a confirmation
  *
  * INSTALL – in the SAME Apps Script project as apps-script.gs (Waiting List sheet → Extensions → Apps Script):
@@ -15,7 +16,7 @@
  *     META_FORM_IDS   = the Instant Form ID(s), comma-separated
  *     CLICKSEND_USER / CLICKSEND_KEY (already used by apps-script.gs)
  *     ONCALL_MOBILE   = one or more mobiles, comma-separated – all get the team alerts
- *     CALL_HOURS      = "24h" (default) or e.g. "8-21"
+ *     CALL_HOURS      = "8-21" (default, no calls after 9pm) or "24h"
  *   Then run installLeadTriggers() once and allow the permissions.
  * Uses sendSms() and ukMobile() from apps-script.gs.
  */
@@ -127,9 +128,9 @@ function field(l, keys) {
 }
 
 // Calling hours come from Script Property CALL_HOURS:
-//   "24h" (default – owner runs a 24-hour service with someone on standby) or e.g. "8-21" for 8am–9pm.
+//   "8-21" (default – owner: no calls after 9pm) or "24h" for round-the-clock calling.
 function callWindow() {
-  var v = String(PropertiesService.getScriptProperties().getProperty("CALL_HOURS") || "24h").trim().toLowerCase();
+  var v = String(PropertiesService.getScriptProperties().getProperty("CALL_HOURS") || "8-21").trim().toLowerCase();
   var m = v.match(/^(\d{1,2})\s*-\s*(\d{1,2})$/);
   return m ? { from: Number(m[1]), to: Number(m[2]) } : { from: 0, to: 24 };
 }

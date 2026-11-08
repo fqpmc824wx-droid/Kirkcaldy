@@ -116,11 +116,10 @@ Then turn the Zap on.
 - If calls fall behind, lower the Meta daily budget rather than leaving leads uncalled.
 - The confirmation text means everyone hears back instantly even when there's a queue.
 
-**Team routine – 24-hour service (owner decision):**
-- Someone is on standby at all times, including overnight, and calls every new lead within minutes.
-- The alerts go out 24/7 (`CALL_HOURS` = `24h`).
-- If there's no answer, try again within 2 hours and once more the next day. Mark Status in the sheet after each call: Called / No answer / Booked.
-- To limit calling hours later, set `CALL_HOURS` to e.g. `8-21`. Leads outside those hours then get a "we'll call you tomorrow from 8am" text, and the team gets an 8am summary.
+**Team routine – calls 8am to 9pm, 7 days (owner decision: nobody is called after 9pm):**
+- 8am–9pm: each lead goes to the next caller in turn (`ALERT_MODE` = `rotate`, owner copied via `OWNER_MOBILE`). They call within minutes.
+- 9pm–8am: the lead gets an instant "we'll call you tomorrow from 8am" text. The row is marked "Call 8am", and the 8am summary goes to the team. These are the first calls of the day.
+- If there's no answer, try again within 2 hours (before 9pm) and once more the next day. Mark Status in the sheet after each call: Called / No answer / Booked.
 
 **Upgrade later (only if needed):** an auto-call service such as Callingly (from about $100/month) rings the team phone and connects to the lead automatically.
 

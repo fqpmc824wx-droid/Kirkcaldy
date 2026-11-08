@@ -5,7 +5,7 @@
 Every minute it pulls new Facebook/Instagram Instant Form leads from Meta and, for each one:
 - adds a row to the sheet
 - texts the lead straight away
-- texts the on-call mobile(s) "NEW LEAD – call now", 24 hours a day by default (`CALL_HOURS`); if hours are limited, out-of-hours leads get a "we'll call from 8am" text and an 8am summary
+- texts the on-call mobile(s) "NEW LEAD – call now", 8am–9pm (`CALL_HOURS` default `8-21`); leads after 9pm get a "we'll call you tomorrow from 8am" text, are marked "Call 8am", and the team gets an 8am summary
 - emails the lead a confirmation
 
 **Costs:** £0 for the software. You only pay for the texts, a few pence each through ClickSend, or switch `sendSms()` to Twilio.
@@ -34,7 +34,7 @@ Every minute it pulls new Facebook/Instagram Instant Form leads from Meta and, f
 - `ONCALL_MOBILE`: the callers' mobiles, comma-separated.
 - `ALERT_MODE`: `all` (everyone gets every lead) or **`rotate`** (each lead goes to the next caller in turn, so two people never ring the same lead). Recommended with a big team.
 - `OWNER_MOBILE`: optional. Gets a copy of every alert in either mode.
-- `CALL_HOURS`: `24h` (default) or e.g. `8-21`.
+- `CALL_HOURS`: `8-21` (default – no calls after 9pm) or `24h`.
 
 If the sheet has an **"Assigned to"** column, it shows which caller each lead went to.
 6. Run `installLeadTriggers()` once and allow the permissions.
