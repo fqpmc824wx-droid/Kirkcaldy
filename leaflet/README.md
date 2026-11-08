@@ -52,7 +52,8 @@ Website and QR sign-ups get the same instant thank-you text as Facebook leads, a
 
 **Consent and do-not-contact (PECR / GDPR)**
 - **Marketing consent** column: `Yes` only when the person ticked the optional, unticked box on the form (field `marketing`), otherwise `No`. Only `Yes` people may ever get promotional texts or emails. The thank-you text and email are service messages only, with no offers.
-- Set a row's **Status** to exactly `DO NOT CONTACT` to stop all texts, calls and emails to that phone number. Any new sign-up with the same number is still saved (with Status `DO NOT CONTACT`), but gets no text, no team alert and no email. The Facebook leads script uses the same string.
+- **Status** dropdown: Called · No answer · Booked · DO NOT CONTACT · Call 8am. It only warns, so the scripts can still write other values. After calling, replace "Call 8am" with the real result.
+- Set a row's **Status** to exactly `DO NOT CONTACT` to stop all texts, calls and emails to that phone number or email address (numbers match however they're written: 07…, +44 7…, +44 (0)7…). Any new sign-up with the same number is still saved (with Status `DO NOT CONTACT`), but gets no text, no team alert and no email. The Facebook leads script uses the same string.
 3. Deploy a **new version** of the web app (Deploy → Manage deployments → Edit → New version).
 Until the keys are added, sign-ups still save and email as normal; the texts are just skipped.
 

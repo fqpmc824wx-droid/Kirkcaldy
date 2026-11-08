@@ -40,7 +40,9 @@ function doPost(e) {
   var inHours = inCallHours(new Date());   // CALL_HOURS unset = 8-21 (owner: no calls after 9pm)
 
   var lock = LockService.getScriptLock();
-  lock.waitLock(20000);
+  // tryLock (not waitLock): if the Facebook poller holds the shared lock, still save the sign-up rather than lose it
+  var locked = lock.tryLock(20000);
+  if (!locked) console.warn("Script lock busy – saving the sign-up without it");
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sh = SHEET_NAME ? ss.getSheetByName(SHEET_NAME) : ss.getSheets()[0];
@@ -59,23 +61,23 @@ function doPost(e) {
       "No. of People": clean(p.people),
       "Currently Registered?": clean(p.registered),
       "Adult/Child/Family": clean(p.who),
-      "Source": clean(p.source || "website"),
+      "Source": String(p.source || "website").replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) || "website",
       "Status": inHours ? "" : "Call 8am",   // out of hours: picked up by the 8am summary (meta-leads.gs)
       // optional, unticked-by-default box on /register/; only "Yes" people may ever get promotional texts/emails
       "Marketing consent": /^(yes|true|on|1)$/i.test(String(p.marketing || "").trim()) ? "Yes" : "No"
     };
     // Anyone whose phone already has a row with Status "DO NOT CONTACT" gets no texts, calls or emails (same string as meta-leads.gs)
-    var dnc = isDoNotContact(p.phone);
+    var dnc = isDoNotContact(p.phone, p.email);
     // abuse cap: no more than MAX_TEXTS_PER_DAY sign-ups per phone number in 24h get a text/alert (row still saved)
     var capped = !dnc && websiteRecentSignups(sh, headers, p.phone) >= MAX_TEXTS_PER_DAY;
     if (capped) values["Notes"] = "Repeat sign-up – no text sent";
     if (dnc) values["Status"] = DO_NOT_CONTACT;
     // "new lead" alert (calling hours only) – sent before the row is written so the sheet shows who has it.
     // ALERT_MODE "rotate" gives each lead to the next ONCALL_MOBILE in turn (ALERT_NEXT is shared with meta-leads.gs).
-    if (inHours && !dnc && !capped) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || ""));
+    if (inHours && !dnc && !capped) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + String(p.name).trim().slice(0, 40) + " " + String(p.phone || "").slice(0, 20));
     sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
   } finally {
-    lock.releaseLock();
+    if (locked) lock.releaseLock();
   }
 
   if (dnc) return out("ok");   // row kept for the record, but no contact of any kind
@@ -105,17 +107,21 @@ function doPost(e) {
   return out("ok");
 }
 
-// Copied unchanged from leads/meta-leads.gs (same Apps Script project – keep them identical, incl. LEADS_TAB above).
-// Anyone whose row has Status "DO NOT CONTACT" is never texted, emailed or alerted again.
-function isDoNotContact(phone) {
-  var digits = function (v) { return String(v || "").replace(/\D/g, "").replace(/^44/, "0"); };
-  var target = digits(phone);
-  if (!target) return false;
+// Anyone whose row has Status "DO NOT CONTACT" (same phone or same email) is never texted, emailed or alerted again.
+// (meta-leads.gs has its own metaDoNotContact(); leadsSheet() below is shared and identical.)
+function isDoNotContact(phone, email) {
+  // last 10 digits, so 07…, +447…, +44 (0)7…, 00447… and numbers stored as numbers (leading 0 lost) all match
+  var digits = function (v) { var d = String(v || "").replace(/\D/g, ""); return d.length >= 10 ? d.slice(-10) : d; };
+  var target = digits(phone), mail = String(email || "").trim().toLowerCase();
+  if (!target && !mail) return false;
   var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String);
-  var pc = h.indexOf("Phone"), sc = h.indexOf("Status");
-  if (pc === -1 || sc === -1) return false;
-  for (var i = 1; i < data.length; i++)
-    if (String(data[i][sc]).trim().toUpperCase() === "DO NOT CONTACT" && digits(data[i][pc]) === target) return true;
+  var pc = h.indexOf("Phone"), ec = h.indexOf("Email"), sc = h.indexOf("Status");
+  if (sc === -1) return false;
+  for (var i = 1; i < data.length; i++) {
+    if (String(data[i][sc]).trim().toUpperCase() !== "DO NOT CONTACT") continue;
+    if (target && pc !== -1 && digits(data[i][pc]) === target) return true;
+    if (mail && ec !== -1 && String(data[i][ec]).trim().toLowerCase() === mail) return true;
+  }
   return false;
 }
 function leadsSheet() {
@@ -127,10 +133,11 @@ function leadsSheet() {
 // How many rows with this phone number were added in the last 24 hours
 function websiteRecentSignups(sh, headers, phone) {
   var pc = headers.indexOf("Phone"), tc = headers.indexOf("Signup Time"), n = sh.getLastRow() - 1;
-  var want = ukMobile(phone), since = Date.now() - 24 * 3600 * 1000, count = 0;
+  var tail = function (v) { var d = String(v || "").replace(/\D/g, ""); return d.length >= 10 ? d.slice(-10) : d; };
+  var want = tail(phone), since = Date.now() - 24 * 3600 * 1000, count = 0;
   if (pc === -1 || tc === -1 || n < 1 || !want) return 0;
   var rows = sh.getRange(Math.max(2, n - 498), 1, Math.min(n, 500), headers.length).getValues();   // newest 500 rows is plenty
-  rows.forEach(function (r) { if (ukMobile(r[pc]) === want && new Date(r[tc]).getTime() > since) count++; });
+  rows.forEach(function (r) { if (tail(r[pc]) === want && new Date(r[tc]).getTime() > since) count++; });
   return count;
 }
 
@@ -212,7 +219,8 @@ function sendSms(to, body) {
   var props = PropertiesService.getScriptProperties();
   var user = props.getProperty("CLICKSEND_USER"), key = props.getProperty("CLICKSEND_KEY");
   var num = ukMobile(to);
-  if (!user || !key || !/^\+447\d{9}$/.test(num)) return;   // UK mobiles only (no landlines, premium or foreign numbers)
+  if (!user || !key || !to) return;
+  if (!/^\+447\d{9}$/.test(num)) { console.warn("Not a UK mobile, SMS skipped"); return; }   // no landlines, premium or foreign numbers
   try {
     var res = UrlFetchApp.fetch("https://rest.clicksend.com/v3/sms/send", {
       method: "post",
@@ -227,17 +235,20 @@ function sendSms(to, body) {
   } catch (err) { smsFailed(String(err)); }
 }
 
-// Logs a failed text and emails OWNER_EMAIL, at most once an hour (wrong keys, no credit, sender ID not approved…)
+// Logs a failed text and tells the owner by email (wrong keys, no credit, sender ID not approved…)
 function smsFailed(detail) {
   console.error("SMS failed: " + detail);
+  // healthNotifyOnce() lives in meta-leads.gs (same project): emails OWNER_EMAIL at most every 3h per key
+  if (typeof healthNotifyOnce === "function") return healthNotifyOnce("SMS_ERR_LAST", "\u26A0\uFE0F Texts are failing (ClickSend)",
+    "ClickSend did not send a text. Check the ClickSend account (credit, API key, sender ID).\n\n" + detail.slice(0, 500));
+  // fallback if this file is used on its own: at most one email an hour
   var cache = CacheService.getScriptCache();
   if (cache.get("SMS_FAIL_EMAILED")) return;
   cache.put("SMS_FAIL_EMAILED", "1", 3600);
   String(PropertiesService.getScriptProperties().getProperty("OWNER_EMAIL") || "").split(",").map(function (e) { return e.trim(); }).filter(String)
     .forEach(function (e) {
       try { MailApp.sendEmail(e, "Kirkcaldy Dental: a text message failed to send",
-        "ClickSend did not send a text. Check the ClickSend account (credit, API key, sender ID).\n\n" + detail +
-        "\n\n(You get this at most once an hour.)"); } catch (err) { console.error("Fail email failed: " + err); }
+        "ClickSend did not send a text. Check the ClickSend account (credit, API key, sender ID).\n\n" + detail); } catch (err) { console.error("Fail email failed: " + err); }
     });
 }
 
