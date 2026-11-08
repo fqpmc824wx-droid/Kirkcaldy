@@ -21,6 +21,9 @@ var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "
 //   CLICKSEND_USER   = your ClickSend username
 //   CLICKSEND_KEY    = your ClickSend API key
 //   ONCALL_MOBILE    = one or more mobiles for the "new lead" alert, comma-separated (optional, e.g. 07700900123, 07700900456)
+//   ALERT_MODE       = "all" (default: every ONCALL_MOBILE gets each lead) or "rotate" (one caller per lead, in turn)
+//   OWNER_MOBILE     = mobile(s) that get a copy of every alert, comma-separated (optional)
+//   ALERT_NEXT       = rotation pointer, set automatically – don't edit
 // If CLICKSEND_USER / CLICKSEND_KEY are missing, texts are simply skipped.
 var SMS_FROM = "KirkDental";
 
@@ -54,21 +57,18 @@ function doPost(e) {
       "Source": clean(p.source || "website"),
       "Status": inHours ? "" : "Call 8am"   // out of hours: picked up by the 8am summary (meta-leads.gs)
     };
+    // "new lead" alert (calling hours only) – sent before the row is written so the sheet shows who has it.
+    // ALERT_MODE "rotate" gives each lead to the next ONCALL_MOBILE in turn (ALERT_NEXT is shared with meta-leads.gs).
+    if (inHours) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || ""));
     sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
   } finally {
     lock.releaseLock();
   }
 
   var first = String(p.name).trim().split(/\s+/)[0];
-  var src = p.source || "website";
 
-  // Instant thank-you text to the person; "new lead" alert to the on-call mobiles only within call hours
+  // Instant thank-you text to the person (the team alert was sent above)
   sendSms(p.phone, leadText(niceFirstName(p.name), inHours));
-  var alertMsg = "\uD83E\uDDB7 NEW LEAD (" + src + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || "");
-  // ONCALL_MOBILE can hold several numbers, comma-separated (on-call person, owner…)
-  if (inHours) String(PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE") || "")
-    .split(",").map(function (n) { return n.trim(); }).filter(String)
-    .forEach(function (n) { sendSms(n, alertMsg); });
   if (SEND_EMAIL) {
     MailApp.sendEmail({
       to: p.email,
@@ -130,6 +130,22 @@ function inCallHours(d) {
   var w = callWindow();
   var h = Number(Utilities.formatDate(d, "Europe/London", "H"));
   return h >= w.from && h < w.to;
+}
+
+// Who gets the "new lead" alert (copied unchanged from leads/meta-leads.gs, keep them identical). Returns the assignee(s).
+function alertTeam(msg, rotate) {
+  var props = PropertiesService.getScriptProperties();
+  var split = function (v) { return String(v || "").split(",").map(function (n) { return n.trim(); }).filter(String); };
+  var callers = split(props.getProperty("ONCALL_MOBILE")), owners = split(props.getProperty("OWNER_MOBILE"));
+  var mode = String(props.getProperty("ALERT_MODE") || "all").toLowerCase();
+  var to = callers;
+  if (rotate !== false && mode === "rotate" && callers.length) {
+    var i = Number(props.getProperty("ALERT_NEXT") || 0) % callers.length;
+    to = [callers[i]];
+    props.setProperty("ALERT_NEXT", String(i + 1));
+  }
+  to.concat(owners.filter(function (o) { return to.indexOf(o) === -1; })).forEach(function (n) { sendSms(n, msg); });
+  return to.join(", ");
 }
 
 // UK numbers to international format for ClickSend (07… → +447…)

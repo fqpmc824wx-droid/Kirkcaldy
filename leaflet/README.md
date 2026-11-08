@@ -37,6 +37,9 @@ Website and QR sign-ups get the same instant thank-you text as Facebook leads, a
    - `CLICKSEND_KEY`: your ClickSend API key (Dashboard → API Credentials)
    - `CALL_HOURS` (optional): leave unset for a 24-hour service (texts say "we'll call you very soon"); or e.g. `8-21` so out-of-hours sign-ups are told "tomorrow from 8am"
    - `ONCALL_MOBILE`: one or more mobiles for new-lead alerts, comma-separated, e.g. `07700900123, 07700900456` (optional)
+   - `ALERT_MODE` (optional): `all` (default, every ONCALL_MOBILE gets each lead) or `rotate` (each lead goes to the next ONCALL_MOBILE in turn, for the remote team). The person it went to is written in the **Assigned to** column
+   - `OWNER_MOBILE` (optional): mobile(s) that get a copy of every alert, comma-separated
+   - `ALERT_NEXT`: set automatically by the rotation, shared with the Facebook leads script so the turn order runs across both. Don't edit it
 3. Deploy a **new version** of the web app (Deploy → Manage deployments → Edit → New version).
 Until the keys are added, sign-ups still save and email as normal; the texts are just skipped.
 
