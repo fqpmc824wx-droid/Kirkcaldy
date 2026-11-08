@@ -46,12 +46,12 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 <script>
 const C={
   A:{photo:'photo-woman.jpg',pos:'38% 30%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'Kirkcaldy · Fife'},
-  B:{photo:'photo-family.jpg',pos:'50% 75%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families'}
+  B:{photo:'photo-family.jpg',pos:'50% 92%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families'}
 };
 // px layout per format: [H, photoTop, photoH, logoW, kickerTop, headTop, headMax, stripTop, stripH, panelTop, btnTop, btnW, btnH, btnFont, urlTop, urlFont]
 const L={
   feed:{H:1350,pT:0,pH:700,logoW:300,logoX:390,logoTop:0,kT:632,hT:676,hMax:76,sT:880,sH:176,pnT:1056,bT:1104,bW:620,bH:112,bF:42,uT:1264,uF:34},
-  story:{H:1920,pT:330,pH:830,logoW:380,logoX:350,logoTop:40,kT:1100,hT:1148,hMax:80,sT:1370,sH:196,pnT:1566,bT:1616,bW:680,bH:120,bF:46,uT:1776,uF:38}
+  story:{H:1920,pT:290,pH:640,logoW:340,logoX:370,logoTop:30,kT:885,hT:930,hMax:80,sT:1150,sH:186,pnT:1336,bT:1362,bW:660,bH:108,bF:44,uT:1484,uF:32}
 };
 const q=new URLSearchParams(location.search), c=C[q.get('ad')||'A'], l={...L[q.get('fmt')||'feed']};
 if(q.get('fmt')!=='story') l.logoX=(q.get('ad')==='B')?40:720;
