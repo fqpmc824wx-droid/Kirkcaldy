@@ -10,7 +10,7 @@ The waiting list ends when the practice has finished inviting everyone. After th
 
 | Place | What is there | How long we keep it | How it is deleted |
 |---|---|---|---|
-| **Waiting list** tab (Google Sheet) | Name, phone, email, consent, call answers | Until the person registers (then 3 months, to move them into Dentally) **or** 6 months after the last invitation with no reply. **Never longer than 24 months from sign-up.** | Monthly purge (to be automated by the leaflet chat); manual until then |
+| **Waiting list** tab (Google Sheet) | Name, phone, email, consent, call answers | **12 months from sign-up** (matches the privacy page). If we have not opened by then, we ask the person if they want to stay on; if yes, keep for another 12 months from that date. If they register, delete 3 months later (after moving them into Dentally). If they do not reply to the invitation, delete 6 months after it. | Monthly purge (to be automated by the leaflet chat); manual until then |
 | **Call log** tab | Call times and outcomes | 12 months | Monthly purge |
 | **SMS log** tab | Texts sent, phone number, status | 12 months | Monthly purge |
 | **Visits** tab | Page visits from QR codes | 90 days (keep counts only after that) | Monthly purge |
