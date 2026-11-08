@@ -43,6 +43,6 @@ Delete the test row afterwards.
 - **Bleed:** use `kirkcaldy-dental-leaflet-A5-PRINT-with-3mm-bleed.pdf` (3 mm bleed, which Instantprint, Solopress and Vistaprint ask for). All text sits at least 8 mm inside the trim.
 - **Proof:** order 1 proof or a small run first, and scan the printed QR code before ordering thousands.
 
-## Wording rules (same as the ads)
-Allowed: "New NHS dental practice opening in Kirkcaldy", "Register your interest", "Be the first to hear when we open".
-NOT allowed: "taking on / registering NHS patients", "join the NHS waiting list", "limited places", "first come, first served". No NHS logo.
+## Wording rules (same as the banner and ads)
+Allowed: "New NHS dental practice – opening soon", "Be first in line – join our waiting list", "Join waiting list".
+NOT allowed until after the NHS inspection: "taking on / accepting / registering NHS patients", "limited places", "first come, first served". No NHS logo.
