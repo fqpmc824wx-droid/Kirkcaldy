@@ -178,7 +178,7 @@ function handleLead(l) {
     "Name": clean(name),
     "Phone": "'" + String(phone).slice(0, 20),
     "Email": clean(email),
-    "Postcode": clean(field(l, ["post"])),
+    "Postcode": clean(field(l, ["post", "zip"])),
     "No. of People": clean(field(l, ["how_many", "people"])),
     "Currently Registered?": clean(field(l, ["registered", "currently"])),
     "Adult/Child/Family": clean(field(l, ["who", "adult", "family"])),

@@ -32,7 +32,7 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 3. Upload the website zip → right-click → Extract. `index.html`, `privacy.html` and `assets/` must sit directly in `public_html`.
 4. Security → SSL → enable.
 5. Check https://kirkcaldydental.co.uk and https://kirkcaldydental.co.uk/privacy.html load.
-6. Emails → create mailbox info@kirkcaldydental.co.uk.
+6. ~~Emails → create mailbox~~ **SKIP:** info@kirkcaldydental.co.uk is already a Google Workspace mailbox. Don't create a Hostinger mailbox or change MX/SPF/nameservers.
 
 ## Step 2 – Meta lead form (Meta Business Suite → All tools → Instant Forms)
 - Form type: Higher intent
@@ -77,69 +77,11 @@ The automatic texts are **service messages**: replies to the person's own reques
 
 > **The instant confirmation text to every lead is a must-have (owner).**
 
-## Step 4 – Automation sized for a FLOOD of leads
-**➜ FIRST CHOICE (free): our own lead handler, `leads/meta-leads.gs` – see `leads/README.md`.**
-- It does everything below inside the Waiting List sheet's Apps Script.
-- You only pay for the texts.
-- Use Make.com only if the Meta app/token setup can't be done.
-
-Demand evidence:
-- **Glenrothes Dental House launch (opened Feb 2026), NHS registrations per month:** Feb 1,187 · **Mar 2,598** (peak ~600 a week, ~85 a day) · Apr 1,200 · May 762 · Jun–Oct ~480–660. That's ~8,800 in 9 months.
-- These are registrations. Raw leads and enquiries will be higher.
-- **2,445 active patients with Kirkcaldy KY1/KY2 postcodes** already travel to the owner's Leven, Glenrothes and Cupar practices.
-- An aggregator showed 1 of 57 Kirkcaldy NHS dentists accepting new patients (Aug 2026). NHS Fife says "very few" practices can register new NHS patients. Kirkcaldy has ~50,000 residents.
-- **Plan for:** 1,200–2,600+ leads in each of the first 2 months, a peak of ~85–100+ a day, settling to 500–700 a month. Ads drive the volume; leaflets add ~10–30 per 1,000 dropped.
-
-**Tool: Make.com (Core plan or above), not Zapier.**
-- At that volume Zapier Professional runs out: about 750 tasks, roughly 150 leads. Higher Zapier tiers get expensive.
-- Make charges per operation and is far cheaper at volume. Its Facebook Lead Ads, Google Sheets, Gmail and ClickSend modules are all available.
-- About 5 operations per lead, so 10,000 ops ≈ 2,000 leads.
-- Check make.com/pricing and pick the ops tier for the expected volume. Zapier is fine only if leads stay under ~150/month.
-
-Scenario: Facebook Lead Ads "Watch new leads" (instant) → Router by time (UK):
-
-**Route A – 8am to 9pm:**
-1. **ClickSend → SMS to the on-duty/on-call mobile(s)** (fastest alert):
-   "🦷 NEW LEAD – call now: {Full Name} {Phone} · {Who is this for} · {No. of people}"
-2. **Google Sheets → Create Spreadsheet Row** → Waiting List sheet. Signup Time = created time; map the other columns; Source = `facebook` (exactly, lowercase); Status blank.
-3. **ClickSend → SMS to the lead**, From: KirkDental:
-   "Hi {First Name}, thanks for joining the waiting list for Kirkcaldy Dental & Implant Clinic, the new NHS dental practice opening soon on Tolbooth Street, Kirkcaldy. We'll call you shortly."
-4. **Gmail → email the lead**, text below.
-
-**Route B – 9pm to 8am:**
-1. Google Sheets row as above, with Status = `Call 8am`.
-2. ClickSend SMS to the lead: "...thanks for joining our waiting list! We'll give you a call from 8am."
-3. Gmail email to the lead, text below.
-4. Optional: a scheduled 8am scenario that texts → ClickSend SMS to the on-call mobile with the lead's details, so it's the first call of the morning.
-
-**Lead email** (Subject: "You're on our waiting list – Kirkcaldy Dental & Implant Clinic"):
-"Hi {First Name},
-Thank you for joining the waiting list for Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW.
-A member of our team will be in touch, and we'll keep you updated with opening dates.
-Any questions? Email info@kirkcaldydental.co.uk.
-Kirkcaldy Dental & Implant Clinic
-kirkcaldydental.co.uk"
-
-**Free backups on the team phones:**
-- Meta Business Suite app with Leads notifications on.
-- Gmail app for info@kirkcaldydental.co.uk.
-
-**Test** with Meta's Lead Ads Testing Tool once in hours and once out of hours. Check all of these:
-- the on-call text arrives within ~1 minute
-- the sheet row appears
-- the lead's text and email arrive
-Then turn the Zap on.
-
-**Costs at volume (check current prices):**
-- Make ops tier for ~2,500–3,000 leads/month at launch (~15,000 ops). Drop the tier later when it settles.
-- ClickSend: about 2 texts per lead (lead + on-call) at a few pence each, so budget roughly **£150–300 per 1,000 leads**. Turn on auto top-up.
-- To save money, send the on-call alert by Gmail push instead of SMS (free) and keep the SMS for the lead only.
-
-**Calling capacity:**
-- At peak, ~85–100 leads a day is 4–5+ hours of calls a day: **one full-time caller at launch**, plus the evening on-call rota.
-- Dedicate a person or shift to calling leads during launch.
-- If calls fall behind, lower the Meta daily budget rather than leaving leads uncalled.
-- The confirmation text means everyone hears back instantly even when there's a queue.
+## Step 4 – Lead automation → SUPERSEDED
+**Use our own free scripts instead (BROWSER-CLAUDE-LAUNCH.md Step 5, leads/README.md, leaflet/README.md). Don't sign up to Make.com or Zapier.**
+Demand evidence used for planning:
+- Glenrothes Dental House NHS registrations: Feb 1,187, Mar 2,598 (peak ~85/day), Apr 1,200, then ~480–760/month.
+- 2,445 active patients with Kirkcaldy KY1/KY2 postcodes travel to the owner's other practices.
 
 **Team routine – calls 8am to 9pm, 7 days (owner decision: nobody is called after 9pm):**
 - 8am–9pm: each lead goes to the next caller in turn (`ALERT_MODE` = `rotate`, owner copied via `OWNER_MOBILE`). They call within minutes.
@@ -154,8 +96,8 @@ Then turn the Zap on.
 - Two ads in the same ad set, both using the form above:
   - Ad A: feed = `ad-A-feed-4x5.png`, Stories/Reels = `ad-A-video-9x16.mp4` (fallback `ad-A-stories-9x16.png`)
   - Ad B: feed = `ad-B-feed-4x5.png`, Stories/Reels = `ad-B-video-9x16.mp4` (fallback `ad-B-stories-9x16.png`)
-- Primary text (Ad A): "🦷 A new NHS dental practice is opening soon at 23–25 Tolbooth Street, Kirkcaldy! Be first in line – tap Sign up to join our waiting list."
-- Primary text (Ad B): "👨‍👩‍👧 Looking for an NHS dentist for the whole family? A new NHS practice is opening soon on Tolbooth Street, Kirkcaldy. Join our waiting list in 30 seconds."
+- Primary text (Ad A): "🦷 A new NHS dental practice is opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW! Be first in line – tap Sign up to join our waiting list."
+- Primary text (Ad B): "👨‍👩‍👧 Looking for an NHS dentist for the whole family? A new NHS dental practice is opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. Adults, children and families can all join our waiting list."
 - Headline: "New NHS dental practice – opening soon". CTA button: Sign up.
 - After 5–7 days compare cost per lead; pause the weaker ad.
 
