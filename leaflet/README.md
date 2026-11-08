@@ -35,7 +35,7 @@ Website and QR sign-ups get the same instant thank-you text as Facebook leads, a
 2. In the Apps Script editor, go to **Project Settings → Script Properties** and add:
    - `CLICKSEND_USER`: your ClickSend username
    - `CLICKSEND_KEY`: your ClickSend API key (Dashboard → API Credentials)
-   - `CALL_HOURS` (optional): leave unset for a 24-hour service (texts say "we'll call you very soon"); or e.g. `8-21` so out-of-hours sign-ups are told "tomorrow from 8am"
+   - `CALL_HOURS` (optional): leave unset for the default `8-21` (no calls after 9pm). Out-of-hours sign-ups get the "we'll call you tomorrow from 8am" text, Status "Call 8am" and no team alert, and the 8am morning summary picks them up. Set `24h` for round-the-clock calling
    - `ONCALL_MOBILE`: one or more mobiles for new-lead alerts, comma-separated, e.g. `07700900123, 07700900456` (optional)
    - `ALERT_MODE` (optional): `all` (default, every ONCALL_MOBILE gets each lead) or `rotate` (each lead goes to the next ONCALL_MOBILE in turn, for the remote team). The person it went to is written in the **Assigned to** column
    - `OWNER_MOBILE` (optional): mobile(s) that get a copy of every alert, comma-separated

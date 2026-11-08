@@ -32,7 +32,7 @@ function doPost(e) {
   if (p.action === "visit") return logVisit(p);
   if (!p.name || !p.email) return out("missing");
 
-  var inHours = inCallHours(new Date());   // CALL_HOURS unset = 24h, so always true
+  var inHours = inCallHours(new Date());   // CALL_HOURS unset = 8-21 (owner: no calls after 9pm)
 
   var lock = LockService.getScriptLock();
   lock.waitLock(20000);
@@ -120,9 +120,10 @@ function leadText(first, inHours) {
   for (var i = 0; i < options.length; i++) if (options[i].length <= 160) return options[i];
   return options[options.length - 1].slice(0, 160);
 }
-// Call hours from Script Property CALL_HOURS: "24h" (default, 24-hour service) or e.g. "8-21" (same as meta-leads.gs)
+// Call hours from Script Property CALL_HOURS (same as meta-leads.gs):
+//   "8-21" (default – owner: no calls after 9pm) or "24h" for round-the-clock calling.
 function callWindow() {
-  var v = String(PropertiesService.getScriptProperties().getProperty("CALL_HOURS") || "24h").trim().toLowerCase();
+  var v = String(PropertiesService.getScriptProperties().getProperty("CALL_HOURS") || "8-21").trim().toLowerCase();
   var m = v.match(/^(\d{1,2})\s*-\s*(\d{1,2})$/);
   return m ? { from: Number(m[1]), to: Number(m[2]) } : { from: 0, to: 24 };
 }
