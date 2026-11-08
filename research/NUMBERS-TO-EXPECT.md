@@ -1,6 +1,6 @@
 # Numbers to expect and what to watch
 
-Kirkcaldy Dental & Implant Clinic waiting list · 23–25 Tolbooth Street, Kirkcaldy KY1 1RW · written 8 Nov 2026
+Kirkcaldy Dental & Implant Clinic waiting list · 23–25 Tolbooth Street, Kirkcaldy KY1 1RW · written 8 Nov 2026 (updated the same day: callers are not a limit)
 
 These are best guesses until the ads have run for 3–4 days. After that, we use the real numbers.
 
@@ -25,30 +25,37 @@ Look in Ads Manager, the 9pm email and the Waiting List sheet. (The Dashboard ta
 | # | Number | 🟢 Green: carry on | 🟠 Amber: keep an eye on it | 🔴 Red: do this |
 |---|---|---|---|---|
 | 1 | **Cost per sign-up**, last 3 days (Ads Manager) | Under £2.50 | £2.50–£3.50 | Over £3.50 for 3 days: fix the ad or form, don't add money, tell the ads chat. Over £5: pause and ask the ads chat. |
-| 2 | **Sign-ups yesterday**, all sources (sheet) | 10–20 a day | 21–25 a day (the caller is full) | Over 20 a day for 3 days: bring in the second caller. Fewer than 3 Facebook sign-ups a day for 3 days: check the ads are running and the form works. |
-| 3 | **Leads waiting for a call** (9pm email) | Everyone called within an hour | Some waiting 1–4 hours | The backlog email arrives, or anyone has waited over 24 hours: cut the budget by 20%, or bring in the second caller. |
+| 2 | **Sign-ups yesterday**, all sources (sheet) | 10–20 a day | More than 20 a day per caller on shift | Over 20 a day per caller for 3 days: add a caller. Fewer than 3 Facebook sign-ups a day for 3 days: check the ads are running and the form works. |
+| 3 | **Leads waiting for a call** (9pm email) | Everyone called within an hour | Some waiting 1–4 hours | The backlog email arrives, or anyone has waited over 24 hours: add a caller the same day. Only if nobody is available, cut the budget by 20%. |
 | 4 | **Are the ads running?** (Ads Manager) | Spent close to the daily budget, no rejected ads, card OK | Spent under half the budget for 1 day | Nothing spent by midday, an ad rejected, or a payment problem: tell the ads chat the same day. |
 | 5 | **How often people see the ad** ("Frequency", last 7 days) | Under 2 | 2–3 | Over 3: ask the ads chat for 1–2 fresh versions of the best ad. |
 | 6 | **Calls that reach the person**, within 3 tries (sheet Status) | 7 or more in 10 | 6 in 10 | Under 6 in 10: try calling at different times, and tell the ads chat (it may be poor-quality leads). |
 
 **Week 1: change nothing for 3–4 days**, even if the numbers look odd. Meta is still learning.
 
-**When to raise the budget:** only if cost per sign-up is under £2.50 for 3 days, no backlog email, and the caller has spare time. Raise by 20%, no more than once every 3–4 days.
+**When to raise the budget:** when cost per sign-up is under £2.50 for 3 days and there is no backlog email. Raise by 20%, no more than once every 3–4 days. Make sure there are enough callers on shift first.
 
 **Black Friday (27 Nov) and Christmas** push prices up 15–30%. That is normal. Don't panic.
 
-## 3. When to add the second caller
+## 3. How many callers you need
 
-One caller can properly handle **about 20–25 new sign-ups a day**. We expect to pass that **in week 2 (around 17–20 Nov)**.
+Calling is not a limit: you have staff available. The budget goes up or down on **cost per sign-up only**.
 
-Bring in the second caller as soon as **any one** of these happens:
+Rule of thumb: **one caller for every 20–25 new sign-ups a day.**
 
-- Sign-ups stay above 20 a day for 3 days.
-- The backlog email arrives on 2 evenings in one week.
-- The 9pm email shows someone waiting over 24 hours.
-- A newspaper story or busy local post lands. Add the caller **the same day**.
+| Daily budget (Ads Manager) | Likely sign-ups a day, all sources | Callers on shift |
+|---|---|---|
+| £20 | about 22 | 1 |
+| £25 | about 30 | 2 |
+| £35 | about 37 | 2 |
+| £50 | about 46 | 2–3 |
 
-**Don't go above £25 a day until there is a second caller.** If there is no second caller, keep the budget at £20.
+- **Before each budget step**, check there are enough callers on shift for the extra sign-ups.
+- **Add a caller the same day** if any of these happens:
+  - sign-ups stay above 20 a day per caller;
+  - the backlog email arrives;
+  - a newspaper story or busy local post lands.
+- The aim is that **every new sign-up gets a call within an hour** (between 8am and 9pm).
 
 ## 4. The true cost
 
