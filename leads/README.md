@@ -38,6 +38,18 @@ Every minute it pulls new Facebook/Instagram Instant Form leads from Meta and, f
 - `CALL_HOURS`: `8-21` (default – no calls after 9pm) or `24h`.
 
 If the sheet has an **"Assigned to"** column, it shows which caller each lead went to.
+- `META_API_VERSION`: leave empty (default `v27.0`). Set it to Meta's newest version if the owner is emailed that the version is deprecated.
+
+**Repeat sign-ups** (same mobile, last 10 digits, or same email):
+- Signed up again within 24h, or already Called / Booked / Not interested → Status **Duplicate**, no caller alert, Notes "Already on the list – see <earlier Lead ID>". They get at most one "you're already on the list" text a day.
+- Signed up before but never reached → the callers get a **"REPEAT – NEW LEAD"** alert so they try again.
+- DO NOT CONTACT always wins: no text, email or alert.
+
+**Tracking columns** filled automatically when they exist in the Waiting list tab (exact header text): Lead ID, Logged at, Ad name, Ad ID, Form ID, Organic?, Duplicate of, SMS ID, SMS status, Email status. The leaflet chat adds them (metrics plan, research/forecast-metricsPlan.md §C1).
+
+**Meta app must be Live** (not Development), or real leads from people without a role on the app are invisible to the script.
+
+**Daily ad results:** `meta-ads.gs` (same project) copies Meta's spend, leads, CPM, frequency and video views into an "Ads" tab every morning at 06:00. It also checks every 2 hours that the ads are running (no rejections, spend happening, leads arriving). Script Properties: `META_ADS_TOKEN` (the same System User token, with `ads_read`, is fine), `META_AD_ACCOUNT_ID` (`act_…`), `LAUNCH_DATE`. Run `adsInstallTriggers()` once.
 6. Run `installLeadTriggers()` once and allow the permissions.
 7. **Test:**
    - Use Meta's Lead Ads Testing Tool (developers.facebook.com/tools/lead-ads-testing) to create a test lead.

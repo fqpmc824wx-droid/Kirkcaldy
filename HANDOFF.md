@@ -34,21 +34,28 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 5. Check https://kirkcaldydental.co.uk and https://kirkcaldydental.co.uk/privacy.html load.
 6. ~~Emails → create mailbox~~ **SKIP:** info@kirkcaldydental.co.uk is already a Google Workspace mailbox. Don't create a Hostinger mailbox or change MX/SPF/nameservers.
 
-## Step 2 – Meta lead form (Meta Business Suite → All tools → Instant Forms)
-- Form type: Higher intent
+## Step 2 – Meta lead form (build it in **Ads Manager**, not Business Suite: phone verification needs Ads Manager)
+*Updated 8 Nov from the Meta research and creative-review agent teams. Save the form as a DRAFT and get the owner's OK before publishing: a published form can't be edited.*
+- Form name: `KDIC waiting list v1 – Nov 2026`. Form type: **Higher intent**, with **phone number verification ON (required)**. Landlines can't verify, which is fine because texts only go to UK mobiles.
+- **Lead capture AI agent / AI chat: OFF.**
 - Intro headline: "Be first in line – join our waiting list"
-- Intro text: "Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. Join our waiting list and we'll keep you updated with opening news."
-- Questions: Full name, Phone, Email (prefill) + Post code + multiple choice:
-  - "How many people are you registering interest for?" 1 / 2 / 3 / 4+
-  - "Are you currently registered with a dentist?" Yes / No / Not sure
+- Intro text: "Kirkcaldy Dental & Implant Clinic is a new NHS dental practice, also offering private treatments, opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. It's free to join our waiting list and we'll keep you updated with opening news. Joining doesn't register you with the practice yet, and doesn't guarantee an appointment or a place on our patient list. Please sign up here rather than calling in at the practice."
+- Contact fields (prefill): Full name, Phone (required), Email, and Meta's built-in **Post code** field.
+- **Exactly two** multiple-choice questions:
+  - "How many people would you like to add to the waiting list?" 1 / 2 / 3 / 4+
   - "Who is this for?" Adult / Child / Family
+  - **REMOVED: "Are you currently registered with a dentist?"** Two agent teams flagged it as health-data risk under Meta's lead-ads policy, with little value. The caller asks "Where is your current dentist?" on the call instead.
+  - Conditional logic: off.
 - Privacy policy URL: https://kirkcaldydental.co.uk/privacy.html
-- **Custom disclaimer** (Form settings → Custom disclaimer, title "How we'll contact you"):
-  "By tapping Submit, you're asking Kirkcaldy Dental & Implant Clinic to add you to our waiting list. We'll text and call you about your request, 8am–9pm, and email you to confirm. We won't send you marketing unless you opt in below. See our privacy policy."
-- **Optional consent checkbox** (custom disclaimer → add checkbox, NOT pre-ticked, NOT required):
+- **Custom disclaimer** (title "How we'll contact you"). It now matches what actually happens, because the confirmation text goes out at any hour:
+  "By tapping Submit, you're asking Kirkcaldy Dental & Implant Clinic to add you to our waiting list. Joining doesn't register you with the practice yet. We'll send you a confirmation text and email straight away, and call you about your request between 8am and 9pm. We won't send you marketing unless you tick the box below. Our privacy policy explains how we use your details and how to complain."
+- **Optional consent checkbox** (NOT pre-ticked, NOT required):
   "Yes, also send me news and offers from Kirkcaldy Dental by text and email. I can opt out at any time."
   Only people who tick it may ever get promotional texts or emails.
-- Completion screen: "Thanks – you're on our waiting list! We'll keep you updated with opening news." Button: View website → https://kirkcaldydental.co.uk
+- Completion screen:
+  - Headline "Thanks – you're on the waiting list".
+  - Description "We've sent you a confirmation text and email, and we'll be in touch before we open. Need urgent dental care now? Contact your current dentist, or NHS 24 on 111 out of hours." Before adding the NHS Fife Dental Advice Line (01592 226555, weekdays), check the number and hours on nhsfife.org.
+  - Button: **View website** → `https://kirkcaldydental.co.uk/waiting-list/?src=fb-form-done` (the FAQ page from the website chat). If that page isn't live yet, use `https://kirkcaldydental.co.uk/?src=fb-form-done`. Never use "Call business": two callers can't take a flood of inbound calls.
 - Business Settings → Integrations → Leads access → allow our lead app (leads/README.md) for the page.
 
 ## Text messages – legal checklist (UK PECR / UK GDPR / ICO)
@@ -91,15 +98,27 @@ Demand evidence used for planning:
 **Upgrade later (only if needed):** an auto-call service such as Callingly (from about $100/month) rings the team phone and connects to the lead automatically.
 
 ## Step 5 – Campaign (Ads Manager) – confirm with owner before publishing
-- Objective: Leads → Instant forms. One campaign, ONE ad set.
-- Budget: £15–25/day. Location: Kirkcaldy + ~10 miles, "People living in this location". Age 18–65+. No detailed interests. Placements: Advantage+.
-- Two ads in the same ad set, both using the form above:
-  - Ad A: feed = `ad-A-feed-4x5.png`, Stories/Reels = `ad-A-video-9x16.mp4` (fallback `ad-A-stories-9x16.png`)
-  - Ad B: feed = `ad-B-feed-4x5.png`, Stories/Reels = `ad-B-video-9x16.mp4` (fallback `ad-B-stories-9x16.png`)
-- Primary text (Ad A): "🦷 A new NHS dental practice is opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW! Be first in line – tap Sign up to join our waiting list."
-- Primary text (Ad B): "👨‍👩‍👧 Looking for an NHS dentist for the whole family? A new NHS dental practice is opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. Adults, children and families can all join our waiting list."
-- Headline: "New NHS dental practice – opening soon". CTA button: Sign up.
-- After 5–7 days compare cost per lead; pause the weaker ad.
+Full click-by-click steps are in BROWSER-CLAUDE-LAUNCH.md section 7. Summary:
+- Objective **Leads**, one Advantage+ leads campaign, campaign budget **£20/day**, bid strategy Highest volume.
+- ONE ad set:
+  - Conversion location **Instant forms only**. NOT "Website and instant forms": website leads would never reach our script.
+  - Performance goal: Maximise number of leads.
+- Location: **postcodes KY1, KY2, KY3, KY4, KY5**, "People living in this location". **Untick "Reach more people likely to respond".**
+  - Never EH: a 10-mile pin crosses the Forth into Leith and Granton.
+  - Never KY6, KY7 or KY8: the owner's own Glenrothes and Leven practices.
+- Minimum age **18**. No detailed interests. Placements: Advantage+, now the only option.
+- **Every Advantage+ creative enhancement OFF**, including generated text, image text rewriting and "Test new creative features". Meta's AI could otherwise write "accepting NHS patients".
+- Two ads, A and B (Drive "1. Meta Ads"): 4:5 image for Feeds; 9:16 video (fallback image) for Stories/Reels via placement asset customisation.
+- Primary text (Ad A): "🦷 New NHS dental practice – opening soon in Kirkcaldy. Be first in line – join our waiting list. We'll offer NHS and private dental care at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. It's free and quick to join our waiting list, and we'll keep you updated with opening news."
+- Primary text (Ad B): "👩‍👧 Kirkcaldy families: new NHS dental practice opening soon. Be first in line – join our waiting list. We'll offer NHS and private dental care at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. It's free and quick to join our waiting list, and you can tell us how many people in your household would like to join. We'll keep you updated with opening news."
+  - The old "Looking for an NHS dentist for the whole family?" is gone. Questions about the viewer's dental situation risk Meta's personal-attributes policy, and it came close to "taking on patients".
+- Stories/Reels primary text: "New NHS dental practice opening soon in Kirkcaldy. Be first in line – join our waiting list 👇 NHS and private dental care at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW."
+- Headlines (load all three): "Free to join our waiting list" / "New NHS dental practice – opening soon" / "Opening soon on Tolbooth Street". Description: "NHS & private dental care · 23–25 Tolbooth Street, Kirkcaldy KY1 1RW". CTA: **Sign up**.
+- Owner must confirm before launch:
+  - the "NHS and private" line (GDC: publicity must say NHS / mixed / private);
+  - written NHS Fife confirmation that the dentists are on, or provisionally on, the dental list;
+  - "Be first in line" only if invitations really follow sign-up order, with households kept together.
+- After about 7 days, pause the ad whose cost per lead is 30% or more worse.
 
 ## Step 6 – Banner, leaflet and QR sign-up page
 Full instructions are in `leaflet/README.md` and `banner/README.md`. Short version:

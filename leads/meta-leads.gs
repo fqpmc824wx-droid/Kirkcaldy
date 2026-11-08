@@ -385,7 +385,8 @@ function eveningReport() {
     try {
       MailApp.sendEmail(e, "Today: " + n + " new waiting-list sign-ups \u2013 Kirkcaldy Dental",
         "New sign-ups since the last report: " + n + "\n" + lines + "\n\nCalled: " + called + "   Booked: " + booked + "   No answer: " + noans + "   Already on the list (duplicates): " + dup +
-        "\nStill waiting over an hour: " + b.waiting + "\n\nWaiting List sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl());
+        "\nStill waiting over an hour: " + b.waiting + (typeof adsEveningLines === "function" ? adsEveningLines() : "") +
+        "\n\nWaiting List sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl());
     } catch (err) { console.error("Evening report failed: " + err); }
   });
   props.setProperty("REPORT_LAST", String(Date.now()));
