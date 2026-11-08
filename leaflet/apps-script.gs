@@ -20,7 +20,7 @@ var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "
 // Keys are NOT stored here: Apps Script editor → Project Settings → Script Properties:
 //   CLICKSEND_USER   = your ClickSend username
 //   CLICKSEND_KEY    = your ClickSend API key
-//   ONCALL_MOBILE    = the mobile that gets a "new lead" alert (optional, e.g. 07700900123)
+//   ONCALL_MOBILE    = one or more mobiles for the "new lead" alert, comma-separated (optional, e.g. 07700900123, 07700900456)
 // If CLICKSEND_USER / CLICKSEND_KEY are missing, texts are simply skipped.
 var SMS_FROM = "KirkDental";
 
@@ -62,8 +62,11 @@ function doPost(e) {
   // Instant thank-you text to the person, and a "new lead" alert to the on-call mobile
   sendSms(p.phone, "Hi " + first + ", thanks for joining the waiting list for Kirkcaldy Dental & Implant Clinic, " +
     "the new NHS dental practice opening soon on Tolbooth Street, Kirkcaldy. We'll be in touch shortly.");
-  var oncall = PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE");
-  if (oncall) sendSms(oncall, "\uD83E\uDDB7 NEW LEAD (" + src + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || ""));
+  var alertMsg = "\uD83E\uDDB7 NEW LEAD (" + src + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || "");
+  // ONCALL_MOBILE can hold several numbers, comma-separated (on-call person, owner…)
+  String(PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE") || "")
+    .split(",").map(function (n) { return n.trim(); }).filter(String)
+    .forEach(function (n) { sendSms(n, alertMsg); });
   if (SEND_EMAIL) {
     MailApp.sendEmail({
       to: p.email,
