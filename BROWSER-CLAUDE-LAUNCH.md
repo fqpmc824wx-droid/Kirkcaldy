@@ -125,6 +125,7 @@ Use HANDOFF.md Step 2 wording exactly.
 - **Custom disclaimer:** title "How we'll contact you", text as in HANDOFF.md.
 - **Optional consent checkbox:** NOT pre-ticked and NOT required: "Yes, also send me news and offers from Kirkcaldy Dental by text and email. I can opt out at any time."
 - Copy the **Form ID**.
+- **Important for later:** a published Instant Form can't be edited, only duplicated, and the copy gets a NEW Form ID. Whenever a form is created or duplicated, add its ID to Script Property `META_FORM_IDS` (comma-separated; keep the old ID until the old form has no live ads), then submit one test lead.
 
 ## 5. Lead system: our own free scripts (no Zapier or Make)
 1. **Meta developer app:**
@@ -162,7 +163,8 @@ Use HANDOFF.md Step 2 wording exactly.
 | `OWNER_MOBILE` | leave **empty** (owner chose email alerts instead of text copies) |
 | `CALL_HOURS` | `8-21` (owner decision: **no calls after 9pm**) |
 | `BACKLOG_ALERT` | `15` (owner is emailed if 15+ leads have waited over an hour; `10` is fine for one caller) |
-Don't touch `ALERT_NEXT`, `META_SINCE`, `META_SEEN` or `BACKLOG_LAST`. They're set automatically.
+Don't touch `ALERT_NEXT`, `META_SINCE`, `META_SINCE_BY_FORM`, `META_SEEN`, `BACKLOG_LAST`, `REPORT_LAST` or any `*_ERR_LAST`. They're set automatically.
+**Sheet dropdowns:** in the Waiting list tab, the Status column (J) must offer exactly: Called, No answer, Booked, DO NOT CONTACT, Call 8am (Data → Data validation, "Show a warning"). Columns K (Assigned to) and L (Marketing consent) must have no restrictive dropdown. Format the Phone column as Plain text. Never set "Reject the input" on columns the scripts write.
 6. **Run `installLeadTriggers()` once:**
    - Open the `meta-leads` file, choose `installLeadTriggers` in the function dropdown, then Run → Review permissions → choose info@.
    - If "Google hasn't verified this app" appears: Advanced → Go to … (unsafe) → Allow. This is normal for the clinic's own script.
@@ -214,7 +216,7 @@ What happens with every lead, wherever it comes from:
 - **Owner email alerts:** the script sends from info@ to info@. If the Gmail app doesn't notify for these self-sent emails:
   - set `OWNER_EMAIL` to the owner's personal Gmail address, or
   - add a Gmail filter "Subject contains NEW LEAD → Never send to Spam, Mark as important" with notifications set to "All".
-- **Errors:** check Apps Script → **Executions**. "Meta API 190" means the token is wrong or expired.
+- **Errors:** the owner is emailed automatically if Facebook leads stop arriving (e.g. "Meta API 190" = token wrong or expired, so make a new one as in Step 5.2), or if a lead can't be processed (the email includes the person's details so they can be added by hand). Details are in Apps Script → **Executions**.
 
 ## 7. Launch the ads (only with the owner's OK)
 Ads Manager → Create:

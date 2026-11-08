@@ -79,15 +79,18 @@ function leadText(first, inHours) {
 }
 
 // Anyone whose row has Status "DO NOT CONTACT" (same exact text in apps-script.gs) is never texted again.
-function metaDoNotContact(phone) {
-  var digits = function (v) { return String(v || "").replace(/\D/g, "").replace(/^44/, "0"); };
-  var target = digits(phone);
-  if (!target) return false;
+function metaDoNotContact(phone, email) {
+  var digits = function (v) { var d = String(v || "").replace(/\D/g, ""); return d.length >= 10 ? d.slice(-10) : d; };
+  var target = digits(phone), mail = String(email || "").trim().toLowerCase();
+  if (!target && !mail) return false;
   var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String);
-  var pc = h.indexOf("Phone"), sc = h.indexOf("Status");
-  if (pc === -1 || sc === -1) return false;
-  for (var i = 1; i < data.length; i++)
-    if (String(data[i][sc]).trim().toUpperCase() === "DO NOT CONTACT" && digits(data[i][pc]) === target) return true;
+  var pc = h.indexOf("Phone"), sc = h.indexOf("Status"), ec = h.indexOf("Email");
+  if (sc === -1) return false;
+  for (var i = 1; i < data.length; i++) {
+    if (String(data[i][sc]).trim().toUpperCase() !== "DO NOT CONTACT") continue;
+    if (target && pc !== -1 && digits(data[i][pc]) === target) return true;
+    if (mail && ec !== -1 && String(data[i][ec]).trim().toLowerCase() === mail) return true;
+  }
   return false;
 }
 
@@ -109,33 +112,63 @@ function pollMetaLeads() {
   if (!token || !forms) return;
   var lock = LockService.getScriptLock();
   if (!lock.tryLock(5000)) return;            // previous run still going
+  var t0 = Date.now();
   try {
-    var since = Number(props.getProperty("META_SINCE") || Math.floor(Date.now() / 1000) - 3600);
+    var dflt = Number(props.getProperty("META_SINCE") || Math.floor(Date.now() / 1000) - 3600);
+    var sinceBy = JSON.parse(props.getProperty("META_SINCE_BY_FORM") || "{}");   // progress per form
     var seen = JSON.parse(props.getProperty("META_SEEN") || "[]");
-    var newest = since, leads = [];
+    var leads = [];
     forms.split(",").map(function (s) { return s.trim(); }).filter(String).forEach(function (formId) {
+      var since = sinceBy[formId] || dflt, got = [], ok = true;
+      // 15-minute overlap catches leads Meta makes available late; META_SEEN stops repeats
       var url = GRAPH + formId + "/leads?limit=100&fields=id,created_time,field_data,platform,custom_disclaimer_responses&filtering=" +
-        encodeURIComponent(JSON.stringify([{ field: "time_created", operator: "GREATER_THAN", value: since - 120 }])) +
+        encodeURIComponent(JSON.stringify([{ field: "time_created", operator: "GREATER_THAN", value: since - 900 }])) +
         "&access_token=" + encodeURIComponent(token);
       while (url) {
         var res = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
-        if (res.getResponseCode() !== 200) { console.error("Meta API " + res.getResponseCode() + ": " + res.getContentText()); break; }
+        if (res.getResponseCode() !== 200) {
+          ok = false;
+          console.error("Meta API " + res.getResponseCode() + " (form " + formId + "): " + res.getContentText());
+          healthNotifyOnce("META_ERR_LAST", "\u26A0\uFE0F Facebook leads are NOT arriving \u2013 Meta API " + res.getResponseCode(),
+            "The lead script could not read form " + formId + ". New Facebook/Instagram leads will not be texted or added to the sheet until this is fixed.\n\n" +
+            "Error 190 = the token is wrong/expired (make a new one: runbook Step 5.2). Codes 4/17/32/613 = rate limit (usually clears by itself).\n\n" + res.getContentText().slice(0, 1000));
+          break;
+        }
         var body = JSON.parse(res.getContentText());
-        (body.data || []).forEach(function (l) { if (seen.indexOf(l.id) === -1) leads.push(l); });
+        (body.data || []).forEach(function (l) { if (seen.indexOf(l.id) === -1) { l._form = formId; got.push(l); } });
         url = body.paging && body.paging.next;
       }
+      if (ok) leads = leads.concat(got);       // a form with a failed page is skipped this run; its progress doesn't move
     });
     leads.sort(function (a, b) { return new Date(a.created_time) - new Date(b.created_time); });
-    leads.forEach(function (l) {
-      handleLead(l);
-      seen.push(l.id);
-      newest = Math.max(newest, Math.floor(new Date(l.created_time).getTime() / 1000));
-    });
-    props.setProperty("META_SINCE", String(newest));
-    props.setProperty("META_SEEN", JSON.stringify(seen.slice(-300)));
+    // Handle oldest first, save progress after EACH lead, stop after 4 minutes (Apps Script kills runs at 6)
+    for (var k = 0; k < leads.length && Date.now() - t0 < 4 * 60 * 1000; k++) {
+      var l = leads[k];
+      try { handleLead(l); }
+      catch (err) {
+        console.error("Lead " + l.id + " failed: " + err);
+        healthNotifyOnce("LEAD_ERR_LAST", "\u26A0\uFE0F A Facebook lead could not be processed",
+          "Please add this person to the Waiting list by hand and call them:\n\n" + JSON.stringify(l.field_data) + "\n\nError: " + err);
+      } finally {
+        seen.push(l.id);
+        var c = Math.floor(new Date(l.created_time).getTime() / 1000) || 0;
+        sinceBy[l._form] = Math.max(sinceBy[l._form] || dflt, c);
+        props.setProperties({ META_SEEN: JSON.stringify(seen.slice(-300)), META_SINCE_BY_FORM: JSON.stringify(sinceBy) });
+      }
+    }
   } finally {
     lock.releaseLock();
   }
+}
+
+// Emails OWNER_EMAIL about a problem at most once every 3 hours per problem (key).
+function healthNotifyOnce(key, subject, body) {
+  var p = PropertiesService.getScriptProperties(), last = Number(p.getProperty(key) || 0);
+  if (Date.now() - last < 3 * 3600 * 1000) return;
+  p.setProperty(key, String(Date.now()));
+  String(p.getProperty("OWNER_EMAIL") || "").split(",").map(function (e) { return e.trim(); }).filter(String).forEach(function (e) {
+    try { MailApp.sendEmail(e, subject, body); } catch (x) { console.error("Owner alert failed: " + x); }
+  });
 }
 
 function field(l, keys) {
@@ -167,7 +200,7 @@ function handleLead(l) {
   var first = niceFirstName(name);
   var inHours = inCallHours(new Date());
   var clean = function (v) { v = String(v || "").slice(0, 200); return /^[=+\-@]/.test(v) ? "'" + v : v; };
-  var blocked = metaDoNotContact(phone);
+  var blocked = metaDoNotContact(phone, email);
   var consent = (l.custom_disclaimer_responses || []).some(function (r) { return String(r.is_checked) === "1" || r.is_checked === true; }) ? "Yes" : "No";
 
   // 1. sheet row (matched to the sheet's own column headers)
@@ -270,11 +303,11 @@ function eveningReport() {
   if (!to.length) return;
   var sh = leadsSheet(), data = sh.getDataRange().getValues(), h = data[0].map(String);
   var tc = h.indexOf("Signup Time"), sc = h.indexOf("Status"), src = h.indexOf("Source");
-  var today = Utilities.formatDate(new Date(), "Europe/London", "yyyy-MM-dd");
+  var sinceT = Number(props.getProperty("REPORT_LAST") || (Date.now() - 864e5));   // everything since the last report
   var n = 0, called = 0, booked = 0, noans = 0, bySrc = {};
   for (var i = 1; i < data.length; i++) {
     var t = data[i][tc];
-    if (!(t instanceof Date) || Utilities.formatDate(t, "Europe/London", "yyyy-MM-dd") !== today) continue;
+    if (!(t instanceof Date) || t.getTime() <= sinceT) continue;
     n++;
     var st = String(data[i][sc]).trim().toLowerCase();
     if (st === "called") called++; else if (st === "booked") booked++; else if (st === "no answer") noans++;
@@ -285,8 +318,9 @@ function eveningReport() {
   to.forEach(function (e) {
     try {
       MailApp.sendEmail(e, "Today: " + n + " new waiting-list sign-ups \u2013 Kirkcaldy Dental",
-        "New sign-ups today: " + n + "\n" + lines + "\n\nCalled: " + called + "   Booked: " + booked + "   No answer: " + noans +
+        "New sign-ups since the last report: " + n + "\n" + lines + "\n\nCalled: " + called + "   Booked: " + booked + "   No answer: " + noans +
         "\nStill waiting over an hour: " + b.waiting + "\n\nWaiting List sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl());
     } catch (err) { console.error("Evening report failed: " + err); }
   });
+  props.setProperty("REPORT_LAST", String(Date.now()));
 }
