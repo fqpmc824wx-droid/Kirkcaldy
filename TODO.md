@@ -1,7 +1,7 @@
 # Kirkcaldy Dental – launch to-do list
 
 The one master list for the waiting-list launch. Kept by the To-do chat.
-Last updated: 8 Nov 2026, 23:30. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
+Last updated: 8 Nov 2026, 23:35. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
 
 Row numbers match research/TODO-whats-left.md, so every chat talks about the same row.
 
@@ -25,7 +25,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 2. **Website hosting.** Choose who hosts it (Arsalan/Abdullah, or a 1-month plan) by Monday midday. Then tell the website chat "yes, fix it".
 3. **Open ClickSend and ask for the sender name "KirkDental".** Approval takes days. Without it, no texts go out.
 4. **Pay the ICO data protection fee.** Send us the company's legal name, company number, registered office and ICO number. They go on the privacy page.
-5. **Answer 3 questions.** (a) Will you also offer private treatment, such as implants? (b) Will the NHS side take both adults and children? (c) Will people be invited in the order they signed up, with households kept together? (If not, "Be first in line" comes off the ads and print.)
+5. **Answer 4 questions.** (a) **Email on the sign-up forms: required or optional?** You told the website chat "required", but the plan said optional, so sign-ups stay quick. Both forms must match, and the Facebook form can't be changed once it's published. (b) Will you also offer private treatment, such as implants? (c) Will the NHS side take both adults and children? (d) Will people be invited in the order they signed up, with households kept together? (If not, "Be first in line" comes off the ads and print.)
 6. **Name the people.** A backup caller and a deputy who gets the alarm emails when you're away. Also choose the one work phone number the callers ring from.
 7. **Read and OK the staff guide** in Drive folder "8. Waiting list – staff guide": the call script, text templates, comment replies and invitation plan.
 8. **GitHub:** make the project private (Settings → Change visibility). Click "merge" when the chats say they're ready.
@@ -34,7 +34,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 
 ## Already decided (don't ask the owner again)
 
-- **Forms:** full name and phone required, email optional, plus one optional unticked "news and offers" box. The same on Facebook and the website. Callers ask everything else on the call.
+- **Forms:** full name and phone required, plus one optional unticked "news and offers" box. The same on Facebook and the website. Callers ask everything else on the call. (Whether email is required is being re-checked: owner list #5a.)
 - **NHS approval:** you already have it. No new NHS Fife letter is needed. Just keep a copy of the approval on file.
 - **Callers are not a limit.** Start with 1–2 callers and add more as sign-ups grow.
 - **Photos are AI/stock.** No model release is needed. Keep a note of the AI tool's name and terms.
@@ -48,15 +48,15 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 
 | # | What | Who | When | Status |
 |---|---|---|---|---|
-| 1 | Put the final Facebook form into the runbook: name, phone with text code, optional email, one optional box. The button goes to the home page. | Ads chat | Before the form is published | Done (spec written). Runbook update: Asked |
-| 2 | New /register/ page: name, phone (landlines OK) and optional email; the waiting-list notice plus an optional news box. | Website chat | Before setup night. **Ships with #3** | Spec sent 8 Nov. Asked |
+| 1 | Put the final Facebook form into the runbook: name, phone with text code, optional email, one optional box. The button goes to the home page. | Ads chat | Before the form is published | Spec written. **On hold until the owner answers the email question (#5a)** |
+| 2 | New /register/ page: name, phone (landlines OK) and optional email; the waiting-list notice plus an optional news box. | Website chat | Before setup night. **Ships with #3** | Built in PR #2 (honest thank-you, honeypot, news box, 8am–9pm notice). It currently has email required, postcode optional and "how many people" required: waiting for the owner (#5a). Blocked on hosting |
 | 3 | Website form script: name and phone required, email optional; no email sent when there's none; leaflet, banner and Google sources kept. **Urgent: today it throws away sign-ups with no email.** | Leaflet chat | **Ships with #2** | Fixes sent 8 Nov. Asked |
-| 4 | Only say "Thank you" when the sign-up is really saved; otherwise show the email address to use. | Website chat | With #2 | Script half done; page half: Asked |
-| 5 | Rewrite the privacy page: no Zapier, calls and texts 8am–9pm, "waiting list" wording, a "delete your data" section, complaints, company details. | Website chat drafts; Owner gives details (owner list #4) and approves | Before setup night | Not started |
+| 4 | Only say "Thank you" when the sign-up is really saved; otherwise show the email address to use. | Website chat | With #2 | Done in PR #2 (thank-you shown only on "ok") |
+| 5 | Rewrite the privacy page: no Zapier, calls and texts 8am–9pm, "waiting list" wording, a "delete your data" section, complaints, company details. | Website chat drafts; Owner gives details (owner list #4) and approves | Before setup night | Fixes done in PR #2; company and ICO details still needed from the owner |
 | 6 | "How the waiting list works" page. No longer a blocker: the Facebook button goes to the home page. | Website chat | Before launch (nice to have) | Not started |
 | 7 | One chat per file, so two chats never edit the same file. | Ads chat | Now | Not started |
 | 8 | Pick the dates. | Owner | Now | Waiting for owner (owner list #1) |
-| 9 | Facebook prep day, 2–5 days before setup night: use the existing Page and ad account (create nothing new), set up the business account, the app, App Review and verification. | Owner + Browser Claude; Ads chat fixes the runbook first | 2–5 days before setup night | Not started |
+| 9 | Facebook prep day, 2–5 days before setup night: use the existing Page and ad account (create nothing new), set a £900 account spending limit, set up the business account, the app, App Review and verification. | Owner + Browser Claude; Ads chat fixes the runbook first | 2–5 days before setup night | Not started |
 | 10 | App Review pack and a launch-night backup plan (leads on the phone app, copied in by hand). | Ads chat | Before setup night | Asked |
 | 11 | Runbook fixes, Facebook side (order of steps, the data-deletion link, the lead-count check, the backup apps). | Ads chat | Before setup night | Asked |
 | 12 | Runbook fixes, other: call tracking switched on, test rows cleaned, email safety settings, remove old zip steps. | Ads chat (+ Leaflet chat for its own read-me) | Before setup night | Partly done. Asked |
@@ -95,10 +95,10 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 35 | Caller rota 8am–9pm, 7 days. Start with 1–2 callers plus a backup; add one per 20–25 new sign-ups a day. (Callers are not a limit.) | Owner | Before ads start | Waiting for owner (owner list #6) |
 | 36 | One work number for all calls, also in the thank-you text and email. | Owner | Before launch | Waiting for owner (owner list #6) |
 | 37 | Name the daily-checks person and a deputy for alarm emails. | Owner | Before launch | Waiting for owner (owner list #6) |
-| 38 | One-page owner card: daily 5 minutes, Monday 15 minutes, "if this alarm, do this". Alarms: £5 warning, £8 pause. | Ads chat + Metrics chat | Before launch | Partly done. Asked |
+| 38 | One-page owner card: daily 5 minutes, Monday 15 minutes, "if this alarm, do this". Alarms: £5 warning, £8 pause. | Ads chat + Metrics chat | Before launch | Done (NUMBERS-TO-EXPECT.md). Ads chat to re-upload it to Drive 7 |
 | 39 | Caller training pack and confidentiality note; the owner runs a short session. | Waiting-list chat; Owner runs it | Before the first call | Partly done. Asked |
 | 40 | Data protection papers: risk check, complaints steps, how long we keep data, "delete one person everywhere". | Ads chat drafts; Owner signs | Before launch | Asked |
-| 41 | Weekly and KPI tabs in the sheet, so the Monday email and overspend alarm work. | Metrics chat | Before launch | Asked |
+| 41 | Weekly and KPI tabs in the sheet, so the Monday email and overspend alarm work. | Leaflet chat builds; Metrics chat checks | Before launch | In progress |
 | 42 | Website legal details: phone, dentists' names and GDC numbers, company name in the footer. | Owner → Website chat | Before launch | Partly done |
 | 43 | Website look matches the leaflet (fonts, colours, logo). | Website chat | Before launch | Not started |
 | 44 | Facebook comments and messages: check the reply bank, blocked words, away message. | Waiting-list chat + Browser Claude | Before launch | Partly done. Asked |
@@ -117,7 +117,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 |---|---|---|---|---|
 | 53 | Share overnight leads fairly between callers on shift. | Ads chat + Leaflet chat | Before a 2nd caller | Asked |
 | 54 | "Adding a caller" checklist. | Ads chat | Week 1 | Asked |
-| 55 | Christmas plan (who calls 24 Dec–4 Jan, or lower budget), and closed days in the scripts. | Owner decides by 1 Dec; Ads + Leaflet chats | Decide by 1 Dec | Waiting for owner |
+| 55 | Christmas plan (who calls 24 Dec–4 Jan, or lower budget), and closed days in the scripts. | Owner decides by 1 Dec; Ads + Leaflet chats | Decide by 1 Dec | Waiting for owner. No budget rises 25 Nov–2 Dec |
 | 56 | Weekly locked backup copy of the sheet. | Leaflet chat | Week 1 | Asked |
 | 57 | Small Facebook script fix, so a text status never lands on the wrong row. | Ads chat | Week 1 | Asked |
 | 58 | Safe "update everyone" text sender, and the first update around 1 Dec. | Ads or Leaflet chat; Waiting-list chat (wording); Owner | Week 1 | Not started |
