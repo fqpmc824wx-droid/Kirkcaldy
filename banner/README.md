@@ -13,3 +13,9 @@
 - Safe margin: all text/QR ≥ 40 mm inside the finished edge (clear of hems and eyelets).
 - QR → `https://kirkcaldydental.co.uk/register/?src=banner` (the real register page; it must be live before the sign goes up).
 - Ask the printer to confirm their bleed: this file has 10 mm, the most common requirement for PVC banners. If they want 3 mm or 5 mm, change `bleed` in `source/render.js` and rerun.
+
+## Notes for the printer (bulletproof checklist)
+- **Material:** 440–510 gsm PVC banner, hemmed edges, **brass eyelets every 50 cm** about 25 mm in from the edge (corners included).
+- All text, the logo and the QR frame sit at least **40 mm inside the edge**, so eyelets and hems won't cut through anything.
+- The QR code is 30 cm square on a white tile. It scans from about 3 m away. Scan the printer's digital proof before approving it.
+- Colours: cream #F6F2EA, gold #8A6A2C, charcoal #30363B. Ask for a colour proof if the gold matters.

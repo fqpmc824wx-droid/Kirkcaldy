@@ -20,21 +20,23 @@
   .abs { position:absolute; }
   .left  { left:0; top:0; width: calc(1300mm + var(--b)); height:100%; background: var(--cream); }
   .right { left: calc(1300mm + var(--b)); top:0; right:0; height:100%; background: var(--panel); }
-  .logo { left: calc(var(--b) + 650mm - 360mm); top: calc(var(--b) + 26mm); width:720mm; }
-  .head { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 186mm); text-align:center;
+  .logo { left: calc(var(--b) + 650mm - 325mm); top: calc(var(--b) + 44mm); width:650mm; }
+  .head { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 192mm); text-align:center;
           color: var(--ink); font-family:'Playfair',serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; }
   .head div { white-space:nowrap; line-height:1.0; }
   .head .l2 { color: var(--gold); margin-top: 0mm; font-family:'PlayfairI',serif; font-style:italic; text-transform:none; letter-spacing:0; }
   .strip { left:0; width: calc(1300mm + var(--b)); top: calc(var(--b) + 410mm); bottom:0; background: var(--gold); }
-  .striptext { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 410mm); height:160mm;
-               display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Playfair',serif; font-weight:800;
-               text-transform:uppercase; white-space:nowrap; letter-spacing:0.04em; }
-  .scan { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 42mm); text-align:center;
+  .striptext { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 410mm); height:190mm;
+               display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:6mm; box-sizing:border-box; color:#fff; font-family:'Playfair',serif; font-weight:900;
+               text-transform:uppercase; white-space:nowrap; line-height:1; }
+  .striptext #st1 { letter-spacing:0.03em; }
+  .striptext #st2 { letter-spacing:0.08em; color:#FBF3E2; font-weight:800; margin-top:5mm; }
+  .scan { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 72mm); text-align:center;
           color:#fff; font-family:"Playfair",serif; font-weight:800; text-transform:uppercase; line-height:1.05; font-size:40mm; letter-spacing:0.02em; }
   .scan span { color:#D9BD82; }
-  .tile { left: calc(1300mm + var(--b) + 85mm); top: calc(var(--b) + 160mm); width:330mm; height:330mm;
-          background:#fff; border-radius:14mm; }
-  .qr { left: calc(1300mm + var(--b) + 95mm); top: calc(var(--b) + 170mm); width:310mm; height:310mm; }
+  .tile { left: calc(1300mm + var(--b) + 90mm); top: calc(var(--b) + 178mm); width:320mm; height:320mm;
+          background:#fff; border-radius:12mm; }
+  .qr { left: calc(1300mm + var(--b) + 100mm); top: calc(var(--b) + 188mm); width:300mm; height:300mm; }
   .url { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 512mm); text-align:center;
          color:#fff; font-weight:700; font-size:21mm; white-space:nowrap; }
   .divider { left: calc(1300mm + var(--b) - 4mm); top:0; width:8mm; height:100%; background:#B8964F; }
@@ -44,7 +46,7 @@
   .dia { width:14mm; height:14mm; background: var(--gold); transform: rotate(45deg); }
   .dia.o { width:7mm; height:7mm; }
   .sline { left:0; width: calc(1300mm + var(--b)); height:1.6mm; background: rgba(246,242,234,.55); }
-  .pframe { left: calc(1300mm + var(--b) + 22mm); top: calc(var(--b) + 22mm); width:456mm; height:556mm;
+  .pframe { left: calc(1300mm + var(--b) + 45mm); top: calc(var(--b) + 45mm); width:410mm; height:510mm;
             border:2mm solid #B8964F; border-radius:6mm; box-sizing:border-box; }
 </style></head>
 <body>
@@ -54,12 +56,10 @@
   <img class="abs logo" src="logo-horizontal.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
   <div class="abs head" id="head"><div class="l1">New NHS Dental Practice</div><div class="l2"><span id="os">Opening Soon!</span></div></div>
   <div class="abs strip"></div>
-  <div class="abs sline" style="top:calc(var(--b) + 430mm)"></div>
-  <div class="abs sline" style="top:calc(var(--b) + 568mm)"></div>
   <div class="abs pframe"></div>
   <div class="abs flour l" id="fl"></div><div class="abs flour r" id="fr"></div>
   <div class="abs dia" id="dl"></div><div class="abs dia" id="dr"></div><div class="abs dia o" id="dl2"></div><div class="abs dia o" id="dr2"></div>
-  <div class="abs striptext"><span id="strip">Be first in line – join our waiting list</span></div>
+  <div class="abs striptext" id="strip"><span id="st1">Be first in line</span><span id="st2">Join our waiting list</span></div>
   <div class="abs scan" id="scan"><div id="sc1">Scan to join</div><div id="sc2"><span>our waiting list</span></div></div>
   <div class="abs tile"></div>
   <img class="abs qr" src="qr.svg" alt="QR code to the waiting-list page">
@@ -73,9 +73,10 @@
   window.layout=async()=>{ await document.fonts.ready;
     fit(document.querySelector('.head .l1'),1200,150);
     document.querySelector('.head .l2').style.fontSize=(parseFloat(document.querySelector('.head .l1').style.fontSize)*1.3)+'mm';
-    const s=document.getElementById('strip'); s.style.fontSize='64mm';
-    const w=s.getBoundingClientRect().width/MM; if(w>1100) s.style.fontSize=(64*1100/w)+'mm';
-    fit(document.getElementById('url'),450,23); fit(document.getElementById('sc2'),450,44); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
+    const s=document.getElementById('st1'), s2=document.getElementById('st2');
+    s.style.fontSize='84mm'; let w=s.getBoundingClientRect().width/MM; if(w>1150) s.style.fontSize=(84*1150/w)+'mm';
+    s2.style.fontSize='44mm'; w=s2.getBoundingClientRect().width/MM; if(w>1000) s2.style.fontSize=(44*1000/w)+'mm';
+    fit(document.getElementById('url'),350,23); fit(document.getElementById('sc2'),350,44); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
     // flourishes either side of "Opening Soon!"
     { const r=document.getElementById('os').getBoundingClientRect(), b=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--b'));
       const L=r.left/MM, R=r.right/MM, cy=(r.top+r.height*0.56)/MM, x0=b+70, x1=b+1230, g=26, d=14, d2=7;
@@ -83,7 +84,7 @@
       put("fl",x0,cy-1.8,(L-g-d-14)-x0); put("fr",R+g+d+14,cy-1.8,x1-(R+g+d+14));
       put('dl',L-g-d,cy-d/2); put('dr',R+g,cy-d/2);
       put("dl2",L-g-d-15,cy-d2/2); put("dr2",R+g+d+8,cy-d2/2); }
-    return {head:document.querySelector('.head .l1').style.fontSize, strip:s.style.fontSize,
+    return {head:document.querySelector('.head .l1').style.fontSize, strip:s.style.fontSize+' / '+s2.style.fontSize,
             headBottom:(document.getElementById('head').getBoundingClientRect().bottom/MM).toFixed(1)}; };
 </script>
 </body></html>
