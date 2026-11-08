@@ -19,11 +19,11 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 .head div{white-space:nowrap;line-height:1.02}
 .head .l2{color:var(--gold);margin-top:2px;font-family:PlayfairI,serif;font-style:italic;text-transform:none;letter-spacing:0}
 .head .l2 span{display:inline-block}
-.flour{height:3px}.flour.l{background:linear-gradient(90deg,rgba(138,106,44,0),var(--gold))}.flour.r{background:linear-gradient(270deg,rgba(138,106,44,0),var(--gold))}
-.dia{width:12px;height:12px;background:var(--gold);transform:rotate(45deg)}.dia.o{width:6px;height:6px}
+.flour{height:2px;opacity:.7}.flour.l{background:linear-gradient(90deg,rgba(138,106,44,0),var(--gold))}.flour.r{background:linear-gradient(270deg,rgba(138,106,44,0),var(--gold))}
+.dia{width:9px;height:9px;background:var(--gold);transform:rotate(45deg);opacity:.85}.dia.o{width:5px;height:5px}
 .kicker{left:0;width:1080px;text-align:center;font-weight:800;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-size:28px}
 .strip{left:0;width:1080px;background:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center}
-.strip span{color:#fff;font-family:Playfair,serif;font-weight:900;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;line-height:1}
+.strip span{color:#fff;font-family:Playfair,serif;font-weight:800;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;line-height:1}
 .strip #st2{color:#FBF3E2;font-weight:800;letter-spacing:.08em;margin-top:10px}
 .panel{left:0;width:1080px;background:var(--panel);border-top:8px solid var(--gold2)}
 .btn{left:50%;transform:translateX(-50%);background:linear-gradient(#C9A75E,#A7843F);color:#fff;border-radius:999px;
@@ -46,16 +46,15 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 <script>
 const C={
   A:{photo:'photo-woman.jpg',pos:'38% 30%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'Kirkcaldy · Fife'},
-  B:{photo:'photo-family.jpg',pos:'50% 75%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families'},
-  B2:{photo:'photo-family.jpg',pos:'50% 75%',l1:'New NHS Dental Practice',l2:'for Kirkcaldy Families',kicker:'',st1:'Opening Soon!',st2:'Join our waiting list'}
+  B:{photo:'photo-family.jpg',pos:'50% 75%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families'}
 };
 // px layout per format: [H, photoTop, photoH, logoW, kickerTop, headTop, headMax, stripTop, stripH, panelTop, btnTop, btnW, btnH, btnFont, urlTop, urlFont]
 const L={
-  feed:{H:1350,pT:0,pH:960,logoW:300,logoX:390,logoTop:0,kT:0,hT:930,hMax:80,sT:1150,sH:200,pnT:1350,bT:0,bW:10,bH:10,bF:10,uT:0,uF:10},
-  story:{H:1920,pT:320,pH:920,logoW:380,logoX:350,logoTop:40,kT:0,hT:1200,hMax:82,sT:1440,sH:480,pnT:1920,bT:0,bW:10,bH:10,bF:10,uT:0,uF:10}
+  feed:{H:1350,pT:0,pH:700,logoW:300,logoX:390,logoTop:0,kT:632,hT:676,hMax:76,sT:880,sH:176,pnT:1056,bT:1104,bW:620,bH:112,bF:42,uT:1264,uF:34},
+  story:{H:1920,pT:330,pH:830,logoW:380,logoX:350,logoTop:40,kT:1100,hT:1148,hMax:80,sT:1370,sH:196,pnT:1566,bT:1616,bW:680,bH:120,bF:46,uT:1776,uF:38}
 };
 const q=new URLSearchParams(location.search), c=C[q.get('ad')||'A'], l={...L[q.get('fmt')||'feed']};
-if(q.get('fmt')!=='story') l.logoX=(q.get('ad')||'A').startsWith('B')?40:720;
+if(q.get('fmt')!=='story') l.logoX=(q.get('ad')==='B')?40:720;
 const $=id=>document.getElementById(id), px=v=>v+'px';
 document.body.style.height=px(l.H);
 Object.assign($('photo').style,{top:px(l.pT),height:px(l.pH),backgroundImage:`url(${c.photo})`,backgroundPosition:c.pos});
@@ -63,18 +62,16 @@ $('fade').style.top=px(l.pT+l.pH-160);
 const lt=$('logoTile'); Object.assign(lt.style,{left:px(l.logoX-24),top:px(l.logoTop),width:px(l.logoW+48),padding:'34px 24px 26px',boxSizing:'border-box'});
 if(q.get('fmt')==='story'){lt.style.background='transparent';lt.style.boxShadow='none';lt.style.width=px(l.logoW);lt.style.left=px(l.logoX);lt.style.padding='0';}
 $('kicker').textContent=c.kicker; $('kicker').style.top=px(l.kT);
-if(c.st1){$('st1').textContent=c.st1;$('st2').textContent=c.st2;}
 $('l1').textContent=c.l1; $('l2').textContent=c.l2; $('head').style.top=px(l.hT);
 Object.assign($('strip').style,{top:px(l.sT),height:px(l.sH)});
-if(q.get('fmt')==='story'){$('strip').style.justifyContent='flex-start';$('strip').style.paddingTop='48px';$('strip').style.boxSizing='border-box';}
 Object.assign($('panel').style,{top:px(l.pnT),height:px(l.H-l.pnT)});
 Object.assign($('btn').style,{top:px(l.bT),width:px(l.bW),height:px(l.bH),fontSize:px(l.bF)});
 Object.assign($('url').style,{top:px(l.uT),fontSize:px(l.uF)});
 function fit(el,target,max){el.style.fontSize=px(max);const w=el.scrollWidth;if(w>target)el.style.fontSize=px(max*target/w);return parseFloat(el.style.fontSize);}
-for(const id of ['kicker','btn','url','panel','fl','fr','dl','dr','dl2','dr2']) $(id).style.display='none';
+$('kicker').style.display='none';
 window.layout=async()=>{await document.fonts.ready;
-  const f=fit($('l1'),980,l.hMax); $('l2').style.fontSize=px(f*1.3);
-  fit($('st1'),900,q.get('fmt')==='story'?96:88); fit($('st2'),760,q.get('fmt')==='story'?44:40);
+  const f=fit($('l1'),980,l.hMax); $('l2').style.fontSize=px(f*1.15);
+  fit($('st1'),900,q.get('fmt')==='story'?76:70); fit($('st2'),760,q.get('fmt')==='story'?38:34);
   {const r=$('l2').getBoundingClientRect(),L=r.left,Rr=r.right,cy=r.top+r.height*0.56,x0=60,x1=1020,g=22,d=12,d2=6;
    const put=(id,lf,t,w)=>{const e=$(id);e.style.left=px(lf);e.style.top=px(t);if(w!==undefined)e.style.width=px(w);};
    put('fl',x0,cy-1.5,(L-g-d-12)-x0);put('fr',Rr+g+d+12,cy-1.5,x1-(Rr+g+d+12));put('dl',L-g-d,cy-d/2);put('dr',Rr+g,cy-d/2);put('dl2',L-g-d-13,cy-d2/2);put('dr2',Rr+g+d+7,cy-d2/2);}
