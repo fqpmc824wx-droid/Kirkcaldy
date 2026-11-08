@@ -20,6 +20,13 @@
 
 var GRAPH = "https://graph.facebook.com/v21.0/";
 var CALL_FROM_HOUR = 8, CALL_TO_HOUR = 21;   // calling window, UK time
+var LEADS_TAB = "Waiting list";               // NEVER the first tab – that is the Dashboard
+
+function leadsSheet() {
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(LEADS_TAB);
+  if (!sh) throw new Error("Tab \"" + LEADS_TAB + "\" not found");
+  return sh;
+}
 
 function installLeadTriggers() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
@@ -89,7 +96,7 @@ function handleLead(l) {
   var clean = function (v) { v = String(v || "").slice(0, 200); return /^[=+\-@]/.test(v) ? "'" + v : v; };
 
   // 1. sheet row (matched to the sheet's own column headers)
-  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  var sh = leadsSheet();
   var headers = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].map(String);
   var values = {
     "Signup Time": created,
@@ -133,7 +140,7 @@ function handleLead(l) {
 function morningSummary() {
   var oncall = PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE");
   if (!oncall) return;
-  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  var sh = leadsSheet();
   var data = sh.getDataRange().getValues(), col = data[0].map(String).indexOf("Status");
   if (col === -1) return;
   var n = data.slice(1).filter(function (r) { return r[col] === "Call 8am"; }).length;
