@@ -40,7 +40,8 @@ function alertTeam(msg) {
 // so each costs a single SMS. Long first names fall back to a slightly shorter version.
 function niceFirstName(name) {
   var f = String(name || "").trim().split(/\s+/)[0] || "";
-  f = f.replace(/[^A-Za-z\-']/g, "");
+  f = f.normalize("NFD").replace(/[\u0300-\u036f]/g, "")   // "Zoë" -> "Zoe" (accents would make it a pricier Unicode SMS)
+       .replace(/[\u2018\u2019]/g, "'").replace(/[^A-Za-z\-']/g, "");
   if (!f) return "there";
   if (f === f.toLowerCase() || f === f.toUpperCase())        // "sarah" / "SARAH" -> "Sarah"; "McKenzie" kept as typed
     f = f.toLowerCase().replace(/(^|[-'])([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
