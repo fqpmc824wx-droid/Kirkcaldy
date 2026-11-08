@@ -29,11 +29,25 @@ function leadsSheet() {
   return sh;
 }
 
-// ONCALL_MOBILE can hold several numbers, comma-separated, e.g. "07700900111, 07700900222".
-// Everyone listed gets every team alert (e.g. the on-call person AND the owner).
-function alertTeam(msg) {
-  var list = PropertiesService.getScriptProperties().getProperty("ONCALL_MOBILE") || "";
-  list.split(",").map(function (n) { return n.trim(); }).filter(String).forEach(function (n) { sendSms(n, msg); });
+// Team alerts.
+//   ONCALL_MOBILE = the callers' mobiles, comma-separated.
+//   ALERT_MODE    = "all" (default: every caller gets every lead) or
+//                   "rotate" (each lead goes to the NEXT caller in turn – no two people ring the same lead).
+//   OWNER_MOBILE  = optional mobile(s) that get a copy of every alert whatever the mode.
+// Returns the caller(s) the lead was sent to (written into the sheet's "Assigned to" column if it exists).
+function alertTeam(msg, rotate) {
+  var props = PropertiesService.getScriptProperties();
+  var split = function (v) { return String(v || "").split(",").map(function (n) { return n.trim(); }).filter(String); };
+  var callers = split(props.getProperty("ONCALL_MOBILE")), owners = split(props.getProperty("OWNER_MOBILE"));
+  var mode = String(props.getProperty("ALERT_MODE") || "all").toLowerCase();
+  var to = callers;
+  if (rotate !== false && mode === "rotate" && callers.length) {
+    var i = Number(props.getProperty("ALERT_NEXT") || 0) % callers.length;
+    to = [callers[i]];
+    props.setProperty("ALERT_NEXT", String(i + 1));
+  }
+  to.concat(owners.filter(function (o) { return to.indexOf(o) === -1; })).forEach(function (n) { sendSms(n, msg); });
+  return to.join(", ");
 }
 
 // Lead thank-you text: kept within ONE text message (160 plain characters, no emoji/curly quotes)
@@ -148,13 +162,13 @@ function handleLead(l) {
     "Source": l.platform === "ig" ? "instagram" : "facebook",
     "Status": inHours ? "" : "Call 8am"
   };
+  // 3. alert the team (in calling hours) – done before the row is written so the sheet shows who has it
+  if (inHours) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + name + " " + phone);
   sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
 
   // 2. instant text to the lead (one SMS, 160 characters max)
   sendSms(phone, leadText(first, inHours));
 
-  // 3. alert the on-call mobile (in calling hours only)
-  if (inHours) alertTeam("🦷 NEW LEAD (" + values.Source + ") – call now: " + name + " " + phone);
 
   // 4. confirmation email
   if (email) {
@@ -178,5 +192,5 @@ function morningSummary() {
   if (col === -1) return;
   var n = data.slice(1).filter(function (r) { return r[col] === "Call 8am"; }).length;
   if (n) alertTeam("🦷 Good morning – " + n + " overnight lead" + (n > 1 ? "s" : "") +
-    " to call. Filter the Waiting List sheet by Status = \"Call 8am\".");
+    " to call. Filter the Waiting List sheet by Status = \"Call 8am\".", false);
 }
