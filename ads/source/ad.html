@@ -90,19 +90,15 @@ window.prepAnim=()=>{
 };
 window.setTime=t=>{
   const set=(id,o,ty,sc)=>{const e=$(id);e.style.opacity=o;e.style.transform=(id==='btn'?'translateX(-50%) ':'')+`translateY(${ty||0}px) scale(${sc||1})`;};
-  $('photo').style.transform=`scale(${1.0+0.07*Math.min(t/8,1)})`;
-  set('logoTile',prog(t,0,.6));
-  set('kicker',prog(t,.5,.5),12*(1-prog(t,.5,.5)));
-  set('l1',prog(t,.7,.6),30*(1-prog(t,.7,.6)));
-  const p2=prog(t,1.2,.6); set('l2',p2,30*(1-p2));
-  const pf=prog(t,1.6,.7);
-  $('fl').style.width=px(ANIM.fl*pf); $('fr').style.width=px(ANIM.fr*pf); $('fr').style.left=px(ANIM.frL+ANIM.fr*(1-pf));
-  for(const id of ['dl','dr','dl2','dr2']) $(id).style.opacity=prog(t,1.6,.4);
-  const ps=prog(t,2.2,.6); $('strip').style.transform=`translateX(${-1080*(1-ps)}px)`;
-  set('st1',prog(t,2.6,.5)); set('st2',prog(t,2.9,.5));
-  const pb=prog(t,3.4,.5); const pulse=t>4.6?1+0.05*Math.max(0,Math.sin((t-4.6)*Math.PI/0.6))*(((t-4.6)%2.0)<0.6?1:0):1;
-  set('btn',pb,0,(0.85+0.15*pb)*pulse);
-  set('url',prog(t,3.9,.5));
+  $('photo').style.transform=`scale(${1.0+0.10*Math.min(t/8,1)})`;
+  const rise=10*(1-prog(t,0,.3));
+  set('logoTile',1); set('kicker',1); set('l1',1,rise); set('l2',1,rise); set('url',1); set('addr',1);
+  for(const id of ['dl','dr','dl2','dr2']) $(id).style.opacity=1;
+  $('strip').style.transform=`translateX(${-1080*(1-prog(t,0,.35))}px)`;
+  set('st1',1); set('st2',1);
+  const k=(t-.4)/.35, pop=k<=0?.85:k<.6?.85+.21*(k/.6):k<1?1.06-.06*((k-.6)/.4):1;
+  const ph=(t-1.5)%1.5, pulse=(t>=1.5&&ph<.6)?1+.05*Math.sin(ph*Math.PI/.6):1;
+  set('btn',Math.min(1,Math.max(0,(t-.4)/.15)),0,pop*pulse);
 };
 window.layout=async()=>{await document.fonts.ready;
   fit($('kicker'),960,28);
