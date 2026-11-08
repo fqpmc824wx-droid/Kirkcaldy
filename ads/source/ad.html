@@ -7,6 +7,7 @@
 @font-face{font-family:"InterS";font-weight:900;src:url(inter-900.woff2) format("woff2");}
 @font-face{font-family:"Playfair";font-weight:800;src:url(playfair-800.woff2) format("woff2");}
 @font-face{font-family:"Playfair";font-weight:900;src:url(playfair-900.woff2) format("woff2");}
+@font-face{font-family:"PlayfairI";font-weight:800;font-style:italic;src:url(playfair-800-italic.woff2) format("woff2");}
 :root{--cream:#F6F2EA;--gold:#8A6A2C;--gold2:#B8964F;--light:#D9BD82;--ink:#262B30;--panel:#30363B;}
 html,body{margin:0;padding:0}
 body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font-family:"InterS",sans-serif}
@@ -16,10 +17,14 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 .logoTile{background:var(--cream);border-radius:0 0 28px 28px;box-shadow:0 6px 24px rgba(0,0,0,.08)}
 .head{left:40px;width:1000px;text-align:center;font-family:Playfair,serif;font-weight:800;text-transform:uppercase;letter-spacing:.02em;color:var(--ink)}
 .head div{white-space:nowrap;line-height:1.02}
-.head .l2{color:var(--gold);margin-top:6px}
+.head .l2{color:var(--gold);margin-top:2px;font-family:PlayfairI,serif;font-style:italic;text-transform:none;letter-spacing:0}
+.head .l2 span{display:inline-block}
+.flour{height:3px}.flour.l{background:linear-gradient(90deg,rgba(138,106,44,0),var(--gold))}.flour.r{background:linear-gradient(270deg,rgba(138,106,44,0),var(--gold))}
+.dia{width:12px;height:12px;background:var(--gold);transform:rotate(45deg)}.dia.o{width:6px;height:6px}
 .kicker{left:0;width:1080px;text-align:center;font-weight:800;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-size:28px}
-.strip{left:0;width:1080px;background:var(--gold);display:flex;align-items:center;justify-content:center}
-.strip span{color:#fff;font-family:Playfair,serif;font-weight:800;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.strip{left:0;width:1080px;background:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.strip span{color:#fff;font-family:Playfair,serif;font-weight:900;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;line-height:1}
+.strip #st2{color:#FBF3E2;font-weight:800;letter-spacing:.08em;margin-top:10px}
 .panel{left:0;width:1080px;background:var(--panel);border-top:8px solid var(--gold2)}
 .btn{left:50%;transform:translateX(-50%);background:linear-gradient(#C9A75E,#A7843F);color:#fff;border-radius:999px;
      font-weight:900;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;display:flex;align-items:center;justify-content:center;
@@ -32,20 +37,21 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 <div class="abs fade" id="fade"></div>
 <div class="abs logoTile" id="logoTile"><img id="logo" src="logo.svg" alt="Kirkcaldy Dental &amp; Implant Clinic" style="display:block;width:100%"></div>
 <div class="abs kicker" id="kicker"></div>
-<div class="abs head" id="head"><div class="l1" id="l1"></div><div class="l2" id="l2"></div></div>
-<div class="abs strip" id="strip"><span id="stripText">Be first in line – join our waiting list</span></div>
+<div class="abs head" id="head"><div class="l1" id="l1"></div><div class="l2"><span id="l2"></span></div></div>
+<div class="abs strip" id="strip"><span id="st1">Be first in line</span><span id="st2">Join our waiting list</span></div>
+<div class="abs flour l" id="fl"></div><div class="abs flour r" id="fr"></div><div class="abs dia" id="dl"></div><div class="abs dia" id="dr"></div><div class="abs dia o" id="dl2"></div><div class="abs dia o" id="dr2"></div>
 <div class="abs panel" id="panel"></div>
 <div class="abs btn" id="btn">Join Waiting List&nbsp;&nbsp;→</div>
 <div class="abs url" id="url">kirkcaldydental.co.uk<b>/register</b></div>
 <script>
 const C={
   A:{photo:'photo-woman.jpg',pos:'38% 30%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'Kirkcaldy · Fife'},
-  B:{photo:'photo-family.jpg',pos:'50% 75%',l1:'New NHS Dental Practice',l2:'for Kirkcaldy Families',kicker:'Opening Soon!'}
+  B:{photo:'photo-family.jpg',pos:'50% 75%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families'}
 };
 // px layout per format: [H, photoTop, photoH, logoW, kickerTop, headTop, headMax, stripTop, stripH, panelTop, btnTop, btnW, btnH, btnFont, urlTop, urlFont]
 const L={
-  feed:{H:1350,pT:0,pH:700,logoW:300,logoX:390,logoTop:0,kT:640,hT:690,hMax:84,sT:900,sH:130,pnT:1030,bT:1090,bW:640,bH:118,bF:44,uT:1262,uF:34},
-  story:{H:1920,pT:330,pH:830,logoW:380,logoX:350,logoTop:40,kT:1105,hT:1160,hMax:88,sT:1385,sH:150,pnT:1535,bT:1590,bW:700,bH:130,bF:48,uT:1765,uF:38}
+  feed:{H:1350,pT:0,pH:700,logoW:300,logoX:390,logoTop:0,kT:632,hT:676,hMax:76,sT:880,sH:176,pnT:1056,bT:1104,bW:620,bH:112,bF:42,uT:1264,uF:34},
+  story:{H:1920,pT:330,pH:830,logoW:380,logoX:350,logoTop:40,kT:1100,hT:1148,hMax:80,sT:1370,sH:196,pnT:1566,bT:1616,bW:680,bH:120,bF:46,uT:1776,uF:38}
 };
 const q=new URLSearchParams(location.search), c=C[q.get('ad')||'A'], l={...L[q.get('fmt')||'feed']};
 if(q.get('fmt')!=='story') l.logoX=(q.get('ad')==='B')?40:720;
@@ -63,9 +69,11 @@ Object.assign($('btn').style,{top:px(l.bT),width:px(l.bW),height:px(l.bH),fontSi
 Object.assign($('url').style,{top:px(l.uT),fontSize:px(l.uF)});
 function fit(el,target,max){el.style.fontSize=px(max);const w=el.scrollWidth;if(w>target)el.style.fontSize=px(max*target/w);return parseFloat(el.style.fontSize);}
 window.layout=async()=>{await document.fonts.ready;
-  const a=fit($('l1'),980,l.hMax), b=fit($('l2'),980,l.hMax), f=Math.min(a,b);
-  $('l1').style.fontSize=px(f); $('l2').style.fontSize=px(f);
-  fit($('stripText'),960,q.get('fmt')==='story'?54:50);
+  const f=fit($('l1'),980,l.hMax); $('l2').style.fontSize=px(f*1.3);
+  fit($('st1'),900,q.get('fmt')==='story'?96:88); fit($('st2'),760,q.get('fmt')==='story'?44:40);
+  {const r=$('l2').getBoundingClientRect(),L=r.left,Rr=r.right,cy=r.top+r.height*0.56,x0=60,x1=1020,g=22,d=12,d2=6;
+   const put=(id,lf,t,w)=>{const e=$(id);e.style.left=px(lf);e.style.top=px(t);if(w!==undefined)e.style.width=px(w);};
+   put('fl',x0,cy-1.5,(L-g-d-12)-x0);put('fr',Rr+g+d+12,cy-1.5,x1-(Rr+g+d+12));put('dl',L-g-d,cy-d/2);put('dr',Rr+g,cy-d/2);put('dl2',L-g-d-13,cy-d2/2);put('dr2',Rr+g+d+7,cy-d2/2);}
   const hb=$('head').getBoundingClientRect().bottom; return {head:f,headBottom:hb,stripTop:l.sT};};
 </script>
 </body></html>
