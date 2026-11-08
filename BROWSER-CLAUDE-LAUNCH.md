@@ -22,7 +22,7 @@ Ask the owner to merge PR #1 and PR #2 into `main` first, if they're happy to. O
 | Owner's personal Facebook login (will be admin of the clinic Page) | owner |
 | Payment card (Meta ads + text credit) | owner |
 | Mobile numbers: **2 callers** + **owner** | owner |
-| Daily ad budget: **£20/day to start** | agreed |
+| Daily ad budget: **£20/day to start** (2 ads; the family's alternative is £10/day, see section 8) | agreed |
 | Clinic phone number 01592 … (optional; can be added later) | owner |
 
 Waiting List sheet: https://docs.google.com/spreadsheets/d/1WxadIcaibszu3YYR3eqNMjaQQ0V3LJ_Mvdsx_I2KBQI/edit
@@ -59,9 +59,8 @@ Waiting List sheet: https://docs.google.com/spreadsheets/d/1WxadIcaibszu3YYR3eqN
 4. Copy the ClickSend **username** and **API key** (Dashboard → API Credentials).
 
 Budget to tell the owner:
-- Each lead uses about **3 texts**: thank-you to the lead, alert to one caller, and a copy to the owner. That's about **12–15p per lead**.
-- About **£300–375/month** at launch volume (~2,600 leads) and **£70–85** when it settles.
-- Removing the owner's copy saves a third.
+- Each lead uses **2 texts**: thank-you to the lead and alert to one caller. The owner gets a free email copy instead. That's about **8–10p per lead**.
+- About **£200–250/month** at launch volume (~2,600 leads) and **£50–60** when it settles (inc. VAT, at ~4p a text).
 
 ## 3. Facebook Page, Business account, ad account
 1. Create the **Facebook Page** "Kirkcaldy Dental & Implant Clinic".
@@ -102,7 +101,8 @@ Follow **leads/README.md** "One-time setup":
 | `META_FORM_IDS` | the Form ID (comma-separate if more than one) |
 | `ONCALL_MOBILE` | the **2 callers' mobiles**, comma-separated |
 | `ALERT_MODE` | `rotate` (each lead goes to the next caller in turn) |
-| `OWNER_MOBILE` | the **owner's mobile** (gets a copy of every alert) |
+| `OWNER_EMAIL` | `info@kirkcaldydental.co.uk` (owner gets a free **email** copy of every alert; Gmail app on the owner's phone with notifications ON for this account) |
+| `OWNER_MOBILE` | leave **empty** (owner chose email alerts instead of text copies) |
 | `CALL_HOURS` | `8-21` (owner decision: **no calls after 9pm**) |
 Don't touch `ALERT_NEXT`, `META_SINCE` or `META_SEEN`. They are set automatically.
 6. Run **`installLeadTriggers()`** once and allow permissions. It checks Meta every minute and sends the 8am summary.
@@ -115,7 +115,7 @@ What happens with every lead, wherever it comes from:
 - **8am–9pm:**
   - The row is added to the sheet.
   - The lead gets the thank-you text: "Hi Sarah, thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you very soon. We can't wait to welcome you!"
-  - The next caller in turn gets the alert "🦷 NEW LEAD – call now…", with the owner copied.
+  - The next caller in turn gets the text alert "🦷 NEW LEAD – call now…". The owner gets the same alert as an **email** to info@kirkcaldydental.co.uk.
   - The lead gets a confirmation email.
 - **9pm–8am:**
   - The text says "…will call you tomorrow from 8am…".
@@ -126,14 +126,15 @@ What happens with every lead, wherever it comes from:
 ## 6. Test everything, using the owner's own phone and email
 | Test | How | Expect |
 |---|---|---|
-| Facebook lead | Meta **Lead Ads Testing Tool** (developers.facebook.com/tools/lead-ads-testing) | within ~1–2 min: row in Waiting list with Source facebook; thank-you text and email; alert to one caller + owner; "Assigned to" filled |
+| Facebook lead | Meta **Lead Ads Testing Tool** (developers.facebook.com/tools/lead-ads-testing) | within ~1–2 min: row in Waiting list with Source facebook; thank-you text and email; text alert to one caller; **owner alert email arrives in info@ and the Gmail app shows a notification** (if not, see note below); "Assigned to" filled |
 | Website sign-up | fill in kirkcaldydental.co.uk/register | row with Source website + same texts/alerts |
 | Leaflet QR | scan the QR on the leaflet PDF | row with Source leaflet; Visits tab counts the scan |
 | Banner QR | scan the QR on the banner PDF | row with Source banner |
 | Rotation | submit 2 more test leads | alerts alternate between the 2 callers |
 | Do not contact | set a test row's Status to DO NOT CONTACT, submit again with the same phone | row saved, but no text, alert or email |
 | Dashboard | open the Dashboard tab | counts by source update |
-Delete all test rows afterwards. If anything fails, check Apps Script → **Executions** for errors. "Meta API 190" means the token is wrong or expired.
+Delete all test rows afterwards.
+**Owner email alerts:** the script sends from info@ to info@. If the Gmail app doesn't notify for these self-sent emails, set `OWNER_EMAIL` to the owner's personal Gmail address instead, or add a Gmail filter "From: info@… Subject contains NEW LEAD → Mark as important" with notifications set to "All". If anything fails, check Apps Script → **Executions** for errors. "Meta API 190" means the token is wrong or expired.
 
 ## 7. Launch the ads (only with the owner's OK)
 Ads Manager → Create:
@@ -164,6 +165,11 @@ Daily rules:
 - Cheap leads and spare caller time → raise 20% every 3–4 days.
 
 If opening is more than ~6 weeks away, stay at £15–20/day longer.
+
+**Cautious alternative (family suggestion):**
+- Start at **£10/day** with both ads in the one ad set. Meta automatically gives more of the budget to the better ad. Learning is just slower.
+- Raise to £15 after 4–5 days and £20 in week 2, then follow the table.
+- Total ≈ £550–650 for 4 weeks.
 
 ## 9. Daily jobs for one staff member (~15 min a day)
 - Check the ads are running, the card is OK and nothing is rejected.

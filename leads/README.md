@@ -33,7 +33,8 @@ Every minute it pulls new Facebook/Instagram Instant Form leads from Meta and, f
    - The ClickSend keys and `ONCALL_MOBILE` are shared with the website form. Team alert settings (Script Properties):
 - `ONCALL_MOBILE`: the callers' mobiles, comma-separated.
 - `ALERT_MODE`: `all` (everyone gets every lead) or **`rotate`** (each lead goes to the next caller in turn, so two people never ring the same lead). Recommended with a big team.
-- `OWNER_MOBILE`: optional. Gets a copy of every alert in either mode.
+- `OWNER_MOBILE`: optional. Gets a TEXT copy of every alert in either mode.
+- `OWNER_EMAIL`: optional and free. Gets an EMAIL copy of every alert, e.g. `info@kirkcaldydental.co.uk` with the Gmail app notifications on.
 - `CALL_HOURS`: `8-21` (default – no calls after 9pm) or `24h`.
 
 If the sheet has an **"Assigned to"** column, it shows which caller each lead went to.
