@@ -34,7 +34,8 @@ function leadsSheet() {
 //   ONCALL_MOBILE = the callers' mobiles, comma-separated.
 //   ALERT_MODE    = "all" (default: every caller gets every lead) or
 //                   "rotate" (each lead goes to the NEXT caller in turn – no two people ring the same lead).
-//   OWNER_MOBILE  = optional mobile(s) that get a copy of every alert whatever the mode.
+//   OWNER_MOBILE  = optional mobile(s) that get a TEXT copy of every alert whatever the mode.
+//   OWNER_EMAIL   = optional email(s) that get an EMAIL copy of every alert instead (free; e.g. info@kirkcaldydental.co.uk).
 // Returns the caller(s) the lead was sent to (written into the sheet's "Assigned to" column if it exists).
 function alertTeam(msg, rotate) {
   var props = PropertiesService.getScriptProperties();
@@ -48,6 +49,10 @@ function alertTeam(msg, rotate) {
     props.setProperty("ALERT_NEXT", String(i + 1));
   }
   to.concat(owners.filter(function (o) { return to.indexOf(o) === -1; })).forEach(function (n) { sendSms(n, msg); });
+  split(props.getProperty("OWNER_EMAIL")).forEach(function (e) {
+    try { MailApp.sendEmail(e, msg.slice(0, 120), msg + "\n\nWaiting List sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl()); }
+    catch (err) { console.error("Owner email failed: " + err); }
+  });
   return to.join(", ");
 }
 

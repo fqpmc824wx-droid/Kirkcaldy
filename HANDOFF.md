@@ -1,5 +1,7 @@
 # Kirkcaldy Dental & Implant Clinic – launch handoff
 
+> **Setup night: start with [BROWSER-CLAUDE-LAUNCH.md](BROWSER-CLAUDE-LAUNCH.md).** It is the step-by-step runbook and points back to the sections below.
+
 Give this whole note to Claude in the browser. Do the steps in order. Ask the owner before anything that costs money, publishes ads, or sends messages to real people.
 
 ## Rules for every ad, page and message
