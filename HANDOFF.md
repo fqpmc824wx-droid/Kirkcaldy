@@ -41,8 +41,31 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
   - "Are you currently registered with a dentist?" Yes / No / Not sure
   - "Who is this for?" Adult / Child / Family
 - Privacy policy URL: https://kirkcaldydental.co.uk/privacy.html
+- **Custom disclaimer** (Form settings → Custom disclaimer, title "How we'll contact you"):
+  "By tapping Submit, you're asking Kirkcaldy Dental & Implant Clinic to add you to our waiting list. We'll text and call you about your request, 8am–9pm, and email you to confirm. We won't send you marketing unless you opt in below. See our privacy policy."
+- **Optional consent checkbox** (custom disclaimer → add checkbox, NOT pre-ticked, NOT required):
+  "Yes, also send me news and offers from Kirkcaldy Dental by text and email. I can opt out at any time."
+  Only people who tick it may ever get promotional texts or emails.
 - Completion screen: "Thanks – you're on our waiting list! We'll keep you updated with opening news." Button: View website → https://kirkcaldydental.co.uk
-- Business Settings → Integrations → Leads access → allow Make (or Zapier) for the page.
+- Business Settings → Integrations → Leads access → allow our lead app (leads/README.md) for the page.
+
+## Text messages – legal checklist (UK PECR / UK GDPR / ICO)
+The automatic texts are **service messages**: replies to the person's own request to join the waiting list. They are not marketing. Keep them that way:
+1. **Lead thank-you text:** only confirms the request and says when we'll call.
+   - No offers, prices or promotions, and no "book now".
+   - It names the sender: the "KirkDental" sender ID plus "Kirkcaldy Dental" in the text.
+   - Wording is fixed in `leadText()`; change it only in both script copies at once.
+2. **NHS wording:** "waiting list" only. Never "accepting / taking on / registering NHS patients", never "guaranteed".
+3. **Calls and texts only 8am–9pm** (`CALL_HOURS` 8-21). The 9pm–8am texts are the automatic confirmation the person has just asked for.
+4. **Marketing texts or emails** (e.g. opening offers) go **only** to people who ticked the optional consent box. Every marketing message needs an opt-out: "To stop, email info@kirkcaldydental.co.uk" or a reply number. Alphanumeric senders like "KirkDental" can't receive replies.
+5. **Opt-outs:** if anyone asks to stop, write "DO NOT CONTACT" in Status the same day and never text or call them again.
+6. **Privacy policy** (privacy.html) must list everyone who handles the data:
+   - Meta (form), Google (sheet, Apps Script, Gmail), ClickSend (texts) and Hostinger (website).
+   - It must also say we text and call about the request, and keep the data up to 12 months after opening.
+   - Zapier is no longer used.
+7. **Team alert texts** contain a name and phone number. Send them only to staff work phones; staff delete them after calling.
+8. Keep the sheet private: share it only with the staff who call.
+*Not legal advice: have the clinic's compliance lead or the BDA/ICO guidance confirm before launch.*
 
 ## Step 3 – Free lead alerts on the team phones
 1. Install the **Meta Business Suite** app on every team phone. Log in with a page admin/editor account.

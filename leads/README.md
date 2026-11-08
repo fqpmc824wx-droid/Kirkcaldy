@@ -44,3 +44,10 @@ If the sheet has an **"Assigned to"** column, it shows which caller each lead we
    - Delete the test row.
 
 If the token ever stops working, the script logs "Meta API 190" (Apps Script → Executions). Generate a new token as in step 2.
+
+## Legal safeguards built in
+- The lead text is a **service message** that only confirms the request. It contains no marketing.
+- **"DO NOT CONTACT":** put this in a row's Status column and that phone number gets no more texts or emails, and no team alert, even if they sign up again.
+- **"Marketing consent" column:** "Yes" only if the person ticked the optional consent box on the Meta form. Only "Yes" people may ever get promotional messages.
+- The texts follow `CALL_HOURS` (8am–9pm).
+- Full checklist: HANDOFF.md → "Text messages – legal checklist".
