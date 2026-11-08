@@ -264,33 +264,30 @@ Ads Manager → Create:
   - Optional sound for the videos: pick one calm instrumental from Meta's Sound Collection.
 - Preview both ads in every placement with the **safe-zone overlay**. All text must be clear of the top and bottom bars.
 - Before publishing, show the owner the ad previews **and the form preview** and get a clear "yes".
-- **Automated rule** (Ads Manager → Rules → Create rule): campaign, condition **Leads (today) is greater than 30** → action **Turn off campaign** + notify. Check every 30 minutes. It's a safety valve if the ad goes viral. The daily-jobs person switches the campaign back on at 8am **only if the overnight leads have been called**.
+- **Automated rule** (Ads Manager → Rules → Create rule): campaign, condition **Leads (today) is greater than 25 × the number of callers on shift** (e.g. 50 with two callers; raise it whenever callers are added) → action **Turn off campaign** + notify. Check every 30 minutes. It's a safety valve if the ad goes viral. The daily-jobs person switches the campaign back on at 8am **only if the overnight leads have been called**.
 - **48 hours after launch:** check Breakdown → Delivery → Placement (no junk placements) and that no AI-made variants have appeared. After any edit or duplicate, re-check that Advantage+ creative is still all OFF.
 
 ## 8. The 4-week plan: tell the owner and leave it in writing
-*Updated 8 Nov from the forecast agent team. Three independent methods agreed on: **about £1.50 per lead** (range about £0.65–£4), **about 15 Facebook/Instagram sign-ups a day at £20/day** (about 100 a week), and about **1,650 sign-ups (~3,150 people) by opening** from all channels. **The caller runs out before the budget does.***
+*Updated 8 Nov from the forecast agent team. Three independent methods agreed on: **about £1.50 per lead** (range about £0.65–£4), **about 15 Facebook/Instagram sign-ups a day at £20/day** (about 100 a week), and about **1,650 sign-ups (~3,150 people) by opening** from all channels. **Callers are not a limit: the owner has staff available, so add callers as sign-ups grow (owner, 8 Nov).***
 
 | Week | Daily budget | Goal | Rules |
 |---|---|---|---|
 | 1 | **£20** | check everything works, first data | change nothing for 3–4 days; check approvals, leads, texts and the caller daily |
-| 2 | £20 → **£25** | pick the winner | pause the ad whose cost per lead is 30%+ worse after ~7 days; add 1–2 new versions of the winner (ask the ads chat). **Second caller from about week 2** (see below) |
-| 3 | £25 → **£35** | scale carefully | only with two callers or a self-booking link; raise ~20–25% every 3–4 days, making ad changes on the same day; if frequency > ~3, add fresh ads |
-| 4 | £35 → **£50** | run at caller capacity | settle where every lead is called within the hour |
+| 2 | £20 → **£25** | pick the winner | pause the ad whose cost per lead is 30%+ worse after ~7 days; add 1–2 new versions of the winner (ask the ads chat) |
+| 3 | £25 → **£35** | scale carefully | raise ~20–25% every 3–4 days, making ad changes on the same day; if frequency > ~3, add fresh ads |
+| 4 | £35 → **£50** | keep scaling while cost per lead stays good | every lead still called within the hour (add callers as needed) |
 
-**One caller can properly work about 20–25 new leads a day,** not 30–40. No-answers and call-backs mean about 1.6 calls per lead.
-- Bring in the second caller (`ONCALL_MOBILE` = both numbers, `ALERT_MODE` = `rotate`, `BACKLOG_ALERT` = `15`) as soon as any of these happens:
-  - sign-ups from all sources stay above 20 a day for 3 days;
-  - the backlog email arrives on 2 evenings in a week;
-  - the 9pm report shows leads waiting over 24 hours;
-  - a press story or viral post lands. In that case, add the second caller the same day.
-- **Don't go above £25/day until there is a second caller.**
+**Callers:** the owner has staff, so calling is not a limit. Rule of thumb: **one caller for every ~20–25 new sign-ups a day** (no-answers and call-backs mean about 1.6 calls per lead).
+- Before each budget step, make sure there are enough callers on shift for the extra leads.
+- To add callers: Script Property `ONCALL_MOBILE` = all their mobiles, comma-separated (UK mobiles only); `ALERT_MODE` = `rotate`, so each lead goes to the next caller and no two people ring the same person; `BACKLOG_ALERT` = `15`.
+- Add one the same day if the backlog email arrives, sign-ups stay above ~20 a day per caller, or a press story or viral post lands.
 
 **Real cost:** Ads Manager shows the budget before tax. Meta adds a **2% UK location fee** (since 1 Jul 2026, not shown in Ads Manager) and **20% VAT**. Dental care is VAT-exempt, so the clinic normally **can't reclaim** that VAT. £20/day is really about **£24.50/day**. The 4-week plan is about £810 in Ads Manager, or about **£990 all-in**, plus texts (about 9p per lead).
 
 Daily rules:
-- Leads arrive faster than the caller can ring within the hour (the owner also gets the overload email) → **cut the budget 20%**.
+- Leads arrive faster than the callers can ring within the hour (the owner also gets the overload email) → **add a caller** the same day; only if nobody is available, cut the budget 20%.
 - Cost per lead **above £3.50 for 3 days** → fix the ad or form, don't add money, and tell the ads chat. **Above £5 → pause** and ask the ads chat.
-- Cost per lead under £2.50 for 3 days, the backlog email not firing, and caller time spare → raise 20%, no more than once every 3–4 days.
+- Cost per lead under £2.50 for 3 days, and the backlog email not firing → raise 20% (with enough callers on shift), no more than once every 3–4 days.
 - An ad gets rejected → tell the ads chat.
 - Black Friday (27 Nov) and Christmas push ad prices up 15–30%. That's expected; don't panic.
 
@@ -302,7 +299,7 @@ If opening is more than ~6 weeks away, stay at £15–20/day for longer.
 - About £590 in Ads Manager (about £720 all-in), giving about 390 leads instead of about 540.
 
 ## 9. Daily jobs for one staff member (~15 min a day)
-- 8am: check the ads are running, the card is OK and nothing is rejected. If the 30-leads rule switched the campaign off, switch it back on **only once the overnight leads have been called**.
+- 8am: check the ads are running, the card is OK and nothing is rejected. If the daily leads rule switched the campaign off, switch it back on **only once the overnight leads have been called**.
 - Reply to Facebook/Instagram comments and messages within a few hours:
   - Use "waiting list" wording only. Never say "accepting" or "taking on" patients, never promise registration or a date, and never say "first come, first served".
   - Ready reply: "Thanks for your interest! We're a new NHS dental practice opening soon at 23–25 Tolbooth Street. Please join our waiting list using the Sign up button or at kirkcaldydental.co.uk/register and we'll be in touch before we open."
