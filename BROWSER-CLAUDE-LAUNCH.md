@@ -256,7 +256,7 @@ Ads Manager → Create:
     - Never add EH (Leith and Granton are 9 miles away across the Forth), KY6, KY7 or KY8 (the owner's own Glenrothes and Leven practices).
   - **Age: minimum 18** (set it as the hard minimum-age control, not just a suggestion). **No detailed interests.** **Placements:** Advantage+ (the only option now).
   - No ad scheduling.
-- **Two ads** (Drive "1. Meta Ads"; the newest files are from 8 Nov, 21:20):
+- **Two ads** (Drive "1. Meta Ads"; if a file appears twice, use the NEWEST copy: images 8 Nov 21:54, videos 8 Nov 22:03):
   - **Ad A:** Feeds = `Ad A – Feed 4x5 (woman).png`. Stories/Reels = `Ad A – VIDEO Stories-Reels 9x16 (woman).mp4`, backup `Ad A – Stories 9x16 (woman).png` (placement asset customisation).
   - **Ad B:** the same with the `Ad B … (family)` files.
   - Text: copy **exactly** from HANDOFF.md Step 5 (primary text A and B, Stories/Reels text, three headlines, description). **CTA: Sign up.**
