@@ -14,7 +14,7 @@
 
 var SHEET_NAME = "";            // leave blank to use the first tab
 var SEND_EMAIL = true;
-var NOTIFY = "info@kirkcaldydentist.co.uk"; // gets a short "new sign-up" note; "" to turn off
+var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "" to turn off
 
 function doPost(e) {
   var p = (e && e.parameter) || {};
@@ -52,13 +52,13 @@ function doPost(e) {
     MailApp.sendEmail({
       to: p.email,
       name: "Kirkcaldy Dental & Implant Clinic",
-      replyTo: "info@kirkcaldydentist.co.uk",
+      replyTo: "info@kirkcaldydental.co.uk",
       subject: "Thanks for registering your interest – Kirkcaldy Dental & Implant Clinic",
       body: "Hi " + first + ",\n\n" +
         "Thank you for registering your interest in Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon in Kirkcaldy.\n\n" +
         "We'll be in touch with opening dates and practice information as soon as they're confirmed.\n\n" +
-        "Any questions? Email info@kirkcaldydentist.co.uk.\n\n" +
-        "Kirkcaldy Dental & Implant Clinic\nkirkcaldydentist.co.uk"
+        "Any questions? Email info@kirkcaldydental.co.uk.\n\n" +
+        "Kirkcaldy Dental & Implant Clinic\nkirkcaldydental.co.uk"
     });
   }
   if (NOTIFY) {

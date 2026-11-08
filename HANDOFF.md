@@ -6,7 +6,7 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 - Allowed: "New NHS dental practice opening in Kirkcaldy", "Register your interest", "Be the first to know when we open".
 - NOT allowed: "taking on / registering NHS patients", "join the NHS waiting list", "limited places", "first come, first served". Never use the NHS logo (plain text "NHS" is fine).
 - Colours: white and gold. Gold = #C3A363, text = #373737.
-- Website: kirkcaldydentist.co.uk (hosted on Hostinger). Email: info@kirkcaldydentist.co.uk
+- Website: kirkcaldydental.co.uk (website hosted on Hostinger; email on Google Workspace). Email: info@kirkcaldydental.co.uk
 
 ## Assets
 - Website zip (upload to Hostinger): `kirkcaldy-dental-website.zip` in the GitHub repo langtounsmiles/Dental, branch `claude/determined-heisenberg-d02bac`
@@ -21,13 +21,20 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
   - Ad B Stories 9:16 (family) – https://canva.link/ttmm37796yfwy2j
   Export each as PNG (Share → Download → PNG).
 
+## Step 0 – Domain: kirkcaldydental.co.uk (bought via Google Workspace)
+Everything (website, email, ads, leaflet) now uses **kirkcaldydental.co.uk**.
+1. Google Workspace: create the admin user info@kirkcaldydental.co.uk and finish setup (Workspace sets the email/MX records automatically because Google holds the domain).
+2. Hostinger → Websites → Add website / Connect domain → enter kirkcaldydental.co.uk. Hostinger shows an IP address (A record).
+3. Google Admin console → Domains → Manage domains → kirkcaldydental.co.uk → DNS (Squarespace Domains): add the A record for "@" pointing to that Hostinger IP, and a CNAME "www" → kirkcaldydental.co.uk. Do NOT touch the MX records (those are the email).
+4. Optional: in Hostinger, redirect kirkcaldydentist.co.uk → https://kirkcaldydental.co.uk so the old name still works.
+
 ## Step 1 – Website on Hostinger
-1. hostinger.co.uk → Websites → kirkcaldydentist.co.uk → File Manager → `public_html`.
+1. hostinger.co.uk → Websites → kirkcaldydental.co.uk (added in step 0) → File Manager → `public_html`.
 2. Delete any default `index.php` / `default.php`.
 3. Upload the website zip → right-click → Extract. `index.html`, `privacy.html` and `assets/` must sit directly in `public_html`.
 4. Security → SSL → enable.
-5. Check https://kirkcaldydentist.co.uk and https://kirkcaldydentist.co.uk/privacy.html load.
-6. Emails → create mailbox info@kirkcaldydentist.co.uk.
+5. Check https://kirkcaldydental.co.uk and https://kirkcaldydental.co.uk/privacy.html load.
+6. Email is on Google Workspace (step 0) – do NOT create a Hostinger mailbox.
 
 ## Step 2 – Meta lead form (Meta Business Suite → All tools → Instant Forms)
 - Form type: Higher intent
@@ -37,8 +44,8 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
   - "How many people are you registering interest for?" 1 / 2 / 3 / 4+
   - "Are you currently registered with a dentist?" Yes / No / Not sure
   - "Who is this for?" Adult / Child / Family
-- Privacy policy URL: https://kirkcaldydentist.co.uk/privacy.html
-- Completion screen: "Thanks! We'll keep you updated with opening news." Button: View website → https://kirkcaldydentist.co.uk
+- Privacy policy URL: https://kirkcaldydental.co.uk/privacy.html
+- Completion screen: "Thanks! We'll keep you updated with opening news." Button: View website → https://kirkcaldydental.co.uk
 - Business Settings → Integrations → Leads access → allow Zapier for the page.
 
 ## Step 3 – ClickSend
@@ -48,16 +55,16 @@ Sign up, top up ~£20, Sender ID `KirkDental`, copy username + API key.
 Trigger: Facebook Lead Ads → New Lead (clinic page + form above)
 1. Google Sheets → Create Spreadsheet Row → sheet above. Signup Time = lead Created Time; map the other columns; leave Contacted?/Notes blank.
 2. ClickSend → Send SMS → To: phone, From: KirkDental, Message:
-   "Hi {First Name}, thanks for registering your interest in Kirkcaldy Dental & Implant Clinic, the new NHS dental practice opening in Kirkcaldy. We'll keep you updated with opening news. kirkcaldydentist.co.uk"
+   "Hi {First Name}, thanks for registering your interest in Kirkcaldy Dental & Implant Clinic, the new NHS dental practice opening in Kirkcaldy. We'll keep you updated with opening news. kirkcaldydental.co.uk"
 3. Gmail (or Hostinger mail) → Send Email → To: email
    Subject: "Thanks for registering your interest – Kirkcaldy Dental & Implant Clinic"
    Body:
    "Hi {First Name},
    Thank you for registering your interest in Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon in Kirkcaldy.
    We'll be in touch with opening dates and practice information as soon as they're confirmed.
-   Any questions? Email info@kirkcaldydentist.co.uk.
+   Any questions? Email info@kirkcaldydental.co.uk.
    Kirkcaldy Dental & Implant Clinic
-   kirkcaldydentist.co.uk"
+   kirkcaldydental.co.uk"
 4. Test with Meta's Lead Ads Testing Tool: row appears in the sheet, SMS arrives, email arrives. Then publish the Zap.
 
 ## Step 5 – Campaign (Ads Manager) – confirm with owner before publishing
@@ -73,7 +80,7 @@ Trigger: Facebook Lead Ads → New Lead (clinic page + form above)
 
 ## Step 6 – Leaflet sign-up page (QR code)
 Full instructions are in `leaflet/README.md`. Short version:
-1. The website zip now contains `register/`. Make sure https://kirkcaldydentist.co.uk/register/ loads.
+1. The website zip now contains `register/`. Make sure https://kirkcaldydental.co.uk/register/ loads.
 2. In the Interest List sheet, go to Extensions → Apps Script, paste in `leaflet/apps-script.gs` and deploy it as a Web app (Execute as: Me, Access: Anyone). Then paste the /exec URL into `register/index.html` (replace `PASTE_APPS_SCRIPT_URL_HERE`) and re-upload that file.
 3. Test by scanning the QR code on `leaflet/kirkcaldy-dental-leaflet-A5.pdf`. A row should appear with Source = leaflet, and the thank-you email should arrive.
 4. Leaflet artwork in Canva: https://www.canva.com/d/hiwyJHMTNSKTF5v. For printing, download it as "PDF Print" with crop marks and bleed.

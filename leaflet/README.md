@@ -9,7 +9,7 @@
 | `apps-script.gs` | Saves website sign-ups into the Interest List Google Sheet |
 
 - **Canva design (editable):** https://www.canva.com/d/hiwyJHMTNSKTF5v
-- **The QR code goes to:** `https://kirkcaldydentist.co.uk/register/?src=leaflet`
+- **The QR code goes to:** `https://kirkcaldydental.co.uk/register/?src=leaflet`
   - The `?src=leaflet` part tags each sign-up as **leaflet** in the sheet's **Source** column. That lets you count how many sign-ups the leaflets bring in, separately from Facebook.
   - A different leaflet run (for example a second area) can use its own code: change it to `?src=leaflet-dysart` and so on.
 
@@ -17,7 +17,7 @@
 
 ### 1. Upload the website
 Upload `kirkcaldy-dental-website.zip` to Hostinger and extract it into `public_html`, the same way as in `HANDOFF.md`, step 1. The zip now includes the `register/` folder.
-Check that **https://kirkcaldydentist.co.uk/register/** loads.
+Check that **https://kirkcaldydental.co.uk/register/** loads.
 
 ### 2. Connect the form to the Google Sheet
 1. Open the Interest List sheet: https://docs.google.com/spreadsheets/d/1YBtbcdnAKaPAr3MyNEJFKimbGt2bJ_AB9d-1jppuTDM/edit
