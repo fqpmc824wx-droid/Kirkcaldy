@@ -31,6 +31,7 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
      box-shadow:0 8px 0 #6B5122}
 .url{left:0;width:1080px;text-align:center;color:#fff;font-weight:700;white-space:nowrap}
 .url b{color:var(--light);font-weight:800}
+.addr{left:0;width:1080px;text-align:center;color:#C9CCD0;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;display:none}
 .foot{left:0;width:1080px;text-align:center;color:var(--gold);font-family:Playfair,serif;font-weight:800;text-transform:uppercase;letter-spacing:.18em;font-size:26px;display:none}
 </style></head>
 <body>
@@ -44,15 +45,16 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 <div class="abs panel" id="panel"></div>
 <div class="abs btn" id="btn">Join Waiting List&nbsp;&nbsp;→</div>
 <div class="abs foot" id="foot">Kirkcaldy Dental &amp; Implant Clinic</div>
+<div class="abs addr" id="addr"></div>
 <div class="abs url" id="url">kirkcaldydental.co.uk<b>/register</b></div>
 <script>
 const C={
-  A:{photo:'photo-woman.jpg',pos:'38% 30%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'Tolbooth Street · Kirkcaldy'},
-  B:{photo:'photo-family.jpg',pos:'50% 92%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families'}
+  A:{photo:'photo-woman.jpg',pos:'38% 30%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'23–25 Tolbooth Street · Kirkcaldy KY1 1RW'},
+  B:{photo:'photo-family.jpg',pos:'50% 92%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families',addr:'23–25 Tolbooth Street · Kirkcaldy KY1 1RW'}
 };
 // px layout per format: [H, photoTop, photoH, logoW, kickerTop, headTop, headMax, stripTop, stripH, panelTop, btnTop, btnW, btnH, btnFont, urlTop, urlFont]
 const L={
-  feed:{H:1350,pT:0,pH:700,logoW:300,logoX:390,logoTop:0,kT:632,hT:676,hMax:76,sT:880,sH:176,pnT:1056,bT:1104,bW:620,bH:112,bF:42,uT:1264,uF:34},
+  feed:{H:1350,pT:0,pH:700,logoW:300,logoX:390,logoTop:0,kT:632,hT:676,hMax:76,sT:880,sH:176,pnT:1056,bT:1092,bW:620,bH:108,bF:42,uT:1230,uF:34},
   story:{H:1920,pT:290,pH:640,logoW:340,logoX:370,logoTop:30,kT:885,hT:930,hMax:80,sT:1150,sH:186,pnT:1336,pnB:1590,bT:1362,bW:660,bH:108,bF:44,uT:1484,uF:32}
 };
 const q=new URLSearchParams(location.search), c=C[q.get('ad')||'A'], l={...L[q.get('fmt')||'feed']};
@@ -70,6 +72,7 @@ Object.assign($('panel').style,{top:px(l.pnT),height:px((l.pnB||l.H)-l.pnT)});
 if(l.pnB){$('panel').style.borderBottom='8px solid var(--gold2)';$('foot').style.display='block';$('foot').style.top=px(l.pnB+70);}
 Object.assign($('btn').style,{top:px(l.bT),width:px(l.bW),height:px(l.bH),fontSize:px(l.bF)});
 Object.assign($('url').style,{top:px(l.uT),fontSize:px(l.uF)});
+if(c.addr){const ad=$('addr');ad.textContent=c.addr;ad.style.display='block';ad.style.top=px(l.uT+l.uF+14);ad.style.fontSize=px(q.get('fmt')==='story'?22:20);}
 function fit(el,target,max){el.style.fontSize=px(max);const w=el.scrollWidth;if(w>target)el.style.fontSize=px(max*target/w);return parseFloat(el.style.fontSize);}
 
 // ---- video mode: window.setTime(t) poses every element for time t (seconds) ----
@@ -99,6 +102,7 @@ window.setTime=t=>{
   set('url',prog(t,3.9,.5));
 };
 window.layout=async()=>{await document.fonts.ready;
+  fit($('kicker'),960,28);
   const f=fit($('l1'),980,l.hMax); $('l2').style.fontSize=px(f*1.15);
   fit($('st1'),900,q.get('fmt')==='story'?76:70); fit($('st2'),760,q.get('fmt')==='story'?38:34);
   {const r=$('l2').getBoundingClientRect(),L=r.left,Rr=r.right,cy=r.top+r.height*0.56,x0=60,x1=1020,g=22,d=12,d2=6;
