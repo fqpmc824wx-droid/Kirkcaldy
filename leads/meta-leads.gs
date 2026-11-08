@@ -74,7 +74,7 @@ function leadText(first, inHours) {
 }
 
 // Anyone whose row has Status "DO NOT CONTACT" (same exact text in apps-script.gs) is never texted again.
-function isDoNotContact(phone) {
+function metaDoNotContact(phone) {
   var digits = function (v) { return String(v || "").replace(/\D/g, "").replace(/^44/, "0"); };
   var target = digits(phone);
   if (!target) return false;
@@ -160,7 +160,7 @@ function handleLead(l) {
   var first = niceFirstName(name);
   var inHours = inCallHours(new Date());
   var clean = function (v) { v = String(v || "").slice(0, 200); return /^[=+\-@]/.test(v) ? "'" + v : v; };
-  var blocked = isDoNotContact(phone);
+  var blocked = metaDoNotContact(phone);
   var consent = (l.custom_disclaimer_responses || []).some(function (r) { return String(r.is_checked) === "1" || r.is_checked === true; }) ? "Yes" : "No";
 
   // 1. sheet row (matched to the sheet's own column headers)
