@@ -50,8 +50,8 @@ const C={
 };
 // px layout per format: [H, photoTop, photoH, logoW, kickerTop, headTop, headMax, stripTop, stripH, panelTop, btnTop, btnW, btnH, btnFont, urlTop, urlFont]
 const L={
-  feed:{H:1350,pT:0,pH:700,logoW:300,logoX:390,logoTop:0,kT:632,hT:676,hMax:76,sT:880,sH:176,pnT:1056,bT:1104,bW:620,bH:112,bF:42,uT:1264,uF:34},
-  story:{H:1920,pT:330,pH:830,logoW:380,logoX:350,logoTop:40,kT:1100,hT:1148,hMax:80,sT:1370,sH:196,pnT:1566,bT:1616,bW:680,bH:120,bF:46,uT:1776,uF:38}
+  feed:{H:1350,pT:0,pH:960,logoW:300,logoX:390,logoTop:0,kT:0,hT:930,hMax:80,sT:1150,sH:200,pnT:1350,bT:0,bW:10,bH:10,bF:10,uT:0,uF:10},
+  story:{H:1920,pT:320,pH:920,logoW:380,logoX:350,logoTop:40,kT:0,hT:1200,hMax:82,sT:1440,sH:480,pnT:1920,bT:0,bW:10,bH:10,bF:10,uT:0,uF:10}
 };
 const q=new URLSearchParams(location.search), c=C[q.get('ad')||'A'], l={...L[q.get('fmt')||'feed']};
 if(q.get('fmt')!=='story') l.logoX=(q.get('ad')==='B')?40:720;
@@ -64,10 +64,12 @@ if(q.get('fmt')==='story'){lt.style.background='transparent';lt.style.boxShadow=
 $('kicker').textContent=c.kicker; $('kicker').style.top=px(l.kT);
 $('l1').textContent=c.l1; $('l2').textContent=c.l2; $('head').style.top=px(l.hT);
 Object.assign($('strip').style,{top:px(l.sT),height:px(l.sH)});
+if(q.get('fmt')==='story'){$('strip').style.justifyContent='flex-start';$('strip').style.paddingTop='48px';$('strip').style.boxSizing='border-box';}
 Object.assign($('panel').style,{top:px(l.pnT),height:px(l.H-l.pnT)});
 Object.assign($('btn').style,{top:px(l.bT),width:px(l.bW),height:px(l.bH),fontSize:px(l.bF)});
 Object.assign($('url').style,{top:px(l.uT),fontSize:px(l.uF)});
 function fit(el,target,max){el.style.fontSize=px(max);const w=el.scrollWidth;if(w>target)el.style.fontSize=px(max*target/w);return parseFloat(el.style.fontSize);}
+for(const id of ['kicker','btn','url','panel','fl','fr','dl','dr','dl2','dr2']) $(id).style.display='none';
 window.layout=async()=>{await document.fonts.ready;
   const f=fit($('l1'),980,l.hMax); $('l2').style.fontSize=px(f*1.3);
   fit($('st1'),900,q.get('fmt')==='story'?96:88); fit($('st2'),760,q.get('fmt')==='story'?44:40);
