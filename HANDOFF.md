@@ -85,7 +85,7 @@ Demand evidence used for planning:
 
 **Team routine – calls 8am to 9pm, 7 days (owner decision: nobody is called after 9pm):**
 - 8am–9pm: each lead goes to the next caller in turn (`ALERT_MODE` = `rotate`, owner copied via `OWNER_MOBILE`). They call within minutes.
-- 9pm–8am: the lead gets an instant "we'll call you tomorrow from 8am" text. The row is marked "Call 8am", and the 8am summary goes to the team. These are the first calls of the day.
+- 9pm–8am: the lead gets an instant "our team will call you from 8am to confirm your details" text. The row is marked "Call 8am", and the 8am summary goes to the team. These are the first calls of the day.
 - If there's no answer, try again within 2 hours (before 9pm) and once more the next day. Mark Status in the sheet after each call: Called / No answer / Booked.
 
 **Upgrade later (only if needed):** an auto-call service such as Callingly (from about $100/month) rings the team phone and connects to the lead automatically.

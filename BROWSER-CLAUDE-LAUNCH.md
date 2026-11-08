@@ -180,12 +180,12 @@ Don't touch `ALERT_NEXT`, `META_SINCE`, `META_SINCE_BY_FORM`, `META_SEEN`, `BACK
 What happens with every lead, wherever it comes from:
 - **8am–9pm:**
   - The row is added to the sheet.
-  - The lead gets the thank-you text: "Hi Sarah, thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you very soon. We can't wait to welcome you!"
+  - The lead gets the thank-you text: "Hi Sarah, thank you for joining the Kirkcaldy Dental waiting list! Our team will call you to confirm your details. We can't wait to welcome you!" (no "very soon" promise, so it stays true on busy days)
   - The caller gets "🦷 NEW LEAD (facebook) – call now: Sarah Smith +447700900123". The source in brackets is facebook, instagram, website, leaflet or banner.
   - The owner gets the same alert as an **email** to info@.
   - The lead gets a confirmation email.
 - **9pm–8am:**
-  - The text says "…will call you tomorrow from 8am…".
+  - The text says "…Our team will call you from 8am to confirm your details…".
   - No alert goes out, and the row is marked Status "Call 8am".
   - At 8am the caller gets "Good morning – X overnight leads to call."
 - **Status "DO NOT CONTACT"** on any row blocks all future texts, emails and alerts to that number.
@@ -197,7 +197,7 @@ What happens with every lead, wherever it comes from:
   - (b) set `ONCALL_MOBILE` to the owner's mobile for the tests. Afterwards put the caller's number back, and do one website sign-up in calling hours the next day to confirm the caller gets the alert.
 - **Testing after 9pm UK?** The scripts follow `CALL_HOURS`. After 9pm there's no caller alert, no owner email, no "Assigned to", Status is "Call 8am", and `backlogCheck()` does nothing.
   - For the tests, set `CALL_HOURS` to `24h` temporarily (only with option (b), or the caller's agreement).
-  - Afterwards set it back to `8-21` and do one more website sign-up. Expect the "tomorrow from 8am" text, Status "Call 8am" and no alert.
+  - Afterwards set it back to `8-21` and do one more website sign-up. Expect the "will call you from 8am" text, Status "Call 8am" and no alert.
 - **Text not arriving?** Apps Script won't show an error, because ClickSend failures are silent. Open **ClickSend → Reports / SMS history** and read the status (e.g. invalid sender ID, insufficient credit, invalid number).
 
 | Test | How | Expect |

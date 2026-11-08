@@ -5,7 +5,7 @@
  *   1. adds a row to the Waiting List sheet (Source = "facebook")
  *   2. texts the lead straight away ("thanks, we'll be in touch")
  *   3. 8am–9pm: texts the caller(s) "NEW LEAD – call now".
- *      9pm–8am: no calls – the lead is texted "we'll call you tomorrow from 8am", the row is marked "Call 8am",
+ *      9pm–8am: no calls – the lead is texted "our team will call you from 8am", the row is marked "Call 8am",
  *      and the team gets an 8am summary. (Script Property CALL_HOURS, default "8-21"; "24h" = round the clock.)
  *   4. emails the lead a confirmation
  *
@@ -21,7 +21,12 @@
  * Uses sendSms() and ukMobile() from apps-script.gs.
  */
 
-var GRAPH = "https://graph.facebook.com/v21.0/";
+// Meta Graph API version. Script Property META_API_VERSION overrides it (e.g. "v28.0" when Meta retires v27).
+// A Meta app created after 4 Nov 2026 can only call v27.0 or newer.
+function metaGraph() {
+  var v = String(PropertiesService.getScriptProperties().getProperty("META_API_VERSION") || "v27.0").trim();
+  return "https://graph.facebook.com/" + v + "/";
+}
 var LEADS_TAB = "Waiting list";               // NEVER the first tab – that is the Dashboard
 
 function leadsSheet() {
@@ -68,14 +73,47 @@ function niceFirstName(name) {
   return f;
 }
 function leadText(first, inHours) {
-  var when = inHours ? "very soon" : "tomorrow from 8am";
+  // No time promise ("very soon") – if the list gets busy, calls can take longer. Out of hours it says when calling starts.
+  var f = callWindow().from, start = f === 0 || f === 12 ? (f ? "12pm" : "8am") : f < 12 ? f + "am" : (f - 12) + "pm";
+  var when = inHours ? "" : " from " + start;
   var options = [
-    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you " + when + ". We can't wait to welcome you!",
-    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! Our team will call you " + when + ". We can't wait to welcome you!",
-    "Hi " + first + ", thanks for joining the Kirkcaldy Dental waiting list! We'll call you " + when + "."
+    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! A friendly member of our team will call you" + when + " to confirm your details. We can't wait to welcome you!",
+    "Hi " + first + ", thank you for joining the Kirkcaldy Dental waiting list! Our team will call you" + when + " to confirm your details. We can't wait to welcome you!",
+    "Hi " + first + ", thanks for joining the Kirkcaldy Dental waiting list! We'll call you" + when + " to confirm your details."
   ];
   for (var i = 0; i < options.length; i++) if (options[i].length <= 160) return options[i];
   return options[options.length - 1].slice(0, 160);
+}
+
+// One scan of the sheet for a new Facebook lead:
+//   blocked = an earlier row with the same phone/email has Status "DO NOT CONTACT" -> never texted or called
+//   repeat  = the same phone/email is already on the list -> no new call alert (Status "Duplicate")
+//   recent  = that earlier sign-up was in the last 24 hours -> no text either
+//   handled = an earlier row is already Called / Booked / Not interested -> no new call alert
+//   firstId = Lead ID (or "row N") of the earliest matching row, for the "Duplicate of" column
+function metaLookup(phone, email) {
+  var digits = function (v) { var d = String(v || "").replace(/\D/g, ""); return d.length >= 10 ? d.slice(-10) : d; };
+  var target = digits(phone), mail = String(email || "").trim().toLowerCase();
+  var out = { blocked: false, repeat: false, recent: false, handled: false, firstId: "" };
+  if (!target && !mail) return out;
+  var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String);
+  var pc = h.indexOf("Phone"), sc = h.indexOf("Status"), ec = h.indexOf("Email"), tc = h.indexOf("Signup Time"), ic = h.indexOf("Lead ID");
+  for (var i = 1; i < data.length; i++) {
+    var same = (target.length >= 10 && pc !== -1 && digits(data[i][pc]) === target) ||
+               (mail && ec !== -1 && String(data[i][ec]).trim().toLowerCase() === mail);
+    if (!same) continue;
+    if (!out.repeat) out.firstId = (ic !== -1 && String(data[i][ic])) || "row " + (i + 1);
+    out.repeat = true;
+    var st = sc === -1 ? "" : String(data[i][sc]).trim().toUpperCase();
+    if (st === "DO NOT CONTACT") out.blocked = true;
+    if (st === "CALLED" || st === "BOOKED" || st === "NOT INTERESTED") out.handled = true;
+    var t = tc === -1 ? null : data[i][tc];
+    if (t instanceof Date && Date.now() - t.getTime() < 864e5) out.recent = true;
+  }
+  return out;
+}
+function metaRepeatText(first) {
+  return "Hi " + first + ", good news - you're already on the Kirkcaldy Dental waiting list, so there's nothing more to do. We'll be in touch.";
 }
 
 // Anyone whose row has Status "DO NOT CONTACT" (same exact text in apps-script.gs) is never texted again.
@@ -121,7 +159,7 @@ function pollMetaLeads() {
     forms.split(",").map(function (s) { return s.trim(); }).filter(String).forEach(function (formId) {
       var since = sinceBy[formId] || dflt, got = [], ok = true;
       // 15-minute overlap catches leads Meta makes available late; META_SEEN stops repeats
-      var url = GRAPH + formId + "/leads?limit=100&fields=id,created_time,field_data,platform,custom_disclaimer_responses&filtering=" +
+      var url = metaGraph() + formId + "/leads?limit=100&fields=id,created_time,ad_id,ad_name,adset_id,adset_name,campaign_id,campaign_name,form_id,field_data,platform,is_organic,custom_disclaimer_responses&filtering=" +
         encodeURIComponent(JSON.stringify([{ field: "time_created", operator: "GREATER_THAN", value: since - 900 }])) +
         "&access_token=" + encodeURIComponent(token);
       while (url) {
@@ -131,7 +169,8 @@ function pollMetaLeads() {
           console.error("Meta API " + res.getResponseCode() + " (form " + formId + "): " + res.getContentText());
           healthNotifyOnce("META_ERR_LAST", "\u26A0\uFE0F Facebook leads are NOT arriving \u2013 Meta API " + res.getResponseCode(),
             "The lead script could not read form " + formId + ". New Facebook/Instagram leads will not be texted or added to the sheet until this is fixed.\n\n" +
-            "Error 190 = the token is wrong/expired (make a new one: runbook Step 5.2). Codes 4/17/32/613 = rate limit (usually clears by itself).\n\n" + res.getContentText().slice(0, 1000));
+            "Error 190 = the token is wrong/expired (make a new one: runbook Step 5.2). Codes 4/17/32/613 = rate limit (usually clears by itself). " +
+            "Error 2635 / 'version deprecated' = set Script Property META_API_VERSION to Meta's newest version (e.g. v28.0).\n\n" + res.getContentText().slice(0, 1000));
           break;
         }
         var body = JSON.parse(res.getContentText());
@@ -200,7 +239,11 @@ function handleLead(l) {
   var first = niceFirstName(name);
   var inHours = inCallHours(new Date());
   var clean = function (v) { v = String(v || "").slice(0, 200); return /^[=+\-@]/.test(v) ? "'" + v : v; };
-  var blocked = metaDoNotContact(phone, email);
+  var seen = metaLookup(phone, email), blocked = seen.blocked, repeat = seen.repeat && !blocked;
+  // Repeat sign-ups: signed up again within 24h, or already spoken to -> no new call ("Duplicate").
+  // Older and never reached -> the callers get a "REPEAT" alert so they try again.
+  var quiet = repeat && (seen.recent || seen.handled);
+  var nice = function (v) { return clean(String(v || "").replace(/_plus$/i, "+").replace(/_/g, " ")); };   // "4_plus" -> "4+"
   var consent = (l.custom_disclaimer_responses || []).some(function (r) { return String(r.is_checked) === "1" || r.is_checked === true; }) ? "Yes" : "No";
 
   // 1. sheet row (matched to the sheet's own column headers)
@@ -212,33 +255,56 @@ function handleLead(l) {
     "Phone": "'" + String(phone).slice(0, 20),
     "Email": clean(email),
     "Postcode": clean(field(l, ["post", "zip"])),
-    "No. of People": clean(field(l, ["how_many", "people"])),
-    "Currently Registered?": clean(field(l, ["registered", "currently"])),
-    "Adult/Child/Family": clean(field(l, ["who", "adult", "family"])),
+    "No. of People": nice(field(l, ["how_many", "people"])),
+    "Currently Registered?": nice(field(l, ["registered", "current"])),      // form v2 asks "Where is your current dentist?"
+    "Adult/Child/Family": nice(field(l, ["who", "adult", "family"])),
     "Source": l.platform === "ig" ? "instagram" : "facebook",
-    "Status": blocked ? "DO NOT CONTACT" : (inHours ? "" : "Call 8am"),
-    "Marketing consent": consent
+    "Status": blocked ? "DO NOT CONTACT" : quiet ? "Duplicate" : (inHours ? "" : "Call 8am"),
+    "Marketing consent": consent,
+    "Lead ID": "'" + String(l.id || ""),
+    "Logged at": new Date(),
+    "Ad name": clean(l.ad_name),
+    "Ad ID": "'" + String(l.ad_id || ""),
+    "Form ID": "'" + String(l.form_id || l._form || ""),
+    "Organic?": l.is_organic ? "Yes" : "No",
+    "Duplicate of": seen.repeat ? "'" + seen.firstId : ""
   };
+  if (repeat) values["Notes"] = "Already on the list (same phone/email) - see " + seen.firstId + (seen.recent ? "; no text sent" : "");
   // 3. alert the team (in calling hours) – done before the row is written so the sheet shows who has it
-  if (inHours && !blocked) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + name + " " + phone);
+  if (inHours && !blocked && !quiet) values["Assigned to"] = "'" + alertTeam((repeat ? "REPEAT \u2013 " : "") +
+    "\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + String(name).slice(0, 40) + " " + String(phone).slice(0, 20));
   sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
+  var row = sh.getLastRow();                         // safe: pollMetaLeads holds the script lock (doPost uses it too)
+  var put = function (hdr, v) { var c = headers.indexOf(hdr); if (c !== -1) sh.getRange(row, c + 1).setValue(v); };
 
-  // 2. instant text to the lead (one SMS, 160 characters max)
-  if (!blocked) sendSms(phone, leadText(first, inHours));
+  // 2. instant text to the lead (one SMS, 160 characters max). Repeats get one "already on the list" text a day at most.
+  var r = null;
+  if (!blocked && !repeat) r = sendSms(phone, leadText(first, inHours));
+  if (repeat && !seen.recent) r = sendSms(phone, metaRepeatText(first));
+  if (r && typeof r === "object") { put("SMS ID", "'" + String(r.id || "")); put("SMS status", r.status === "SUCCESS" ? "Sent" : "Failed: " + r.status); }
 
 
   // 4. confirmation email
-  if (email && !blocked) {
+  if (email && !blocked && !repeat) {
+    if (MailApp.getRemainingDailyQuota() < 25) {      // keep the last emails for owner alerts
+      healthNotifyOnce("MAIL_QUOTA_LAST", "\u26A0\uFE0F Daily email limit nearly used up",
+        "Google's daily email allowance is almost used, so lead confirmation emails are paused until tomorrow. Texts still go out.");
+      put("Email status", "Not sent: daily limit");
+      return;
+    }
     try {
       MailApp.sendEmail({
         to: email, name: "Kirkcaldy Dental & Implant Clinic", replyTo: "info@kirkcaldydental.co.uk",
         subject: "You're on our waiting list – Kirkcaldy Dental & Implant Clinic",
         body: "Hi " + first + ",\n\nThank you for joining the waiting list for Kirkcaldy Dental & Implant Clinic, " +
           "a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW.\n\n" +
-          "A member of our team will be in touch, and we'll keep you updated with opening dates.\n\n" +
+          "A member of our team will call you to confirm your details, and we'll keep you updated with opening dates. " +
+          "Joining the waiting list doesn't register you with the practice yet - we'll contact you before we open. " +
+          "You only need to sign up once.\n\n" +
           "Any questions? Email info@kirkcaldydental.co.uk.\n\nKirkcaldy Dental & Implant Clinic\nkirkcaldydental.co.uk"
       });
-    } catch (err) { console.error("Email failed: " + err); }
+      put("Email status", "Sent");
+    } catch (err) { console.error("Email failed: " + err); put("Email status", "Failed: " + String(err).slice(0, 80)); }
   }
 }
 
@@ -304,13 +370,13 @@ function eveningReport() {
   var sh = leadsSheet(), data = sh.getDataRange().getValues(), h = data[0].map(String);
   var tc = h.indexOf("Signup Time"), sc = h.indexOf("Status"), src = h.indexOf("Source");
   var sinceT = Number(props.getProperty("REPORT_LAST") || (Date.now() - 864e5));   // everything since the last report
-  var n = 0, called = 0, booked = 0, noans = 0, bySrc = {};
+  var n = 0, called = 0, booked = 0, noans = 0, dup = 0, bySrc = {};
   for (var i = 1; i < data.length; i++) {
     var t = data[i][tc];
     if (!(t instanceof Date) || t.getTime() <= sinceT) continue;
     n++;
     var st = String(data[i][sc]).trim().toLowerCase();
-    if (st === "called") called++; else if (st === "booked") booked++; else if (st === "no answer") noans++;
+    if (st === "called") called++; else if (st === "booked") booked++; else if (st === "no answer") noans++; else if (st === "duplicate") dup++;
     var so = String(src === -1 ? "" : data[i][src]) || "unknown"; bySrc[so] = (bySrc[so] || 0) + 1;
   }
   var b = metaBacklog();
@@ -318,7 +384,7 @@ function eveningReport() {
   to.forEach(function (e) {
     try {
       MailApp.sendEmail(e, "Today: " + n + " new waiting-list sign-ups \u2013 Kirkcaldy Dental",
-        "New sign-ups since the last report: " + n + "\n" + lines + "\n\nCalled: " + called + "   Booked: " + booked + "   No answer: " + noans +
+        "New sign-ups since the last report: " + n + "\n" + lines + "\n\nCalled: " + called + "   Booked: " + booked + "   No answer: " + noans + "   Already on the list (duplicates): " + dup +
         "\nStill waiting over an hour: " + b.waiting + "\n\nWaiting List sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl());
     } catch (err) { console.error("Evening report failed: " + err); }
   });
