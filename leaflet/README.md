@@ -69,7 +69,7 @@ Scan the QR code on the PDF with your phone and submit your own details. Check t
 Delete the test row afterwards.
 
 ## Tracking
-- Every sign-up gets a **Source** (leaflet, banner, facebook, website, phone) and a postcode in the Waiting List sheet.
+- Every sign-up gets a **Source** (leaflet, banner, facebook, website, phone) in the Waiting List sheet. The forms only ask for name, phone and email (email optional); the caller fills in postcode, number of people, adult/child/family and "currently registered" on the call.
 - Every visit to the waiting-list page (e.g. a QR scan) is counted on the **Visits** tab: time and source only, nothing personal, no cookies. This works once the Apps Script URL is pasted into `register/index.html`.
 - The **Dashboard** tab shows sign-ups, total people, "no dentist" count, visits vs sign-ups by source, adult/child/family, registered-elsewhere, sign-ups by postcode sector and week by week, with charts. It updates by itself.
 
@@ -126,4 +126,4 @@ Setting Status directly still counts as an attempt (Called, No answer, Booked, N
 - `SMS_HOURLY_MAX` (default 40) and `SMS_DAILY_MAX` (default 300) cap the texts sent. When a cap is hit, the owner gets one email.
 - If saving a sign-up fails, the details go to the **Failed sign-ups** tab, the owner is emailed (P1), and the form gets the reply "error".
 - `…/exec?action=ping` returns `pong <version>` for uptime checks.
-- Only known sources are kept (website, home, leaflet, banner, fb-page, ig-bio, fb-form-done, fb-dm, facebook, instagram, google, email, phone, other). Anything else is saved as "website".
+- Only known sources are kept (website, home, leaflet, leaflet-<area>, banner, banner-<n>, gbp, fb-page, ig-bio, fb-form-done, fb-dm, facebook, instagram, google, email, phone, other). Anything else is saved as "website".

@@ -59,13 +59,14 @@ function doGet(e) {
 }
 
 // Sources the website may send (?src=…); anything else is saved as "website"
-var WEB_SOURCES = ["website", "home", "leaflet", "banner", "fb-page", "ig-bio", "fb-form-done", "fb-dm", "facebook", "instagram", "google", "email", "phone", "other"];
+var WEB_SOURCES = ["website", "home", "leaflet", "banner", "fb-page", "ig-bio", "fb-form-done", "fb-dm", "facebook", "instagram", "google", "gbp", "email", "phone", "other"];
 
 function websiteHandlePost(e) {
   var p = (e && e.parameter) || {};
   if (p.action === "visit") return logVisit(p);
   if (p.website) return out("ok");          // honeypot: hidden field only bots fill in – drop silently
-  if (!p.name || !p.email) return out("missing");
+  // name + a phone number (10+ digits) are required; email is optional (same rule as the Facebook form)
+  if (!p.name || String(p.phone || "").replace(/\D/g, "").length < 10) return out("missing");
   if (typeof healthAssertSheet === "function") healthAssertSheet();
 
   var inHours = inCallHours(new Date());   // CALL_HOURS unset = 8-21 (owner: no calls after 9pm)
@@ -86,7 +87,8 @@ function websiteHandlePost(e) {
     var seen = websiteLookup(p.phone, p.email), blocked = seen.blocked, repeat = seen.repeat && !blocked;
     var quiet = repeat && (seen.recent || seen.handled);
     var src = String(p.source || "website").toLowerCase().replace(/[^a-z0-9\-_]/g, "").slice(0, 40);
-    if (WEB_SOURCES.indexOf(src) === -1) src = "website";
+    // also tagged variants: leaflet-<area>, banner-<n>, and gbp (Google Business Profile)
+    if (WEB_SOURCES.indexOf(src) === -1 && !/^(leaflet|banner)-[a-z0-9_]{1,20}$/.test(src)) src = "website";
     var leadId = "W-" + Utilities.formatDate(new Date(), "Europe/London", "yyMMddHHmmss") + "-" + Math.random().toString(36).slice(2, 5);
     var values = {
       "Signup Time": new Date(),
@@ -118,7 +120,8 @@ function websiteHandlePost(e) {
     if (!paused && !blocked && !repeat) r = sendSms(p.phone, leadText(first, inHours));
     if (!paused && repeat && !seen.recent) r = sendSms(p.phone, websiteRepeatText(first));
     if (r && typeof r === "object") { values["SMS ID"] = "'" + String(r.id || ""); values["SMS status"] = r.status === "SUCCESS" ? "Sent" : "Failed: " + r.status; }
-    if (SEND_EMAIL && !blocked && !repeat) values["Email status"] = websiteConfirmEmail(p.email, first);
+    if (!r && !paused && !blocked && !repeat && !/^\+447\d{9}$/.test(ukMobile(p.phone))) values["SMS status"] = "Not sent: not a mobile";   // landlines get a call, not a text
+    if (SEND_EMAIL && !blocked && !repeat && p.email) values["Email status"] = websiteConfirmEmail(p.email, first);
 
     sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
   } finally {
