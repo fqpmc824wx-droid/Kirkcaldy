@@ -8,7 +8,7 @@
 </style>
 <style>
   /* B = bleed (mm), set by the render script via ?bleed= */
-  :root { --b: 10mm; --cream:#F6F2EA; --gold:#8A6A2C; --ink:#262B30; --panel:#30363B; }
+  :root { --b: 10mm; --cream:#F6F2EA; --gold:#8A6A2C; --ink:#262B30; --panel:#2F4A3C; --green:#2F4A3C; }
   @page { margin: 0; }
   html,body { margin:0; padding:0; }
   body { width: calc(1600mm + 2*var(--b)); height: calc(600mm + 2*var(--b)); position: relative;
@@ -17,13 +17,13 @@
   .abs { position:absolute; }
   .left  { left:0; top:0; width: calc(1150mm + var(--b)); height:100%; background: var(--cream); }
   .right { left: calc(1150mm + var(--b)); top:0; right:0; height:100%; background: var(--panel); }
-  .logo { left: calc(var(--b) + 575mm - 118mm); top: calc(var(--b) + 36mm); width:236mm; }
-  .head { left: calc(var(--b) + 50mm); width:1050mm; top: calc(var(--b) + 210mm); text-align:center;
-          color: var(--ink); font-weight:900; text-transform:uppercase; letter-spacing:-0.01em; }
+  .logo { left: calc(var(--b) + 575mm - 82mm); top: calc(var(--b) + 32mm); width:164mm; }
+  .head { left: calc(var(--b) + 50mm); width:1050mm; top: calc(var(--b) + 150mm); text-align:center;
+          color: var(--green); font-weight:900; text-transform:uppercase; letter-spacing:-0.01em; }
   .head div { white-space:nowrap; line-height:1.0; }
-  .head .l2 { color: var(--gold); margin-top: 6mm; }
-  .strip { left:0; width: calc(1150mm + var(--b)); top: calc(var(--b) + 410mm); bottom:0; background: var(--gold); }
-  .striptext { left: calc(var(--b) + 50mm); width:1050mm; top: calc(var(--b) + 410mm); height:160mm;
+  .head div { line-height:0.98; } .head .l2 { color: var(--gold); }
+  .strip { left: calc(var(--b) + 50mm); width:1050mm; top: calc(var(--b) + 462mm); height:98mm; background: var(--green); border-radius:6mm; }
+  .striptext { left: calc(var(--b) + 50mm); width:1050mm; top: calc(var(--b) + 462mm); height:98mm;
                display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800;
                text-transform:uppercase; white-space:nowrap; letter-spacing:0.01em; }
   .scan { left: calc(1150mm + var(--b)); width:450mm; top: calc(var(--b) + 42mm); text-align:center;
@@ -41,9 +41,9 @@
   <div class="abs right"></div>
   <div class="abs divider"></div>
   <img class="abs logo" src="logo.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
-  <div class="abs head" id="head"><div class="l1">New NHS Dental Practice</div><div class="l2">Opening Soon!</div></div>
+  <div class="abs head" id="head"><div class="l1">New NHS Dental</div><div class="l1b">Practice</div><div class="l2">Opening Soon!</div></div>
   <div class="abs strip"></div>
-  <div class="abs striptext" id="strip">Register now to join our waiting list</div>
+  <div class="abs striptext"><span id="strip">Register now to join our waiting list</span></div>
   <div class="abs scan">Scan here<br><span>to register</span></div>
   <div class="abs tile"></div>
   <img class="abs qr" src="qr.svg" alt="QR code to kirkcaldydental.co.uk/register">
@@ -55,12 +55,11 @@
   function fit(el, targetMm, maxMm){ el.style.fontSize=maxMm+'mm';
     const w=el.scrollWidth/MM; if(w>targetMm) el.style.fontSize=(maxMm*targetMm/w)+'mm'; }
   window.layout=async()=>{ await document.fonts.ready;
-    fit(document.querySelector('.head .l1'),1050,140);
-    document.querySelector('.head .l2').style.fontSize=document.querySelector('.head .l1').style.fontSize;
+    const ls=[...document.querySelectorAll('.head div')]; let f=100; for(const l of ls){ l.style.fontSize=f+'mm'; const w=l.scrollWidth/MM; if(w>1000) f=Math.min(f,100*1000/w);} ls.forEach(l=>l.style.fontSize=f+'mm');
     const s=document.getElementById('strip'); s.style.fontSize='60mm';
-    const w=s.scrollWidth/MM; if(w>1000) s.style.fontSize=(60*1000/w)+'mm';
+    const w=s.getBoundingClientRect().width/MM; if(w>960) s.style.fontSize=(60*960/w)+'mm';
     fit(document.getElementById('url'),400,21);
-    return {head:document.querySelector('.head .l1').style.fontSize, strip:s.style.fontSize,
+    return {head:document.querySelector('.head .l1').style.fontSize, strip:s.style.fontSize, stripW:(s.getBoundingClientRect().width/MM).toFixed(0),
             headBottom:(document.getElementById('head').getBoundingClientRect().bottom/MM).toFixed(1)}; };
 </script>
 </body></html>
