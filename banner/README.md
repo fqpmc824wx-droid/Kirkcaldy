@@ -31,7 +31,7 @@ The register page must be live before the banner goes up (see `leaflet/README.md
 | `source/` | Editable source (HTML + logo/QR SVG + fonts); `node render.js` rebuilds both PDFs |
 
 - Fully vector: logo (SVG), text (Playfair Display headline + Inter, embedded) and QR code – sharp at any size.
-- Layout: left 115 cm (logo, NEW NHS DENTAL PRACTICE / OPENING SOON!, gold strip REGISTER YOUR INTEREST TODAY); right 45 cm charcoal panel (SCAN HERE TO REGISTER + 28 cm QR on a white tile).
+- Layout: left 115 cm (logo, NEW NHS DENTAL PRACTICE / OPENING SOON!, gold strip JOIN OUR WAITING LIST TODAY); right 45 cm charcoal panel (SCAN TO JOIN OUR WAITING LIST + 28 cm QR on a white tile).
 - Safe margin: all text/QR ≥ 40 mm inside the finished edge (clear of hems and eyelets).
 - QR → `https://kirkcaldydental.co.uk/register/?src=banner` (the real register page; it must be live before the sign goes up).
 - Ask the printer to confirm their bleed: this file has 10 mm, the most common requirement for PVC banners. If they want 3 mm or 5 mm, change `bleed` in `source/render.js` and rerun.
