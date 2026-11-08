@@ -48,37 +48,51 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 1. Install the **Meta Business Suite** app on every team phone. Log in with a page admin/editor account.
 2. Turn on notifications for **Leads**. Every new lead then pops up on the phone with name and number. It's free.
 3. Install the **Gmail** app on the team phones with info@kirkcaldydental.co.uk and turn on notifications, so the "New lead" email from Step 4 also pops up.
-4. ClickSend (optional, pay-as-you-go ~£20 top-up): only needed to text the lead. Sender ID `KirkDental`.
+4. ClickSend: pay-as-you-go ~£20 top-up. Sender ID `KirkDental`. Copy the username and API key into Zapier.
 
-## Step 4 – Automation (cheapest that works): Facebook lead → sheet + team email + lead email
-Use **Make.com** (free plan, about 1,000 operations a month, enough for hundreds of leads) or **Zapier** (paid plan, because Facebook Lead Ads is a premium app). Check the current plan limits when signing up.
+## Step 4 – Zapier Professional (~$20/month billed yearly, ~$30 monthly; check zapier.com/pricing)
+Professional includes Facebook Lead Ads (a premium app), multi-step Zaps, Filters and Paths, and about 750 tasks a month.
+Each lead uses about 4–5 tasks, so that covers around 150 leads a month. Upgrade the task tier if you get more.
 
-Trigger: Facebook Lead Ads → New Lead (clinic page + form above)
-1. **Google Sheets → Add row** → Waiting List sheet. Signup Time = lead created time; map the other columns; Source = `facebook` (exactly, lowercase – the Dashboard counts on it); Status blank. The team sets Status (Called / No answer / Booked) after calling.
-2. **Gmail → email the team** at info@kirkcaldydental.co.uk (plus any team addresses).
-   Subject: "🦷 NEW LEAD – please call: {Full Name}"
-   Body: "{Full Name} · {Phone} · {Who is this for} · {No. of people} · {Postcode}"
-3. **Gmail → email the lead**
-   Subject: "You're on our waiting list – Kirkcaldy Dental & Implant Clinic"
-   Body:
-   "Hi {First Name},
-   Thank you for joining the waiting list for Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW.
-   A member of our team will be in touch, and we'll keep you updated with opening dates.
-   Any questions? Email info@kirkcaldydental.co.uk.
-   Kirkcaldy Dental & Implant Clinic
-   kirkcaldydental.co.uk"
-4. Optional, pennies: **ClickSend → SMS to the on-call mobile**: "🦷 NEW LEAD – call now: {Full Name} {Phone}"
-5. Optional, pennies: **ClickSend → SMS to the lead**:
-   "Hi {First Name}, thanks for joining the waiting list for Kirkcaldy Dental & Implant Clinic, the new NHS practice opening soon on Tolbooth Street. We'll be in touch. kirkcaldydental.co.uk"
-6. Test with Meta's **Lead Ads Testing Tool** and check all of these:
-   - the phone alerts appear
-   - the row appears in the sheet
-   - both emails arrive
-   Then switch the scenario/Zap on.
+Trigger: Facebook Lead Ads → New Lead (clinic page + form above). Instant: Meta pushes the lead, usually within seconds.
+
+**Path A – 8am to 9pm (Paths/Filter on the lead's created time, UK time):**
+1. **ClickSend → SMS to the on-duty/on-call mobile(s)** (fastest alert):
+   "🦷 NEW LEAD – call now: {Full Name} {Phone} · {Who is this for} · {No. of people}"
+2. **Google Sheets → Create Spreadsheet Row** → Waiting List sheet. Signup Time = created time; map the other columns; Source = `facebook` (exactly, lowercase); Status blank.
+3. **ClickSend → SMS to the lead**, From: KirkDental:
+   "Hi {First Name}, thanks for joining the waiting list for Kirkcaldy Dental & Implant Clinic, the new NHS dental practice opening soon on Tolbooth Street, Kirkcaldy. We'll call you shortly."
+4. **Gmail → email the lead**, text below.
+
+**Path B – 9pm to 8am:**
+1. Google Sheets row as above, with Status = `Call 8am`.
+2. ClickSend SMS to the lead: "...thanks for joining our waiting list! We'll give you a call from 8am."
+3. Gmail email to the lead, text below.
+4. Optional: Zapier **Delay Until 8:00am** → ClickSend SMS to the on-call mobile with the lead's details, so it's the first call of the morning.
+
+**Lead email** (Subject: "You're on our waiting list – Kirkcaldy Dental & Implant Clinic"):
+"Hi {First Name},
+Thank you for joining the waiting list for Kirkcaldy Dental & Implant Clinic, a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW.
+A member of our team will be in touch, and we'll keep you updated with opening dates.
+Any questions? Email info@kirkcaldydental.co.uk.
+Kirkcaldy Dental & Implant Clinic
+kirkcaldydental.co.uk"
+
+**Free backups on the team phones:**
+- Meta Business Suite app with Leads notifications on.
+- Gmail app for info@kirkcaldydental.co.uk.
+
+**Test** with Meta's Lead Ads Testing Tool once in hours and once out of hours. Check all of these:
+- the on-call text arrives within ~1 minute
+- the sheet row appears
+- the lead's text and email arrive
+Then turn the Zap on.
+
+**Costs:** Zapier ~$20/month (billed yearly) + ClickSend texts at a few pence each (~£20 top-up lasts a long time).
 
 **Team routine – every lead called the same day, 7 days a week (8am–9pm):**
 - **Opening hours:** reception calls new leads within 15 minutes.
-- **Evenings and weekends:** one person is **on call** each evening/weekend (rota). Their phone has the Meta Business Suite and Gmail alerts on, plus an optional ClickSend text alert to their mobile. They call within 15–30 minutes, up to 9pm.
+- **Evenings and weekends:** one person is **on call** each evening/weekend (rota). Their mobile gets the Zapier/ClickSend text alert (plus Meta app and Gmail alerts). They call within 15–30 minutes, up to 9pm.
 - **After 9pm:** don't phone people late at night. The lead gets the automatic "you're on our waiting list" email/text straight away, and the on-call person calls them from 8am the next morning, including weekends.
 - Mark Status in the sheet after each call: Called / No answer / Booked. If there's no answer, try again within 2 hours and once more the next day.
 
