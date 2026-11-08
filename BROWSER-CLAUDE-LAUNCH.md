@@ -104,8 +104,9 @@ Follow **leads/README.md** "One-time setup":
 | `OWNER_EMAIL` | `info@kirkcaldydental.co.uk` (owner gets a free **email** copy of every alert; Gmail app on the owner's phone with notifications ON for this account) |
 | `OWNER_MOBILE` | leave **empty** (owner chose email alerts instead of text copies) |
 | `CALL_HOURS` | `8-21` (owner decision: **no calls after 9pm**) |
+| `BACKLOG_ALERT` | `15` (owner is emailed if 15+ leads have waited over an hour; lower it to e.g. `10` for one caller if preferred) |
 Don't touch `ALERT_NEXT`, `META_SINCE` or `META_SEEN`. They are set automatically.
-6. Run **`installLeadTriggers()`** once and allow permissions. It checks Meta every minute and sends the 8am summary.
+6. Run **`installLeadTriggers()`** once and allow permissions. It checks Meta every minute, sends the 8am summary, checks for a call backlog every 15 minutes (emails the owner if leads are piling up) and emails the owner a 9pm daily report.
 7. **Deploy the website script** as a Web app:
    - Execute as Me, access Anyone.
    - Paste the `/exec` URL into `site/register/index.html` (`PASTE_APPS_SCRIPT_URL_HERE`) and re-upload it.
@@ -132,6 +133,7 @@ What happens with every lead, wherever it comes from:
 | Banner QR | scan the QR on the banner PDF | row with Source banner |
 | Do not contact | set a test row's Status to DO NOT CONTACT, submit again with the same phone | row saved, but no text, alert or email |
 | Dashboard | open the Dashboard tab | counts by source update |
+| Overload email | temporarily set `BACKLOG_ALERT` to `1`, leave a test row with blank Status and a Signup Time over an hour old, run `backlogCheck()` from the editor | owner gets the "leads waiting over an hour" email; then set `BACKLOG_ALERT` back to `15` and delete `BACKLOG_LAST` |
 Delete all test rows afterwards.
 **Owner email alerts:** the script sends from info@ to info@. If the Gmail app doesn't notify for these self-sent emails, set `OWNER_EMAIL` to the owner's personal Gmail address instead, or add a Gmail filter "From: info@… Subject contains NEW LEAD → Mark as important" with notifications set to "All". If anything fails, check Apps Script → **Executions** for errors. "Meta API 190" means the token is wrong or expired.
 
