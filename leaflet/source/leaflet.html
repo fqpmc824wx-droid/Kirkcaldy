@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<title>Kirkcaldy Dental – A5 leaflet</title>
+<style>
+@font-face{font-family:"Inter";font-weight:500;src:url(inter-500.woff2) format("woff2");}
+@font-face{font-family:"Inter";font-weight:700;src:url(inter-700.woff2) format("woff2");}
+@font-face{font-family:"Playfair";font-weight:800;src:url(playfair-800.woff2) format("woff2");}
+@font-face{font-family:"Playfair";font-weight:900;src:url(playfair-900.woff2) format("woff2");}
+@font-face{font-family:"PlayfairI";font-weight:800;font-style:italic;src:url(playfair-display-latin-800-italic.woff2) format("woff2");}
+</style>
+<style>
+  /* --b = bleed in mm, set by the render script (?bleed=3). All positions are in finished-size mm, offset by the bleed. */
+  :root { --b:3mm; --cream:#F6F2EA; --gold:#8A6A2C; --gold2:#B8964F; --ink:#262B30; --muted:#4A5056; }
+  @page { margin:0; }
+  html,body { margin:0; padding:0; }
+  .page { width:calc(148mm + 2*var(--b)); height:calc(210mm + 2*var(--b)); position:relative; overflow:hidden;
+          background:var(--cream); font-family:"Inter",sans-serif; color:var(--ink); page-break-after:always; break-after:page; }
+  .page:last-child { page-break-after:auto; break-after:auto; }
+  .a { position:absolute; }
+  .x { left:var(--b); width:148mm; text-align:center; }           /* full-width centred block */
+  .serif { font-family:"Playfair",serif; font-weight:800; text-transform:uppercase; letter-spacing:.02em; white-space:nowrap; line-height:1; }
+  .ital { font-family:"PlayfairI",serif; font-style:italic; font-weight:800; color:var(--gold); white-space:nowrap; line-height:1; }
+  .flour { height:.55mm; }
+  .flour.l { background:linear-gradient(90deg,rgba(138,106,44,0),var(--gold)); }
+  .flour.r { background:linear-gradient(270deg,rgba(138,106,44,0),var(--gold)); }
+  .dia { width:2.2mm; height:2.2mm; background:var(--gold); transform:rotate(45deg); }
+  .tile { background:#fff; border:.6mm solid var(--gold2); border-radius:3mm; box-sizing:border-box; }
+  .hide { display:none !important; }
+
+  /* FRONT */
+  .photo { left:0; top:0; width:calc(148mm + 2*var(--b)); }
+  .flogo { left:calc(var(--b) + 9mm); top:calc(var(--b) + 8mm); width:48mm; }
+  .fhead { top:calc(var(--b) + 104mm); }
+  .fhead .l1 { color:var(--ink); }
+  .fhead .l2 { margin-top:1.2mm; }
+  .fwhere { top:calc(var(--b) + 136.5mm); font-weight:700; font-size:3.1mm; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); }
+  .fstrip { left:0; width:calc(148mm + 2*var(--b)); top:calc(var(--b) + 144mm); height:27mm; background:var(--gold); }
+  .fstriptext { top:calc(var(--b) + 144mm); height:27mm; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#fff; }
+  .fstriptext .s1 { font-family:"Playfair",serif; font-weight:900; text-transform:uppercase; letter-spacing:.03em; white-space:nowrap; line-height:1; }
+  .fstriptext .s2 { font-family:"Playfair",serif; font-weight:800; text-transform:uppercase; letter-spacing:.09em; white-space:nowrap; line-height:1; color:#FBF3E2; margin-top:1.6mm; }
+  .fcta { left:calc(var(--b) + 10mm); width:86mm; top:calc(var(--b) + 176mm); }
+  .fcta .t { font-family:"Playfair",serif; font-weight:800; font-size:6.4mm; line-height:1.05; color:var(--ink); }
+  .fcta .t i { font-family:"PlayfairI",serif; color:var(--gold); }
+  .fcta .u { font-size:3.25mm; margin-top:2.4mm; color:var(--muted); }
+  .fcta .u b, .bcontact b { color:var(--ink); font-weight:700; }
+  .fcta .p { font-size:3.25mm; margin-top:1.2mm; color:var(--muted); }
+  .fqr { left:calc(var(--b) + 105mm); top:calc(var(--b) + 174.5mm); width:31mm; height:31mm; }
+  .fqr img { position:absolute; left:.6mm; top:.6mm; width:28.6mm; height:28.6mm; }
+
+  /* BACK */
+  .curve { left:0; top:0; width:calc(148mm + 2*var(--b)); height:calc(210mm + 2*var(--b)); }
+  .blogo { left:calc(var(--b) + 26mm); top:calc(var(--b) + 13mm); width:96mm; }
+  .bhead { top:calc(var(--b) + 42mm); }
+  .bhead .l1 { font-family:"Playfair",serif; font-weight:800; font-size:9.2mm; line-height:1; color:var(--ink); white-space:nowrap; }
+  .bhead .l2 { margin-top:1.4mm; font-size:9.2mm; }
+  .bintro { left:calc(var(--b) + 16mm); width:116mm; top:calc(var(--b) + 70mm); text-align:center; font-weight:500; font-size:3.55mm; line-height:1.5; color:var(--muted); }
+  .bintro b { color:var(--ink); font-weight:700; }
+  .steps { left:calc(var(--b) + 12mm); width:124mm; top:calc(var(--b) + 91mm); display:flex; justify-content:space-between; }
+  .step { width:38mm; text-align:center; }
+  .step .n { width:9mm; height:9mm; border-radius:50%; background:var(--gold); color:#fff; margin:0 auto 1.8mm; display:flex; align-items:center; justify-content:center;
+             font-family:"Playfair",serif; font-weight:900; font-size:5mm; line-height:1; }
+  .step .s { font-weight:700; font-size:3.3mm; color:var(--ink); line-height:1.25; }
+  .bqr { left:calc(var(--b) + 46mm); top:calc(var(--b) + 113mm); width:56mm; height:63mm; }
+  .bqr img { position:absolute; left:3mm; top:3mm; width:50mm; height:50mm; }
+  .bqr .lab { position:absolute; left:0; width:100%; top:53.6mm; text-align:center; font-weight:700; font-size:3mm; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); }
+  .bcontact { top:calc(var(--b) + 180mm); font-size:3.4mm; line-height:1.6; color:var(--muted); }
+  .bfoot { top:calc(var(--b) + 195mm); font-size:2.85mm; line-height:1.55; color:var(--muted); }
+  .bfoot b { color:var(--gold); font-weight:700; }
+</style></head>
+<body>
+
+<!-- ============ FRONT ============ -->
+<div class="page" id="front">
+  <img class="a photo" src="photo.png" alt="">
+  <img class="a flogo" src="logo-stacked.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
+  <div class="a x fhead">
+    <div class="serif l1" id="fl1">New NHS Dental Practice</div>
+    <div class="ital l2"><span id="fos">Opening Soon!</span></div>
+  </div>
+  <div class="a flour l" id="ffl"></div><div class="a flour r" id="ffr"></div>
+  <div class="a dia" id="fdl"></div><div class="a dia" id="fdr"></div>
+  <div class="a x fwhere">Tolbooth Street · Kirkcaldy</div>
+  <div class="a fstrip"></div>
+  <div class="a x fstriptext"><div class="s1" id="fs1">Be first in line</div><div class="s2" id="fs2">Join our waiting list</div></div>
+  <div class="a fcta">
+    <div class="t">Scan the code<br><i>to join in 30 seconds</i></div>
+    <div class="u">or visit <b>kirkcaldydental.co.uk/register</b></div>
+    <div class="p phone">or call <b class="phoneno"></b></div>
+  </div>
+  <div class="a tile fqr"><img src="qr.svg" alt="QR code to the waiting-list page"></div>
+</div>
+
+<!-- ============ BACK ============ -->
+<div class="page" id="back">
+  <svg class="a curve" viewBox="0 0 154 216" preserveAspectRatio="none">
+    <path d="M-2 46 C 4 28, 14 12, 34 -2" fill="none" stroke="#B8964F" stroke-width=".55"/>
+    <path d="M-2 56 C 6 34, 20 14, 44 -2" fill="none" stroke="#B8964F" stroke-width=".3" opacity=".7"/>
+    <path d="M156 172 C 150 190, 140 204, 120 218" fill="none" stroke="#B8964F" stroke-width=".55"/>
+    <path d="M156 162 C 148 186, 134 204, 108 218" fill="none" stroke="#B8964F" stroke-width=".3" opacity=".7"/>
+  </svg>
+  <img class="a blogo" src="logo-horizontal.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
+  <div class="a x bhead">
+    <div class="l1">Join our waiting list</div>
+    <div class="ital l2"><span id="b30">in 30 seconds</span></div>
+  </div>
+  <div class="a flour l" id="bfl"></div><div class="a flour r" id="bfr"></div>
+  <div class="a dia" id="bdl"></div><div class="a dia" id="bdr"></div>
+  <div class="a bintro"><b>Kirkcaldy Dental &amp; Implant Clinic</b> is a new NHS dental practice opening soon on Tolbooth Street, Kirkcaldy. Join our waiting list and we’ll let you know as soon as we open.</div>
+  <div class="a steps">
+    <div class="step"><div class="n">1</div><div class="s">Scan the<br>QR code</div></div>
+    <div class="step"><div class="n">2</div><div class="s">Add your<br>details</div></div>
+    <div class="step"><div class="n">3</div><div class="s">You’re on<br>the list</div></div>
+  </div>
+  <div class="a tile bqr"><img src="qr.svg" alt="QR code to the waiting-list page"><div class="lab">Scan with your phone</div></div>
+  <div class="a x bcontact">or visit <b>kirkcaldydental.co.uk/register</b><span class="phone"> · or call <b class="phoneno"></b></span></div>
+  <div class="a x bfoot"><b>Adults, children and families can all join</b><br>23–25 Tolbooth Street, Kirkcaldy KY1 1RW · info@kirkcaldydental.co.uk</div>
+</div>
+
+<script>
+  const P=new URLSearchParams(location.search);
+  document.documentElement.style.setProperty('--b',(P.get('bleed')??'3')+'mm');
+  const PHONE=P.get('phone')||'';
+  document.querySelectorAll('.phoneno').forEach(e=>e.textContent=PHONE);
+  if(!PHONE) document.querySelectorAll('.phone').forEach(e=>e.classList.add('hide'));
+  const MM=96/25.4, B=()=>parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--b'));
+  function fit(el,maxMm,startMm){ el.style.fontSize=startMm+'mm'; const w=el.getBoundingClientRect().width/MM; if(w>maxMm) el.style.fontSize=(startMm*maxMm/w)+'mm'; return parseFloat(el.style.fontSize); }
+  function wrapFit(el,maxMm,startMm){ const s=document.createElement('span'); s.innerHTML=el.innerHTML; el.innerHTML=''; el.appendChild(s); el.style.fontSize=startMm+'mm';
+    const w=s.getBoundingClientRect().width/MM; if(w>maxMm) el.style.fontSize=(startMm*maxMm/w)+'mm'; return parseFloat(el.style.fontSize); }
+  function flourish(spanId,ids,x0,x1,g,d,d2,yFrac){
+    const page=document.getElementById(spanId).closest('.page').getBoundingClientRect();
+    const r=document.getElementById(spanId).getBoundingClientRect(), b=B();
+    const L=(r.left-page.left)/MM, R=(r.right-page.left)/MM, cy=(r.top-page.top+r.height*yFrac)/MM;
+    const put=(id,l,t,w)=>{const e=document.getElementById(id); e.style.left=l+'mm'; e.style.top=t+'mm'; if(w!==undefined) e.style.width=Math.max(0,w)+'mm'; e.style.width=e.style.width||''; };
+    put(ids[0],b+x0,cy-.275,(L-g-d-2)-(b+x0)); put(ids[1],R+g+d+2,cy-.275,(b+x1)-(R+g+d+2));
+    put(ids[2],L-g-d,cy-d/2); put(ids[3],R+g,cy-d/2);
+  }
+  window.layout=async()=>{ await document.fonts.ready;
+    const h=wrapFit(document.getElementById('fl1'),130,11);
+    document.getElementById('fos').parentElement.style.fontSize=(h*1.42)+'mm';
+    wrapFit(document.getElementById('fs1'),118,12.5); wrapFit(document.getElementById('fs2'),100,5.6);
+    flourish('fos',['ffl','ffr','fdl','fdr'],8,140,4,2.2,0,.58);
+    flourish('b30',['bfl','bfr','bdl','bdr'],18,130,4,2.2,0,.58);
+    const os=document.getElementById('fos').getBoundingClientRect(), pg=document.getElementById('front').getBoundingClientRect();
+    return {head:h.toFixed(2), opensoonBottom:((os.bottom-pg.top)/MM - B()).toFixed(1), phone:PHONE||'(none)'}; };
+</script>
+</body></html>

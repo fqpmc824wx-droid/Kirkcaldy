@@ -3,12 +3,15 @@
 ## What's here
 | File | What it is |
 |---|---|
-| `kirkcaldy-dental-leaflet-A5.pdf` | A5 double-sided leaflet (front + back), exported from Canva |
+| `kirkcaldy-dental-leaflet-A5-PRINT-with-3mm-bleed.pdf` | **Send this to the printer.** A5 double-sided (front + back), 3 mm bleed |
+| `kirkcaldy-dental-leaflet-A5.pdf` | Same, exact A5 with no bleed (only if the printer asks for it) |
+| `leaflet-preview.jpg` | Front and back side by side |
+| `source/` | The design files (`leaflet.html`, `render.js`). To add the phone number: `cd source && node render.js "01592 123456"` |
 | `leaflet-front.png`, `leaflet-back.png` | 300 dpi previews of each side |
 | `qr-leaflet.svg` / `.png` | The QR code on its own (vector + PNG) |
 | `apps-script.gs` | Saves website sign-ups into the Waiting List Google Sheet |
 
-- **Canva design (editable):** https://www.canva.com/d/hiwyJHMTNSKTF5v
+- **Design:** matches the 180 × 60 cm banner (same fonts, gold italic "Opening Soon!", gold strip). The older Canva version is replaced.
 - **The QR code goes to:** `https://kirkcaldydental.co.uk/register/?src=leaflet`
   - The `?src=leaflet` part tags each sign-up as **leaflet** in the sheet's **Source** column. That lets you count how many sign-ups the leaflets bring in, separately from Facebook.
   - A different leaflet run (for example a second area) can use its own code: change it to `?src=leaflet-dysart` and so on.
@@ -37,7 +40,7 @@ Delete the test row afterwards.
 ## Printing
 - **Size:** A5 (148 × 210 mm), double-sided, 4-colour.
 - **Paper:** 150–170 gsm silk or matt for door drops; 300 gsm if you'll hand them out or leave them on a counter.
-- **Bleed:** the PDF here is exactly A5 with no bleed. Most online printers (Instantprint, Solopress, Vistaprint) ask for 3 mm of bleed. For a bleed version, open the Canva design → **Share → Download → PDF Print**, tick **Crop marks and bleed**, then upload that file to the printer.
+- **Bleed:** use `kirkcaldy-dental-leaflet-A5-PRINT-with-3mm-bleed.pdf` (3 mm bleed, which Instantprint, Solopress and Vistaprint ask for). All text sits at least 8 mm inside the trim.
 - **Proof:** order 1 proof or a small run first, and scan the printed QR code before ordering thousands.
 
 ## Wording rules (same as the ads)
