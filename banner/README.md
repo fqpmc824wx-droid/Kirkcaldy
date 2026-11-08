@@ -6,6 +6,7 @@
 | `banner-preview.png` | Small preview |
 | `qr-banner.svg` / `.png` | The banner's QR code on its own |
 
+- **Design:** no photo – large vector logo on the left, headline + "Scan to Register" in the middle, big QR code on the right, gold swirls in the corners.
 - **Canva design (editable):** "Kirkcaldy Dental – Banner 180x60cm" (design DAHaSWvNUik)
 - **QR code goes to:** `https://kirkcaldydental.co.uk/register/?src=banner` – sign-ups from the banner show **Source = banner** in the Interest List sheet (the leaflet's show "leaflet"). The QR is ~31 cm square, so it scans from a few metres away.
 
