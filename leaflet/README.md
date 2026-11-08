@@ -19,7 +19,9 @@
 ## Setup (about 10 minutes, do this before printing)
 
 ### 1. Upload the website
-Upload `kirkcaldy-dental-website.zip` to Hostinger and extract it into `public_html`, the same way as in `HANDOFF.md`, step 1. The zip now includes the `register/` folder.
+Upload `kirkcaldy-dental-website.zip` to Hostinger and extract it into `public_html`, the same way as in `HANDOFF.md`, step 1. The zip now includes the `register/` folder and the `b/` and `l/` QR short links.
+
+**Don't print the banner or leaflets until these work live on your phone:** https://kirkcaldydental.co.uk/b and https://kirkcaldydental.co.uk/l should both open the waiting-list page.
 Check that **https://kirkcaldydental.co.uk/register/** loads.
 
 ### 2. Connect the form to the Google Sheet
@@ -41,6 +43,12 @@ Website and QR sign-ups get the same instant thank-you text as Facebook leads, a
    - `OWNER_MOBILE` (optional): mobile(s) that get a copy of every alert by text, comma-separated. Leave empty if you use OWNER_EMAIL
    - `OWNER_EMAIL` (optional): email(s) that get a free copy of every alert, comma-separated, e.g. `info@kirkcaldydental.co.uk` (shows as a Gmail app notification). When it's set, the separate "new sign-up" email is only sent for out-of-hours sign-ups, so you don't get two
    - `ALERT_NEXT`: set automatically by the rotation, shared with the Facebook leads script so the turn order runs across both. Don't edit it
+
+**Protection against misuse (the form is public)**
+- Texts only go to UK mobiles (+447…). Landlines, premium and foreign numbers are never texted.
+- A hidden `website` field on the form catches bots. Anything that fills it in is ignored.
+- One phone number gets at most 2 thank-you texts or team alerts in 24 hours (`MAX_TEXTS_PER_DAY`). Any further sign-ups are still saved, with the note "Repeat sign-up – no text sent".
+- If ClickSend refuses a text (wrong key, no credit, sender ID not approved), it's logged and OWNER_EMAIL gets an email, at most once an hour.
 
 **Consent and do-not-contact (PECR / GDPR)**
 - **Marketing consent** column: `Yes` only when the person ticked the optional, unticked box on the form (field `marketing`), otherwise `No`. Only `Yes` people may ever get promotional texts or emails. The thank-you text and email are service messages only, with no offers.

@@ -29,10 +29,12 @@ var NOTIFY = "info@kirkcaldydental.co.uk"; // gets a short "new sign-up" note; "
 //   ALERT_NEXT       = rotation pointer, set automatically – don't edit
 // If CLICKSEND_USER / CLICKSEND_KEY are missing, texts are simply skipped.
 var SMS_FROM = "KirkDental";
+var MAX_TEXTS_PER_DAY = 2;   // per phone number, website sign-ups (stops anyone using the form to send us texts)
 
 function doPost(e) {
   var p = (e && e.parameter) || {};
   if (p.action === "visit") return logVisit(p);
+  if (p.website) return out("ok");          // honeypot: hidden field only bots fill in – drop silently
   if (!p.name || !p.email) return out("missing");
 
   var inHours = inCallHours(new Date());   // CALL_HOURS unset = 8-21 (owner: no calls after 9pm)
@@ -64,16 +66,20 @@ function doPost(e) {
     };
     // Anyone whose phone already has a row with Status "DO NOT CONTACT" gets no texts, calls or emails (same string as meta-leads.gs)
     var dnc = isDoNotContact(p.phone);
+    // abuse cap: no more than MAX_TEXTS_PER_DAY sign-ups per phone number in 24h get a text/alert (row still saved)
+    var capped = !dnc && websiteRecentSignups(sh, headers, p.phone) >= MAX_TEXTS_PER_DAY;
+    if (capped) values["Notes"] = "Repeat sign-up – no text sent";
     if (dnc) values["Status"] = DO_NOT_CONTACT;
     // "new lead" alert (calling hours only) – sent before the row is written so the sheet shows who has it.
     // ALERT_MODE "rotate" gives each lead to the next ONCALL_MOBILE in turn (ALERT_NEXT is shared with meta-leads.gs).
-    if (inHours && !dnc) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || ""));
+    if (inHours && !dnc && !capped) values["Assigned to"] = "'" + alertTeam("\uD83E\uDDB7 NEW LEAD (" + values.Source + ") \u2013 call now: " + String(p.name).trim() + " " + String(p.phone || ""));
     sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
   } finally {
     lock.releaseLock();
   }
 
   if (dnc) return out("ok");   // row kept for the record, but no contact of any kind
+  if (capped) return out("ok");
   var first = String(p.name).trim().split(/\s+/)[0];
 
   // Instant thank-you text to the person (the team alert was sent above)
@@ -116,6 +122,16 @@ function leadsSheet() {
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(LEADS_TAB);
   if (!sh) throw new Error("Tab \"" + LEADS_TAB + "\" not found");
   return sh;
+}
+
+// How many rows with this phone number were added in the last 24 hours
+function websiteRecentSignups(sh, headers, phone) {
+  var pc = headers.indexOf("Phone"), tc = headers.indexOf("Signup Time"), n = sh.getLastRow() - 1;
+  var want = ukMobile(phone), since = Date.now() - 24 * 3600 * 1000, count = 0;
+  if (pc === -1 || tc === -1 || n < 1 || !want) return 0;
+  var rows = sh.getRange(Math.max(2, n - 498), 1, Math.min(n, 500), headers.length).getValues();   // newest 500 rows is plenty
+  rows.forEach(function (r) { if (ukMobile(r[pc]) === want && new Date(r[tc]).getTime() > since) count++; });
+  return count;
 }
 
 // Counts page visits (e.g. QR scans) on the "Visits" tab: time + source only, nothing personal.
@@ -195,16 +211,34 @@ function ukMobile(n) {
 function sendSms(to, body) {
   var props = PropertiesService.getScriptProperties();
   var user = props.getProperty("CLICKSEND_USER"), key = props.getProperty("CLICKSEND_KEY");
-  if (!user || !key || !to) return;
+  var num = ukMobile(to);
+  if (!user || !key || !/^\+447\d{9}$/.test(num)) return;   // UK mobiles only (no landlines, premium or foreign numbers)
   try {
-    UrlFetchApp.fetch("https://rest.clicksend.com/v3/sms/send", {
+    var res = UrlFetchApp.fetch("https://rest.clicksend.com/v3/sms/send", {
       method: "post",
       contentType: "application/json",
       headers: { Authorization: "Basic " + Utilities.base64Encode(user + ":" + key) },
-      payload: JSON.stringify({ messages: [{ source: "apps-script", from: SMS_FROM, to: ukMobile(to), body: body }] }),
+      payload: JSON.stringify({ messages: [{ source: "apps-script", from: SMS_FROM, to: num, body: body }] }),
       muteHttpExceptions: true
     });
-  } catch (err) { console.error("SMS failed: " + err); }
+    var code = res.getResponseCode(), txt = res.getContentText(), bad = [];
+    try { ((JSON.parse(txt).data || {}).messages || []).forEach(function (m) { if (m.status !== "SUCCESS") bad.push(m.status); }); } catch (e) { bad.push("unreadable reply"); }
+    if (code !== 200 || bad.length) smsFailed("HTTP " + code + (bad.length ? ", status " + bad.join("/") : "") + " – " + txt.slice(0, 300));
+  } catch (err) { smsFailed(String(err)); }
+}
+
+// Logs a failed text and emails OWNER_EMAIL, at most once an hour (wrong keys, no credit, sender ID not approved…)
+function smsFailed(detail) {
+  console.error("SMS failed: " + detail);
+  var cache = CacheService.getScriptCache();
+  if (cache.get("SMS_FAIL_EMAILED")) return;
+  cache.put("SMS_FAIL_EMAILED", "1", 3600);
+  String(PropertiesService.getScriptProperties().getProperty("OWNER_EMAIL") || "").split(",").map(function (e) { return e.trim(); }).filter(String)
+    .forEach(function (e) {
+      try { MailApp.sendEmail(e, "Kirkcaldy Dental: a text message failed to send",
+        "ClickSend did not send a text. Check the ClickSend account (credit, API key, sender ID).\n\n" + detail +
+        "\n\n(You get this at most once an hour.)"); } catch (err) { console.error("Fail email failed: " + err); }
+    });
 }
 
 function out(s) { return ContentService.createTextOutput(s); }
