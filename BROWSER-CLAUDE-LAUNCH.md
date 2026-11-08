@@ -167,8 +167,8 @@ Use HANDOFF.md Step 2 wording **exactly** (updated 8 Nov from the research). Bui
 | `CLICKSEND_KEY` | ClickSend API key |
 | `META_PAGE_TOKEN` | the System User (or Page) token |
 | `META_FORM_IDS` | the Form ID (comma-separate if more than one) |
-| `ONCALL_MOBILE` | the **one caller's mobile** (owner decision: only one person gets the lead text) |
-| `ALERT_MODE` | leave empty (only needed if more callers are added later; then use `rotate`) |
+| `ONCALL_MOBILE` | the caller's mobile. Each lead text goes to **one** person. When more callers join, list all their mobiles, comma-separated, and set `ALERT_MODE` to `rotate`. |
+| `ALERT_MODE` | empty with one caller; `rotate` as soon as there are two or more (each lead goes to the next caller in turn) |
 | `OWNER_EMAIL` | `info@kirkcaldydental.co.uk` (owner gets a free **email** copy of every alert; Gmail app on the owner's phone with notifications ON for this account) |
 | `OWNER_MOBILE` | leave **empty** (owner chose email alerts instead of text copies) |
 | `CALL_HOURS` | `8-21` (owner decision: **no calls after 9pm**) |
