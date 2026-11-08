@@ -19,18 +19,18 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 .head div{white-space:nowrap;line-height:1.02}
 .head .l2{color:var(--gold);margin-top:2px;font-family:PlayfairI,serif;font-style:italic;text-transform:none;letter-spacing:0}
 .head .l2 span{display:inline-block}
-.flour{height:3px;opacity:.9}.flour.l{background:linear-gradient(90deg,rgba(138,106,44,0),var(--gold))}.flour.r{background:linear-gradient(270deg,rgba(138,106,44,0),var(--gold))}
+.flour{height:2px;opacity:.7}.flour.l{background:linear-gradient(90deg,rgba(138,106,44,0),var(--gold))}.flour.r{background:linear-gradient(270deg,rgba(138,106,44,0),var(--gold))}
 .dia{width:9px;height:9px;background:var(--gold);transform:rotate(45deg);opacity:.85}.dia.o{width:5px;height:5px}
-.kicker{left:0;width:1080px;text-align:center;font-weight:800;color:#6B5122;letter-spacing:.08em;text-transform:uppercase;font-size:28px}
+.kicker{left:0;width:1080px;text-align:center;font-weight:800;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-size:28px}
 .strip{left:0;width:1080px;background:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center}
 .strip span{color:#fff;font-family:Playfair,serif;font-weight:800;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;line-height:1}
 .strip #st2{color:#FBF3E2;font-weight:800;letter-spacing:.08em;margin-top:10px}
 .panel{left:0;width:1080px;background:var(--panel);border-top:8px solid var(--gold2)}
-.btn{left:50%;transform:translateX(-50%);background:#8E6B2E;border:3px solid #D9BD82;box-sizing:border-box;color:#fff;border-radius:999px;
+.btn{left:50%;transform:translateX(-50%);background:linear-gradient(#C9A75E,#A7843F);color:#fff;border-radius:999px;
      font-weight:900;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;display:flex;align-items:center;justify-content:center;
      box-shadow:0 8px 0 #6B5122}
 .url{left:0;width:1080px;text-align:center;color:#fff;font-weight:700;white-space:nowrap}
-.url b{color:inherit;font-weight:inherit}
+.url b{color:var(--light);font-weight:800}
 .addr{left:0;width:1080px;text-align:center;color:#E6E2DA;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;display:none}
 .foot{left:0;width:1080px;text-align:center;color:var(--gold);font-family:Playfair,serif;font-weight:800;text-transform:uppercase;letter-spacing:.18em;font-size:26px;display:none}
 </style></head>
@@ -49,38 +49,33 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 <div class="abs url" id="url">kirkcaldydental.co.uk<b>/register</b></div>
 <script>
 const C={
-  A:{photo:'photo-woman.jpg',pos:'0% 22%',size:'148%',posS:'0% 15%',sizeS:'148%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'23–25 Tolbooth Street · Kirkcaldy KY1 1RW'},
-  B:{photo:'photo-family.jpg',pos:'50% 92%',posS:'50% 88%',sizeS:'112%',posF:'50% 100%',fHF:100,l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families',addr:'23–25 Tolbooth Street · Kirkcaldy KY1 1RW'}
+  A:{photo:'photo-woman.jpg',pos:'38% 30%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'23–25 Tolbooth Street · Kirkcaldy KY1 1RW'},
+  B:{photo:'photo-family.jpg',pos:'50% 92%',l1:'New NHS Dental Practice',l2:'Opening Soon!',kicker:'For Kirkcaldy Families',addr:'23–25 Tolbooth Street · Kirkcaldy KY1 1RW'}
 };
 // px layout per format: [H, photoTop, photoH, logoW, kickerTop, headTop, headMax, stripTop, stripH, panelTop, btnTop, btnW, btnH, btnFont, urlTop, urlFont]
 const L={
   feed:{H:1350,pT:0,pH:700,logoW:300,logoX:390,logoTop:0,kT:632,hT:676,hMax:76,sT:880,sH:176,pnT:1056,bT:1092,bW:620,bH:108,bF:42,uT:1230,uF:34},
-  story:{H:1920,pT:0,pH:680,fH:80,logoW:240,logoTop:290,kT:696,hT:735,hMax:80,hFit:940,sT:916,sH:112,pnT:1028,pnB:1252,bT:1046,bW:640,bH:90,bF:40,uT:1156,uF:30,aT:1202,aF:26}
+  story:{H:1920,pT:290,pH:640,logoW:340,logoX:370,logoTop:30,kT:885,hT:930,hMax:80,sT:1150,sH:186,pnT:1336,pnB:1590,bT:1362,bW:660,bH:108,bF:44,uT:1484,uF:32}
 };
 // Practice phone – set when the real number exists (BRAND.md). Empty = not shown.
 const PHONE='';
 const q=new URLSearchParams(location.search), c=C[q.get('ad')||'A'], l={...L[q.get('fmt')||'feed']};
-if(q.get('fmt')!=='story') l.logoX=(q.get('ad')==='B')?40:720; else l.logoX=(q.get('ad')==='B')?96:744;
-if(q.get('fmt')!=='story'){l.logoW=330; if(q.get('ad')!=='B'){l.logoX=690; l.pH=660; l.bT=1122; l.uT=1260;}}
-// ?btn=old renders the previous gradient button for side-by-side comparison
-if(q.get('btn')==='old'){const st=document.createElement('style');st.textContent='.btn{background:linear-gradient(#C9A75E,#A7843F)!important;border:0!important}';document.head.appendChild(st);}
+if(q.get('fmt')!=='story') l.logoX=(q.get('ad')==='B')?40:720;
 const $=id=>document.getElementById(id), px=v=>v+'px';
 document.body.style.height=px(l.H);
-if(q.get('ad')==='B'&&q.get('fmt')!=='story'){l.pT=-45;}
-Object.assign($('photo').style,{top:px(l.pT),height:px(l.pH),backgroundImage:`url(${c.photo})`,backgroundPosition:(q.get('fmt')==='story'?c.posS:c.posF)||c.pos});
-{const sz=(q.get('fmt')==='story'?c.sizeS:c.sizeF)||c.size; if(sz)$('photo').style.backgroundSize=sz;}
-{const fh=l.fH||(q.get('fmt')!=='story'&&c.fHF)||160;$('fade').style.height=px(fh);$('fade').style.top=px(l.pT+l.pH-fh);}
+Object.assign($('photo').style,{top:px(l.pT),height:px(l.pH),backgroundImage:`url(${c.photo})`,backgroundPosition:c.pos});
+$('fade').style.top=px(l.pT+l.pH-160);
 const lt=$('logoTile'); Object.assign(lt.style,{left:px(l.logoX-24),top:px(l.logoTop),width:px(l.logoW+48),padding:'34px 24px 26px',boxSizing:'border-box'});
-if(q.get('fmt')==='story'){lt.style.background='transparent';lt.style.boxShadow='none';lt.style.padding='0';lt.style.width=px(300);lt.style.left=px(390);lt.style.top=px(1318);lt.style.zIndex=5;}
+if(q.get('fmt')==='story'){lt.style.background='transparent';lt.style.boxShadow='none';lt.style.width=px(l.logoW);lt.style.left=px(l.logoX);lt.style.padding='0';}
 $('kicker').textContent=c.kicker; $('kicker').style.top=px(l.kT);
 $('l1').textContent=c.l1; $('l2').textContent=c.l2; $('head').style.top=px(l.hT);
 Object.assign($('strip').style,{top:px(l.sT),height:px(l.sH)});
 Object.assign($('panel').style,{top:px(l.pnT),height:px((l.pnB||l.H)-l.pnT)});
-if(l.pnB){$('panel').style.borderBottom='8px solid var(--gold2)';}  // logo sits in the cream area below; no footer line
+if(l.pnB){$('panel').style.borderBottom='8px solid var(--gold2)';$('foot').style.display='block';$('foot').style.top=px(l.pnB+70);}
 Object.assign($('btn').style,{top:px(l.bT),width:px(l.bW),height:px(l.bH),fontSize:px(l.bF)});
 Object.assign($('url').style,{top:px(l.uT),fontSize:px(l.uF)});
 {const ph=new URLSearchParams(location.search).get('phone')||PHONE; if(ph){$('url').innerHTML='kirkcaldydental.co.uk<b>/register</b> &nbsp;·&nbsp; Call <b>'+ph+'</b>';}}
-if(c.addr){const ad=$('addr');ad.textContent=c.addr;ad.style.display='block';ad.style.top=px(l.aT||(l.uT+l.uF+14));ad.style.fontSize=px(l.aF||26);}
+if(c.addr){const ad=$('addr');ad.textContent=c.addr;ad.style.display='block';ad.style.top=px(l.uT+l.uF+14);ad.style.fontSize=px(q.get('fmt')==='story'?26:24);}
 function fit(el,target,max){el.style.fontSize=px(max);const rg=document.createRange();rg.selectNodeContents(el);const w=rg.getBoundingClientRect().width;if(w>target)el.style.fontSize=px(max*target/w);return parseFloat(el.style.fontSize);}
 
 // ---- video mode: window.setTime(t) poses every element for time t (seconds) ----
@@ -95,21 +90,25 @@ window.prepAnim=()=>{
 };
 window.setTime=t=>{
   const set=(id,o,ty,sc)=>{const e=$(id);e.style.opacity=o;e.style.transform=(id==='btn'?'translateX(-50%) ':'')+`translateY(${ty||0}px) scale(${sc||1})`;};
-  $('photo').style.transform=`scale(${1.0+0.10*Math.min(t/8,1)})`;
-  const rise=10*(1-prog(t,0,.3));
-  set('logoTile',1); set('kicker',1); set('l1',1,rise); set('l2',1,rise); set('url',1); set('addr',1);
-  for(const id of ['dl','dr','dl2','dr2']) $(id).style.opacity=1;
-  $('strip').style.transform=`translateX(${-1080*(1-prog(t,0,.35))}px)`;
-  set('st1',1); set('st2',1);
-  const k=(t-.4)/.35, pop=k<=0?.85:k<.6?.85+.21*(k/.6):k<1?1.06-.06*((k-.6)/.4):1;
-  const ph=(t-1.5)%1.5, pulse=(t>=1.5&&ph<.6)?1+.05*Math.sin(ph*Math.PI/.6):1;
-  set('btn',Math.min(1,Math.max(0,(t-.4)/.15)),0,pop*pulse);
+  $('photo').style.transform=`scale(${1.0+0.07*Math.min(t/8,1)})`;
+  set('logoTile',prog(t,0,.6));
+  set('kicker',prog(t,.5,.5),12*(1-prog(t,.5,.5)));
+  set('l1',prog(t,.7,.6),30*(1-prog(t,.7,.6)));
+  const p2=prog(t,1.2,.6); set('l2',p2,30*(1-p2));
+  const pf=prog(t,1.6,.7);
+  $('fl').style.width=px(ANIM.fl*pf); $('fr').style.width=px(ANIM.fr*pf); $('fr').style.left=px(ANIM.frL+ANIM.fr*(1-pf));
+  for(const id of ['dl','dr','dl2','dr2']) $(id).style.opacity=prog(t,1.6,.4);
+  const ps=prog(t,2.2,.6); $('strip').style.transform=`translateX(${-1080*(1-ps)}px)`;
+  set('st1',prog(t,2.6,.5)); set('st2',prog(t,2.9,.5));
+  const pb=prog(t,3.4,.5); const pulse=t>4.6?1+0.05*Math.max(0,Math.sin((t-4.6)*Math.PI/0.6))*(((t-4.6)%2.0)<0.6?1:0):1;
+  set('btn',pb,0,(0.85+0.15*pb)*pulse);
+  set('url',prog(t,3.9,.5));
 };
 window.layout=async()=>{await document.fonts.ready;
-  fit($('kicker'),q.get('fmt')==='story'?840:960,32);
+  fit($('kicker'),960,28);
   fit($('url'),980,parseFloat($('url').style.fontSize));
-  const f=fit($('l1'),l.hFit||980,l.hMax); $('l2').style.fontSize=px(f*1.15);
-  if(q.get('fmt')==='story'){fit($('st1'),840,60);fit($('st2'),760,28);}else{fit($('st1'),900,70);fit($('st2'),760,34);}
+  const f=fit($('l1'),980,l.hMax); $('l2').style.fontSize=px(f*1.15);
+  fit($('st1'),900,q.get('fmt')==='story'?76:70); fit($('st2'),760,q.get('fmt')==='story'?38:34);
   {const r=$('l2').getBoundingClientRect(),L=r.left,Rr=r.right,cy=r.top+r.height*0.56,x0=60,x1=1020,g=22,d=12,d2=6;
    const put=(id,lf,t,w)=>{const e=$(id);e.style.left=px(lf);e.style.top=px(t);if(w!==undefined)e.style.width=px(w);};
    put('fl',x0,cy-1.5,(L-g-d-12)-x0);put('fr',Rr+g+d+12,cy-1.5,x1-(Rr+g+d+12));put('dl',L-g-d,cy-d/2);put('dr',Rr+g,cy-d/2);put('dl2',L-g-d-13,cy-d2/2);put('dr2',Rr+g+d+7,cy-d2/2);}

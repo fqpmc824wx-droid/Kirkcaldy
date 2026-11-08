@@ -10,11 +10,14 @@ update THIS file first, commit to `main`, and send the other chat a message.
 | Leaflet, banner, Apps Script, trackers & sheets | **Leaflet chat** (`claude/brave-allen-i14xnx`, session_013umgPubjfb3bgTfLwUbuPv) | `leaflet/`, `banner/`, trackers |
 | Website: Hostinger deploy, SSL, DNS, sign-up/register page | **Website chat** "Hostinger plugin installation" (session_013umgPu69C1HEnqqdhNQd6i) | `site/` |
 | Logo | Leaflet chat (ads chat reuses its files) | `brand/` |
+| Forecast, KPIs, daily/weekly numbers, Monday report | **Metrics chat** "Kirkcaldy – Forecast & Metrics" (`claude/metrics-forecast`, session_013umgPtRRXmqe1Tgbo6z6iR) | `research/forecast-*.md`, Drive "7. Numbers & Reports" |
+| Waiting-list staff guide: call script, message templates, comment replies, invitation plan | **Waiting-list chat** "Kirkcaldy – Waiting list playbook & staff guide" (`claude/waitlist-playbook`, session_013umgPvjqMZ5rf1rX1yivSk) | `research/waitlist-*.md`, `staff-guide/`, Drive "8. Waiting list – staff guide" |
 Don't edit the other chat's folders – message them instead.
 
 ## Google Drive – "Kirkcaldy Dental – Print files & marketing"
 Upload into the right subfolder and **trash the old version** (no "FINAL v2/v3" copies):
-1. Meta Ads · 2. Banner 180x60cm · 3. Leaflet A5 · 4. Logo & Brand · 5. Website · 6. Sheets & Trackers
+1. Meta Ads · 2. Banner 180x60cm · 3. Leaflet A5 · 4. Logo & Brand · 5. Website · 6. Sheets & Trackers · 7. Numbers & Reports · 8. Waiting list – staff guide
+**Owner rule (8 Nov):** once all reviews, agents and fixes are finished, each chat bins every old version in ITS OWN folder(s) and leaves only the final files, neatly organised.
 
 ## Approved wording (owner Nas)
 - Headline: **NEW NHS DENTAL PRACTICE** / *Opening Soon!* (gold italic, diamond flourishes)
