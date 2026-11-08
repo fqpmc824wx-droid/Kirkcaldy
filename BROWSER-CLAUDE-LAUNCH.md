@@ -182,6 +182,21 @@ If opening is more than ~6 weeks away, stay at £15–20/day longer.
   - It recommends budget, winner and new creatives, and logs what worked.
 - Any wording change: update BRAND.md first and tell all chats.
 
+## 11. When the clinic's 01592 phone number exists: add it everywhere (owner wants it on the ads)
+Some people would rather phone than fill in a form, so show the number. Keep the form as the main route, because it captures details and gets cheaper leads.
+1. **BRAND.md:** add the number under contact details first. Tell all three chats (ads, leaflet, website).
+2. **Ad images and videos:** the ads chat sets `PHONE` in `ads/source/ad.html` and re-renders. The number appears as "kirkcaldydental.co.uk/register · Call 01592 …" on all 4 ads and videos. Then replace the files in Drive "1. Meta Ads" and in Ads Manager.
+3. **Primary text:** add a last line to both ads: "Prefer to talk? Call us on 01592 … (8am–9pm)."
+4. **Instant Form completion screen:** set the button to **Call business** with the number. Another option is a second button "View website".
+5. **Facebook Page:** add the number and a **Call now** button.
+6. **Leaflet and banner:** the leaflet chat re-renders with the number (`node render.js "01592 …"`).
+7. **Website:** the website chat adds it to the footer and the register page.
+8. **Phone answering:**
+   - Answer 8am–9pm.
+   - The voicemail message says: "Thanks for calling Kirkcaldy Dental. Leave your name and number and we'll call you back, or join our waiting list at kirkcaldydental.co.uk/register."
+   - Log every caller in the Waiting list tab with **Source = phone**, so the Dashboard counts them.
+9. Optional later: test a separate **Calls** ad (click-to-call) against the form ad, if lots of people phone.
+
 ---
 *Being added when the research teams finish:*
 - Meta ads 2026 research playbook
