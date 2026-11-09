@@ -172,6 +172,7 @@ test("H8 reconcile: a Meta lead (older than 15 min) missing from the sheet -> Fa
   env.meta.forms.F1.leads = [env.lead("1111", 60, { full_name: "Here" }), env.lead("2222", 30, { full_name: "Missing Mary", phone_number: "+447900000222" }),
     env.lead("3333", 5, { full_name: "Too New" }), env.lead("4444", 40, { full_name: "Retrying" })];
   env.props.META_RETRY = JSON.stringify({ 4444: { n: 1 } });
+  env.fn.healthMark("pollMetaLeads", true, 100);                   // the lead checker runs fine, yet 2222 never reached the sheet
   assert.strictEqual(env.fn.healthMetaReconcile(ctx()), 1);
   const fl = env.tab("Failed leads");
   assert.strictEqual(fl.rows.length, 2); assert.strictEqual(fl.rows[1][1], "2222");

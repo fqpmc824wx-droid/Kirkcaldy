@@ -151,6 +151,7 @@ function pollMetaLeads() {
   var props = PropertiesService.getScriptProperties(), t0 = Date.now(), clean = true, why = "";
   // health.gs heartbeat: H1 pings healthchecks.io only after a CLEAN run (every form answered, no lead failed, header row OK)
   var mark = function () { if (typeof healthMark === "function") healthMark("pollMetaLeads", clean, Date.now() - t0, why); };
+  var scrub = metaScrub;                       // error texts can contain the request URL: never store or email the token
   var token = props.getProperty("META_PAGE_TOKEN"), forms = props.getProperty("META_FORM_IDS");
   if (!token || !forms) {           // was a silent return: a blank setting would stop every Facebook lead unnoticed
     clean = false; why = "config: META_PAGE_TOKEN or META_FORM_IDS is blank";
@@ -166,30 +167,49 @@ function pollMetaLeads() {
   try {
     // Header row check BEFORE any lead is read: if a column was renamed/deleted, stop so nothing is misfiled or marked seen
     try { if (typeof healthAssertSheet === "function") healthAssertSheet(); }
-    catch (err) { clean = false; why = "sheet: " + String(err && err.message || err).slice(0, 150); console.error(why); return; }
+    catch (err) { clean = false; why = "sheet: " + scrub(err && err.message || err).slice(0, 150); console.error(why); return; }
     var dflt = Number(props.getProperty("META_SINCE") || Math.floor(Date.now() / 1000) - 3600);
     var sinceBy = JSON.parse(props.getProperty("META_SINCE_BY_FORM") || "{}");   // progress per form
     var seen = JSON.parse(props.getProperty("META_SEEN") || "[]");
     var retry = JSON.parse(props.getProperty("META_RETRY") || "{}");             // leads that failed: retried on the next 2 runs
-    var fields = metaLeadFields(), leads = [], failedForms = [];
+    var fields = metaLeadFields(), leads = [], failedForms = [], newStart = false;
     forms.split(",").map(function (s) { return s.trim(); }).filter(String).forEach(function (formId) {
-      var since = sinceBy[formId] || metaFormStart(formId, token, dflt), got = [], ok = true;   // a NEW form starts from its created_time
+      var since = sinceBy[formId], found = 0, got = [], ok = true;
+      if (!since) { found = metaFormStart(formId, token); since = found || dflt; }   // a NEW form starts from its created_time
       // 15-minute overlap catches leads Meta makes available late; META_SEEN stops repeats
       var url = metaGraph() + formId + "/leads?limit=100&fields=" + fields + "&filtering=" +
         encodeURIComponent(JSON.stringify([{ field: "time_created", operator: "GREATER_THAN", value: since - 900 }])) +
         "&access_token=" + encodeURIComponent(token);
       while (url) {
-        var res = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+        var res;
+        try { res = UrlFetchApp.fetch(url, { muteHttpExceptions: true }); }
+        catch (e) { throw new Error(scrub(e && e.message || e)); }             // network errors quote the URL (with the token)
         if (res.getResponseCode() !== 200) { ok = false; metaApiError(formId, res); break; }
         var body = JSON.parse(res.getContentText());
         (body.data || []).forEach(function (l) { if (seen.indexOf(l.id) === -1 && !retry[l.id]) { l._form = formId; got.push(l); } });
         url = body.paging && body.paging.next;
       }
-      if (ok) { leads = leads.concat(got); if (!sinceBy[formId]) sinceBy[formId] = since; }   // a form with a failed page is skipped this run; its progress doesn't move
-      else failedForms.push(formId);
+      if (ok) {                                  // a form with a failed page is skipped this run; its progress doesn't move
+        leads = leads.concat(got);
+        if (!sinceBy[formId]) { sinceBy[formId] = since; if (found) newStart = true; }
+      } else failedForms.push(formId);
     });
+    // a new form's start is saved at once, even before its first lead (otherwise Meta is asked for it every minute)
+    if (newStart) props.setProperty("META_SINCE_BY_FORM", JSON.stringify(sinceBy));
     if (failedForms.length) { clean = false; why = "meta: Meta API error on form " + failedForms.join(", "); }
     else props.deleteProperty("META_LAST_ERR");                                 // every form answered: H2 sees the error has cleared
+    // Leads the hourly check (H8) already put in "Failed leads" were given to the owner to add by hand and call: never twice.
+    if (leads.length && typeof healthFailedIds === "function") {
+      var reported = {};
+      try { healthFailedIds().forEach(function (id) { reported[id] = true; }); } catch (e) { console.error("Failed leads tab: " + e); }
+      leads = leads.filter(function (l) {
+        if (!reported[String(l.id)]) return true;
+        console.warn("Lead " + l.id + " is already in the Failed leads tab (added by hand): skipped");
+        seen.push(l.id);
+        return false;
+      });
+      props.setProperty("META_SEEN", JSON.stringify(seen.slice(-300)));
+    }
     leads.sort(function (a, b) { return new Date(a.created_time) - new Date(b.created_time); });
     // Retries first (texts already sent are never sent again), then new leads oldest first.
     // Progress is saved after EACH lead; stop after 4 minutes (Apps Script kills runs at 6).
@@ -203,11 +223,12 @@ function pollMetaLeads() {
         else handleLead(l);
         delete retry[l.id];
       } catch (err) {
-        clean = false; why = "lead: " + String(err).slice(0, 150);
-        console.error("Lead " + l.id + " failed: " + err);
+        clean = false; why = "lead: " + scrub(err).slice(0, 150);
+        console.error("Lead " + l.id + " failed: " + scrub(err));
         var ent = retry[l.id] || { n: 0, lead: metaSlim(l) };
-        ent.n++; ent.err = String(err).slice(0, 200);
-        if (err && err.metaValues) ent.values = metaPack(err.metaValues);
+        ent.n++; ent.err = scrub(err).slice(0, 200);
+        if (err && err.metaValues) ent.values = metaPack(err.metaValues);   // texted/alerted already: the retry only writes the row
+        if (err && err.metaContacted) ent.contacted = true;
         retry[l.id] = ent;
         if (ent.n >= 3 || JSON.stringify(retry).length > 8000) {   // first try + 2 retries (or no room left to keep it)
           delete retry[l.id];
@@ -225,12 +246,16 @@ function pollMetaLeads() {
     }
     if (failedNow && typeof healthAlertFailedRows === "function") healthAlertFailedRows();   // one P1 per run, never throttled
   } catch (err) {
-    clean = false; why = "other: " + String(err).slice(0, 150);
+    clean = false; why = "other: " + scrub(err).slice(0, 150);
     throw err;
   } finally {
     lock.releaseLock();
     mark();
   }
+}
+// Error texts without secrets: Apps Script network errors quote the request URL, which carries ?access_token=.
+function metaScrub(s) {
+  return String(s === undefined || s === null ? "" : s).replace(/(access_token=)[^&\s"']+/gi, "$1***");
 }
 
 // Lead fields asked from Meta. Script Property META_LEAD_FIELDS replaces the list (e.g. without the ad/campaign fields if a
@@ -242,17 +267,18 @@ function metaLeadFields() {
   return f;
 }
 // A form ID seen for the first time is read from its created_time (max 7 days back), so leads made before it was
-// added to META_FORM_IDS aren't lost. A hand-set META_SINCE wins.
-function metaFormStart(formId, token, dflt) {
-  if (PropertiesService.getScriptProperties().getProperty("META_SINCE")) return dflt;
+// added to META_FORM_IDS aren't lost. A hand-set META_SINCE wins. Returns 0 if Meta didn't answer (asked again next run).
+function metaFormStart(formId, token) {
+  var hand = Number(PropertiesService.getScriptProperties().getProperty("META_SINCE") || 0);
+  if (hand) return hand;
   try {
     var res = UrlFetchApp.fetch(metaGraph() + formId + "?fields=created_time&access_token=" + encodeURIComponent(token), { muteHttpExceptions: true });
     if (res.getResponseCode() === 200) {
       var c = Math.floor(new Date(JSON.parse(res.getContentText()).created_time).getTime() / 1000);
       if (c) return Math.max(c, Math.floor(Date.now() / 1000) - 7 * 86400);
     }
-  } catch (e) { console.warn("Form " + formId + " start time: " + e); }
-  return dflt;
+  } catch (e) { console.warn("Form " + formId + " start time: " + metaScrub(e)); }
+  return 0;
 }
 // Any non-200 from Meta: log it, and keep META_LAST_ERR {code, http, msg, form, first, last} for health.gs (H2).
 function metaApiError(formId, res) {
@@ -274,10 +300,10 @@ function metaApiError(formId, res) {
 function metaLeadFailed(l, ent) {
   var why = "Failed " + ent.n + " times: " + ent.err;
   if (typeof healthFailedLead === "function") {
-    try { healthFailedLead(l, why, !!ent.values); return; } catch (e) { console.error("Failed leads tab: " + e); }
+    try { healthFailedLead(l, why, !!ent.contacted); return; } catch (e) { console.error("Failed leads tab: " + e); }
   }
   healthNotifyOnce("LEAD_ERR_" + l.id, "A Facebook lead could not be processed",
-    "Please add this person to the Waiting list by hand and call them" + (ent.values ? " (they were already texted)" : "") + ":\n\n" +
+    "Please add this person to the Waiting list by hand and call them" + (ent.contacted ? " (they were already texted)" : "") + ":\n\n" +
     JSON.stringify(l.field_data) + "\n\nError: " + why);
 }
 // Retry store (Script Property, 9 KB max): a slim copy of the lead, and the prepared row with dates kept as {$d: ms}.
@@ -301,9 +327,15 @@ function metaUnpack(o) {
 // Emails a problem at most once every 3 hours per problem (key): to HEALTH_EMAIL (the owner's personal address) and OWNER_EMAIL.
 // Sends FIRST and records after, so one failed send can't silence the alert for 3 hours.
 // With health.gs it goes through healthAlert (P2): same 3-hour rule, same keys, and it's logged in the "Health log" tab.
+// A failed website sign-up (doPost, key WEB_SIGNUP_FAIL) goes straight to H15's per-row critical alert instead.
 function healthNotifyOnce(key, subject, body) {
   if (typeof healthAlert === "function") {
-    try { return healthAlert("P2", key, subject, body, { event: true, alsoOwner: true }); }
+    if (key === "WEB_SIGNUP_FAIL" && typeof healthAlertFailedRows === "function") {
+      try { if (healthAlertFailedRows() > 0) return; } catch (e) { console.error("Failed sign-up alert failed: " + e); }
+    }
+    var level = /^\W*P1:/.test(String(subject)) ? "P1" : "P2";                  // "P1: ..." from the leaflet = critical
+    var s = String(subject || "").replace(/^\W*P[12]:\s*/, "");                  // the level goes in the [KD-P1] tag, not the text
+    try { return healthAlert(level, key, s.charAt(0).toUpperCase() + s.slice(1), body, { event: true, alsoOwner: true }); }
     catch (e) { console.error("healthAlert failed, emailing directly: " + e); }
   }
   var p = PropertiesService.getScriptProperties(), last = Number(p.getProperty(key) || 0);
@@ -345,18 +377,28 @@ function inCallHours(d) {
 // One Facebook/Instagram lead. Everything is SENT first (caller alert, thank-you text, email) and then ONE row is
 // written with all of it, including SMS ID / SMS status / Email status. No getLastRow(): a website sign-up saved at the
 // same moment (doPost can save without the lock) can never receive this lead's statuses.
-// If the row can't be written, the error carries the prepared row (err.metaValues) so pollMetaLeads retries the ROW only.
+// If anything fails once a text or alert has gone out (a send, the email, the row write), the error carries the row
+// prepared so far (err.metaValues, err.metaContacted) and pollMetaLeads retries the ROW only: nobody is contacted twice.
 function handleLead(l) {
-  var values = metaContactLead(l);
-  try { metaWriteRow(values); }
-  catch (err) { try { err.metaValues = values; } catch (x) {} throw err; }
+  var st = { values: null, contacted: false };
+  try {
+    metaContactLead(l, st);
+    metaWriteRow(st.values);
+  } catch (err) {
+    if (st.values && (st.contacted || st.done)) {
+      if (!(err instanceof Error)) err = new Error(String(err));
+      try { err.metaValues = st.values; err.metaContacted = st.contacted; } catch (x) {}
+    }
+    throw err;
+  }
 }
 function metaWriteRow(values) {
   var sh = leadsSheet();
   var headers = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].map(String);   // matched to the sheet's own column headers
   sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
 }
-function metaContactLead(l) {
+function metaContactLead(l, st) {
+  st = st || {};
   var created = new Date(l.created_time);
   var name = field(l, ["full_name", "name"]) || (field(l, ["first_name"]) + " " + field(l, ["last_name"])).trim();
   var phone = field(l, ["phone"]), email = field(l, ["email"]);
@@ -390,28 +432,34 @@ function metaContactLead(l) {
     "Duplicate of": seen.repeat ? "'" + seen.firstId : ""
   };
   if (repeat) values["Notes"] = "Already on the list (same phone/email) - see " + seen.firstId + (seen.recent ? "; no text sent" : "");
+  st.values = values;                     // from here on, handleLead keeps the row if anything fails (st.contacted = someone was texted)
 
   // 1. alert the team (calling hours only). Plain ASCII = one SMS. "Assigned to" lists only callers whose text ClickSend accepted.
   if (inHours && !blocked && !quiet) {
     var a = metaAlertCallers((repeat ? "REPEAT - " : "") + "NEW LEAD (" + values.Source + ") - call now: " + metaAsciiName(name) + " " +
-      String(phone).replace(/[^\d+ ]/g, "").slice(0, 20));
+      String(phone).replace(/[^\d+ ]/g, "").slice(0, 20), st);
     if (a.assigned) values["Assigned to"] = "'" + a.assigned;
     if (a.skipped && typeof healthConfigCheck === "function") { try { healthConfigCheck(); } catch (e) { console.error("Config alert failed: " + e); } }
   }
   // 2. instant text to the lead (one SMS, 160 characters max). Repeats get one "already on the list" text a day at most.
   var r = null;
-  if (!blocked && !repeat) r = sendSms(phone, leadText(first, inHours));
-  if (repeat && !seen.recent) r = sendSms(phone, metaRepeatText(first));
+  if (!blocked && !repeat) { r = sendSms(phone, leadText(first, inHours)); st.contacted = true; }
+  if (repeat && !seen.recent) { r = sendSms(phone, metaRepeatText(first)); st.contacted = true; }
   if (r && typeof r === "object") { values["SMS ID"] = "'" + String(r.id || ""); values["SMS status"] = r.status === "SUCCESS" ? "Sent" : "Failed: " + r.status; }
-  // 3. confirmation email
-  if (email && !blocked && !repeat) values["Email status"] = metaConfirmEmail(email, first);
+  // 3. confirmation email (an error here must not undo the texts above)
+  if (email && !blocked && !repeat) {
+    try { values["Email status"] = metaConfirmEmail(email, first); }
+    catch (err) { console.error("Confirmation email failed: " + err); values["Email status"] = "Failed: " + String(err).slice(0, 80); }
+  }
+  st.done = true;
   return values;
 }
 
 // Same routing as alertTeam() (ONCALL_MOBILE, ALERT_MODE rotate, OWNER_MOBILE text copy, OWNER_EMAIL email copy), but it
 // keeps each send's result. Returns {assigned: callers whose text was accepted, failed: [...], skipped: a number was skipped}.
-function metaAlertCallers(msg) {
+function metaAlertCallers(msg, st) {
   var props = PropertiesService.getScriptProperties();
+  st = st || {};
   var split = function (v) { return String(v || "").split(",").map(function (n) { return n.trim(); }).filter(String); };
   var callers = split(props.getProperty("ONCALL_MOBILE")), owners = split(props.getProperty("OWNER_MOBILE"));
   var mode = String(props.getProperty("ALERT_MODE") || "all").toLowerCase();
@@ -423,6 +471,7 @@ function metaAlertCallers(msg) {
   }
   to.forEach(function (n) {
     var r = sendSms(n, msg);
+    st.contacted = true;                                   // a caller may have been texted: never alert again for this lead
     if (r && r.status === "SUCCESS") ok.push(n);
     else { failed.push(r && r.status ? r.status : "not sent"); if (!r) skipped = true; }   // nothing returned = skipped (bad number / no ClickSend keys)
   });

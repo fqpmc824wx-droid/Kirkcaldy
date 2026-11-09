@@ -23,7 +23,8 @@
  *     META_AD_ACCOUNT_ID = act_XXXXXXXXXXXX   (Ads Manager → account dropdown; add "act_" in front of the number)
  *     LAUNCH_DATE        = yyyy-mm-dd, the day the ads went live
  *     SPEND_MULTIPLIER   = 1.224 (optional; 2% UK location fee + 20% VAT that can't be reclaimed)
- *     CPL_ALARM          = 3.5   (optional; £ per lead, 3-day average, before VAT)
+ *     CPL_ALARM          = 5     (optional; warning above this £ per lead, 3-day average, before VAT; owner decision £5)
+ *     CPL_PAUSE          = 8     (optional; "pause the ads" above this; owner decision £8)
  *   Then run adsInstallTriggers() once.
  */
 
@@ -89,7 +90,9 @@ function adsGraphGet(path, params) {
   q.push("access_token=" + encodeURIComponent(token));
   var url = metaGraph() + path + "?" + q.join("&"), out = [], pages = 0;
   while (url && pages++ < 50) {
-    var res = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+    var res;
+    try { res = UrlFetchApp.fetch(url, { muteHttpExceptions: true }); }
+    catch (e) { throw new Error(String(e && e.message || e).replace(/(access_token=)[^&\s"']+/gi, "$1***")); }   // network errors quote the URL (token)
     if (res.getResponseCode() !== 200) {
       console.error("Meta ads API " + res.getResponseCode() + " " + path + ": " + res.getContentText());
       var shared = !adsProps().getProperty("META_ADS_TOKEN");      // empty = the same token the lead checker uses
@@ -235,63 +238,88 @@ function adsTotalsByDay() {
 }
 
 // ---------- alarms after the daily pull ----------
+// Bodies are {what, affects, todo}: healthAlert adds the sheet link and the plain-English layout.
 function adsKpiAlarms() {
   var p = adsProps(), now = new Date(), byDay = adsTotalsByDay(), sheetBy = adsSheetMetaLeadsByDay(), launch = p.getProperty("LAUNCH_DATE");
   var day = function (n) { return adsDay(new Date(now.getTime() - n * 864e5)); };
-  var url = SpreadsheetApp.getActiveSpreadsheet().getUrl();
   var daysLive = launch ? Math.floor((now - adsDate(launch)) / 864e5) : 99;
-  // 1. cost per lead, last 3 full days (spend ÷ unique paid sheet leads)
+  // 1. cost per lead, last 3 full days (spend ÷ unique paid sheet leads). Owner decision: warning above £5, pause above £8.
   var sp = 0, ld = 0;
   for (var d = 1; d <= 3; d++) { sp += (byDay[day(d)] || {}).spend || 0; ld += sheetBy[day(d)] || 0; }
-  var cplAlarm = Number(p.getProperty("CPL_ALARM") || 3.5);
-  if (daysLive >= 3 && sp >= 30 && (ld === 0 || sp / ld > 5))
-    adsKpiAlert("ADS_CPL5_LAST", "⛔ PAUSE the ads: cost per lead over £5 (" + (ld ? "£" + (sp / ld).toFixed(2) : "0 leads") + ")",
-      "Last 3 days: £" + sp.toFixed(2) + " spent (before VAT), " + ld + " Facebook/Instagram sign-ups. Rule: over £5 → pause the campaign in Ads Manager and ask the ads chat to rebuild the ad or form.\n\n" + url);
+  var cplAlarm = Number(p.getProperty("CPL_ALARM") || 5), cplPause = Number(p.getProperty("CPL_PAUSE") || 8);
+  var cplTxt = ld ? "£" + (sp / ld).toFixed(2) : "£" + sp.toFixed(2) + " spent, 0 leads";
+  var last3 = "Last 3 days: £" + sp.toFixed(2) + " spent (before VAT), " + ld + " Facebook/Instagram sign-ups in the Waiting list.";
+  if (daysLive >= 3 && sp >= 30 && (ld === 0 || sp / ld > cplPause))
+    adsKpiAlert("ADS_CPL5_LAST", "⛔ PAUSE the ads: cost per lead over £" + cplPause + " (" + cplTxt + ")", {
+      what: last3 + " That's over the £" + cplPause + " pause level.",
+      affects: "The budget is buying very few sign-ups.",
+      todo: "Pause the campaign in Ads Manager, then ask the ads chat to rebuild the ad or the form. Don't add money."
+    });
   else if (daysLive >= 3 && sp >= 30 && (ld === 0 || sp / ld > cplAlarm))
-    adsKpiAlert("ADS_CPL_LAST", "⚠️ Cost per lead is high: £" + (ld ? (sp / ld).toFixed(2) : sp.toFixed(2) + " spent, 0 leads"),
-      "Last 3 days: £" + sp.toFixed(2) + " spent (before VAT), " + ld + " Facebook/Instagram sign-ups in the sheet.\n" +
-      "Rule: over £" + cplAlarm + " for 3 days → fix the ad or form (don't add money). Over £5 → pause and ask the ads chat.\n\n" + url);
+    adsKpiAlert("ADS_CPL_LAST", "⚠️ Cost per lead is high: " + cplTxt, {
+      what: last3 + " That's over the £" + cplAlarm + " warning level.",
+      affects: "Each sign-up costs more than planned.",
+      todo: "Ask the ads chat to fix the ad or the form (don't add money). Over £" + cplPause + " for 3 days: pause the campaign."
+    });
   // 2. leads Meta counted yesterday but missing from the sheet (the lead script or token is failing)
   var mY = (byDay[day(1)] || {}).leads || 0, sY = sheetBy[day(1)] || 0;
   if (mY - sY >= 2 && (mY - sY) / Math.max(mY, 1) > 0.1)
-    adsKpiAlert("ADS_SYNC_LAST", "⚠️ " + (mY - sY) + " Facebook leads from yesterday are missing from the sheet",
-      "Meta counted " + mY + " leads yesterday, but the Waiting list has " + sY + " paid Facebook/Instagram rows.\n" +
-      "Check Apps Script → Executions for pollMetaLeads errors, that the Meta app is Live, and Leads access. " +
-      "Missing people can be downloaded from Meta Business Suite → Instant Forms → the form → Download leads, and added by hand.\n\n" + url);
+    adsKpiAlert("ADS_SYNC_LAST", "⚠️ " + (mY - sY) + " Facebook leads from yesterday are missing from the sheet", {
+      what: "Meta counted " + mY + " leads yesterday, but the Waiting list has " + sY + " paid Facebook/Instagram rows.",
+      affects: "Real people may have filled in the form without reaching the Waiting list, so nobody calls them.",
+      todo: "Download yesterday's leads (Meta Business Suite > Instant Forms > the form > Download leads) and add anyone missing by hand. " +
+        "Then check Apps Script > Executions for pollMetaLeads errors, that the Meta app is Live, and Leads access."
+    });
   // 3. too few leads for 3 days after day 4
   if (daysLive >= 4 && [1, 2, 3].every(function (n) { return (sheetBy[day(n)] || 0) < 3 && ((byDay[day(n)] || {}).spend || 0) > 0; }))
-    adsKpiAlert("ADS_LOWLEADS_LAST", "⚠️ Fewer than 3 Facebook sign-ups a day for 3 days",
-      "Check the ads are approved and delivering, the form works (submit a test), and the token (any 'NOT arriving' emails?).\n\n" + url);
+    adsKpiAlert("ADS_LOWLEADS_LAST", "⚠️ Fewer than 3 Facebook sign-ups a day for 3 days", {
+      what: "Each of the last 3 days had fewer than 3 Facebook/Instagram sign-ups while the ads were spending.",
+      affects: "Few new people are joining the waiting list.",
+      todo: "Check the ads are approved and delivering (Ads Manager), submit a test through the form, and look for any 'lead checker' or 'Meta' alert emails."
+    });
   // 4. under-spending 2 days running (needs the budget seen by adsStatusCheck)
   var budget = Number(p.getProperty("ADS_DAILY_BUDGET") || 0);
   if (budget && daysLive >= 2 && [1, 2].every(function (n) { return ((byDay[day(n)] || {}).spend || 0) < 0.5 * budget; }))
-    adsKpiAlert("ADS_PACING_LAST", "⚠️ Ads spent under half the budget 2 days running",
-      "Daily budget £" + budget + ". Yesterday £" + (((byDay[day(1)] || {}).spend) || 0).toFixed(2) +
-      ". Usually a rejected ad, a payment problem or an audience that's too small. Check Ads Manager.\n\n" + url);
+    adsKpiAlert("ADS_PACING_LAST", "⚠️ Ads spent under half the budget 2 days running", {
+      what: "Daily budget £" + budget + ". Yesterday £" + (((byDay[day(1)] || {}).spend) || 0).toFixed(2) + " was spent.",
+      affects: "Fewer people see the ads than planned.",
+      todo: "Check Ads Manager: usually a rejected ad, a payment problem or an audience that's too small."
+    });
   // 5. frequency (7-day, ad set level, stored daily by adsPullReach)
   var freq = Number(p.getProperty("ADS_FREQ_7D") || 0);
   if (daysLive >= 7 && freq > 3)
-    adsKpiAlert("ADS_FREQ_LAST", "⚠️ Ads are being seen too often (frequency " + freq.toFixed(1) + ")",
-      "People in the area have seen the ads " + freq.toFixed(1) + " times on average this week. Ask the ads chat for 1–2 fresh versions of the winning ad.\n\n" + url);
+    adsKpiAlert("ADS_FREQ_LAST", "⚠️ Ads are being seen too often (frequency " + freq.toFixed(1) + ")", {
+      what: "People in the area have seen the ads " + freq.toFixed(1) + " times on average this week.",
+      affects: "People start to ignore an ad they've seen many times, so each sign-up costs more.",
+      todo: "Ask the ads chat for 1-2 fresh versions of the winning ad."
+    });
   // 6. fatigue: an ad's 3-day link click rate under 0.8% (2,000+ views), or under 60% of its own first 7 days
   var tired = adsFatigue();
   if (tired.length)
-    adsKpiAlert("ADS_FATIGUE_LAST", "⚠️ An ad is getting tired: " + tired.map(function (t) { return t.name; }).join(", "),
-      tired.map(function (t) { return t.name + ": link click rate " + t.ctr3.toFixed(2) + "% in the last 3 days (first week " + t.ctr1.toFixed(2) + "%)"; }).join("\n") +
-      "\n\nAsk the ads chat for a fresh version of this ad.\n\n" + url);
+    adsKpiAlert("ADS_FATIGUE_LAST", "⚠️ An ad is getting tired: " + tired.map(function (t) { return t.name; }).join(", "), {
+      what: tired.map(function (t) { return t.name + ": link click rate " + t.ctr3.toFixed(2) + "% in the last 3 days (first week " + t.ctr1.toFixed(2) + "%)"; }).join("\n"),
+      affects: "Fewer people click the ad, so each sign-up costs more.",
+      todo: "Ask the ads chat for a fresh version of this ad."
+    });
   // 7. spend running ahead of the plan (only if the leaflet chat's KPIs tab defines KPI_PLAN_CUM)
   var plan = adsNamed("KPI_PLAN_CUM");
   if (plan && launch) {
     var cum = 0; Object.keys(byDay).forEach(function (k) { if (k >= launch && k < day(0)) cum += byDay[k].spend; });
-    if (cum > plan * 1.1) adsKpiAlert("ADS_OVERPLAN_LAST", "⚠️ Ad spend is more than 10% over the plan",
-      "Spent £" + cum.toFixed(2) + " since launch against a plan of £" + Number(plan).toFixed(2) + " (before VAT). Check the budget in Ads Manager.\n\n" + url);
+    if (cum > plan * 1.1) adsKpiAlert("ADS_OVERPLAN_LAST", "⚠️ Ad spend is more than 10% over the plan", {
+      what: "Spent £" + cum.toFixed(2) + " since launch against a plan of £" + Number(plan).toFixed(2) + " (before VAT).",
+      affects: "The ads budget runs out sooner than planned.",
+      todo: "Check the budget in Ads Manager."
+    });
   }
   // 8. more sign-ups than the callers can ring: add a caller (owner: staff are available)
   var callers = String(p.getProperty("ONCALL_MOBILE") || "").split(",").filter(function (x) { return x.trim(); }).length || 1;
   var allBy = adsAllSignupsByDay();
   if ([1, 2].every(function (n) { return (allBy[day(n)] || 0) > 25 * callers; }))
-    adsKpiAlert("ADS_CALLERS_LAST", "☎️ Add a caller: " + (allBy[day(1)] || 0) + " sign-ups yesterday for " + callers + " caller" + (callers > 1 ? "s" : ""),
-      "Sign-ups have been above " + 25 * callers + " a day (about 25 per caller) for 2 days. Add another caller: Script Property ONCALL_MOBILE = all callers' mobiles, comma-separated, and ALERT_MODE = rotate.\n\n" + url);
+    adsKpiAlert("ADS_CALLERS_LAST", "☎️ Add a caller: " + (allBy[day(1)] || 0) + " sign-ups yesterday for " + callers + " caller" + (callers > 1 ? "s" : ""), {
+      what: "Sign-ups have been above " + 25 * callers + " a day (about 25 per caller) for 2 days.",
+      affects: "Callers can't ring everyone within the hour, so people wait longer.",
+      todo: "Add another caller: Script Property ONCALL_MOBILE = all callers' mobiles, comma-separated, and ALERT_MODE = rotate."
+    });
 }
 
 // The daily KPI alarms are one-off warnings (P2, at most every 3 h per key, never left "open").
@@ -398,7 +426,11 @@ function adsStatusCheck(force) {
     budget = sets.filter(function (s) { return s.effective_status === "ACTIVE"; }).reduce(function (s, x) { return s + adsNum(x.daily_budget) / 100; }, 0);
   }
   if (budget) p.setProperty("ADS_DAILY_BUDGET", String(budget));
-  if (campsOk) p.setProperty("ADS_ACTIVE_CAMPAIGNS", JSON.stringify({ t: Date.now(), n: active.length }));   // read by health.gs H11, H24
+  if (campsOk) {
+    p.setProperty("ADS_ACTIVE_CAMPAIGNS", JSON.stringify({ t: Date.now(), n: active.length }));   // read by health.gs H11, H24
+    if (!active.length) p.deleteProperty("ADS_ACTIVE_SINCE");                                       // H11 counts "no leads" from here
+    else if (!p.getProperty("ADS_ACTIVE_SINCE")) p.setProperty("ADS_ACTIVE_SINCE", String(Date.now()));
+  }
   note("Daily budget", acct, "active campaigns", budget);
   // no campaign running although the ads should be on (ADS_EXPECTED_ON=1), unless paused on purpose (ADS_PAUSED_UNTIL)
   var pausedUntil = adsWhen(p.getProperty("ADS_PAUSED_UNTIL"));

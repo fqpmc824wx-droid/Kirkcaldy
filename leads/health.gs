@@ -7,20 +7,33 @@
  *   healthAlert()   ONE router for every alert. P1 (critical): email HEALTH_EMAIL at once, then a text to HEALTH_SMS
  *                   (not 22:00–07:00; at most 1 text an hour per problem and 3 a day). P2 (warning): email only, at most
  *                   every 3 hours per problem. Every alert goes in the "Health log" tab, and a RESOLVED email follows
- *                   once the check passes again. Emails say: what happened / what it affects / what to do / sheet link.
+ *                   once the check passes again; a problem that comes back after that is emailed at once.
+ *                   Emails say: what happened / what it affects / what to do / sheet link. Texts go straight to ClickSend
+ *                   (plain ASCII, one SMS, no lead names or numbers), so the lead-text limits can't block them.
  *   4 triggers      healthEvery5Min  H1 H2 H3 H4 H14a H15 H20 (+ H5 H6 every 15 min in calling hours)
  *                   healthHourly     H8 H14b H16 H19; 07–23 H12; 08–22 H9 H10; 09–21 H11; 08/12/16/20 H13; 10/12 H7; 21 H22
  *                   healthDaily      07:30 H17 H18 H24 (H23 on the 1st)          healthNightly  23:30 H21 backup
+ *                   The hourly, daily and nightly runs check row 1 first (H4): while it's wrong, the checks that read
+ *                   the Waiting list by column name wait (the backup is still taken).
  *
- * INSTALL (setup night, after meta-leads.gs, meta-ads.gs and tracking.gs are pasted):
- *   1. + Add file "health" → paste this file → set HEALTH_VERSION just below → Save.
- *   2. Script Properties (Project Settings → Script Properties) – the list below. HEALTH_EMAIL is required.
- *   3. Run healthInstallTriggers() once (adds 4 triggers; refuses if the project would go over 18).
+ * INSTALL (setup night, after meta-leads.gs, meta-ads.gs and tracking.gs are pasted)
+ *   0. FIRST, row 1 of the Waiting list must have all 22 headers below exactly once. As soon as this file is in the project,
+ *      the Facebook lead checker and the website form check row 1 and STOP if one is missing (website sign-ups then go to
+ *      "Failed sign-ups"). The original sheet has only 11 columns, so: paste this file, then straight away run
+ *      healthCheckHeaders() (lists what's missing, changes nothing) and healthAddMissingHeaders() (adds the missing headers
+ *      at the right-hand end of row 1, moves nothing). It refuses if a header is there twice or almost right ("Lead ID ").
+ *        Signup Time, Name, Phone, Email, Postcode, No. of People, Adult/Child/Family, Source, Status, Assigned to,
+ *        Marketing consent, Notes, Lead ID, Logged at, Ad ID, Form ID, Duplicate of, SMS ID, SMS status, Email status,
+ *        Call outcome, Status changed at
+ *   1. + Add file "health" → paste this file → set HEALTH_VERSION just below → Save. Then step 0 at once.
+ *   2. Script Properties (Project Settings → Script Properties) – the list below. HEALTH_EMAIL is required. HEALTH_SMS is
+ *      needed for critical texts (owner decision pending: "critical problem alerts by text?"; blank = email only).
+ *   3. Run healthInstallTriggers() once (adds 4 triggers; refuses if row 1 isn't ready or the project would go over 18).
  *   4. Fire drill: run healthTestAlert() – the owner should get a text, an email and a healthchecks.io "down" (plan 3.6).
  *
  * Script Properties (new)
- *   HEALTH_EMAIL         owner's personal email first, then info@kirkcaldydental.co.uk (comma-separated)
- *   HEALTH_SMS           owner's mobile – critical alerts only (OWNER_MOBILE stays empty)
+ *   HEALTH_EMAIL         REQUIRED. Owner's personal email first, then info@kirkcaldydental.co.uk (comma-separated)
+ *   HEALTH_SMS           owner's mobile – critical alerts only (OWNER_MOBILE stays empty). Blank = no alert texts.
  *   HEALTH_QUIET         22-7 (default): no owner texts 22:00–07:00; one text after 07:00 lists anything still open
  *   HEALTH_PING_POLLER / HEALTH_PING_DAILY / HEALTH_PING_BACKUP   healthchecks.io ping URLs (skipped if blank)
  *   META_PAGE_ID         the clinic Page ID (H10)
@@ -29,16 +42,24 @@
  *   CALLER_SHIFT / CALLER_DAYS   e.g. 9-17 / Mon-Sat: when the caller really works (default CALL_HOURS, every day)
  *   HEALTH_BACKLOG       5 (warning level for leads waiting over an hour; 10 is always critical)
  *   HEALTH_BALANCE_WARN / HEALTH_BALANCE_CRIT   ClickSend £: 8 / 4 with auto top-up, 15 / 5 without (default 15 / 5)
+ *   HEALTH_SMS_MAX / HEALTH_CALLER_MAX   daily limits on alert texts: owner 15, caller reminders 30 (defaults)
  *   ADS_EXPECTED_ON, ADS_PAUSED_UNTIL, ADS_ALLOWED_CAMPAIGNS, ADS_EXPECTED_BUDGET, FESTIVE_MAX   ad watchdog (meta-ads.gs)
  *   NHS_FIFE_LETTER_ID, CALL_CARD_APPROVED, PRIORITY_RULE_SIGNED, OPENING_TARGET, LAST_LIST_UPDATE, FESTIVE_COVER   gates (H24)
- *   HEALTH_BACKUP_FOLDER Drive folder ID for the nightly backups (made automatically if blank)
+ *   HEALTH_BACKUP_FOLDER Drive folder ID for the nightly backups (made automatically if blank, and shared (view) with the
+ *                        first HEALTH_EMAIL address outside kirkcaldydental.co.uk)
  *   HEALTH_EDITORS       emails allowed to edit the sheet (H18)       HEALTH_EXPECTED_USER  default info@kirkcaldydental.co.uk
  *   HEALTH_IGNORE_FORMS  form IDs H10 should ignore                    <NAME>_UNTIL  end (yyyy-mm-dd hh:mm) of a temporary change
- * Set automatically (don't edit): HA_*, HM_*, HEALTH_ROW1, HEALTH_BASELINE*, HEALTH_SMS_COUNT, HEALTH_SITE_FAILS, HEALTH_SEEN_*,
- *   HEALTH_H9_STREAK, HEALTH_WEB_VERSION, HEALTH_CS_BALANCE, HEALTH_BACKUP_LAST, HEALTH_QUIET_SUMMARY, HEALTH_SPAM_PAUSED, META_LAST_ERR.
+ * Set automatically (don't edit): HA_*, HM_*, HEALTH_ROW1, HEALTH_BASELINE*, HEALTH_SMS_COUNT, HEALTH_CALLER_COUNT,
+ *   HEALTH_SITE_FAILS, HEALTH_H9_STREAK, HEALTH_WEB_VERSION, HEALTH_CS_BALANCE, HEALTH_BACKUP_LAST, HEALTH_BACKUP_SHARED,
+ *   HEALTH_QUIET_SUMMARY, HEALTH_SPAM_PAUSED, HEALTH_SPAM_OVERRIDE, HEALTH_URGENT_N, HEALTH_H8_LAST, META_LAST_ERR,
+ *   ADS_ACTIVE_SINCE (meta-ads.gs).
  *
- * Uses: leadsSheet, callWindow, inCallHours, leadText, field, metaGraph, metaRepeatText (meta-leads.gs); sendSms, ukMobile
- * (apps-script.gs); adsAccount, adsToken, adsGraphGet, adsAction, adsStatusCheck (meta-ads.gs). Optional files are checked with typeof.
+ * Manual helpers: healthCheckHeaders, healthAddMissingHeaders (step 0), healthTestAlert (fire drill), healthSetBaseline (after
+ * deleting test rows on purpose), healthResendFailedTexts (runbook R4 step 5), healthInstallTriggers.
+ *
+ * Uses: leadsSheet, callWindow, inCallHours, leadText, niceFirstName, field, metaGraph, metaDoNotContact (meta-leads.gs);
+ * ukMobile, sendSms (lead texts only: healthResendFailedTexts), SMS_FROM (apps-script.gs); trkLogSms, TRK_* tabs (tracking.gs);
+ * adsAccount, adsToken, adsGraphGet, adsAction, adsStatusCheck (meta-ads.gs). Optional files are checked with typeof.
  */
 
 var HEALTH_VERSION = "2026-11-08-ads";   // set at paste time to "<yyyy-mm-dd>-<commit>", e.g. "2026-11-09-3f2a1bc" (H16 and H18 show it)
@@ -58,9 +79,15 @@ var HEALTH_TRIGGERS = ["pollMetaLeads", "morningSummary", "backlogCheck", "eveni
   "adsStatusCheck", "trkOnSheetEdit", "trkRetryCheck", "trkPullSmsHistory", "trkScanBounces", "trkDailySnapshot", "trkWeeklyEmail",
   "healthEvery5Min", "healthHourly", "healthDaily", "healthNightly"];
 var HEALTH_OWN_TRIGGERS = ["healthEvery5Min", "healthHourly", "healthDaily", "healthNightly"];
+var HEALTH_ADS_TRIGGERS = ["adsPullInsights", "adsWeeklyPull", "adsStatusCheck"];   // added on launch day (adsInstallTriggers)
+// The 12 tracking columns the original 11-column sheet didn't have (setup night: healthAddMissingHeaders adds them).
+var HEALTH_SETUP_HEADERS = ["Assigned to", "Marketing consent", "Lead ID", "Logged at", "Ad ID", "Form ID", "Duplicate of", "SMS ID",
+  "SMS status", "Email status", "Call outcome", "Status changed at"];
 var HEALTH_MAX_TRIGGERS = 18;
 var HEALTH_DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-var HEALTH_DEPTH = 0;   // > 0 while an alert is being sent: a failing alert text never sets off another text
+var HEALTH_BUSY = {};          // alert keys being sent right now (this run): an alert can never set itself off again
+var HEALTH_MSG_DONE = {};      // message-only alerts (from the leaflet's sendSms) already handled in this run
+var HEALTH_DAYMEMO = {};       // London day boundaries, for healthShiftMins
 
 // ======================================================================================================
 // Small helpers
@@ -83,12 +110,26 @@ function healthTab(name, headers) {
   if (!sh) { sh = ss.insertSheet(name, ss.getSheets().length); sh.appendRow(headers); sh.setFrozenRows(1); }   // added at the end: Dashboard stays first
   return sh;
 }
+function healthCols(sh, last) {   // make sure the tab has at least `last` columns before writing past its right-hand edge
+  try { if (sh.getMaxColumns && sh.getMaxColumns() < last) sh.insertColumnsAfter(sh.getMaxColumns(), last - sh.getMaxColumns()); }
+  catch (e) { console.warn("Couldn't add columns: " + e); }
+}
 function healthPlural(n, word, many) { return n + " " + (n === 1 ? word : (many || word + "s")); }
 function healthId(v) { return String(v === undefined || v === null ? "" : v).trim().replace(/^'/, "").replace(/^l:/i, "").trim(); }
 function healthDigits(v) { var d = String(v || "").replace(/\D/g, ""); return d.length >= 10 ? d.slice(-10) : d; }
 function healthMask(n) { var d = String(n || "").replace(/\D/g, ""); return d ? "mobile ending " + d.slice(-3) : "(blank)"; }
 function healthEmailOk(e) { return /^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(String(e)); }
-function healthMobileOk(n) { return typeof ukMobile === "function" && /^\+447\d{9}$/.test(ukMobile(n)); }
+function healthMobile(n) {   // 07…, +44 7…, +44 (0)7…, 0044 7… -> +447…  (ukMobile from apps-script.gs when it's there)
+  if (typeof ukMobile === "function") return ukMobile(n);
+  n = String(n || "").replace(/\(0\)/g, "").replace(/[^\d+]/g, "").replace(/^00/, "+");
+  return /^07\d{9}$/.test(n) ? "+44" + n.slice(1) : /^447\d{9}$/.test(n) ? "+" + n : n;
+}
+function healthMobileOk(n) { return /^\+447\d{9}$/.test(healthMobile(n)); }
+// Error texts without secrets: Apps Script network errors quote the request URL, and Graph URLs carry ?access_token=.
+function healthScrub(s) {
+  return String(s === undefined || s === null ? "" : s).replace(/(access_token=)[^&\s"']+/gi, "$1***")
+    .replace(/((?:Basic|Bearer)\s+)[A-Za-z0-9+\/=._\-]{12,}/g, "$1***");
+}
 
 // ---------- London time ----------
 function healthFmt(d, f) { return Utilities.formatDate(d instanceof Date ? d : new Date(d), "Europe/London", f); }
@@ -156,18 +197,27 @@ function healthDays(v) {   // "Mon-Sat", "Mon,Wed,Fri", "Fri-Mon" -> {0..6: true
   return on;
 }
 function healthInShift(d, s) { s = s || healthShift(); var m = healthMins(d); return !!s.days[healthDow(d)] && m >= s.from && m < s.to; }
-function healthShiftMins(from, to, s) {   // minutes inside the caller's shift between two times
+// Minutes inside the caller's shift between two times. Steps London calendar days (noon to noon), so the clock changes
+// never skip or repeat a day. Counts at most 32 days.
+function healthShiftMins(from, to, s) {
   s = s || healthShift();
   var a = from instanceof Date ? from.getTime() : Number(from), b = to instanceof Date ? to.getTime() : Number(to), total = 0;
   if (!(b > a)) return 0;
-  for (var k = 0; k < 15; k++) {
-    var day = new Date(a + k * 864e5);
-    if (k > 0 && healthAt(day, 0, 0).getTime() > b) break;
-    if (!s.days[healthDow(day)]) continue;
-    var st = healthAt(day, 0, s.from).getTime(), en = healthAt(day, 0, s.to).getTime();
-    total += Math.max(0, Math.min(b, en) - Math.max(a, st));
+  var noon = healthAt(new Date(a), 0, 12 * 60).getTime();   // +24 h from a London noon stays within an hour of the next noon
+  for (var k = 0; k < 32; k++, noon += 864e5) {
+    var d = healthShiftDay(healthDay(new Date(noon)), s);
+    if (d.mid > b) break;
+    if (s.days[d.dow]) total += Math.max(0, Math.min(b, d.en) - Math.max(a, d.st));
   }
   return total / 6e4;
+}
+function healthShiftDay(ymd, s) {   // {mid: midnight, st: shift start, en: shift end, dow} of one London date (kept for the run)
+  var k = ymd + "|" + s.from + "|" + s.to;
+  if (!HEALTH_DAYMEMO[k]) {
+    var base = new Date(ymd + "T12:00:00Z");
+    HEALTH_DAYMEMO[k] = { mid: healthAt(base, 0, 0).getTime(), st: healthAt(base, 0, s.from).getTime(), en: healthAt(base, 0, s.to).getTime(), dow: healthDow(base) };
+  }
+  return HEALTH_DAYMEMO[k];
 }
 function healthQuiet(d) {
   var m = healthGet("HEALTH_QUIET", "22-7").match(/^(\d{1,2})\s*-\s*(\d{1,2})$/);
@@ -220,18 +270,40 @@ function healthSendEmail(to, subject, body) {
   });
   return sent;
 }
-// Texts through sendSms() (apps-script.gs). A daily cap (HEALTH_SMS_MAX, default 15) stops a fault from running up a bill.
-function healthSendSms(numbers, text) {
-  if (typeof sendSms !== "function" || HEALTH_DEPTH > 1 || !numbers.length) return 0;
+// Alert texts go straight to ClickSend, not through sendSms(): the leaflet's lead-text caps (SMS_HOURLY_MAX / SMS_DAILY_MAX)
+// can't swallow a critical text, and a failing alert text can't set off another alert. Logged in the SMS log (trkLogSms).
+// Daily caps, counting only texts ClickSend accepted: HEALTH_SMS_MAX (default 15) for the owner, HEALTH_CALLER_MAX
+// (default 30) for the caller reminders (kind "caller"), so caller reminders can never use up the owner's critical texts.
+function healthSendSms(numbers, text, kind) {
+  var user = healthGet("CLICKSEND_USER"), key = healthGet("CLICKSEND_KEY");
+  if (!user || !key || !numbers || !numbers.length) return 0;          // blank keys: H3 reports it (and pings healthchecks /fail)
   text = healthSmsText(text);
-  var c = healthGet("HEALTH_SMS_COUNT").split("|"), today = healthDay(), n = c[0] === today ? Number(c[1]) || 0 : 0;
-  var max = healthNum("HEALTH_SMS_MAX", 15), ok = 0;
+  var caller = kind === "caller", prop = caller ? "HEALTH_CALLER_COUNT" : "HEALTH_SMS_COUNT";
+  var c = healthGet(prop).split("|"), today = healthDay(), n = c[0] === today ? Number(c[1]) || 0 : 0;
+  var max = caller ? healthNum("HEALTH_CALLER_MAX", 30) : healthNum("HEALTH_SMS_MAX", 15), ok = 0;
   numbers.forEach(function (to) {
-    if (n >= max) { console.warn("Health text limit for today reached (" + max + ")"); return; }
-    try { var r = sendSms(to, text); n++; if (r && r.status === "SUCCESS") ok++; } catch (e) { console.error("Alert text failed: " + e); }
+    if (n >= max) { console.warn("Health text limit for today reached (" + prop + " " + max + ")"); return; }
+    if (healthClickSend(to, text, user, key).status === "SUCCESS") { ok++; n++; }
   });
-  healthProps().setProperty("HEALTH_SMS_COUNT", today + "|" + n);
+  if (ok) healthProps().setProperty(prop, today + "|" + n);
   return ok;
+}
+function healthClickSend(to, text, user, key) {
+  var num = healthMobile(to), result;
+  if (!/^\+447\d{9}$/.test(num)) { console.warn("Alert text skipped: not a UK mobile (" + healthMask(to) + ")"); return { id: "", status: "NOT_A_UK_MOBILE", price: "" }; }
+  try {
+    var res = UrlFetchApp.fetch("https://rest.clicksend.com/v3/sms/send", {
+      method: "post", contentType: "application/json", muteHttpExceptions: true,
+      headers: { Authorization: "Basic " + Utilities.base64Encode(user + ":" + key) },
+      payload: JSON.stringify({ messages: [{ source: "apps-script", from: typeof SMS_FROM !== "undefined" ? SMS_FROM : "KirkDental", to: num, body: text }] })
+    });
+    var code = res.getResponseCode(), m0 = {};
+    try { m0 = ((JSON.parse(res.getContentText()).data || {}).messages || [])[0] || {}; } catch (e) {}
+    result = { id: m0.message_id || "", status: m0.status || (code === 200 ? "UNKNOWN" : "HTTP " + code), price: m0.message_price || "" };
+  } catch (e) { console.error("Alert text failed: " + healthScrub(e)); result = { id: "", status: "ERROR", price: "" }; }
+  if (result.status !== "SUCCESS") console.error("Alert text not accepted by ClickSend: " + result.status);
+  if (typeof trkLogSms === "function") trkLogSms("health", num, result);
+  return result;
 }
 // healthchecks.io: ping the URL in a Script Property (suffix "/fail" = report a failure). Skipped silently if not set.
 function healthPing(prop, suffix) {
@@ -248,7 +320,8 @@ function healthLog(level, key, subject, state, emailed, texted) {
 }
 function healthState(key) { var s = healthJson("HA_" + key, {}); return s && typeof s === "object" ? s : {}; }
 function healthBody(level, key, subject, body, opts) {
-  var b = typeof body === "string" || body === undefined || body === null ? { what: String(body || subject) } : body;
+  var str = typeof body === "string" || body === undefined || body === null;   // plain-text bodies carry their own instructions
+  var b = str ? { what: String(body || subject), affects: "See above.", todo: "See WHAT HAPPENED above. If you're not sure what to do, forward this email to the ads chat." } : body;
   var out = "WHAT HAPPENED\n" + b.what +
     "\n\nWHAT IT AFFECTS\n" + (b.affects || "See above.") +
     "\n\nWHAT TO DO\n" + (b.todo || "Open the Waiting List sheet and the Health log tab. If you're not sure, forward this email to the ads chat.") +
@@ -271,82 +344,123 @@ function healthBody(level, key, subject, body, opts) {
  *          event    a one-off (not kept open, no RESOLVED email)   noState  don't store anything (one-off keys)   short  name for texts
  *          noEmail  text/log only   ignoreQuiet  text even in quiet hours (manual tests)   smsAlways  skip the per-key text limits
  *          alsoOwner  also email OWNER_EMAIL (used by healthNotifyOnce)
- * Sends first, records after. Throws if there is nobody to email (so Google's trigger-failure email fires).
+ * Also accepts healthAlert(level, message) – the form the leaflet's sendSms uses (see healthAlertMessage).
+ * A problem that comes back after its RESOLVED email is emailed (and texted) at once. Sends first, records after.
+ * Throws if there is nobody to email (so Google's trigger-failure email fires).
  */
 function healthAlert(level, key, subject, body, opts) {
+  if (subject === undefined || subject === null || String(subject).trim() === "") return healthAlertMessage(level, key, body, opts);
   opts = opts || {};
   level = String(level).toUpperCase() === "P1" || level === 1 ? "P1" : "P2";
-  HEALTH_DEPTH++;
+  if (HEALTH_BUSY[key]) { console.warn("Alert " + key + " is already being sent in this run"); return { emailed: false, texted: false }; }
+  HEALTH_BUSY[key] = true;
   try {
     var now = Date.now(), today = healthDay(new Date(now)), st = opts.noState ? {} : healthState(key);
     var clean = healthSubject(subject), sig = String(opts.sig === undefined ? "" : opts.sig);
     var every = opts.every !== undefined ? opts.every : 3 * 36e5, since = now - (st.lastEmail || 0);
     var openBefore = !!st.open, escalated = openBefore && level === "P1" && st.level !== "P1";
     var fresh = !openBefore || st.sig !== sig;
+    var reopened = !opts.event && !openBefore && !!st.okEmailAt && st.okEmailAt >= (st.lastEmail || 0);   // the owner's last word was RESOLVED
     var email;
     if (opts.event) email = since >= (opts.every !== undefined ? opts.every : (level === "P1" ? 0 : 3 * 36e5));
-    else if (level === "P1") email = escalated || (fresh && since >= 10 * 6e4) || since >= every;
-    else email = since >= every;
+    else if (level === "P1") email = reopened || (escalated && now - (st.lastP1Email || 0) >= every) || (fresh && since >= 10 * 6e4) || since >= every;
+    else email = reopened || since >= every;
     if (opts.noEmail) email = false;
 
     // 1. email
     var to = opts.noEmail ? [] : healthEmails(opts.alsoOwner), emailed = false;
     if (email && to.length) emailed = healthSendEmail(to, "[KD-" + level + "] " + clean, healthBody(level, key, clean, body, opts)) > 0;
-    // 2. text (P1 only)
+    // 2. text (P1 only): at most 1 an hour and 3 a day per problem; a text that didn't go is tried again after 10 min
     var texted = false;
     if (level === "P1" && !opts.noSms) {
-      var smsCount = st.smsDay === today ? st.smsCount || 0 : 0;
-      var due = opts.smsAlways || (now - (st.lastSms || 0) >= 60 * 6e4 && smsCount < 3);
+      var smsCount = st.smsDay === today ? st.smsCount || 0 : 0, lastOk = st.lastSms || 0, lastTry = Math.max(st.lastSmsTry || 0, lastOk);
+      var due = opts.smsAlways || (smsCount < 3 && (lastTry > lastOk ? now - lastTry >= 10 * 6e4 : reopened || now - lastOk >= 60 * 6e4));
       if (due && !opts.ignoreQuiet && healthQuiet(new Date(now))) { st.smsPending = true; due = false; }
       if (due) {
         texted = healthSendSms(healthSmsTo(), opts.sms || "KD P1: " + clean) > 0;
-        st.lastSms = now; st.smsPending = false;
-        if (texted) { st.smsDay = today; st.smsCount = smsCount + 1; }
+        st.lastSmsTry = now;
+        if (texted) { st.lastSms = now; st.smsPending = false; st.smsDay = today; st.smsCount = smsCount + 1; }
       }
     }
     if (level === "P1" && opts.noSms && now - (st.lastFailPing || 0) >= 60 * 6e4) {   // ClickSend is the problem: tell healthchecks.io instead
       if (healthPing(healthGet("HEALTH_PING_DAILY") ? "HEALTH_PING_DAILY" : "HEALTH_PING_POLLER", "/fail")) st.lastFailPing = now;
     }
-    // 3. caller text (work the caller can act on)
+    // 3. caller text (work the caller can act on) – its own daily cap
     if (opts.caller && inCallHours(new Date(now)) && now - (st.lastCaller || 0) >= (opts.callerEvery || 60 * 6e4)) {
-      if (healthSendSms(healthList(healthGet("ONCALL_MOBILE")), opts.caller)) st.lastCaller = now;
+      if (healthSendSms(healthList(healthGet("ONCALL_MOBILE")), opts.caller, "caller")) st.lastCaller = now;
     }
     // 4. record (after sending)
-    if (emailed) st.lastEmail = now;
+    if (emailed) { st.lastEmail = now; if (level === "P1") st.lastP1Email = now; }
     if (!opts.noState) {
       if (!(opts.event && openBefore)) { st.level = level; st.subject = clean; st.sig = sig; if (opts.short) st.short = opts.short; }
       st.lastSeen = now;
       if (!opts.event) {
         if (!openBefore) { st.first = now; st.emailedEpisode = false; }
-        st.open = true;
+        st.open = true; st.passSince = 0;                         // failing again: a pending "passing for an hour" starts over
         if (emailed) st.emailedEpisode = true;
       }
       healthSetJson("HA_" + key, st);
     }
     if (emailed || texted || (!opts.event && (fresh || escalated)))
-      healthLog(level, key, clean, opts.event ? "event" : !openBefore ? "open" : escalated ? "escalated" : fresh ? "changed" : "repeat", emailed, texted);
+      healthLog(level, key, clean, opts.event ? "event" : !openBefore ? (reopened ? "reopened" : "open") : escalated ? "escalated" : fresh ? "changed" : "repeat", emailed, texted);
     if (!opts.noEmail && !to.length) {
       var err = new Error("No alert email address: set Script Property HEALTH_EMAIL (the owner's personal email). Alert not emailed: " + clean);
       err.healthNoRecipients = true;
       throw err;
     }
     return { emailed: emailed, texted: texted };
-  } finally { HEALTH_DEPTH--; }
+  } finally { delete HEALTH_BUSY[key]; }
 }
 
-// The check passes again: one RESOLVED email (only if an alert email went out for this problem).
+// healthAlert(level, message) with no key or subject – the leaflet's sendSms calls it like this for "ClickSend keys missing"
+// and "A caller alert number is not a UK mobile". Settings problems go to H3 (one alert with the details and its own
+// throttle); anything else gets a key made from the message (emailed at most every 3 h). Never throws (it's called from
+// inside sendSms).
+function healthAlertMessage(level, msg, body, opts) {
+  msg = healthSubject(msg) || "Unknown problem";
+  if (HEALTH_MSG_DONE[msg]) return HEALTH_MSG_DONE[msg];          // once per run (sendSms may call it for every caller)
+  var res = HEALTH_MSG_DONE[msg] = { emailed: false, texted: false };
+  try {
+    if (/ClickSend keys|CLICKSEND_|UK mobile|ONCALL_MOBILE|OWNER_MOBILE/i.test(msg) && healthConfigCheck().length) return res;
+    var sms = /ClickSend|text|SMS|mobile|ONCALL|OWNER_MOBILE/i.test(msg);
+    var r = healthAlert(level, "MSG_" + msg.toUpperCase().replace(/[^A-Z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 40), msg,
+      body && typeof body === "object" ? body : {
+        what: msg + "." + (body ? "\n" + body : ""),
+        affects: sms ? "Some texts (thank-you texts to leads, new-lead alerts to the caller, or alerts to you) may not be going out." : "See above.",
+        todo: sms ? "Apps Script > Project Settings > Script Properties: check CLICKSEND_USER, CLICKSEND_KEY, ONCALL_MOBILE and OWNER_MOBILE (mobiles as 07... or +447...; OWNER_MOBILE normally empty). If you're not sure, forward this email to the ads chat."
+          : "Forward this email to the ads chat.",
+        plan: sms ? "R4/R5" : ""
+      }, Object.assign({ short: msg.slice(0, 30), noSms: /ClickSend keys/i.test(msg), event: true, every: 3 * 36e5 }, opts || {}));   // nothing resolves it: a one-off, at most every 3 h
+    res.emailed = r.emailed; res.texted = r.texted;
+  } catch (e) { console.error("Alert failed: " + msg + ": " + e); }
+  return res;
+}
+
+// The check passes again: one RESOLVED email (only if an alert email went out for this problem). A problem that has
+// come and gone twice in 6 hours is only resolved after it has passed for a whole hour: until then the owner's last email
+// still (rightly) says it's broken, and there's no alert/RESOLVED ping-pong.
 function healthResolve(key, note) {
   var st = healthState(key);
   if (!st.open) return false;
-  var emailed = false;
+  var now = Date.now(), emailed = false, ok = (st.okTimes || []).filter(function (t) { return now - t < 6 * 36e5; });
+  if (st.emailedEpisode && ok.length >= 2) {
+    if (!st.passSince) {
+      st.passSince = now; healthSetJson("HA_" + key, st);
+      healthLog(st.level || "", key, st.subject || key, "passing (it keeps coming back: RESOLVED after an hour of passing)", false, false);
+      return false;
+    }
+    if (now - st.passSince < 60 * 6e4) return false;
+  }
   if (st.emailedEpisode) {
     var to = healthEmails();
     if (to.length) emailed = healthSendEmail(to, "[KD-OK] RESOLVED: " + st.subject,
       "WHAT HAPPENED\nThe check passed again at " + healthHM(new Date()) + " (problem first seen " + healthHM(st.first) + ").\n" + (note ? note + "\n" : "") +
       "\nWHAT IT AFFECTS\nNothing now.\n\nWHAT TO DO\nNothing, unless you changed a setting temporarily to fix it - then put it back." +
       "\n\nWaiting List sheet: " + healthUrl()) > 0;
+    if (emailed) { ok.push(now); st.okEmailAt = now; }
   }
-  st.open = false; st.smsPending = false; st.resolvedAt = Date.now();
+  st.okTimes = ok;
+  st.open = false; st.smsPending = false; st.resolvedAt = now; st.passSince = 0;
   healthSetJson("HA_" + key, st);
   healthLog(st.level || "", key, st.subject || key, "resolved", emailed, false);
   return true;
@@ -377,9 +491,13 @@ function healthQuietSummary() {
     if (st && st.smsPending && st.level === "P1" && (st.open || Date.now() - (st.lastSeen || 0) < 12 * 36e5)) pend.push({ key: k.slice(3), st: st });
   });
   if (!pend.length) return;
-  healthSendSms(healthSmsTo(), "KD P1: " + healthPlural(pend.length, "problem") + " from overnight: " +
-    pend.map(function (p) { return p.st.short || p.st.subject; }).join("; ") + ". Details in email.");
-  pend.forEach(function (p) { p.st.smsPending = false; p.st.lastSms = Date.now(); healthSetJson("HA_" + p.key, p.st); });
+  var sent = healthSendSms(healthSmsTo(), "KD P1: " + healthPlural(pend.length, "problem") + " from overnight: " +
+    pend.map(function (p) { return p.st.short || p.st.subject; }).join("; ") + ". Details in email.") > 0;
+  pend.forEach(function (p) {          // not sent: each problem's own next alert texts it (smsPending stays)
+    p.st.lastSmsTry = Date.now();
+    if (sent) { p.st.smsPending = false; p.st.lastSms = Date.now(); }
+    healthSetJson("HA_" + p.key, p.st);
+  });
 }
 
 // ======================================================================================================
@@ -390,28 +508,44 @@ function healthMark(job, ok, ms, detail) {
     var k = "HM_" + job, st = healthJson(k, {}) || {}, now = Date.now();
     st.last = now; st.ok = ok !== false; st.ms = Math.round(ms || 0);
     if (st.ok) { st.lastOk = now; st.firstFail = 0; st.err = ""; }
-    else { if (!st.firstFail) st.firstFail = now; st.err = String(detail || "").slice(0, 200); }
+    else { if (!st.firstFail) st.firstFail = now; st.err = healthScrub(detail).slice(0, 200); }
     healthSetJson(k, st);
   } catch (e) { console.error("healthMark " + job + " failed: " + e); }
 }
 function healthJob(job) { return healthJson("HM_" + job, null); }
 
 function healthRun(ctx, errs, list) {
+  ctx.ran = ctx.ran || [];
   list.forEach(function (c) {
+    ctx.ran.push(c[0]);
     try { c[1](ctx); }
-    catch (e) { console.error("Health check " + c[0] + " failed: " + (e && e.stack || e)); errs.push({ name: c[0], err: e }); }
+    catch (e) { console.error("Health check " + c[0] + " failed: " + healthScrub(e && e.stack || e)); errs.push({ name: c[0], err: e }); }
   });
 }
-function healthFinish(job, t0, errs) {
-  healthMark(job, !errs.length, Date.now() - t0, errs.map(function (e) { return e.name + ": " + e.err; }).join("; "));
+// End of a run: heartbeat, and the "a health check crashed" warning. A crash is resolved only once that same check has run
+// again without crashing (H22 runs at 21:00 only, H13 four times a day, H23 monthly...).
+function healthFinish(job, t0, errs, ctx) {
+  var msg = function (e) { return healthScrub(e.err); };
+  healthMark(job, !errs.length, Date.now() - t0, errs.map(function (e) { return e.name + ": " + msg(e); }).join("; "));
   var fatal = errs.filter(function (e) { return e.err && e.err.healthNoRecipients; })[0];
   if (fatal) throw fatal.err;                                  // nobody to email: let Google's trigger-failure email fire
-  if (errs.length) healthAlert("P2", "HEALTH_CRASH_" + job, "A health check crashed: " + errs.map(function (e) { return e.name; }).join(", "), {
-    what: errs.map(function (e) { return e.name + ": " + String(e.err).slice(0, 300); }).join("\n"),
-    affects: "That check is not watching for its problem until this is fixed. The other checks still run.",
-    todo: "Forward this email to the ads chat."
-  }, { sig: errs.map(function (e) { return e.name; }).join(",") });
-  else healthResolve("HEALTH_CRASH_" + job);
+  var key = "HEALTH_CRASH_" + job, st = healthState(key), ran = (ctx && ctx.ran) || [], failing = errs.map(function (e) { return e.name; });
+  var carried = st.open ? String(st.sig || "").split(",").filter(function (n) { return n && ran.indexOf(n) === -1 && failing.indexOf(n) === -1; }) : [];
+  if (failing.length) {
+    var all = failing.concat(carried);
+    healthAlert("P2", key, "A health check crashed: " + all.join(", "), {
+      what: errs.map(function (e) { return e.name + ": " + msg(e).slice(0, 300); }).join("\n") +
+        (carried.length ? "\nAlso still not re-checked since it crashed: " + carried.join(", ") : ""),
+      affects: "That check is not watching for its problem until this is fixed. The other checks still run.",
+      todo: "Forward this email to the ads chat."
+    }, { sig: all.join(",") });
+  } else if (!carried.length) healthResolve(key);
+}
+// The header guard (H4) at the start of the hourly, daily and nightly runs: checks that read the Waiting list by column
+// name are skipped while row 1 is wrong (a typo in "Lead ID" would otherwise report every lead as missing).
+function healthSheetGuard(ctx) {
+  try { healthAssertSheet(); }
+  catch (e) { ctx.sheetBad = String(e && e.message || e); if (!e || !e.healthProblems) throw e; }
 }
 
 // ======================================================================================================
@@ -426,34 +560,39 @@ function healthEvery5Min() {
     var b = healthJob("healthBacklogCheck");     // backlogCheck (meta-leads.gs, every 15 min) normally runs H5/H6; this is the backstop
     if (inCallHours(new Date()) && (!b || Date.now() - b.last >= 14 * 6e4)) healthRun(ctx, errs, [["H5", healthBacklogCheck], ["H6", healthCallerActive]]);
   }
-  healthFinish("healthEvery5Min", t0, errs);
+  healthFinish("healthEvery5Min", t0, errs, ctx);
 }
 function healthHourly() {
   var t0 = Date.now(), ctx = healthCtx(), errs = [], h = healthHour(new Date());
-  var list = [["H19", healthMailQuota], ["H16", healthSiteCheck], ["H14b", healthSmsHistoryCheck], ["H8", healthMetaReconcile]];
+  healthRun(ctx, errs, [["H4", healthSheetGuard]]);
+  var ok = !ctx.sheetBad, list = [["H19", healthMailQuota], ["H16", healthSiteCheck], ["H14b", healthSmsHistoryCheck]];
+  if (ok) list.push(["H8", healthMetaReconcile]);
   if (h >= 7) list.push(["H12", healthAdsCheck]);
-  if (h >= 8 && h <= 22) list.push(["H10", healthFormsCheck], ["H9", healthMetaCount]);
+  if (h >= 8 && h <= 22) { list.push(["H10", healthFormsCheck]); if (ok) list.push(["H9", healthMetaCount]); }
   if ([8, 12, 16, 20].indexOf(h) !== -1) list.push(["H13", healthClickSendBalance]);
-  if (h >= 9 && h <= 21) list.push(["H11", healthNoMetaLeads]);
-  if (h === 10 || h === 12) list.push(["H7", healthOvernightQueue]);
-  if (h === 21) list.push(["H22", healthContentScan]);
+  if (ok && h >= 9 && h <= 21) list.push(["H11", healthNoMetaLeads]);
+  if (ok && (h === 10 || h === 12)) list.push(["H7", healthOvernightQueue]);
+  if (ok && h === 21) list.push(["H22", healthContentScan]);
   healthRun(ctx, errs, list);
-  healthFinish("healthHourly", t0, errs);
+  healthFinish("healthHourly", t0, errs, ctx);
 }
 function healthDaily() {
-  var t0 = Date.now(), ctx = healthCtx(), errs = [], list = [["H24", healthGates], ["H17", healthDnsCheck]];
+  var t0 = Date.now(), ctx = healthCtx(), errs = [], list = [["H4", healthSheetGuard], ["H24", healthGates], ["H17", healthDnsCheck]];
   if (healthFmt(new Date(), "dd") === "01") list.push(["H23", healthMonthly]);
   list.push(["H18", healthSelfTest]);          // last: its email lists what the others found
   healthRun(ctx, errs, list);
-  healthFinish("healthDaily", t0, errs);
+  healthFinish("healthDaily", t0, errs, ctx);
 }
 function healthNightly() {
   var t0 = Date.now(), ctx = healthCtx(), errs = [];
-  healthRun(ctx, errs, [["H21", healthBackup]]);
-  healthFinish("healthNightly", t0, errs);
+  healthRun(ctx, errs, [["H4", healthSheetGuard], ["H21", healthBackup]]);   // the backup is always taken; the rows check needs row 1 OK
+  healthFinish("healthNightly", t0, errs, ctx);
 }
 
 function healthInstallTriggers() {
+  var hr = healthHeaderReport();      // setup step 0: with row 1 incomplete the lead scripts would stop at once (H4)
+  if (!hr.ok) throw new Error("Not installed: row 1 of the Waiting list isn't ready. " + hr.text +
+    " Run healthAddMissingHeaders() first (or fix row 1 by hand), then run healthInstallTriggers() again.");
   var all = ScriptApp.getProjectTriggers(), mine = [], others = [];
   all.forEach(function (t) { (HEALTH_OWN_TRIGGERS.indexOf(t.getHandlerFunction()) !== -1 ? mine : others).push(t); });
   if (others.length + HEALTH_OWN_TRIGGERS.length > HEALTH_MAX_TRIGGERS)
@@ -535,6 +674,9 @@ function healthConfigCheck(ctx) {
   var callers = healthList(get("ONCALL_MOBILE")), bad = callers.filter(function (n) { return !healthMobileOk(n); });
   if (bad.length) add("ONCALL_MOBILE", "ONCALL_MOBILE has " + healthPlural(bad.length, "entry", "entries") + " that isn't a UK mobile (07... or +447...): " +
     bad.map(healthMask).join(", ") + ". Texts to it are skipped.", "setting wrong - ONCALL_MOBILE is blank/invalid, so the caller gets no lead alerts. Fix in Script Properties. Plan R5");
+  var om = healthList(get("OWNER_MOBILE")).filter(function (n) { return !healthMobileOk(n); });
+  if (om.length) add("OWNER_MOBILE", "OWNER_MOBILE has " + healthPlural(om.length, "entry", "entries") + " that isn't a UK mobile: " + om.map(healthMask).join(", ") +
+    ". It should normally be empty (the owner gets email copies, not texts).", "setting wrong - OWNER_MOBILE is not a UK mobile. Empty it in Script Properties. Plan R5");
   var owner = healthList(get("HEALTH_SMS")).map(healthDigits).filter(String);
   if (callers.some(function (n) { return owner.indexOf(healthDigits(n)) !== -1; }) && !untilOk("ONCALL_MOBILE"))
     add("ONCALL_MOBILE_OWNER", "ONCALL_MOBILE contains the owner's mobile (HEALTH_SMS) and there's no ONCALL_MOBILE_UNTIL, so lead alerts go to the owner instead of the caller.",
@@ -562,9 +704,8 @@ function healthConfigCheck(ctx) {
   if (!he.length) add("HEALTH_EMAIL", "HEALTH_EMAIL is blank, so alerts only go to OWNER_EMAIL (info@), which isn't watched closely.", "setting wrong - HEALTH_EMAIL is blank, so alert emails don't reach you. Fix in Script Properties.");
   else if (he.some(function (e) { return !healthEmailOk(e); })) add("HEALTH_EMAIL", "HEALTH_EMAIL has an address that isn't valid: " + he.filter(function (e) { return !healthEmailOk(e); }).join(", ") + ".",
     "setting wrong - HEALTH_EMAIL has an invalid address. Fix in Script Properties.");
-  var hs = healthList(get("HEALTH_SMS"));
-  if (!hs.length) add("HEALTH_SMS", "HEALTH_SMS is blank, so critical alerts are not texted to you.", "setting wrong - HEALTH_SMS is blank.");
-  else if (hs.some(function (n) { return !healthMobileOk(n); })) add("HEALTH_SMS", "HEALTH_SMS isn't a UK mobile, so critical alerts can't be texted to you.", "setting wrong - HEALTH_SMS is not a UK mobile.");
+  // a blank HEALTH_SMS is a choice (owner decision pending: critical alerts by text?) - the daily email lists it as not set up
+  if (healthList(get("HEALTH_SMS")).some(function (n) { return !healthMobileOk(n); })) add("HEALTH_SMS", "HEALTH_SMS isn't a UK mobile, so critical alerts can't be texted to you.", "setting wrong - HEALTH_SMS is not a UK mobile.");
 
   if (!issues.length) { healthResolve("H3_CONFIG"); return issues; }
   var names = issues.map(function (i) { return i.name; });
@@ -575,31 +716,71 @@ function healthConfigCheck(ctx) {
       "ONCALL_MOBILE = the caller's mobile, HEALTH_EMAIL = your personal email, HEALTH_SMS = your mobile. For any temporary change add " +
       "<NAME>_UNTIL with its end time (yyyy-mm-dd hh:mm), so this check knows it's meant.",
     plan: "R5"
-  }, { sig: names.slice().sort().join(","), short: "settings wrong", sms: "KD P1: " + (issues.length === 1 ? issues[0].sms :
+  }, { sig: names.slice().sort().join(","), short: "settings wrong", noSms: !get("CLICKSEND_USER") || !get("CLICKSEND_KEY"), sms: "KD P1: " + (issues.length === 1 ? issues[0].sms :
     healthPlural(issues.length, "setting") + " wrong (" + names.join(", ") + "). Fix in Script Properties. Plan R5") });
   return issues;
+}
+
+// Row 1 of the Waiting list against the headers the scripts need (HEALTH_SHEET_HEADERS, plan H4). No alert, no change.
+function healthHeaderReport(sh) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  sh = sh || ss.getSheetByName(LEADS_TAB);
+  var out = { ok: false, sh: sh, h: [], missing: [], twice: [], near: [], a1: true, problems: [], text: "" };
+  if (!sh) { out.problems.push("tab \"" + LEADS_TAB + "\" missing"); out.text = "The tab \"" + LEADS_TAB + "\" is missing."; return out; }
+  var h = out.h = sh.getRange(1, 1, 1, Math.max(1, sh.getLastColumn())).getValues()[0].map(String);
+  var norm = function (x) { return String(x).toLowerCase().replace(/\s+/g, " ").trim(); };
+  if (h[0] !== "Signup Time") { out.a1 = false; out.problems.push("A1 is \"" + h[0] + "\" not \"Signup Time\""); }
+  HEALTH_SHEET_HEADERS.forEach(function (n) {
+    var c = h.filter(function (x) { return x === n; }).length;
+    if (c > 1) { out.twice.push(n); out.problems.push(n + " twice"); return; }
+    if (c) return;
+    out.missing.push(n); out.problems.push(n + " missing");
+    var close = h.filter(function (x) { return x !== n && norm(x) === norm(n); })[0];      // "Lead ID " / "Lead id" for "Lead ID"
+    if (close !== undefined) out.near.push("\"" + close + "\" should be \"" + n + "\"");
+  });
+  out.ok = !out.problems.length;
+  out.text = out.ok ? "Row 1 is ready: all " + HEALTH_SHEET_HEADERS.length + " headers the scripts need are there." :
+    [out.missing.length ? "Missing: " + out.missing.join(", ") + "." : "", out.near.length ? "Retype exactly: " + out.near.join("; ") + "." : "",
+      out.twice.length ? "Twice (delete or rename one): " + out.twice.join(", ") + "." : "", out.a1 ? "" : "A1 must be \"Signup Time\" (it is \"" + h[0] + "\")."]
+      .filter(String).join(" ");
+  return out;
+}
+// Setup night, step 0 (run by hand): lists what row 1 still needs. Changes nothing, alerts nobody.
+function healthCheckHeaders() { var r = healthHeaderReport(); console.log(r.text); return r.ok; }
+// Setup night, step 0 (run by hand): adds the missing headers at the right-hand end of row 1. Nothing is moved or renamed;
+// it refuses if a header is there twice or almost right (e.g. "Lead ID " with a space), because that must be fixed by hand.
+function healthAddMissingHeaders() {
+  var r = healthHeaderReport();
+  if (r.ok) { console.log(r.text); return 0; }
+  if (!r.sh || !r.a1 || r.twice.length || r.near.length) throw new Error("Row 1 not changed. " + r.text + " Fix these by hand, then run this again.");
+  var col = r.sh.getLastColumn() + 1;
+  healthCols(r.sh, col + r.missing.length - 1);
+  r.sh.getRange(1, col, 1, r.missing.length).setValues([r.missing]);
+  console.log("Added " + r.missing.length + " headers at the end of row 1: " + r.missing.join(", ") + ". Nothing else changed.");
+  return r.missing.length;
 }
 
 // H4 (also called at the start of pollMetaLeads and doPost): the Waiting list's header row. Throws (after alerting) if a
 // script would misfile, so the caller stops BEFORE reading any lead.
 function healthAssertSheet(sh) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet(), problems = [], h = [];
-  sh = sh || ss.getSheetByName(LEADS_TAB);
-  if (!sh) problems.push("tab \"" + LEADS_TAB + "\" missing");
-  else {
-    h = sh.getRange(1, 1, 1, Math.max(1, sh.getLastColumn())).getValues()[0].map(String);
-    if (h[0] !== "Signup Time") problems.push("A1 is \"" + h[0] + "\" not \"Signup Time\"");
-    HEALTH_SHEET_HEADERS.forEach(function (n) {
-      var c = h.filter(function (x) { return x === n; }).length;
-      if (!c) problems.push(n + " missing"); else if (c > 1) problems.push(n + " twice");
-    });
-  }
-  if (!problems.length) return h;
+  var r = healthHeaderReport(sh), problems = r.problems;
+  if (r.ok) return r.h;
   var err = new Error("Waiting list header problem: " + problems.join("; "));
   err.healthProblems = problems;
+  // setup night: the tracking columns were never added (nothing was renamed) -> say so, and how to add them
+  var setup = r.sh && r.a1 && !r.twice.length && !r.near.length && !healthGet("HEALTH_ROW1") &&
+    r.missing.every(function (n) { return HEALTH_SETUP_HEADERS.indexOf(n) !== -1; });
   try {
-    healthAlert("P1", "H4_SHEET", "Waiting list header row changed (" + problems.slice(0, 3).join(", ") + "): lead scripts stopped", {
-      what: "The Waiting list's header row (row 1) no longer matches what the scripts expect: " + problems.join("; ") + ".",
+    if (setup) healthAlert("P1", "H4_SHEET", "Waiting list is missing " + healthPlural(r.missing.length, "column") + " the scripts need (" +
+      r.missing.slice(0, 3).join(", ") + (r.missing.length > 3 ? ", ..." : "") + "): lead scripts stopped", {
+      what: "Row 1 of the Waiting list doesn't have these headers yet: " + r.missing.join(", ") + ".",
+      affects: "To avoid putting people's details in the wrong columns, the Facebook lead checker has stopped (it reads no leads, so none are lost - they're collected once row 1 is complete). Website sign-ups are saved in the \"Failed sign-ups\" tab instead.",
+      todo: "Apps Script: run healthAddMissingHeaders() once - it adds the missing headers at the right-hand end of row 1 and changes nothing else. Within a minute the lead checker carries on by itself. Then add anyone in \"Failed sign-ups\" by hand.",
+      plan: "register row 23"
+    }, { sig: problems.join(","), short: "sheet columns missing", sms: "KD P1: Waiting list is missing " + healthPlural(r.missing.length, "column") + " the scripts need. Lead scripts stopped. Run healthAddMissingHeaders (register row 23)." });
+    else healthAlert("P1", "H4_SHEET", "Waiting list header row changed (" + problems.slice(0, 3).join(", ") + "): lead scripts stopped", {
+      what: "The Waiting list's header row (row 1) no longer matches what the scripts expect: " + problems.join("; ") + "." +
+        (r.near.length ? "\nLooks like a typo: " + r.near.join("; ") + "." : ""),
       affects: "To avoid putting people's details in the wrong columns, the Facebook lead checker has stopped (it reads no leads, so none are lost - they're collected once row 1 is fixed). Website sign-ups may also fail.",
       todo: "Restore row 1: File > Version history, or retype the header exactly (e.g. \"Status\", not \"Status x\"). Never sort the whole sheet. Within a minute of the fix the lead checker carries on by itself.",
       plan: "register row 23"
@@ -611,7 +792,7 @@ function healthAssertSheet(sh) {
 function healthSheetCheck(ctx) {
   ctx = ctx || healthCtx();
   var h;
-  try { h = healthAssertSheet(); } catch (e) { ctx.sheetBad = String(e.message || e); return; }
+  try { h = healthAssertSheet(); } catch (e) { ctx.sheetBad = String(e.message || e); if (!e.healthProblems) throw e; return; }
   healthResolve("H4_SHEET");
   var ss = SpreadsheetApp.getActiveSpreadsheet(), first = ss.getSheets()[0].getName();
   if (first !== "Dashboard") healthAlert("P2", "H4_DASHBOARD", "Dashboard is no longer the first tab (first tab: " + first + ")", {
@@ -620,16 +801,20 @@ function healthSheetCheck(ctx) {
     todo: "Drag the Dashboard tab back to the far left."
   }, { sig: first });
   else healthResolve("H4_DASHBOARD");
+  // row 1 as text, without the empty cells at its end (a note typed to the right of the table isn't a header change)
+  var trim = function (a) { a = (a || []).map(String); while (a.length && a[a.length - 1].trim() === "") a.pop(); return a; };
+  h = trim(h);
   var row1 = JSON.stringify(h), old = healthGet("HEALTH_ROW1");
   if (old && old !== row1) {
-    var was = []; try { was = JSON.parse(old); } catch (e) {}
+    var was = []; try { was = trim(JSON.parse(old)); } catch (e) {}
     var added = h.filter(function (x) { return x && was.indexOf(x) === -1; }), gone = was.filter(function (x) { return x && h.indexOf(x) === -1; });
-    var moved = h.filter(function (x, i) { return was.indexOf(x) !== -1 && was.indexOf(x) !== i; }).length;
-    healthAlert("P2", "H4_ROW1", "Waiting list header row changed (" + [added.length ? "added " + added.join(", ") : "", gone.length ? "removed " + gone.join(", ") : "", moved ? healthPlural(moved, "column") + " moved" : ""].filter(String).join("; ").slice(0, 120) + ")", {
-      what: "Row 1 of the Waiting list changed since the last check.\nAdded: " + (added.join(", ") || "none") + "\nRemoved or renamed: " + (gone.join(", ") || "none") + "\nColumns that moved: " + moved,
-      affects: "The scripts find columns by name, so a moved column is fine. A renamed or deleted column stops whatever the scripts wrote there.",
-      todo: "If nobody meant to change it, undo it (File > Version history). If it was deliberate, nothing to do."
-    }, { event: true, every: 0 });
+    var moved = h.filter(function (x, i) { return x && was.indexOf(x) !== -1 && was.indexOf(x) !== i; }).length;
+    if (added.length || gone.length || moved)
+      healthAlert("P2", "H4_ROW1", "Waiting list header row changed (" + [added.length ? "added " + added.join(", ") : "", gone.length ? "removed " + gone.join(", ") : "", moved ? healthPlural(moved, "column") + " moved" : ""].filter(String).join("; ").slice(0, 120) + ")", {
+        what: "Row 1 of the Waiting list changed since the last check.\nAdded: " + (added.join(", ") || "none") + "\nRemoved or renamed: " + (gone.join(", ") || "none") + "\nColumns that moved: " + moved,
+        affects: "The scripts find columns by name, so a moved column is fine. A renamed or deleted column stops whatever the scripts wrote there.",
+        todo: "If nobody meant to change it, undo it (File > Version history). If it was deliberate, nothing to do."
+      }, { event: true, every: 0 });
   }
   if (old !== row1) healthProps().setProperty("HEALTH_ROW1", row1);
 }
@@ -637,7 +822,8 @@ function healthSheetCheck(ctx) {
 // ======================================================================================================
 // H5–H7: is the caller keeping up?  (owner decision: callers aren't the limit – the fix is "add a caller")
 // ======================================================================================================
-// Waiting = blank or "Call 8am" an hour after the clock starts, plus "No answer" call-backs over an hour late.
+// Waiting = blank or "Call 8am" an hour after the clock starts, plus "No answer" call-backs over an hour late - an hour of
+// the caller's SHIFT (CALLER_SHIFT), so leads from before the shift aren't "waiting" the minute it starts.
 function healthBacklog(ctx, now) {
   var W = healthWl(ctx), s = healthShift(), out = { waiting: 0, oldest: 0, call8am: 0, queue: 0 }, earliest = 0;
   now = now || new Date();
@@ -647,11 +833,9 @@ function healthBacklog(ctx, now) {
     var r = W.data[i], st = String(r[sc]).trim(), t = r[tc], start = null;
     if (!(t instanceof Date)) continue;
     if (st === "Call 8am") out.call8am++;
-    if (st === "" || st === "Call 8am") { out.queue++; start = healthClockStart(t); if (now - start < 36e5) start = null; }
-    else if (st === "No answer" && nc !== undefined && r[nc] instanceof Date && r[nc].getTime() <= now.getTime()) {
-      out.queue++; if (now - r[nc] > 36e5) start = r[nc];
-    }
-    if (!start) continue;
+    if (st === "" || st === "Call 8am") { out.queue++; start = healthClockStart(t); }
+    else if (st === "No answer" && nc !== undefined && r[nc] instanceof Date && r[nc].getTime() <= now.getTime()) { out.queue++; start = r[nc]; }
+    if (!start || now - start < 36e5 || healthShiftMins(start, now, s) < 60) continue;
     out.waiting++;
     if (!earliest || start.getTime() < earliest) earliest = start.getTime();
   }
@@ -699,15 +883,15 @@ function healthCallerActive(ctx) {
   if (log && log.getLastRow() > 1) { var lv = log.getRange(log.getLastRow(), 1).getValue(); if (lv instanceof Date) { any = true; last = Math.max(last, lv.getTime()); } }
   if (!any) return;                                       // call tracking not in use yet: nothing to compare with
   var b = ctx.backlog || healthBacklog(ctx, now), idle = healthShiftMins(new Date(last), now, s), none = last < shiftStart.getTime();
-  var n = Math.max(b.waiting, b.queue);
-  if ((b.waiting >= 1 && idle >= 120) || (none && b.queue >= 1)) {
+  var n = Math.max(b.waiting, b.queue), are = n === 1 ? " is" : " are";
+  if (b.waiting >= 1 && (idle >= 120 || none)) {          // someone has waited over an hour (a lead that just came in proves nothing)
     var since = none ? "no calls logged yet today (shift started " + healthFmt(shiftStart, "HH:mm") + ")" : "no calls logged since " + healthHM(last);
     healthAlert("P1", "H6_CALLER", since.charAt(0).toUpperCase() + since.slice(1) + " and " + healthPlural(n, "lead") + " waiting", {
-      what: "The sheet shows " + since + " (Call log, Status changed at, Last attempt at), and " + healthPlural(n, "lead") + " are waiting to be called.",
+      what: "The sheet shows " + since + " (Call log, Status changed at, Last attempt at), and " + healthPlural(n, "lead") + are + " waiting to be called.",
       affects: "If the caller is off or stuck, nobody is ringing new leads.",
       todo: "Phone the caller. If they're off today: put the backup caller's mobile in ONCALL_MOBILE (add ONCALL_MOBILE_UNTIL with today's end time if it's temporary) and ask the backup to start with the oldest rows.",
       plan: "R5"
-    }, { short: "no calls logged", sms: "KD P1: " + since.replace(/ \(shift.*\)/, "") + " and " + healthPlural(n, "lead") + " are waiting. Is the caller OK? If off, move alerts to the backup. Plan R5" });
+    }, { short: "no calls logged", sms: "KD P1: " + since.replace(/ \(shift.*\)/, "") + " and " + healthPlural(n, "lead") + are + " waiting. Is the caller OK? If off, move alerts to the backup. Plan R5" });
   } else healthResolve("H6_CALLER");
 }
 // H7: overnight ("Call 8am") leads still not called at 10:00 / 12:00 on caller days.
@@ -738,12 +922,12 @@ function healthGraph(path, params, token) {
   while (url && pages++ < 20) {
     var res;
     try { res = UrlFetchApp.fetch(url, { muteHttpExceptions: true }); }
-    catch (e) { return { ok: false, http: 0, code: 0, msg: String(e).slice(0, 200), data: out, headers: {} }; }
+    catch (e) { return { ok: false, http: 0, code: 0, msg: healthScrub(e).slice(0, 200), data: out, headers: {} }; }
     var txt = res.getContentText(), body = {};
     try { body = JSON.parse(txt); } catch (e) {}
     if (res.getResponseCode() !== 200) {
       var er = (body && body.error) || {};
-      return { ok: false, http: res.getResponseCode(), code: Number(er.code) || 0, msg: String(er.message || txt).slice(0, 300), data: out, headers: {} };
+      return { ok: false, http: res.getResponseCode(), code: Number(er.code) || 0, msg: healthScrub(er.message || txt).slice(0, 300), data: out, headers: {} };
     }
     try { headers = (res.getAllHeaders ? res.getAllHeaders() : res.getHeaders()) || {}; } catch (e) {}
     if (body && Object.prototype.toString.call(body.data) === "[object Array]") { out = out.concat(body.data); url = body.paging && body.paging.next; }
@@ -761,7 +945,8 @@ function healthFailedLead(l, why, contacted) {
   var answers = (l.field_data || []).map(function (x) { return x.name + ": " + (x.values || []).join(", "); }).join(" | ");
   sh.appendRow([new Date(), "'" + String(l.id || ""), "'" + String(l.form_id || l._form || ""), l.created_time ? new Date(l.created_time) : "",
     safe(name), "'" + String(f(["phone"])).slice(0, 20), safe(f(["email"])), safe(f(["post", "zip"])), safe(answers.slice(0, 1000)),
-    String(why || "").slice(0, 300), contacted ? "Yes - texted, but the row didn't save" : "No - not texted yet", "", ""]);
+    String(why || "").slice(0, 300), typeof contacted === "string" ? contacted :
+      contacted ? "Yes - already texted (and the caller alerted in calling hours), but the row didn't save" : "No - not texted yet", "", ""]);
 }
 function healthFailedIds() {
   var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(HEALTH_FAILED_TAB), out = [];
@@ -770,53 +955,71 @@ function healthFailedIds() {
   for (var i = 1; i < data.length; i++) if (c !== -1 && data[i][c] !== "") out.push(healthId(data[i][c]));
   return out;
 }
-// One P1 per run for every new row in "Failed leads" / "Failed sign-ups" (never throttled). Marks the rows "Alerted at" after sending.
+// One P1 per run for every new row in "Failed leads" / "Failed sign-ups" (never throttled). A row counts as new until its
+// "Alerted at" cell is filled, which happens only once the email or the text actually went out. The leaflet's "Failed sign-ups"
+// tab has no "Alerted at" column, so one is added after its last column (row numbers can't be used: rows get deleted).
 function healthAlertFailedRows() {
   var ss = SpreadsheetApp.getActiveSpreadsheet(), total = 0;
   [[HEALTH_FAILED_TAB, "FB", "Facebook lead"], [HEALTH_FAILED_WEB_TAB, "WEB", "website sign-up"]].forEach(function (t) {
     var sh = ss.getSheetByName(t[0]);
     if (!sh || sh.getLastRow() < 2) return;
     var data = sh.getDataRange().getValues(), h = data[0].map(String), ac = h.indexOf("Alerted at"), rows = [];
-    var seen = Number(healthGet("HEALTH_SEEN_" + t[1], 1)) || 1;     // tabs without an "Alerted at" column: rows already seen
-    for (var i = 1; i < data.length; i++) {
-      if (!data[i].some(function (v) { return v !== "" && v !== null; })) continue;
-      if (ac !== -1 ? !data[i][ac] : i >= seen) rows.push(i);
+    if (ac === -1) {
+      ac = sh.getLastColumn();
+      healthCols(sh, ac + 1);
+      sh.getRange(1, ac + 1).setValue("Alerted at");
+      var seen = Number(healthGet("HEALTH_SEEN_" + t[1], 0)) || 0;      // an earlier version counted rows: those were alerted already
+      for (var j = 1; j < Math.min(seen, data.length); j++) sh.getRange(j + 1, ac + 1).setValue("(earlier)");
+      healthProps().deleteProperty("HEALTH_SEEN_" + t[1]);
+      h[ac] = "Alerted at";
+      data.forEach(function (r, i) { r[ac] = i && i < seen ? "(earlier)" : ""; });
     }
-    if (!rows.length) { if (ac === -1) healthProps().setProperty("HEALTH_SEEN_" + t[1], String(data.length)); return; }
+    for (var i = 1; i < data.length; i++) {
+      if (!data[i].some(function (v, c) { return c !== ac && v !== "" && v !== null && v !== undefined; })) continue;
+      if (data[i][ac] === "" || data[i][ac] === null || data[i][ac] === undefined) rows.push(i);
+    }
+    if (!rows.length) return;
     var n = rows.length, web = t[1] === "WEB";
     var lines = rows.map(function (i) {
       return "Row " + (i + 1) + ":\n" + h.map(function (name, c) {
-        var v = data[i][c]; if (!name || name === "Alerted at" || v === "" || v === null) return "";
+        var v = data[i][c]; if (!name || name === "Alerted at" || v === "" || v === null || v === undefined) return "";
         return "  " + name + ": " + (v instanceof Date ? healthFmt(v, "dd/MM/yyyy HH:mm") : String(v).replace(/^'/, ""));
       }).filter(String).join("\n");
     }).join("\n\n");
     var when = data[rows[0]][0] instanceof Date ? healthHM(data[rows[0]][0]) : healthHM(new Date());
-    healthAlert("P1", "FAILED_ROWS_" + t[1], web ? (n === 1 ? "A website sign-up failed to save at " + when : n + " website sign-ups failed to save") :
+    var res = healthAlert("P1", "FAILED_ROWS_" + t[1], web ? (n === 1 ? "A website sign-up failed to save at " + when : n + " website sign-ups failed to save") :
       (n === 1 ? "A Facebook lead is not in the Waiting list" : n + " Facebook leads are not in the Waiting list"), {
       what: lines,
       affects: (n === 1 ? "This person isn't" : "These people aren't") + " in the Waiting list, so nobody will call them unless they're added by hand.",
-      todo: "Add each person to the Waiting list by hand (same columns), then call them first. Write your initials in the last column of the " + t[0] + " tab when done.",
+      todo: "Add each person to the Waiting list by hand (same columns), then call them first. Write your initials in the last column of the " + t[0] + " tab when done." +
+        (web ? "" : " The lead checker won't add these people again."),
       plan: web ? "R7" : "R3"
     }, { event: true, every: 0, short: n + " " + (web ? "sign-ups" : "FB leads") + " not saved",
       sms: web ? (n === 1 ? "KD P1: a website sign-up failed to save at " + when + ". Details in Failed sign-ups tab. Add and call them." :
         "KD P1: " + n + " website sign-ups failed to save. Details in Failed sign-ups tab. Add and call them.") :
         "KD P1: " + healthPlural(n, "Facebook lead") + " not in the sheet. Names in your email and the Failed leads tab. Call them first. Plan R3" });
-    if (ac !== -1) rows.forEach(function (i) { sh.getRange(i + 1, ac + 1).setValue(new Date()); });
-    else healthProps().setProperty("HEALTH_SEEN_" + t[1], String(data.length));
+    if (!res.emailed && !res.texted) return;                       // nothing reached anyone: try again on the next run
+    rows.forEach(function (i) { sh.getRange(i + 1, ac + 1).setValue(new Date()); });
     total += n;
   });
   return total;
 }
 
-// H8 (hourly): every Meta lead of the last 26 h must be in the sheet (by exact Lead ID).
+// H8 (hourly): every Meta lead of the last 26 h must be in the sheet (by exact Lead ID). Leads the lead checker hasn't
+// reached yet (it's stopped or failing, and they're inside its 15-minute overlap window and not marked seen) are left to
+// it: it adds them once it runs again, and H1/H2/H4/H15 are already telling the owner it's stopped.
 function healthMetaReconcile(ctx) {
   ctx = ctx || healthCtx();
   var token = healthGet("META_PAGE_TOKEN"), forms = healthList(healthGet("META_FORM_IDS"));
-  if (!token || !forms.length) return;
+  if (!token || !forms.length || ctx.sheetBad) return;
   var W = healthWl(ctx), have = {}, skip = {}, ic = W.C["Lead ID"];
-  for (var i = 1; i < W.data.length; i++) if (ic !== undefined) have[healthId(W.data[i][ic])] = true;
+  if (ic === undefined) return;                                     // no Lead ID column: H4 says so; nothing can be compared
+  for (var i = 1; i < W.data.length; i++) have[healthId(W.data[i][ic])] = true;
   Object.keys(healthJson("META_RETRY", {}) || {}).forEach(function (id) { skip[id] = true; });   // still being retried by the poller
   healthFailedIds().forEach(function (id) { skip[id] = true; });                                     // already reported
+  var j = healthJob("pollMetaLeads"), pollerOk = !!(j && j.ok && j.lastOk && Date.now() - j.lastOk <= 10 * 6e4);
+  var sinceBy = healthJson("META_SINCE_BY_FORM", {}) || {}, seen = {};
+  (healthJson("META_SEEN", []) || []).forEach(function (id) { seen[String(id)] = true; });
   var since = Math.floor(Date.now() / 1000) - 26 * 3600, cutoff = Date.now() - 15 * 6e4, missing = [];
   var base = healthNum("HEALTH_BASELINE_MANUAL", 0);                // healthSetBaseline(): test leads deleted on purpose before this
   forms.forEach(function (f) {
@@ -825,12 +1028,17 @@ function healthMetaReconcile(ctx) {
     if (!r.ok) return;                                                                                // Meta errors: H2
     r.data.forEach(function (l) {
       var id = String(l.id), t = new Date(l.created_time).getTime();
-      if (t < cutoff && t >= base && !have[id] && !skip[id]) { l._form = f; missing.push(l); skip[id] = true; }
+      if (!(t < cutoff && t >= base && !have[id] && !skip[id])) return;
+      if (!pollerOk && !seen[id] && (!sinceBy[f] || t / 1000 > Number(sinceBy[f]) - 900)) return;   // the lead checker will still read it
+      l._form = f; missing.push(l); skip[id] = true;
     });
   });
   ctx.reconcileMissing = missing.length;
   if (!missing.length) return 0;
-  missing.forEach(function (l) { healthFailedLead(l, "Not in the Waiting list (found by the hourly Meta check, " + healthHM(new Date()) + ")", false); });
+  missing.forEach(function (l) {
+    healthFailedLead(l, "Not in the Waiting list (found by the hourly Meta check, " + healthHM(new Date()) + ")",
+      seen[String(l.id)] ? "Probably - the script handled this lead, but its row isn't in the Waiting list now (deleted or moved?)" : false);
+  });
   healthAlertFailedRows();
   healthProps().setProperty("HEALTH_H8_LAST", String(Date.now()));
   return missing.length;
@@ -957,7 +1165,12 @@ function healthNoMetaLeads(ctx) {
     var t = healthV(W, W.data[i], "Signup Time");
     if (t instanceof Date && healthIsMeta(W, W.data[i])) last = Math.max(last, t.getTime());
   }
-  var from = last || healthAt(new Date(), 0, 0).getTime(), hrs = (now - from) / 36e5;
+  // the window starts at the last Meta row (or midnight), but never before launch, before the campaigns came back on, or
+  // before healthSetBaseline() (test rows deleted)
+  var launch = healthParseTime(healthGet("LAUNCH_DATE")), from = last || healthAt(new Date(), 0, 0).getTime();
+  [launch ? healthAt(launch, 0, 0).getTime() : 0, healthNum("ADS_ACTIVE_SINCE", 0), healthNum("HEALTH_BASELINE_MANUAL", 0)]
+    .forEach(function (t) { if (t > from) from = t; });
+  var hrs = (now - from) / 36e5;
   if (hrs < N) { healthResolve("H11_NOLEADS"); return; }
   var openKey = function (k) { return !!healthState(k).open; };
   var other = ctx.h9gap || ctx.reconcileMissing || openKey("H9_COUNT") || openKey("H1_POLLER") || openKey("H2_META") ||
@@ -1055,24 +1268,37 @@ function healthClickSendBalance(ctx) {
   else healthResolve("SMS_BALANCE");
 }
 
-// H14a (every 5 min, from the SMS log + the Waiting list)
+// A later text went through after a failed one: of the same type, or of any type when the whole account was the problem.
+function healthSmsRecovered(log, bad, type) {
+  var anyType = healthClickSendDown(bad.status);
+  return log.some(function (m) { return m.t > bad.t && m.status === "SUCCESS" && (anyType || m.type === type); });
+}
+// H14a (every 5 min, from the SMS log + the Waiting list). Both text alerts stay open until a later text proves ClickSend
+// works again - a quiet spell with no new leads proves nothing. While open (and no new failure) they're re-raised in
+// calling hours only, so the normal 3-hourly reminder runs and nothing is said overnight.
 function healthSmsCheck(ctx) {
   ctx = ctx || healthCtx();
-  var log = healthSmsLog(ctx), now = Date.now();
+  var log = healthSmsLog(ctx), now = Date.now(), hours = inCallHours(new Date(now)), day = 24 * 36e5;
   if (ctx.smsTab) {
-    var callerBad = log.filter(function (m) { return m.type === "caller alert" && now - m.t <= 15 * 6e4 && m.status !== "SUCCESS"; });
-    if (callerBad.length) {
-      var s = callerBad[callerBad.length - 1], hm = healthHM(s.t);
-      healthAlert("P1", "H14_CALLER_SEND", "Caller alert not sent (" + hm + ", " + s.status + ")", {
-        what: "The new-lead text to the caller at " + hm + " was not accepted by ClickSend (" + s.status + ").",
-        affects: "The caller may not know about a new lead.",
+    var badC = null;
+    log.forEach(function (m) { if (m.type === "caller alert" && m.status !== "SUCCESS" && (!badC || m.t >= badC.t)) badC = m; });
+    var cs = healthState("H14_CALLER_SEND");
+    var cRec = !!badC && healthSmsRecovered(log, badC, "caller alert");
+    var cOpen = badC && now - badC.t <= day && !cRec && (now - badC.t <= 15 * 6e4 || cs.open);
+    if (cOpen && (now - badC.t <= 15 * 6e4 || hours)) {
+      var hm = healthHM(badC.t);
+      healthAlert("P1", "H14_CALLER_SEND", "Caller alert not sent (" + hm + ", " + badC.status + ")", {
+        what: "The new-lead text to the caller at " + hm + " was not accepted by ClickSend (" + badC.status + "), and no caller alert has gone through since.",
+        affects: "The caller may not know about new leads.",
         todo: "Open the Waiting list: call the newest rows with a blank Status now. Then check ClickSend (credit, sender ID) and that ONCALL_MOBILE is right.",
         plan: "R4/R5"
-      }, { noSms: healthClickSendDown(s.status), sig: s.status, short: "caller alert failed",
-        sms: "KD P1: caller alert not sent (" + hm + ", " + s.status + "). The caller may not know about new leads. Plan R4/R5" });
-    } else healthResolve("H14_CALLER_SEND");
+      }, { noSms: healthClickSendDown(badC.status), sig: badC.status, short: "caller alert failed",
+        sms: "KD P1: caller alert not sent (" + hm + ", " + badC.status + "). The caller may not know about new leads. Plan R4/R5" });
+    } else if (!cOpen) healthResolve("H14_CALLER_SEND", cRec ? "A later text went through, so ClickSend is sending again." : "");
     var lead = log.filter(function (m) { return m.type === "lead text" && now - m.t <= 36e5; });
-    var bad = lead.filter(function (m) { return m.status !== "SUCCESS"; });
+    var bad = lead.filter(function (m) { return m.status !== "SUCCESS"; }), lastBad = null;
+    log.forEach(function (m) { if (m.type === "lead text" && m.status !== "SUCCESS" && (!lastBad || m.t >= lastBad.t)) lastBad = m; });
+    var lf = healthState("H14_LEAD_FAIL"), lRec = !!lastBad && healthSmsRecovered(log, lastBad, "lead text");
     if (bad.length >= 3 || (lead.length >= 5 && bad.length / lead.length >= 0.2)) {
       var why = {}; bad.forEach(function (m) { why[m.status] = (why[m.status] || 0) + 1; });
       var top = Object.keys(why).sort(function (a, b) { return why[b] - why[a]; })[0];
@@ -1082,7 +1308,14 @@ function healthSmsCheck(ctx) {
         todo: "INSUFFICIENT_CREDIT: top up ClickSend. Other codes: check the ClickSend account (sender ID, key). Once fixed, run healthResendFailedTexts() in calling hours.",
         plan: "R4"
       }, { noSms: healthClickSendDown(top), sig: top, short: "lead texts failing", sms: "KD P1: " + bad.length + " lead texts failed in the last hour (" + top + "). Plan R4" });
-    } else healthResolve("H14_LEAD_FAIL");
+    } else if (lf.open && lastBad && now - lastBad.t <= day && !lRec) {
+      if (hours) healthAlert("P1", "H14_LEAD_FAIL", lf.subject || "Lead texts failing", {
+        what: "Thank-you texts to new leads are still failing: the last one at " + healthHM(lastBad.t) + " (" + lastBad.status + "), and none has gone through since.",
+        affects: "New leads aren't getting their thank-you text. The caller can still call them from the sheet.",
+        todo: "INSUFFICIENT_CREDIT: top up ClickSend. Other codes: check the ClickSend account (sender ID, key). Once fixed, run healthResendFailedTexts() in calling hours.",
+        plan: "R4"
+      }, { noSms: healthClickSendDown(lastBad.status), sig: lf.sig, short: "lead texts failing", sms: "KD P1: lead texts still failing (" + lastBad.status + "). Plan R4" });
+    } else healthResolve("H14_LEAD_FAIL", lRec ? "A later text went through, so ClickSend is sending again." : "");
   }
   if (ctx.sheetBad) return;
   var W = healthWl(ctx), rows = [];
@@ -1305,7 +1538,7 @@ function healthSelfTest(ctx) {
     try { return fn(); }
     catch (e) {
       var p = /permission|authori[sz]/i.test(String(e));
-      add(p ? "P1" : "P2", what + " failed: " + String(e).slice(0, 120), p ? "Re-authorise: run healthSelfTest once by hand and allow every permission (tick \"Select all\")." : "Forward this email to the ads chat.");
+      add(p ? "P1" : "P2", what + " failed: " + healthScrub(e).slice(0, 120), p ? "Re-authorise: run healthSelfTest once by hand and allow every permission (tick \"Select all\")." : "Forward this email to the ads chat.");
       return null;
     }
   };
@@ -1314,10 +1547,13 @@ function healthSelfTest(ctx) {
   if (user !== null && String(user).toLowerCase() !== want.toLowerCase()) add("P2", "The scripts run as " + (user || "an unknown account") + ", not " + want + ".", "Re-run the trigger installers while signed in as " + want + " only.");
   var tr = perm("Reading the triggers", function () { return ScriptApp.getProjectTriggers().map(function (t) { return t.getHandlerFunction(); }); }) || [];
   var count = {}; tr.forEach(function (n) { count[n] = (count[n] || 0) + 1; });
-  var missing = HEALTH_TRIGGERS.filter(function (n) { return !count[n]; }), dup = HEALTH_TRIGGERS.filter(function (n) { return count[n] > 1; });
-  var extra = Object.keys(count).filter(function (n) { return HEALTH_TRIGGERS.indexOf(n) === -1; }), haveT = HEALTH_TRIGGERS.length - missing.length;
+  // the 3 ad triggers are added on launch day (adsInstallTriggers): until the ads are set up, 14 is the full set
+  var adsOn = !!(healthGet("META_AD_ACCOUNT_ID") || healthGet("LAUNCH_DATE") || healthGet("ADS_EXPECTED_ON")) || HEALTH_ADS_TRIGGERS.some(function (n) { return count[n]; });
+  var expect = HEALTH_TRIGGERS.filter(function (n) { return adsOn || HEALTH_ADS_TRIGGERS.indexOf(n) === -1; });
+  var missing = expect.filter(function (n) { return !count[n]; }), dup = HEALTH_TRIGGERS.filter(function (n) { return count[n] > 1; });
+  var extra = Object.keys(count).filter(function (n) { return HEALTH_TRIGGERS.indexOf(n) === -1; }), haveT = expect.length - missing.length;
   if (missing.length) add(missing.some(function (n) { return n === "pollMetaLeads" || n.indexOf("health") === 0; }) ? "P1" : "P2",
-    "triggers " + haveT + " of " + HEALTH_TRIGGERS.length + " (missing " + missing.join(", ") + ")",
+    "triggers " + haveT + " of " + expect.length + " (missing " + missing.join(", ") + ")",
     "Run the installer for the missing ones: installLeadTriggers (lead), adsInstallTriggers (ads*), trkInstallTriggers (trk*), healthInstallTriggers (health*).");
   if (dup.length) add("P2", "triggers set up twice: " + dup.join(", "), "Apps Script > Triggers: delete the extra copy.");
   if (extra.length) add("P2", "unexpected triggers: " + extra.join(", ") + " (" + tr.length + " in total; limit 20)", "Delete them unless someone added them on purpose.");
@@ -1389,12 +1625,14 @@ function healthSelfTest(ctx) {
   var open = healthOpenAlerts(), p1 = f.filter(function (x) { return x.level === "P1"; });
   var bal = healthGet("HEALTH_CS_BALANCE"), balTxt = bal ? "ClickSend \u00A3" + Number(bal).toFixed(2) : "ClickSend not checked yet";
   var setUp = ["HEALTH_SMS", "HEALTH_PING_POLLER", "HEALTH_PING_DAILY", "HEALTH_PING_BACKUP", "META_PAGE_ID", "HEALTH_SITE", "HEALTH_EXEC_ID", "CALLER_SHIFT"].filter(function (k) { return !healthGet(k); });
+  if (!adsOn) setUp.push("the 3 ad triggers (run adsInstallTriggers on launch day: 17 triggers in total)");
+  if (healthGet("HEALTH_BACKUP_FOLDER") && !healthGet("HEALTH_BACKUP_SHARED")) setUp.push("the KD backups folder isn't shared with your personal Google account yet (Drive > KD backups > Share > Viewer)");
   var silent = ["backlogCheck", "morningSummary", "eveningReport", "adsPullInsights", "trkRetryCheck", "trkPullSmsHistory", "trkDailySnapshot"].filter(function (n) { return !healthJob(n); });
   var subject = "[KD] Daily check " + healthFmt(now, "HH:mm") + ": " + (f.length ? healthPlural(f.length, "problem") + " (" + f.slice(0, 3).map(function (x) { return x.text.split(" (")[0].slice(0, 40); }).join("; ") + ")" : "all OK") +
     " (" + haveT + " triggers, version " + HEALTH_VERSION + ", " + balTxt + ", " + healthPlural(open.length, "open alert") + ")";
   var body = (f.length ? "PROBLEMS FOUND\n" + f.map(function (x) { return "- [" + x.level + "] " + x.text + "\n  What to do: " + x.fix; }).join("\n") : "Everything checked is OK.") +
     "\n\nOPEN ALERTS\n" + (open.length ? open.map(function (a) { return "- [" + a.level + "] " + a.subject + " (since " + healthHM(a.first) + ")"; }).join("\n") : "none") +
-    (setUp.length ? "\n\nNOT SET UP YET (Script Properties)\n" + setUp.join(", ") : "") +
+    (setUp.length ? "\n\nNOT SET UP YET\n" + setUp.join(", ") : "") +
     (silent.length ? "\n\nNOT REPORTING TO THE HEALTH CHECKS YET\n" + silent.join(", ") + " (the leaflet chat adds healthMark to the trk* jobs)" : "") +
     "\n\nChecked: account, " + tr.length + " triggers, time zones, Meta token and forms, email allowance, sharing, backup age, text templates, today's rows." +
     "\n\nWaiting List sheet: " + healthUrl();
@@ -1425,25 +1663,39 @@ function healthMailQuota(ctx) {
 }
 
 // H20 (every 5 min): spam burst of website sign-ups or texts -> pause website texts for 2 h (doPost honours WEB_SMS_PAUSED).
+// If the owner switches them back on (deletes WEB_SMS_PAUSED), that decision holds for 6 hours: only a new burst twice the
+// normal limit, counted from sign-ups after that moment, pauses them again.
 function healthSpamCheck(ctx) {
   ctx = ctx || healthCtx();
-  var W = healthWl(ctx), now = Date.now(), c = 0, past = 0;
+  var p = healthProps(), now = Date.now();
+  var paused = /^(1|yes|true|on)$/i.test(healthGet("WEB_SMS_PAUSED")), mine = healthGet("HEALTH_SPAM_PAUSED") === "1";
+  var over = healthNum("HEALTH_SPAM_OVERRIDE", 0);
+  if (mine && !paused) {                                            // the owner switched website texts back on by hand
+    over = now; p.setProperty("HEALTH_SPAM_OVERRIDE", String(now));
+    ["HEALTH_SPAM_PAUSED", "WEB_SMS_PAUSED_UNTIL"].forEach(function (k) { p.deleteProperty(k); });
+    mine = false;
+    healthResolve("H20_SPAM", "Website texts were switched back on by hand. The script won't pause them again for 6 hours unless a much bigger burst arrives.");
+  }
+  if (over && now - over > 6 * 36e5) { p.deleteProperty("HEALTH_SPAM_OVERRIDE"); over = 0; }
+  var W = healthWl(ctx), c = 0, past = 0;
   for (var i = 1; i < W.data.length; i++) {
     var t = healthV(W, W.data[i], "Signup Time");
     if (!(t instanceof Date) || !/^W-/i.test(healthId(healthV(W, W.data[i], "Lead ID")))) continue;
     var age = now - t.getTime();
-    if (age <= 36e5) c++;
+    if (age <= 36e5) { if (t.getTime() > over) c++; }
     else for (var k = 1; k <= 7; k++) if (age > k * 864e5 - 36e5 && age <= k * 864e5) past++;   // the same hour on each of the last 7 days
   }
-  var avg = past / 7, limit = Math.max(15, 3 * avg), texts = healthSmsLog(ctx).filter(function (m) { return now - m.t <= 36e5; }).length;
-  var p = healthProps(), paused = /^(1|yes|true|on)$/i.test(healthGet("WEB_SMS_PAUSED")), mine = healthGet("HEALTH_SPAM_PAUSED") === "1";
-  if (c > limit || texts > 40) {
+  var x = over ? 2 : 1, avg = past / 7, limit = x * Math.max(15, 3 * avg);
+  var texts = healthSmsLog(ctx).filter(function (m) { return now - m.t <= 36e5 && m.t > over; }).length;
+  if (c > limit || texts > 40 * x) {
     p.setProperties({ WEB_SMS_PAUSED: "1", WEB_SMS_PAUSED_UNTIL: healthFmt(new Date(now + 2 * 36e5), "yyyy-MM-dd HH:mm"), HEALTH_SPAM_PAUSED: "1" });
+    p.deleteProperty("HEALTH_SPAM_OVERRIDE");
     var head = c > limit ? c + " website sign-ups in the last hour (normal " + Math.round(avg) + ")" : texts + " texts in the last hour";
     healthAlert("P1", "H20_SPAM", head + ": website texts paused for 2h", {
       what: head + ". The script has paused texts to website sign-ups for 2 hours (WEB_SMS_PAUSED). Rows are still saved; their Notes say \"paused - check\".",
       affects: "Real website sign-ups in the next 2 hours get no thank-you text. Spam can't run up the ClickSend bill or email allowance.",
-      todo: "Look at the newest Waiting list rows: junk names/numbers = spam (delete them; ask the website chat to tighten the form). If they're real (e.g. a leaflet drop), delete WEB_SMS_PAUSED and WEB_SMS_PAUSED_UNTIL to switch texts back on.",
+      todo: "Look at the newest Waiting list rows: junk names/numbers = spam (delete them; ask the website chat to tighten the form). If they're real (e.g. a leaflet drop), " +
+        "delete Script Property WEB_SMS_PAUSED to switch texts back on: the script then leaves them on for 6 hours unless a much bigger burst arrives.",
       plan: "R8"
     }, { short: "spam - web texts paused", sms: "KD P1: " + head + ". Website texts paused for 2h automatically. Check for spam. Plan R8" });
     return;
@@ -1461,9 +1713,11 @@ function healthSpamCheck(ctx) {
 // H21: nightly backup (values only, 30 kept) with a rows-missing alarm
 // ======================================================================================================
 function healthBackup(ctx) {
+  ctx = ctx || {};
   var ss = SpreadsheetApp.getActiveSpreadsheet(), p = healthProps(), folder, fid = healthGet("HEALTH_BACKUP_FOLDER");
   if (fid) folder = DriveApp.getFolderById(fid);
   else { folder = DriveApp.createFolder("KD backups (values only - never restore over the live sheet)"); p.setProperty("HEALTH_BACKUP_FOLDER", folder.getId()); }
+  healthShareBackups(folder);
   var name = "KD backup " + healthDay(), files = [], it = folder.getFiles();
   while (it.hasNext()) { var fl = it.next(); if (String(fl.getName()).indexOf("KD backup ") === 0) files.push(fl); }
   files.sort(function (a, b) { return String(b.getName()) < String(a.getName()) ? -1 : 1; });   // newest first
@@ -1480,20 +1734,23 @@ function healthBackup(ctx) {
     var src = ss.getSheetByName(t); if (!src) return;
     var v = t === LEADS_TAB ? live : src.getDataRange().getValues();
     var dst = bk.insertSheet(t);
-    if (v.length && v[0].length) dst.getRange(1, 1, v.length, v[0].length).setValues(v);
+    // text goes in as text: without the "'" Sheets turns "07700900123" into 7700900123 and a 16-digit Lead ID into a rounded number
+    if (v.length && v[0].length) dst.getRange(1, 1, v.length, v[0].length).setValues(v.map(function (r) {
+      return r.map(function (x) { return typeof x === "string" && x !== "" ? "'" + x : x; });
+    }));
   });
   var first = bk.getSheets()[0]; if (bk.getSheets().length > 1 && tabs.indexOf(first.getName()) === -1) bk.deleteSheet(first);
   files.filter(function (x) { return x.getName() !== name; }).slice(29).forEach(function (x) { x.setTrashed(true); });   // keep 30
   // compare with last night's copy
   var missing = 0, prevRows = 0, baseAt = Number(healthGet("HEALTH_BASELINE_AT", 0)), prevAt = 0;
-  if (prev) {
+  if (prev && !ctx.sheetBad) {                                     // row 1 wrong (H4): the copy is kept, the comparison waits
     prevAt = prev.getDateCreated ? new Date(prev.getDateCreated()).getTime() : 0;
     var pv = SpreadsheetApp.openById(prev.getId()).getSheetByName(LEADS_TAB);
     if (pv) {
       var pd = pv.getDataRange().getValues(), pic = pd[0].map(String).indexOf("Lead ID");
       for (var k = 1; k < pd.length; k++) {
         if (pd[k].some(function (v) { return v !== ""; })) prevRows++;
-        if (pic !== -1 && pd[k][pic] !== "" && !liveIds[healthId(pd[k][pic])]) missing++;
+        if (lic !== -1 && pic !== -1 && pd[k][pic] !== "" && !liveIds[healthId(pd[k][pic])]) missing++;
       }
     }
   }
@@ -1501,7 +1758,7 @@ function healthBackup(ctx) {
   healthPing("HEALTH_PING_BACKUP");
   var deliberate = baseAt && baseAt > prevAt;                         // healthSetBaseline() after deleting test rows on purpose
   if (deliberate) p.deleteProperty("HEALTH_BASELINE_AT");
-  if (prev && !deliberate && (missing > 0 || liveRows < prevRows)) {
+  if (prev && !ctx.sheetBad && !deliberate && (missing > 0 || liveRows < prevRows)) {
     var n = Math.max(missing, prevRows - liveRows);
     healthAlert("P1", "H21_ROWS", healthPlural(n, "Waiting list row") + " vanished since last night's backup", {
       what: "Last night's backup (" + prev.getName() + ") had " + prevRows + " rows; the live Waiting list has " + liveRows + ". " + missing + " Lead IDs from the backup are no longer in the sheet.",
@@ -1511,6 +1768,15 @@ function healthBackup(ctx) {
     }, { event: true, every: 0, short: n + " rows vanished", sms: "KD P1: " + healthPlural(n, "Waiting list row") + " vanished since last night's backup. Don't restore over the live sheet. Register row 24" });
   }
   return { name: name, rows: liveRows, prevRows: prevRows, missing: missing };
+}
+
+// The backup folder is shared (view) with the owner's personal Google account: the first HEALTH_EMAIL address outside
+// the clinic's domain, so the backups can still be opened if info@ is locked out. Once; a refusal is listed in the daily email.
+function healthShareBackups(folder) {
+  var who = healthList(healthGet("HEALTH_EMAIL")).filter(function (e) { return healthEmailOk(e) && !/@kirkcaldydental\.co\.uk$/i.test(e); })[0];
+  if (!who || healthGet("HEALTH_BACKUP_SHARED").toLowerCase() === who.toLowerCase()) return;
+  try { folder.addViewer(who); healthProps().setProperty("HEALTH_BACKUP_SHARED", who.toLowerCase()); }
+  catch (e) { console.warn("Couldn't share the backup folder with " + who + ": " + e); }
 }
 
 // ======================================================================================================
@@ -1596,7 +1862,7 @@ function healthGates(ctx) {
   var now = new Date(), md = healthFmt(now, "MM-dd"), act = healthJson("ADS_ACTIVE_CAMPAIGNS", null);
   var live = !!(act && act.n >= 1 && Date.now() - act.t < 26 * 36e5);
   var missing = ["NHS_FIFE_LETTER_ID", "CALL_CARD_APPROVED"].filter(function (k) { return !healthGet(k); });
-  if (live && missing.length) healthAlert("P1", "H24_GATES", "Facebook ads are live but " + missing.join(" and ") + " is not recorded", {
+  if (live && missing.length) healthAlert("P1", "H24_GATES", "Facebook ads are live but " + missing.join(" and ") + (missing.length > 1 ? " are" : " is") + " not recorded", {
     what: "A Facebook campaign is running, but Script Propert" + (missing.length > 1 ? "ies " : "y ") + missing.join(", ") + (missing.length > 1 ? " are" : " is") + " empty.",
     affects: missing.indexOf("NHS_FIFE_LETTER_ID") !== -1 ? "The ads say this is a new NHS practice; without NHS Fife's letter on file that claim isn't backed up." : "Callers are ringing people without an approved call card (wording, urgent route).",
     todo: "Record it (the Drive file ID of the letter / the date you approved the call card) in Script Properties, or pause the ads in Ads Manager until it's done."
@@ -1635,7 +1901,8 @@ function healthTestAlert() {
   console.log("Test alert: email " + (r.emailed ? "sent" : "NOT sent") + ", text " + (r.texted ? "sent" : "NOT sent") + ", healthchecks " + (pinged ? "told 'fail'" : "not set up / failed"));
   return { emailed: r.emailed, texted: r.texted, pinged: pinged };
 }
-// Runbook R4 step 5: re-send failed thank-you texts (last 7 days). Calling hours only; skips DNC, Duplicate, Withdrew, Not interested.
+// Runbook R4 step 5: re-send failed thank-you texts (last 7 days). Calling hours only. Only people nobody has reached yet
+// (Status blank or "Call 8am"): anyone already Called, Booked, No answer, DNC, Duplicate... is skipped and counted.
 function healthResendFailedTexts() {
   if (!inCallHours(new Date())) throw new Error("Only in calling hours (CALL_HOURS) - run it again after 8am.");
   var sh = leadsSheet(), data = sh.getDataRange().getValues(), h = data[0].map(String), C = {};
@@ -1645,7 +1912,7 @@ function healthResendFailedTexts() {
   for (var i = 1; i < data.length && done < 50; i++) {
     var r = data[i], st = String(r[C["Status"]] || "").trim().toUpperCase(), t = r[C["Signup Time"]];
     if (!/^Failed/i.test(String(r[C["SMS status"]]))) continue;
-    if (["DO NOT CONTACT", "DUPLICATE", "WITHDREW", "NOT INTERESTED", "WRONG NUMBER"].indexOf(st) !== -1) { skipped++; continue; }
+    if (st !== "" && st !== "CALL 8AM") { skipped++; continue; }    // already rung, booked, DNC, duplicate...: "we'll call you" would be wrong
     if (!(t instanceof Date) || t.getTime() < cutoff) continue;
     if (typeof metaDoNotContact === "function" && metaDoNotContact(r[C["Phone"]], r[C["Email"]])) { skipped++; continue; }
     var res = sendSms(r[C["Phone"]], leadText(niceFirstName(r[C["Name"]]), true));

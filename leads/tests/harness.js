@@ -272,6 +272,7 @@ function mkEnv(opts) {
   };
   const folderObj = id => ({
     getId: () => id, getName: () => env.drive.folders[id].name,
+    addViewer: e => { const f = env.drive.folders[id]; if (env.shareFail) throw new Error("Sharing outside the domain is not allowed"); f.viewers = (f.viewers || []).concat([e]); },
     getFiles: () => { const list = Object.values(env.drive.files).filter(f => f.parent === id && !f.trashed).map(f => fileObj(f.id)); let i = 0; return { hasNext: () => i < list.length, next: () => list[i++] }; }
   });
   const DriveApp = {
