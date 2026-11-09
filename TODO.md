@@ -1,7 +1,7 @@
 # Kirkcaldy Dental – launch to-do list
 
 The one master list for the waiting-list launch. Kept by the To-do chat.
-Last updated: 8 Nov 2026, 23:50. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
+Last updated: 9 Nov 2026, 00:05. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
 
 Row numbers match research/TODO-whats-left.md, so every chat talks about the same row.
 
@@ -63,16 +63,16 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 12 | Runbook fixes, other: call tracking switched on, test rows cleaned, email safety settings, remove old zip steps. | Ads chat (+ Leaflet chat for its own read-me) | Before setup night | Partly done. Asked |
 | 13 | Facebook script reads the news box properly and slows down if Facebook says "too many requests". | Ads chat | Before setup night | Asked |
 | 14 | Call script uses the exact sheet choices for call outcomes. Callers ask postcode, household size, adult/child, current dentist and "how did you hear". | Waiting-list chat + Leaflet chat | Before setup night | Asked |
-| 15 | Check the call-tracking script and fill in the budget and spend columns. | Leaflet chat | Before setup night | Call tracking and logs built. Budget columns: Asked |
-| 16 | Lock the header rows on the other sheet tabs; fix 4 dashboard formulas, so a blank household size counts as 1. | Leaflet chat | Before setup night | Dashboard and postcode formulas done live. Header locks: Asked |
+| 15 | Check the call-tracking script and fill in the budget and spend columns. | Leaflet chat | Before setup night | Done |
+| 16 | Lock the header rows on the other sheet tabs; fix 4 dashboard formulas, so a blank household size counts as 1. | Leaflet chat | Before setup night | Done |
 | 17 | Health checks, outside monitor and a fire drill. | Safety chat (or Ads chat – asked who) | Before setup night | Asked. The leaflet chat's hooks wait for the health.gs names |
 | 18 | Owner answers before ads or print: private treatment, adults and children, invitation order. (No NHS letter and no model releases are needed.) | Owner | Before setup night | Waiting for owner (owner list #5) |
 | 19 | ~~Draft a new NHS Fife letter~~. **Dropped**: approval already exists. Just save a copy of it in Drive folder 11 (#26). | Owner | Before ads start | Waiting for owner |
 | 20 | ClickSend account and sender name "KirkDental". | Owner | Days before setup night | Waiting for owner (owner list #3) |
 | 21 | Pay the ICO fee (or update the company's existing entry) and save the certificate in Drive 11; send the company details to the website chat. | Owner | Before the first sign-up | Waiting for owner (owner list #4) |
 | 22 | Make the GitHub project private. | Owner | Before setup night | Waiting for owner (owner list #8) |
-| 23 | Square profile picture and a cover image for the Facebook Page. | Leaflet chat + Ads chat | Before setup night | Partly done |
-| 24 | Replace or bin the old Drive doc "READ ME – How to order & set up". | Leaflet chat | Before setup night | Asked (leaflet chat says its Drive is tidied) |
+| 23 | Square profile picture and a cover image for the Facebook Page. | Leaflet chat + Ads chat | Before setup night | Not started. The leaflet chat will make them; the To-do chat has asked |
+| 24 | Replace or bin the old Drive doc "READ ME – How to order & set up". | Leaflet chat | Before setup night | Done (new "READ ME – which file to send to the printer") |
 | 25 | One final website package in Drive "5. Website"; bin the old zips. | Website chat | After #2–#5 | Not started |
 | 26 | Legal papers in Drive "11. Legal & compliance": the NHS approval, the ICO certificate, the AI photo tool's name and terms, the supplier agreements. | Legal chat set it up; Owner files the papers | Before setup night | Folder made; papers waiting for owner |
 | 27 | OK the staff guide drafts. | Owner | Before setup night | Waiting for owner (owner list #7) |
@@ -105,7 +105,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 44 | Facebook comments and messages: check the reply bank, blocked words, away message. | Waiting-list chat + Browser Claude | Before launch | Partly done. Asked |
 | 45 | Print: test proofs, scan both QR codes on iPhone and Android, one test sign-up each. | Owner → Leaflet chat → Owner | Before ordering print | Print files final. Proofs and QR scans not started |
 | 46 | Banner permission: the building is listed. Send the Fife Council email and the landlord note (drafts in Drive 11). Wait for both replies before the banner goes up. | Owner | Before hanging | Drafts ready; waiting for owner |
-| 47 | Leaflet delivery plan: how many, which streets, who delivers. | Leaflet chat → Owner | Before ordering print | Asked |
+| 47 | Leaflet delivery plan. Suggested: test 2,000 leaflets delivered by Kingdom on 16 and 23 Nov, printed by Vistaprint (about £21–27 per 1,000). Judge around 7 Dec: 30+ sign-ups per 1,000 → carry on; under 15 → stop. No drops 14 Dec–4 Jan. The website must be live first. | Leaflet chat → Owner | Before ordering print | **Waiting for owner: yes or no to the test** |
 | 48 | A way to join without a smartphone, printed on the leaflet. | Owner decides; Leaflet + Website chats | Before ordering print | Waiting for owner |
 | 49 | A4 door notice, and a one-page briefing for reception at the other practices. | Leaflet chat + Waiting-list chat | Before launch | Asked |
 | 50 | What callers say to people from outside the area and to patients of the other practices. | Owner | Before launch | Waiting for owner |
@@ -119,7 +119,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 53 | Share overnight leads fairly between callers on shift. | Ads chat + Leaflet chat | Before a 2nd caller | Asked |
 | 54 | "Adding a caller" checklist. | Ads chat | Week 1 | Asked |
 | 55 | Christmas plan (who calls 24 Dec–4 Jan, or lower budget), and closed days in the scripts. | Owner decides by 1 Dec; Ads + Leaflet chats | Decide by 1 Dec | Waiting for owner. No budget rises 25 Nov–2 Dec |
-| 56 | Weekly locked backup copy of the sheet. | Leaflet chat | Week 1 | Asked |
+| 56 | Weekly locked backup copy of the sheet. | Leaflet chat | Week 1 | Done (every Sunday night; keeps the last 8) |
 | 57 | Small Facebook script fix, so a text status never lands on the wrong row. | Ads chat | Week 1 | Asked |
 | 58 | Safe "update everyone" text sender, and the first update around 1 Dec. | Ads or Leaflet chat; Waiting-list chat (wording); Owner | Week 1 | Not started |
 | 59 | "Remove someone" steps and a do-not-contact list. | Ads chat; Owner names the person | Week 1 | Asked |
