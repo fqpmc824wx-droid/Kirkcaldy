@@ -23,14 +23,9 @@ Will NHS places be open to both adults and children?
 - [ ] **Yes, both.** We keep the line "Adults, children and families can all join our waiting list".
 - [ ] **No.** Tell us who it is for: ______________________. We change the family line everywhere.
 
-## 3. Invitation order
+## 3. Invitation order – settled
 
-How will people on the list be invited to register when we open?
-
-- [ ] **Option A – sign-up order.** We invite people in the order they joined. A household is kept together (invited with the earliest family member). Any exception (for example, someone in pain or with an access need) is written in the sheet with a reason and the date. We keep the line "Be first in line".
-- [ ] **Option B – change the wording.** We drop "Be first in line" everywhere and use "Join our waiting list" instead.
-
-If you pick A, the invitation order must really follow sign-up order. Otherwise the phrase could mislead people.
+"Be first in line" has been replaced by "Register your interest" everywhere (9 November 2026). So the sign-up order no longer has to decide who is invited first. Please still write down how invitations will be ordered when we open, and log any exception with a reason.
 
 ## 4. Target opening month
 
@@ -58,7 +53,7 @@ Name of AI tool or stock site: ______________________
 NHS approval is already in place, so we are **not** writing to NHS Fife. If you speak to them during the inspection, these are useful questions to ask in person:
 
 - Which urgent-care number should our texts and calls give people in pain? (Our current plan is the Fife Dental Advice Line, 01592 226555, weekdays 8:30am–5pm. Please confirm.)
-- Can children or families be invited first? This affects question 3.
+- Can children or families be invited first?
 - Would they like the Fife Dental Advice Line told about our waiting list, and how should we be described?
 - If you apply for the SDAI grant: is Kirkcaldy still eligible, and how does private implant work count towards the 80% NHS income rule?
 
