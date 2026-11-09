@@ -67,3 +67,23 @@ Private message:
 - **"Can I just walk in to sign up?"** "Please don't queue. Join online at kirkcaldydental.co.uk/register and we'll contact you."
 - **"What does NHS treatment cost?"** "NHS exams are free in Scotland. Some treatment has a charge, depending on your age and situation. We'll explain everything before any treatment." *(The manager checks current charges before any figures are given.)*
 - **"Why did my friend get called first?"** "We contact everyone, and we invite people in stages. Please send us a private message and we'll check your details."
+
+## Set up once on the Facebook Page (blocked words and away message)
+
+**Blocked words** (Page settings → Moderation). Comments with these are hidden automatically. A person then checks them and replies privately:
+
+- phone-number starts: 07, +44, 01592
+- @ (catches email addresses)
+- abscess, swelling, swollen, antibiotics, bleeding, infection, broken tooth, toothache, pregnant
+- scam, fraud
+- swear words (use Facebook's "profanity filter" on "strong")
+
+Check the hidden comments twice a day (page 7). Someone in pain still gets the pain reply (question 6) by private message.
+
+**Away message** (Inbox → Automations → Away message, on outside 8am to 9pm):
+
+> Thanks for your message! Our team replies between 8am and 9pm. To join our waiting list, go to kirkcaldydental.co.uk/register. If you're in pain, please contact your current dentist or phone NHS 24 on 111.
+
+**Instant reply** (first message from someone new, any time):
+
+> Thanks for getting in touch with Kirkcaldy Dental & Implant Clinic. We're a new NHS dental practice opening soon. Join our waiting list at kirkcaldydental.co.uk/register. We'll reply here soon.

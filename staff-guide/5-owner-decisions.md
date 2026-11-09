@@ -1,6 +1,6 @@
 # 5. Owner decisions needed
 
-*8 Nov 2026. Staff can't use pages 0-9 until these are settled and the owner approves the wording. Already answered by the owner: NHS approval (keep the NHS Fife email or letter on file), calling hours 8am-9pm, callers are not a limit, short forms.*
+*8 Nov 2026. Staff can't use pages 0-10 until these are settled and the owner approves the wording. Already answered by the owner: NHS approval (keep the NHS Fife email or letter on file), calling hours 8am-9pm, callers are not a limit, short forms.*
 
 ## Who covers what (please fill in)
 
@@ -27,7 +27,7 @@
 
 8. **Mixed NHS and private?** If we offer private treatment (e.g. implants), the GDC says ads, banner, leaflet and website must say "NHS and private dental care".
 9. **Approve the call card (page 0)** before the first call, then listen to 5 calls a week for 4 weeks.
-10. **Approve every template** on pages 2, 3 and 9. Nothing goes to patients until then.
+10. **Approve every template** on pages 2, 3, 9 and 10. Nothing goes to patients until then.
 11. **Current NHS charges** to quote. Check before printing.
 
 ## Phones and texts

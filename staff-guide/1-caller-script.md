@@ -21,7 +21,7 @@ Say: "We're a **new NHS dental practice opening soon**", "join our waiting list"
 
 ## The first call (about 3 minutes)
 
-The sign-up form only asks for a name, phone and email. **Your job on the call is to get the 3 missing facts:** who's in the household, the postcode, and where their current dentist is.
+The sign-up form only asks for a name, phone and email. **Ask every person these, every time:** who's in the household (how many, adults or children), the postcode, where their current dentist is, and how they heard about us.
 
 **1. Say who you are and why you're calling.**
 
@@ -29,9 +29,9 @@ The sign-up form only asks for a name, phone and email. **Your job on the call i
 
 **2. Who's in the household?**
 
-> "Is it just you, or would anyone else in your home like to join? Can I take their names and ages?"
+> "Is it just you, or would anyone else in your home like to join? Can I take their names? And for any children, their dates of birth?"
 
-- For children under 16, note which parent or guardian is applying.
+- For children under 16, the parent or guardian gives the details. Note which parent is applying. Names and dates of birth only.
 - Remind parents that babies can join too.
 
 **3. Postcode.**
@@ -48,21 +48,25 @@ Then say:
 
 > "Just so you know: joining our list isn't the same as registering. In Scotland, when you register with a new practice, your registration at your old one ends. But nothing changes until we invite you and you come to your first appointment. So you won't be left without a dentist while you wait."
 
-**5. How it works.**
+**5. How they heard.**
+
+> "How did you hear about us?" (Facebook, Instagram, leaflet, banner, friend, other)
+
+**6. How it works.**
 
 > "We invite people from the list in stages as appointments become available, and we keep households together. When it's your turn, we'll text, email or phone you. I can't give you a date yet, but we'll keep you updated."
 
-**6. The money line.** Say this on every call:
+**7. The money line.** Say this on every call:
 
 > "We never ask for payment to join the list or for your first exam. We never ask for bank details. If anyone does, it isn't us."
 
-**7. Pain check.**
+**8. Pain check.**
 
-> "Are you in pain, or do you have any swelling just now?"
+> "Is anyone in pain now?"
 
 If yes, see **Pain or urgent problems** below.
 
-**8. Check their details and close.**
+**9. Check their details and close.**
 Check the spelling of their name and their email.
 
 > "Is there anything you'd like to ask? Thanks, [first name]. We'll be in touch."
@@ -78,10 +82,11 @@ Then fill in the sheet straight away (see below).
 | Adult/Child/Family | **Adult** (adults only), **Child** (only children), or **Family** (adults and children) | Family |
 | Currently Registered? | **Yes**, **No** or **Not sure** | Yes |
 | Current practice | Practice name and town, or "None" | Bridge St Dental, Kirkcaldy |
-| Notes | First names and ages of everyone else; which parent applies for each child | Partner Sam 41; Ava 6 (mum applying) |
+| How heard | Facebook, Instagram, Leaflet, Banner, Friend or Other | Leaflet |
+| Notes | Facts only: names of everyone else; children's dates of birth; which parent applies | Partner Sam; Ava 03/05/2020 (mum applying) |
 | Assigned to | Your name | Jo |
 
-**Never put health details in Notes** (no "broken tooth", no medicines). If they mentioned pain, write only "Urgent - signposted".
+**Notes are facts only. Never put health details in Notes** (no "broken tooth", no medicines). If someone was in pain, write only "signposted [date]".
 
 ## Pain or urgent problems
 
@@ -93,7 +98,7 @@ Say:
 
 - In working hours, people with no dentist can also use the NHS Fife dental line: **[NHS FIFE DENTAL LINE]**. *The manager must check this number with NHS Fife before it is printed or read out.*
 - Heavy bleeding, swelling that affects breathing or swallowing, or a serious injury: tell them to call **999**.
-- In Notes write only "Urgent - signposted". Tell the practice manager the same day.
+- In Notes write only "signposted [date]". Tell the practice manager the same day.
 
 ## If nobody answers
 
@@ -129,12 +134,12 @@ In **Call outcome** (column Y), pick one of these. The sheet then sets Status, c
 | Reached - call back | They asked you to ring back (tomorrow 10am) | Called |
 | Reached - booked | They booked an appointment (after opening) | Booked |
 | Reached - not interested | They don't want a place | Not interested |
-| Already has dentist | They don't want a place because they're happy with their dentist | Not interested |
+| Already has dentist | They've found another dentist and want to leave the list. *(May be renamed "Found another dentist - leave list".)* | Not interested |
 | No answer | It rang out | No answer |
 | Voicemail | You left the voicemail | No answer |
 | Busy/declined | It was busy or they rejected the call | No answer |
 | Wrong number | The number isn't theirs or doesn't work | Wrong number |
-| Withdrew | They want to come off the list (moved away, registered elsewhere) | Withdrew |
+| Withdrew | They want to come off the list for another reason (e.g. moved away) | Withdrew |
 | DO NOT CONTACT | They asked us to stop contacting them | DO NOT CONTACT |
 
 - Someone who **has** a dentist but still wants to join is "Reached - on list", not "Already has dentist". Having a dentist never counts against anyone.
@@ -143,7 +148,7 @@ In **Call outcome** (column Y), pick one of these. The sheet then sets Status, c
 
 ### Marketing consent
 
-Leave **Marketing consent** as it is. Only change it to Yes if the person clearly asks for news and offers. Write the date and what they said in Notes. **Private interest**: tick only if *they* asked about private care.
+Leave **Marketing consent** as it is. Only change it to Yes if the person clearly asks for news and offers. Write the date and what they said in Notes. **Private interest**: fill in only if *they* raised private care. Never pitch private treatment.
 
 ## Opt-outs: DO NOT CONTACT
 

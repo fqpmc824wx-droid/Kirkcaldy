@@ -15,10 +15,11 @@ Call **8am to 9pm only**. Start your last call by **8:45pm**. Order: Call 8am ro
 
 ## Every call: ask these
 
-- "Who else in your home would like to join?" (names, ages, who applies for each child)
+- "Who else in your home would like to join?" (names; children's dates of birth, given by the parent)
 - "What's your postcode?"
 - "**Where is your current dentist?**"
-- "Are you in pain or swollen just now?"
+- "How did you hear about us?"
+- "Is anyone in pain now?"
 
 ## Never say
 
@@ -35,13 +36,13 @@ Call **8am to 9pm only**. Start your last call by **8:45pm**. Order: Call 8am ro
 - No dentist, working hours: NHS Fife dental line **[NHS FIFE DENTAL LINE - manager to check]**.
 - Bleeding that won't stop, or swelling affecting breathing or swallowing: **999**.
 - Pain never moves anyone up the list.
-- Notes: write only **"Urgent - signposted"**. No health details. Tell the manager today.
+- Notes: write only **"signposted [date]"**. Facts only, never health details. Tell the manager today.
 
 ## "Stop" means stop
 Anyone who says stop, by any route: pick **DO NOT CONTACT** the **same day**. Never contact them again.
 
 ## After every call
-Pick the **Call outcome** (column Y). Fill in Postcode, No. of People, Adult/Child/Family, Current practice, Assigned to.
+Pick the **Call outcome** (column Y). Fill in Postcode, No. of People, Adult/Child/Family, Current practice, How heard, Assigned to.
 
 ## Not sure?
 Don't guess. Say "Let me check and call you back," and ask the practice manager.

@@ -29,8 +29,9 @@ The owner says callers are not a limit. We add callers as sign-ups grow: about *
 
 - The sheet holds people's names, numbers and sometimes health details. Treat it like a patient record.
 - Only open it to do your job. Never copy, download, print or screenshot it.
-- **Alert texts** (a name and a phone number) only go to your **work** phone. **Delete each alert after you've called the person.**
-- Never put health details in Notes. Pain = "Urgent - signposted" only.
+- **Alert texts** (a name and a phone number) only go to your **work** phone. **Delete each alert after you've called the person**, and check every Friday that none are left.
+- Notes are facts only. Never health details. Pain = "signposted [date]" only.
+- Children: names and dates of birth only, given by the parent.
 - Never talk about one person's details with anyone else, even family members, unless they're on the same sign-up.
 - Lock your screen and phone when you step away.
 - Lost phone, wrong person sent a message, or anything else that feels like a data slip: tell the practice manager **straight away**. We may have to report it within 72 hours.
@@ -42,4 +43,10 @@ The owner says callers are not a limit. We add callers as sign-ups grow: about *
 - If you're ill or can't work, tell the owner **and** the backup caller **by 7:30am**.
 - Questions you can't answer: "Let me check and call you back." Then ask the practice manager.
 
-**Signed off by:** ____________________ **Date:** __________
+## 6. Confidentiality note (sign before your first call)
+
+I will keep everything I see or hear about people on the waiting list private. I will only use it to do my job. I won't copy, share, download, print or photograph it. I'll use only my own login. I'll delete alert texts after calling. I'll report any slip straight away. This still applies after I stop working here.
+
+**Name:** ____________________ **Signed:** ____________________ **Date:** __________
+
+**Trained by (owner or manager):** ____________________ **Date:** __________

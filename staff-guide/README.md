@@ -14,5 +14,6 @@ Plain-English guide for staff, made from `research/waitlist-playbook.md` and `re
 7. [Daily checklist](7-daily-checklist.md) (with weekend version)
 8. [If things break](8-if-things-break.md) (staff side only; technical fixes are runbooks R1-R10 in research/premortem-final.md on the ads branch, owned by the launch-safety chat)
 9. [Black Friday and Christmas plan](9-festive-plan.md)
+10. [Briefing for reception at our other practices](10-reception-briefing.md)
 
 Same content as Google Docs in Drive: "Kirkcaldy Dental – Print files & marketing" → "8. Waiting list – staff guide".
