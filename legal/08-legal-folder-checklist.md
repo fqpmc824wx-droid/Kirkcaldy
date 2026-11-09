@@ -24,7 +24,7 @@ The folder is private: info@ only.
 
 ## Data protection
 
-- [ ] **ICO registration certificate** (with registration number and renewal date)
+- [ ] ICO registration certificate – *parked by the owner on 9 Nov 2026; look at it again before opening*
 - [ ] **DPIA**, signed
 - [ ] **Retention schedule**, signed
 - [ ] **Data-protection complaints procedure**, signed

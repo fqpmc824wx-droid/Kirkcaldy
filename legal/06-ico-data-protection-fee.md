@@ -3,6 +3,8 @@
 **Draft – not legal advice, owner to approve**
 Kirkcaldy Dental & Implant Clinic · 8 November 2026
 
+> **PARKED by the owner, 9 November 2026:** "We don't need to pay anything for ICO yet." No action for now. Note for later: an organisation that handles personal data without paying the fee (and has no exemption) can be fined by the ICO, so please look at this again before the practice opens or before the list grows large.
+
 ## Do we have to pay?
 
 **Yes, almost certainly.** Any organisation that keeps personal data on computers (our Google Sheet, emails and texts) must pay a yearly fee to the Information Commissioner's Office (ICO), unless an exemption applies. None of the exemptions fit a dental practice that keeps a waiting list and will keep patient records.
