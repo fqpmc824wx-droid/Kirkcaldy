@@ -69,9 +69,9 @@
     <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
     <div class="field"><label for="postcode">Postcode <span class="opt">(optional)</span></label><input id="postcode" name="postcode" type="text" autocomplete="postal-code" autocapitalize="characters"></div>
 
-    <fieldset><legend>How many people are you registering?</legend>
+    <fieldset><legend>How many people would you like to add to the waiting list? <span class="opt">(optional)</span></legend>
       <div class="choices">
-        <label><input type="radio" name="people" value="1" required><span>1</span></label>
+        <label><input type="radio" name="people" value="1"><span>1</span></label>
         <label><input type="radio" name="people" value="2"><span>2</span></label>
         <label><input type="radio" name="people" value="3"><span>3</span></label>
         <label><input type="radio" name="people" value="4+"><span>4+</span></label>
@@ -135,7 +135,6 @@
     if (phone.replace(/\D/g, "").length < 10) return show("Please enter a valid mobile number.");
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("Please enter a valid email address.");
     if (postcode && !/^[A-Za-z]{1,2}\d[A-Za-z\d]?\s*\d[A-Za-z]{2}$/.test(postcode)) return show("Please check your postcode, or leave it blank.");
-    if (!f.people.value) return show("Please choose how many people you're registering.");
 
     var data = new URLSearchParams({
       name: f.name.value.trim(), phone: phone, email: email, postcode: postcode.toUpperCase(),
