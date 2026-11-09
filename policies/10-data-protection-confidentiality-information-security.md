@@ -53,7 +53,7 @@ PSM pages:
 
 ## 4. Responsibilities
 
-**Data controller** – [Kirkcaldy Dental & Implant Clinic Ltd / Nas [surname] trading as Kirkcaldy Dental & Implant Clinic – confirm legal entity]. The controller decides why and how personal data is processed and is legally accountable.
+**Data controller** – [Kirkcaldy Dental & Implant Clinic Ltd / Nas Abrar trading as Kirkcaldy Dental & Implant Clinic – confirm legal entity]. The controller decides why and how personal data is processed and is legally accountable.
 
 **Practice Owner [Nas]** – overall responsibility for data protection and confidentiality; pays the ICO fee; signs data processing agreements; makes final decisions on disclosures to police and other third parties.
 

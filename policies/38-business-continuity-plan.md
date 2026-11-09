@@ -191,7 +191,7 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Police non-emergency | Police Scotland | 101 | |
 | NHS 24 | NHS 24 | 111 | |
 | Practice main line | Kirkcaldy Dental & Implant Clinic | 01592 214225 | info@kirkcaldydental.co.uk |
-| Practice Owner / Principal Dentist | Nas [surname] | [mobile] | |
+| Practice Owner / Principal Dentist | Nas Abrar | [mobile] | |
 | Practice Manager (Continuity Lead) | [Name] | [mobile] | |
 | Deputy | [Name] | [mobile] | |
 | IPC / Decontamination Lead | [Name] | [mobile] | |
@@ -206,7 +206,7 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Electricity supplier (account) | [supplier] | [phone] | Account [no.] |
 | Water | Scottish Water | 0800 0778 778 | |
 | Gas emergency | Gas Emergency Line | 0800 111 999 | |
-| Telephone / broadband provider | Global4 (being set up – confirm) | 01403 272910 (support: option 2, then 1) | Account [no.] |
+| Telephone / broadband provider | [provider – not decided yet] | [phone] | Account [no.] |
 | Dentally support | Dentally | [phone / support portal] | |
 | IT support | [company] | [phone] | |
 | Imaging software / X-ray engineer | [company] | [phone] | |

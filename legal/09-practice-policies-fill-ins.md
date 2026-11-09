@@ -40,8 +40,8 @@ These are now in the policies. Please check them once a year.
 - Insurance broker: Premierline, 0333 320 6009 (insurer and policy number still needed). Ask them to cover employers' liability, public liability, contents, cyber, and the pressure-vessel inspections (autoclave, compressor).
 - Dental supplies: Wrights (Wright Cottrell), 0800 66 88 99.
 - Autoclave and washer-disinfector: Eschmann, service contract, 01903 753322 (Zain to confirm). Needed for the policies: make, model, serial numbers, install date and validation certificates.
-- Broadband and phones: Global4, 01403 272910 ("Target" also mentioned – which one?). Keep patient WiFi separate from practice computers.
-- Website: the existing site and its legal pages are managed by the website chat. If Hassan works on it, please keep the sign-up form, privacy page and cookie banner as they are.
+- Broadband/WiFi: not decided yet. Keep patient WiFi separate from practice computers.
+- Website: built and run by Hamza.
 - Possible opening date: beginning of December (suggested, not agreed yet).
 
 **Suggestions you can choose from (not chosen for you):**
@@ -51,7 +51,7 @@ These are now in the policies. Please check them once a year.
 ## 1. People (the roles register) – please give a name for each
 | Role | Name | Deputy |
 |---|---|---|
-| Practice Owner / Principal Dentist (Nas – surname?) | | |
+| Practice Owner / Principal Dentist | Nas Abrar | |
 | Practice Manager | | |
 | Complaints Lead (also handles data-protection complaints) | | |
 | Duty of Candour Responsible Person | | |

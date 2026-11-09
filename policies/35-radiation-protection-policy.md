@@ -72,7 +72,7 @@ PSM pages (all under https://www.psm.sdcep.org.uk/topics/radiation-protection/):
 
 ### 4.1 Within the practice
 
-**The Employer** – the Employer is [Kirkcaldy Dental & Implant Clinic [legal entity, e.g. Ltd company name] / Nas [surname] as sole proprietor], represented by the Practice Owner / Principal Dentist [Nas]. The identity of the Employer is stated in writing here, in the Local Rules and in the Employer's Procedures. The Employer is legally responsible under IRR17 and IR(ME)R for:
+**The Employer** – the Employer is [Kirkcaldy Dental & Implant Clinic [legal entity, e.g. Ltd company name] / Nas Abrar as sole proprietor], represented by the Practice Owner / Principal Dentist [Nas]. The identity of the Employer is stated in writing here, in the Local Rules and in the Employer's Procedures. The Employer is legally responsible under IRR17 and IR(ME)R for:
 
 - appointing and entitling personnel and defining their scope of practice;
 - making sure all X-ray equipment is maintained and tested;

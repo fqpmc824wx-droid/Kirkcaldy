@@ -75,7 +75,7 @@ Rebuild them after any change with `python3 policies/build-word.py`.
 
 | Role | Name | Deputy |
 |---|---|---|
-| Practice Owner / Principal Dentist | Nas [surname] | |
+| Practice Owner / Principal Dentist | Nas Abrar | |
 | Practice Manager | [Name] | |
 | Complaints Lead | [Name] | |
 | Duty of Candour Responsible Person | [Name] | |

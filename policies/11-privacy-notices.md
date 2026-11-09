@@ -72,7 +72,7 @@ Review at least yearly and whenever processing changes (for example if CCTV is i
 *Last updated: [date]*
 
 **Who we are**
-Kirkcaldy Dental & Implant Clinic, 23–25 Tolbooth Street, Kirkcaldy KY1 1RW, provides NHS dental care (under NHS Fife) and private dental care, including dental implants. The data controller is Lang Toun Smiles Ltd, owned by Nas [surname], Principal Dentist. Contact: info@kirkcaldydental.co.uk, 01592 214225. ICO registration number: [number].
+Kirkcaldy Dental & Implant Clinic, 23–25 Tolbooth Street, Kirkcaldy KY1 1RW, provides NHS dental care (under NHS Fife) and private dental care, including dental implants. The data controller is Lang Toun Smiles Ltd, owned by Nas Abrar, Principal Dentist. Contact: info@kirkcaldydental.co.uk, 01592 214225. ICO registration number: [number].
 
 **Our Data Protection Officer**
 You can contact our Data Protection Officer about anything in this notice: [dpo email], [address/phone].
