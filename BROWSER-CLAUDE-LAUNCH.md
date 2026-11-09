@@ -219,7 +219,10 @@ The full spec, with every word to copy, is **HANDOFF.md Step 2** (from research/
    - Click **+** next to Files → **Script** → name it `meta-leads` → paste `leads/meta-leads.gs` → Save.
    - Again **+** → **Script** → name it `meta-ads` → paste `leads/meta-ads.gs` → Save (daily ad results and ad health alarms).
    - **Required:** again **+** → **Script** → name it `tracking` → paste `leaflet/tracking.gs` → Save. It runs the Call outcome column, call-backs and the Call log, SMS log and Daily log. Without it, no call is logged.
-   - If `leads/health.gs` is on `main`, add it the same way (name it `health`) and follow the setup notes at the top of that file (its HEALTH_* Script Properties and `healthInstallTriggers()`). Its `NHS_FIFE_LETTER_ID` setting takes the Drive file ID of the saved NHS Fife approval copy.
+   - **REQUIRED: add `leads/health.gs` the same way (name it `health`).** This is the automatic safety check.
+   - **Step 0, straight after pasting:** run `healthAddMissingHeaders()` once. Until it has run, the website form replies "error" to every sign-up.
+   - Then follow the setup notes at the top of that file: the HEALTH_* Script Properties below, and `healthInstallTriggers()`.
+   - Its `NHS_FIFE_LETTER_ID` setting takes the Drive file ID of the saved NHS Fife approval copy in "11. Legal & compliance".
    - Project Settings → Time zone → **(GMT+00:00) London**.
    - In the sheet: File → Settings → Time zone → **London** → Save.
 5. **Project Settings → Script Properties:**
@@ -253,7 +256,16 @@ The full spec, with every word to copy, is **HANDOFF.md Step 2** (from research/
 | `ADS_ALLOWED_CAMPAIGNS` | the campaign ID, on launch day. |
 | `ADS_PAUSED_UNTIL` | leave **empty**. Set it only when pausing on purpose (`yyyy-mm-dd hh:mm`). |
 | `FESTIVE_COVER` | decide by 1 Dec (§8): who calls 24 Dec–2 Jan, or the lower budget. |
-| `HEALTH_EMAIL` | (health.gs) the owner's **personal** email first, then info@ (see §6 "Owner email alerts"). |
+| `HEALTH_EMAIL` | **required** (health.gs): the owner's **personal** email first, then info@ (see §6 "Owner email alerts"). |
+| `HEALTH_SMS` | leave **blank** until the owner says yes to critical-only texts. Then use the owner's mobile; it never texts 10pm–7am. |
+| `HEALTH_PING_POLLER` / `HEALTH_PING_DAILY` / `HEALTH_PING_BACKUP` | the three healthchecks.io ping URLs (SAFETY-PLAN.md part 3). |
+| `HEALTH_EXEC_ID` | the web-app deployment ID, from the /exec URL. |
+| `HEALTH_SITE` | `https://kirkcaldydental.co.uk`. Set it **only once the site is live**. |
+| `CALLER_SHIFT` / `CALLER_DAYS` | the real calling window and days, e.g. `8-21` and `Mon-Sun`. Not 9-17, or nobody gets backlog alerts between 5pm and 9pm. |
+| `PRIORITY_RULE_SIGNED` | the date of the invitation-order rule (the owner keeps "Be first in line", so invitations go in sign-up order). |
+| `OPENING_TARGET` | the target opening month, `yyyy-mm`. |
+| `LAST_LIST_UPDATE` | the date of the last update message to the list. |
+| `FESTIVE_MAX` | the daily budget cap for 24 Dec–2 Jan if it's lowered (e.g. `10`). |
 Don't touch `ALERT_NEXT`, `META_SINCE`, `META_SINCE_BY_FORM`, `META_SEEN`, `BACKLOG_LAST`, `REPORT_LAST`, `ADS_DAILY_BUDGET`, `ADS_TODAY_SPEND`, `ADS_CPL5_LAST`, `ADS_CPL_LAST` or any `*_ERR_LAST`. They're set automatically.
 **Sheet access for callers:**
 - The sheet is currently shared with info@ only, so the caller can't open it.
@@ -274,7 +286,9 @@ Don't touch `ALERT_NEXT`, `META_SINCE`, `META_SINCE_BY_FORM`, `META_SEEN`, `BACK
    - If "Google hasn't verified this app" appears: Advanced → Go to … (unsafe) → Allow. This is normal for the clinic's own script.
    - It sets up: checking Meta every minute, the 8am summary, the backlog check every 15 minutes, and the 9pm report to the owner.
    - **Required:** open the `tracking` file → run **`trkInstallTriggers`** once. It adds call tracking (on every edit), the 15-minute call-back check, the SMS history and email bounce checks, the 9pm Daily log and the Monday email.
-   - If `health.gs` was added: run `healthInstallTriggers` once (setup notes at the top of that file).
+   - Run `healthInstallTriggers` once (setup notes at the top of that file). Expect **14 triggers before launch day and 17 after**.
+   - In info@ Gmail, add a filter that forwards emails from **apps-scripts-notifications@google.com** to the owner's personal email, so failure emails get seen.
+   - **Outside watchers + fire drill:** follow SAFETY-PLAN.md parts 3 and 4 (Launch-safety chat; Drive "10. Launch safety"). **Do this BEFORE the real-lead gate.**
    - **On launch day (after the ads are published):** open the `meta-ads` file → run `adsInstallTriggers` once. The Executions log should show the ad account name, "Europe/London" and "GBP". It adds the 06:00 ad-results sync ("Ads" tab), the Monday breakdowns and the 2-hourly ad health check. The owner is emailed if an ad is rejected, the ads stop spending, the cost per lead goes above £5 (warning) or £8 (pause), or leads that Meta counted are missing from the sheet.
    - Then Apps Script → **Triggers** (clock icon) → for **every** trigger, including the `trk…` ones from tracking.gs, pencil → **Failure notification settings: Notify me immediately** → Save. Do `pollMetaLeads` first.
 7. **Deploy the website script:**
@@ -338,7 +352,7 @@ What happens with every lead, wherever it comes from:
 | Do not contact | pick `DO NOT CONTACT` in a test row's Call outcome (Status then shows DO NOT CONTACT), then submit again with the same phone via /register | row saved with Status DO NOT CONTACT; no text, alert or email |
 | Call tracking (caller's phone) | on the **caller's phone**, Sheets app → a test row → **Call outcome** (column Y) → pick "No answer" | within a few seconds: Status "No answer", attempt 1, "Next call due" filled, a line in Call history and a new row in the Call log tab; Call outcome clears itself. Then pick "Reached - on list": Status "Called". Also pick "Found another dentist – leave list": Status must become Withdrew. If the dropdown doesn't offer it, use the sheet's list and tell the leaflet chat. If nothing happens, `trkInstallTriggers` wasn't run (§5.6) |
 | Dashboard | open the Dashboard tab | counts by source update |
-| Overload email | set `BACKLOG_ALERT` to `1`; edit a test row's Signup Time to over an hour ago with Status blank; run `backlogCheck()` from the editor (in calling hours or with `CALL_HOURS` 24h) | owner gets "leads waiting over an hour"; then set `BACKLOG_ALERT` back to `10` (one caller) or `15` (two or more) and delete `BACKLOG_LAST`. If health.gs is installed, this check uses its own settings instead: follow its fire drill |
+| Overload email | set `BACKLOG_ALERT` to `1`; edit a test row's Signup Time to over an hour ago with Status blank; run `backlogCheck()` from the editor (in calling hours or with `CALL_HOURS` 24h) | owner gets "leads waiting over an hour"; then set `BACKLOG_ALERT` back to `10` with one caller (`15` only once there are two or more) and delete `BACKLOG_LAST`. If health.gs is installed, this check uses its own settings instead: follow its fire drill |
 
 **Afterwards:**
 - Delete every test row **before 8am**, or the 8am summary will text the caller about them: the Waiting list and Visits tabs, and the test rows in **SMS log, Call log, Daily log and Failed sign-ups** (and Failed leads, if that tab exists). Put `CALL_HOURS` back to `8-21` and `ONCALL_MOBILE` back to the caller. Don't leave test numbers in the **Do-not-contact list** tab.
