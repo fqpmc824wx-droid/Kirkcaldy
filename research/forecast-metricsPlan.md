@@ -166,7 +166,7 @@ Notes on the table:
 | M61 | Leaflet response and cost per sign-up, per drop | Sign-ups ÷ leaflets delivered; (print + distribution) ÷ sign-ups | WL + Costs sheet | Weekly, and 14 days after each drop | no | S13 |
 | M62 | Banner scans and cost per sign-up | Banner visits a week; (print + fitting) ÷ sign-ups | Visits + WL + Costs sheet | Weekly | partly | 5+ scans a week. Fewer than 5 after 2 weeks → move it or enlarge the QR. |
 | M63 | Website and tagged links | Visits and sign-ups for src fb-page, ig-bio, fb-form-done, fb-dm, home, website | Visits + WL + Hostinger | Weekly | partly | A rise is the ads' wider effect. Don't credit it to Meta. |
-| M64 | Inbound calls (once the 01592 number is live) | Answered ÷ received; missed calls; median callback time; Source=phone rows ÷ new callers; Meta `click_to_call_call_confirm` | Phone provider log + WL + Ads | Daily | no | 90% or more answered; callbacks within 60 min. Alarm: below 80%, or callbacks over 4h. |
+| M64 | Inbound calls (01592 214225, live 9 Nov; ONSIM, inbound only) | Answered ÷ received; missed calls; median callback time; Source=phone rows ÷ new callers; Meta `click_to_call_call_confirm` | Phone provider log + WL + Ads | Daily | no | 90% or more answered; callbacks within 60 min. Alarm: below 80%, or callbacks over 4h. |
 
 ### B8. Text messages and email
 | ID | Metric | Formula | Source → tab | Freq | Now | Target / alarm |
@@ -533,7 +533,7 @@ breakdowns: none on the daily table (breakdowns go in the weekly pull)
 | Leaflet drops, banner going up, phone number live, wording changes, opening date announced | Change log (Source = manual) | owner / ads chat | on the day |
 | Ad Library check of Fife dental advertisers (weekly); count of NHS Fife practices accepting (monthly) | Change log (Source = market) | ads chat / owner | weekly / monthly |
 | Hostinger page views for /, /register/, /l and /b | KPIs input cells | owner | Monday |
-| Phone, once the 01592 number is live: weekly export from the provider (received, answered, missed, callbacks); every new caller added as a WL row with Source = phone | Daily checks / Phone log | owner / caller | weekly / each call |
+| Phone (01592 214225, live 9 Nov): weekly export from the provider (received, answered, missed, callbacks); every new caller added as a WL row with Source = phone | Daily checks / Phone log | owner / caller | weekly / each call |
 | Caller questions: How heard (phone sign-ups), Current practice, Private interest, Not booked reason | WL dropdowns | caller | every call |
 
 ### C5. Build order
@@ -604,7 +604,7 @@ Sent at 07:30 by `trkWeeklyEmail` from the Weekly tab. The ads chat adds the com
    - Leaflets: per drop, delivered, scans, sign-ups, response %, CPL, days since the drop.
    - Banner: scans and sign-ups to date; cost per sign-up.
    - Website and tagged links: visits, sign-ups, conversion.
-   - Phone: once the number is live.
+   - Phone (live 9 Nov): calls received, answered, missed; Source = phone sign-ups and their cost (number £6/month).
 9. **Costs**
    - Totals to date by channel (Meta inc VAT, print, distribution, banner, texts, caller hours).
    - Blended CPL, cost per reached lead, cost per booked lead / person.
