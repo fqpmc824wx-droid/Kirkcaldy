@@ -3,7 +3,7 @@
 Text is converted to outlines so the SVG needs no fonts installed.
 Usage: python3 makelogo.py <fonts_dir> <out_dir>
 Current logo (K sitting on the D): KD_STYLE=overlap K_SX=1.0 D_DX=0.66 D_DY=0.095 KNOCK=0.028 D_LIFT=0.0466667 (D raised halfway, owner-approved 8 Nov) [K_FILL=#262B30 light / #F4EDE3 dark]
-Fonts: Cormorant Garamond 700 (cormorantb.ttf), Cinzel 600 (cinzel600.ttf), Lato 700 (lato.ttf).
+Fonts: Cormorant Garamond 700 (cormorantb.ttf), Cinzel 800 (cinzel800.ttf; bolder wordmark, owner 9 Nov), Lato 700 (lato.ttf) at TAG_SCALE 1.45. GOLD env sets the colour (#8E6B2E deep gold); K_FILL for two-tone.
 """
 import os
 import sys
@@ -99,8 +99,10 @@ def vector_knockout(d_path, k_path, knock, lift):
 
 
 mono = Face(f"{FD}/cormorantb.ttf")
-word = Face(f"{FD}/cinzel600.ttf")
-sans = Face(f"{FD}/lato.ttf")
+word = Face(f"{FD}/" + os.environ.get("WORD_FONT", "cinzel800.ttf"))   # bolder wordmark (owner, 9 Nov): Cinzel 800
+sans = Face(f"{FD}/" + os.environ.get("TAG_FONT", "lato.ttf"))          # Lato 700
+TAG_SCALE = float(os.environ.get("TAG_SCALE", "1.45"))                  # tagline 1.45x the original size (owner, 9 Nov)
+GOLD = os.environ.get("GOLD", GOLD)
 
 
 def monogram(cx, top, cap_h):
@@ -152,6 +154,14 @@ def rule_with_dot(x1, x2, y, dot_at, r=4.2, w=2.6):
             f'<circle cx="{cx:.1f}" cy="{y:.1f}" r="{r}" fill="{GOLD}"/>')
 
 
+def rules_pair(wl, wr, tl, tr, ry, gap, inset):
+    """Flourish lines either side of the tagline, shortened to fit; dropped if there is no room."""
+    a1, a2, b1, b2 = wl + inset, tl - gap, tr + gap, wr - inset
+    if a2 - a1 < 60:   # too short to read as a flourish: leave the tagline clean
+        return ""
+    return rule_with_dot(a1, a2, ry, "left") + rule_with_dot(b1, b2, ry, "right")
+
+
 def svg(w, h, body, title):
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w:.0f} {h:.0f}" width="{w:.0f}" height="{h:.0f}" '
             f'role="img" aria-label="{title}"><title>{title}</title>{body}</svg>\n')
@@ -166,11 +176,12 @@ def stacked(fill=GOLD):
     pad = 40
     md, mw, mh = monogram(cx, pad, 300)
     wd, wl, wr = draw_text(word, "KIRKCALDY", 112, 0.30, cx, pad + mh + 40 + 80)
-    tag_base = pad + mh + 40 + 80 + 78
-    td, tl, tr = draw_text(sans, "DENTAL & IMPLANT CLINIC", 46, 0.0, cx, tag_base)
-    ry = tag_base - 46 * 0.36
-    gap = 34
-    rules = rule_with_dot(wl + 10, tl - gap, ry, "left") + rule_with_dot(tr + gap, wr - 10, ry, "right")
+    ts = 46 * TAG_SCALE
+    tag_base = pad + mh + 40 + 80 + 78 + (ts - 46) * 0.9
+    td, tl, tr = draw_text(sans, "DENTAL & IMPLANT CLINIC", ts, 0.0, cx, tag_base)
+    ry = tag_base - ts * 0.36
+    gap = 26
+    rules = rules_pair(wl, wr, tl, tr, ry, gap, 10)
     H = tag_base + pad
     body = (f'<g fill="{fill}">{md}<path d="{wd}"/><path d="{td}"/></g>' + rules.replace(GOLD, fill))
     return svg(W, H, body, TITLE)
@@ -192,10 +203,11 @@ def horizontal(fill=GOLD):
     wcx = tx0 + word_w / 2
     w_base = pad + cap * 0.55
     wd, wl, wr = draw_text(word, "KIRKCALDY", size, 0.30, wcx, w_base)
-    t_base = w_base + 92
-    td, tl, tr = draw_text(sans, "DENTAL & IMPLANT CLINIC", 52, 0.0, wcx, t_base)
-    ry = t_base - 52 * 0.36
-    rules = rule_with_dot(wl + 8, tl - 34, ry, "left") + rule_with_dot(tr + 34, wr - 8, ry, "right")
+    ts = 52 * TAG_SCALE
+    t_base = w_base + 92 + (ts - 52) * 0.9
+    td, tl, tr = draw_text(sans, "DENTAL & IMPLANT CLINIC", ts, 0.0, wcx, t_base)
+    ry = t_base - ts * 0.36
+    rules = rules_pair(wl, wr, tl, tr, ry, 26, 8)
     W = wr + pad
     H = pad + mh + pad
     body = (f'<g fill="{fill}">{md}<path d="{wd}"/><path d="{td}"/></g>' + rules.replace(GOLD, fill))
