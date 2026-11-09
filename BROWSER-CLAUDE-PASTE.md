@@ -28,7 +28,13 @@ Make a checklist. Mark each item ✅ OK, ❌ wrong (say exactly what's wrong) or
 4. FACEBOOK PAGE (business.facebook.com): note the Page's current name, profile picture, cover, admins, category, contact details, and whether the Lead Ads terms are accepted (facebook.com/ads/leadgen/tos).
 5. META AD ACCOUNT (Ads Manager): note the account ID, time zone and currency (should be London / GBP), payment method, spending limit, and whether any campaigns exist (there should be none).
 6. INSTAGRAM: does a clinic account exist? Note its username, picture and bio, and whether it's linked to the Facebook Page.
-7. ONSIM (Nas logs in): plan active and paid; the number; can it receive texts; voicemail; caller ID; which phone it's in.
+7. ONSIM (Nas logs in). Explain everything in plain words:
+   - What does "balance" mean on the account? Is it prepaid credit, money owed, or call/text credit, and how much is there?
+   - What plan is it, how much does it cost per month, and what has been paid so far (£6?)?
+   - Has a phone NUMBER actually been assigned yet? If yes, write it down exactly. If not, what's still needed: SIM delivery, activation, ID check?
+   - Can it make and receive calls and texts? Is voicemail on? What caller ID shows when it calls out?
+   - Is it in a phone yet, and which one?
+   - Anything unpaid, pending or needing action.
 8. info@kirkcaldydental.co.uk GMAIL: find the ONSIM invoice/receipt and any others from this week (ClickSend, Hostinger, Vistaprint…). List them.
 9. Hostinger (if Nas has a login): is there a hosting plan for kirkcaldydental.co.uk yet? Just look.
 
@@ -112,14 +118,48 @@ PART 7 – LEGAL PAPERS (Nas clicks Accept; save each as a dated PDF or screensh
 6. Gmail info@: create a DRAFT only, to development.central@fife.gov.uk, using Drive doc "7. Banner – Fife Council email + landlord note" part A, with the banner PDF attached. Nas fills in the dates and sends it.
 
 ==============================
+PART 8 – FACEBOOK ADS AS A DRAFT (do NOT publish anything; Nas decides launch)
+==============================
+The plan is to launch as soon as the clinic phone number is confirmed and the website is live. Tonight, build everything as an UNPUBLISHED DRAFT, check it works, and report back. Use "Save as draft" / "Close" and never press "Publish".
+
+STRATEGY (from the ads chat; follow exactly):
+- 1 campaign, objective LEADS. Accept "Advantage+ leads campaign". Campaign budget £20/day (daily). Bid strategy: Highest volume.
+- 1 ad set:
+  - Conversion location = "Instant forms" ONLY, not "Website and instant forms". Performance goal: Maximise number of leads.
+  - Location: postcodes KY1, KY2, KY3, KY4, KY5, "People living in this location". UNTICK "Reach more people likely to respond". Never EH, KY6, KY7 or KY8.
+  - Minimum age 18. No detailed interests. Placements Advantage+.
+- 2 ads, from Drive "1. Meta Ads":
+  - Ad A uses "Ad A – Woman (USE THESE)"; Ad B uses "Ad B – Family (USE THESE)".
+  - Feeds get the 4x5 video (image as backup); Stories/Reels get the 9x16 video (image as backup), using placement customisation.
+- Text: exactly as in BROWSER-CLAUDE-LAUNCH.md §7 / HANDOFF.md Step 5 (primary text A and B, Stories text, 3 headlines, description). Button: Sign up.
+- Advantage+ creative: EVERY enhancement OFF (text variations, image text changes, overlays, music, image expansion, touch-ups, AI variants). Lead capture AI agent OFF. Follow-up chat channels OFF.
+- Instant Form: build it inside Ad A, as in BROWSER-CLAUDE-LAUNCH.md §4.
+  - More volume; fields Full name, Phone (required, with SMS code verification on each ad), Email (required or optional: wait for Nas's answer).
+  - The disclaimer and optional marketing box exactly as written there. Completion button → https://kirkcaldydental.co.uk/?src=fb-form-done.
+  - SAVE THE FORM AS DRAFT ONLY. It can't be published until the privacy page https://kirkcaldydental.co.uk/privacy.html is live, because a published form can't be edited.
+
+CHECK AND WRITE DOWN for the ads chat:
+1. The audience size estimate Meta shows for the ad set (e.g. "45,000–53,000"), and the "estimated daily results" (leads per day) at £20/day.
+2. Whether the KY1–KY5 postcode targeting worked, or any postcode was refused.
+3. Whether "Instant forms only" was possible, and whether "Reach more people" was unticked.
+4. Which Advantage+ creative options appeared and confirmation that every one is OFF (screenshot into Drive "11. Legal & compliance" as "Ad log – Ad A/B").
+5. Whether each ad's preview looks right in Feed, Stories and Reels (screenshots), including text cut off or the "Sign up" button covering anything.
+6. Any warnings, errors or "can't be done" messages: payment method, ad account, Page, Lead Ads terms, special ad category, etc.
+7. Whether the ad account is in the Business portfolio, its time zone and currency, and the payment method.
+8. Anything in the strategy that ISN'T possible in Ads Manager as written, and what Meta offers instead.
+
+==============================
 LATER (not tonight)
 ==============================
 - Website upload: when Hostinger hosting exists, follow BROWSER-CLAUDE-LAUNCH.md §1.
 - Setup night: the rest of BROWSER-CLAUDE-LAUNCH.md (Apps Script, Facebook form, ads).
 
-REPORT BACK to Nas at the end. List:
-- ✅ done, ❌ not done and why;
-- the ONSIM number;
-- the Instagram username;
-- the Page admins;
-- any wrong or missing files.
+REPORT BACK at the end as ONE message that Nas can copy and paste to the ads chat (Claude Code). Include:
+- the Part 1 checklist (✅ / ❌ / ⚠️);
+- ONSIM: what "balance" means, cost, the number (or why there isn't one yet);
+- leaflet order status;
+- Facebook Page and Instagram: what was done, the username, the admins;
+- receipts saved;
+- safety and legal: done / not done;
+- PART 8: every item 1–8, with the audience size and estimated leads per day;
+- anything that couldn't be done, and why.
