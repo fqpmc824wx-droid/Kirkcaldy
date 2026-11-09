@@ -43,7 +43,7 @@ Do this signed in as info@kirkcaldydental.co.uk. Never share passwords with anyo
 
 ## Add later, before they go live
 
-- [ ] **VoIP phone provider** (the 01592 number): processor agreement, and a decision on call recording (on or off).
+- [ ] **ONSIM** (the clinic's virtual landline, 01592 214225, incoming calls only): it handles callers' phone numbers and call times, so save ONSIM's terms and data processing agreement (or privacy terms if there is no separate DPA). Decide whether call recording or voicemail is on. If yes, add it to the privacy page and keep recordings for no more than 90 days.
 - [ ] **Dentally** (booking and patient records): processor agreement before any waiting-list data is moved in.
 - [ ] Any other group practice that sees the list: a data-sharing agreement if it is a separate company.
 
@@ -55,3 +55,4 @@ Do this signed in as info@kirkcaldydental.co.uk. Never share passwords with anyo
 | Google Workspace CDPA | | | |
 | Meta Lead Ads Terms + Data Processing Terms | | | |
 | Hostinger DPA | | | |
+| ONSIM terms / DPA | | | |
