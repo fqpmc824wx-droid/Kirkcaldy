@@ -20,8 +20,8 @@ Make a checklist. Mark each item ✅ OK, ❌ wrong (say exactly what's wrong) or
 
 1. DRIVE: open each folder and check it contains:
    - "1. Meta Ads": "Ad A – Woman (USE THESE)" and "Ad B – Family (USE THESE)", each with 4 files (feed image, feed video, stories image, stories video), plus "READ ME – which ad file goes where". Open each image and play each video. They must show the gold K-on-D logo, "NEW NHS DENTAL PRACTICE / Opening Soon!", the gold strip "BE FIRST IN LINE / JOIN OUR WAITING LIST", the button "JOIN WAITING LIST →", kirkcaldydental.co.uk/register and the address 23–25 Tolbooth Street · Kirkcaldy KY1 1RW. No phone number.
-   - "2. Banner 180x60cm": the final print PDF ("…PRINT-10mm-bleed-v3.pdf"). Open it: it says "NHS & private dental care", the QR code is whole, and nothing touches the edges.
-   - "3. Leaflet A5": "kirkcaldy-dental-leaflet-A5-PRINT-3mm-bleed-v5-FINAL.pdf". Open both pages: the address and info@kirkcaldydental.co.uk are correct (never "kirkcaldydentist"); "We'll offer NHS and private dental care."; "Adults, children and families can all join our waiting list"; both QR codes are whole; no spelling mistakes; nothing important is cut off at the edges.
+   - "2. Banner 180x60cm": the final print PDF ("…PRINT-10mm-bleed-v5-FINAL.pdf"). Open it: it says "NHS & private dental care", the QR code is whole, and nothing touches the edges.
+   - "3. Leaflet A5": "kirkcaldy-dental-leaflet-A5-PRINT-3mm-bleed-v7-FINAL.pdf". Open both pages: the address and info@kirkcaldydental.co.uk are correct (never "kirkcaldydentist"); "We'll offer NHS and private dental care."; "Adults, children and families can all join our waiting list"; both QR codes are whole; no spelling mistakes; nothing important is cut off at the edges.
    - "4. Logo & Brand": "Facebook profile picture (1080x1080).png" and "Facebook cover (1640x624).png".
    - "7. Numbers & Reports", "8. Waiting list – staff guide", "9. Launch to-do list", "10. Launch safety", "11. Legal & compliance": each has its documents.
    - Note any old duplicates or wrongly named files.
@@ -51,11 +51,11 @@ PART 2 – LEAFLET PRINT ORDER (only after Part 1 is OK and Hamza says go)
 ==============================
 1. vistaprint.co.uk → Flyers & Leaflets → Flyers.
 2. Size A5 (148 x 210 mm) · Vertical · Flat · Standard paper weight · Matte · Quantity 2000 · Double-sided.
-3. Upload "kirkcaldy-dental-leaflet-A5-PRINT-3mm-bleed-v5-FINAL.pdf" from Drive "3. Leaflet A5" (page 1 = front, page 2 = back).
+3. Upload "kirkcaldy-dental-leaflet-A5-PRINT-3mm-bleed-v7-FINAL.pdf" from Drive "3. Leaflet A5" (page 1 = front, page 2 = back).
 4. In the preview: nothing important touches the cut line, and both QR codes are whole.
 5. Delivery: Hamza's address (or Kingdom Distribution's, if Hamza says so). Choose the fast option (about Wed 11 Nov, ~£13.49), NOT the free 23 Nov one.
 6. STOP at payment. Hamza pays.
-7. Save the order confirmation as PDF to Drive "12. Receipts & invoices" (create the folder if needed), named "YYYY-MM-DD – Vistaprint – £amount.pdf". Add a row to the separate "Expenses to be reimbursed" spreadsheet, not the Waiting List.
+7. Save the order confirmation as PDF to Drive "12. Receipts & invoices" (create the folder if needed), named "YYYY-MM-DD – Vistaprint – £amount.pdf". Add a row to the "All costs" tab of "Kirkcaldy Dental – Costs & Expenses", not the Waiting List.
 NOTE: the leaflet has no phone number yet. If Hamza wants the 01592/ONSIM number on it, stop and tell him: the leaflet chat re-exports the file first.
 
 ==============================
@@ -96,7 +96,7 @@ PART 5 – RECEIPTS
 ==============================
 For every invoice found in Part 1 step 8:
 - save it as PDF to Drive "12. Receipts & invoices", named "YYYY-MM-DD – Supplier – £amount.pdf";
-- add a row to the separate "Expenses to be reimbursed" spreadsheet (Drive "6. Sheets & Trackers"), NEVER the Waiting List sheet;
+- add a row to the "All costs" tab of the separate spreadsheet "Kirkcaldy Dental – Costs & Expenses" (Drive "6. Sheets & Trackers"), NEVER the Waiting List sheet; personal payments also go in its "To reimburse" tab;
 - if someone paid personally, also add it to the "Expenses to be reimbursed" sheet in "6. Sheets & Trackers".
 
 ==============================

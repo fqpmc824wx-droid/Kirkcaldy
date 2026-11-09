@@ -49,7 +49,7 @@ Images are in Google Drive → "Kirkcaldy Dental – Print files & marketing" �
 1. In **info@kirkcaldydental.co.uk** Gmail, find the invoice or receipt email for what the owner just paid for (the SIM/phone service, plus any others from this week: ClickSend, Hostinger and so on).
 2. Download each PDF, or print the email to PDF, and upload it to Google Drive → "Kirkcaldy Dental – Print files & marketing" → **"12. Receipts & invoices"** (create the folder if it doesn't exist).
 3. Name each file `YYYY-MM-DD – Supplier – £amount.pdf`.
-4. Add a row to the Waiting List sheet's **"Costs"** tab if it exists: Date / Channel / Item / Cost ex VAT / VAT / Total / Invoice ref. If the tab doesn't exist, leave it and tell the owner; the leaflet chat creates it.
+4. Add a row to the **"All costs"** tab of the separate spreadsheet "Kirkcaldy Dental – Costs & Expenses" (Drive "6. Sheets & Trackers"). Never the Waiting List sheet.
 
 ## 5. Safety settings (from the Launch-safety chat; full detail in SAFETY-PLAN.md parts 4 and 6)
 1. **Two-step login** with an authenticator app (not SMS only) on:
