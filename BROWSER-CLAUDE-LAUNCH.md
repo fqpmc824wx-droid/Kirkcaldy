@@ -66,46 +66,44 @@ Waiting List sheet: https://docs.google.com/spreadsheets/d/1WxadIcaibszu3YYR3eqN
 ---
 
 ## 1. Website live on Hostinger (must come first: the Meta form needs the privacy page)
-1. **Get the files.** Use **one** website package only.
-   - **First choice: the one zip in Drive "5. Website".** After the PRs are merged, the website chat builds it from `site/` on `main`, bins the old zips and leaves a one-line READ ME naming the file. Use it only if the READ ME is there, there's exactly one zip, and it was made after the merge.
-   - **Otherwise don't use any zip** (the old zips have no QR pages `b/` and `l/`, so the printed QR codes would 404). Go to github.com/fqpmc824wx-droid/Kirkcaldy → branch `main` (or `claude/brave-allen-i14xnx` if PR #1 isn't merged) → **Code → Download ZIP** → unzip on the laptop and use its `site/` folder. If the repo is private, the owner must be signed in to GitHub in this browser.
-   - If PR #2 isn't merged, also download branch `claude/hostinger-plugin-install-eyvjb3` and take its `site/assets/` files (the new logo).
-   - Never upload the repo zip `kirkcaldy-dental-website.zip` from the repo root: it's an old copy.
+*(Text from the website chat, 9 Nov; PR #2 already has the fixed register page, privacy page, email address, spam trap, honest error, b/, l/ and .htaccess.)*
+0. **Email record (do this now, about 2 minutes; it's safe and doesn't touch email delivery).**
+   - Go to Google Admin → Domains → Manage domains → kirkcaldydental.co.uk → DNS (Squarespace Domains) → Add record.
+   - Type **TXT**, Host **_dmarc**, Value **v=DMARC1; p=none; rua=mailto:info@kirkcaldydental.co.uk**. Save.
+   - SPF and DKIM are already set. This record stops confirmation emails going to spam.
+1. **Get the files.**
+   - Go to github.com/fqpmc824wx-droid/Kirkcaldy and pick branch **main** if PR #2 is merged, otherwise branch **claude/hostinger-plugin-install-eyvjb3**.
+   - Code → Download ZIP → unzip. If the repo is private, the owner must be signed in to GitHub.
+   - Use only the `site/` folder. Don't use any older website zip from Drive or the repo root.
 2. **Upload.**
-   - Go to Hostinger → Websites → kirkcaldydental.co.uk → **File Manager** → `public_html`, and delete any default `index.php`/`default.php`.
-   - Upload the **contents** of `site/`, not the folder itself.
-   - `public_html` must end up with: `index.html`, `privacy.html`, `assets/`, `register/index.html`, `b/index.html`, `l/index.html` (and `waiting-list/index.html` if the website chat has built it).
-   - Check the footer says **info@kirkcaldydental.co.uk**, never kirkcaldydentist.
-3. **DNS (required, not optional).** The domain points at Squarespace today.
-   - Go to Google Admin (super-admin) → Domains → Manage domains → kirkcaldydental.co.uk. This opens Squarespace Domains. Then open **DNS**.
-   - **Remove** the Squarespace Defaults: the 4 A records for `@` (198.185.159.144, 198.185.159.145, 198.49.23.144, 198.49.23.145) and the CNAME `www` → ext-sq.squarespace.com.
-   - **Add** A `@` → the Hostinger IP (plus AAAA if Hostinger gives one), and CNAME `www` → kirkcaldydental.co.uk.
-   - **Keep** the MX record (smtp.google.com), the SPF TXT record and Google's DKIM TXT record (`google._domainkey`) if there is one. **Don't change nameservers.**
-   - **Add a DMARC record** if there isn't one: type TXT, host `_dmarc`, value `v=DMARC1; p=none; rua=mailto:info@kirkcaldydental.co.uk`. It helps the confirmation emails stay out of spam folders.
-   - **Skip HANDOFF Step 1 item 6.** info@ is already a Google Workspace mailbox. Don't create a Hostinger mailbox, and decline any Hostinger offer to change MX, SPF or nameservers.
-4. **SSL.** Old DNS can be cached for up to ~4 hours.
-   - Don't wait: carry on with Step 2, anything left from Step 3, Step 4 up to the saved draft (form privacy URL https://kirkcaldydental.co.uk/privacy.html; don't publish the form until that page loads) and 5.1–5.6.
-   - Come back when https://kirkcaldydental.co.uk shows the Hostinger site, then turn on SSL in Hostinger. Once SSL is active, turn on Hostinger's **Force HTTPS** switch.
-   - **Every https page must load before Step 5.7, the Step 6 tests and any ad.**
-5. **Check these load over https:** `/`, `/privacy.html`, `/register/`, and `/b` and `/l`, which must forward to `/register/?src=banner` and `?src=leaflet`. Also `/waiting-list/` if the website chat has built it.
-   - Then type each one with **`http://`** and with **`www.`** (e.g. `http://www.kirkcaldydental.co.uk/register/`). Each must end up on `https://kirkcaldydental.co.uk/…` with no security warning.
-6. **privacy.html: known issue (8 Nov), no branch passes yet.**
-   - The website chat is rewriting it (spec: research/FORMS-website-register-form.md, privacy section). Use its version from `main` if it's there. It must have a **"delete your data" section at `privacy.html#delete-your-data`**: the Meta app needs that link (§5.1).
-   - Otherwise use PR #1's `privacy.html` (it has the right email and lists Hostinger).
-   - If the website chat hasn't pushed a fixed version by the night, get the owner's OK and edit it in Hostinger File Manager → `public_html/privacy.html` → right-click → Edit:
-     - Delete `<li><strong>Zapier</strong>, which transfers your details from the form to our records</li>`.
-     - Change the ClickSend line to `<li><strong>ClickSend</strong>, which sends our text messages</li>`.
-     - Replace the first "How we use your information" item with `<li>To add you to our waiting list, confirm it by text (and by email, if you give one), call you about it between 8am and 9pm, and contact you about your place on the list and our opening</li>`.
-     - Replace the "We will not use your details for unrelated marketing…" paragraph with `<p>We only send news and offers by text or email if you ticked the optional box on the form. To stop any contact, email <a href="mailto:info@kirkcaldydental.co.uk">info@kirkcaldydental.co.uk</a> or tell the person who calls you. We never sell your information.</p>`.
-   - Reload and check: Meta, Google, ClickSend and Hostinger are listed, there's no Zapier, and every email is @kirkcaldydental.co.uk. If there's no "delete your data" section yet, tell the owner: the website chat must add it before the app goes Live.
-   - Tell the owner to send the same edits to the website chat so the repo matches.
-   - **Don't publish ads until this page passes.**
-7. **/register/ form check** (spec: research/FORMS-website-register-form.md). The page must show:
-   - the fields in OWNER-DECISIONS.md "Forms, latest owner instruction" (phone allows landlines). No "Who is this for?" and no "registered with a dentist?" question.
-   - **(a)** this notice, not a tick box: "By tapping "Join waiting list", you're asking Kirkcaldy Dental & Implant Clinic to add you to our waiting list. Joining doesn't register you with the practice yet. We'll send you a confirmation shortly (by text to a mobile, and by email if you give one), call you about your request between 8am and 9pm, and contact you about your place on the list and our opening. We won't send you marketing unless you tick the box below. Our privacy policy explains how we use your details and how to complain."
-   - **(b)** a separate **optional, unticked** box "Yes, also send me news and offers from Kirkcaldy Dental by text and email. I can opt out at any time." (field `marketing`).
-   - If it has a required "I'm happy … opening news" box, tell the owner. The website and leaflet chats must fix it before leaflets go out. Until then, treat every website row as Marketing consent = No.
-8. **The register page saves nothing until Step 5.7 is done.** Finish 5.7 tonight. **Don't hand out leaflets or put up the banner until a test sign-up appears as a row in the sheet.**
+   - Hostinger → Websites → kirkcaldydental.co.uk → File Manager → `public_html`. Delete any default index.php/default.php.
+   - Upload the **contents** of `site/`, including the hidden file **`.htaccess`** (turn on "show hidden files" if needed).
+   - `public_html` must end up with: index.html, privacy.html, .htaccess, assets/, register/index.html, b/index.html, l/index.html.
+   - The footer must say info@kirkcaldydental.co.uk.
+3. **Paste the Google Sheet link** (once Step 5.7 gives you the /exec URL).
+   - In File Manager, edit **two** files, `register/index.html` and `index.html`.
+   - In each, replace `PASTE_APPS_SCRIPT_URL_HERE` with the full https://script.google.com/macros/s/…/exec URL. Save.
+   - Until this is done, the sign-up page shows "Sign-ups open shortly – please email…". That's deliberate, not a bug.
+4. **DNS** (same DNS screen as item 0).
+   - **Remove** the 4 Squarespace A records for @ (198.185.159.144, 198.185.159.145, 198.49.23.144, 198.49.23.145) and the CNAME www → ext-sq.squarespace.com.
+   - **Add** A @ → the Hostinger IP (plus AAAA if given), and CNAME www → kirkcaldydental.co.uk.
+   - **Keep** MX (smtp.google.com), the SPF TXT, google._domainkey and the new _dmarc.
+   - Don't change nameservers. Don't create a Hostinger mailbox, and decline any Hostinger offer to change MX, SPF or nameservers.
+5. **SSL.**
+   - Carry on with Steps 2–5 while DNS updates (up to about 4 hours). Don't publish the Facebook form until the privacy page loads.
+   - When https://kirkcaldydental.co.uk shows the new site, turn on SSL in Hostinger, then **Force HTTPS**.
+6. **Check over https:**
+   - `/`, `/privacy.html` and `/register/` load.
+   - `/b` and `/l`, with and without a trailing slash, land on `/register/?src=banner` and `/register/?src=leaflet`.
+   - Also try `http://` and `www.`: each must end on `https://kirkcaldydental.co.uk/…`.
+   - The privacy page lists Meta, Google, ClickSend and Hostinger, with no Zapier.
+   - /register/ shows the 8am–9pm notice and an optional, unticked marketing box.
+7. **Test sign-up** (after item 3).
+   - On mobile data, scan the printed banner and leaflet QR codes and submit with the owner's phone and email.
+   - Confirm a sheet row with Source = banner / leaflet, and the thank-you screen.
+   - If the page shows an error instead of the thank-you, the sheet didn't save it: check the /exec URL and the Apps Script deployment (access: Anyone).
+   - Delete the test rows afterwards.
+8. **Don't put up the banner or hand out leaflets until item 7 passes.** Tell the website chat (Claude Code) the Hostinger IP and that the site is live.
 9. **Domain renewal and the old domain** (with the owner):
    - Google Admin → Domains → kirkcaldydental.co.uk: turn on **auto-renew** and check the card on file.
    - Old domain **kirkcaldydentist.co.uk**: forward its email to info@kirkcaldydental.co.uk, and redirect its website to https://kirkcaldydental.co.uk. Ask the owner where it's managed.
@@ -134,7 +132,7 @@ Budget to tell the owner:
 1. **Don't create a new Page.** Use the clinic's existing Page **"KirkcaldyDental"** (Page ID **1421462957723791**).
    - **Check its admins** (Page settings → Page setup → Page access). The owner must have full control. Ask the owner about anyone they don't know before removing them.
    - **Rename it** to **Kirkcaldy Dental & Implant Clinic** (Settings → Page info → Name). Meta may review the new name, which can take a few days. That's one reason this is done early.
-   - Profile picture and cover: the leaflet chat's new **square profile picture** (1080 × 1080) and **Page cover** (1640 × 624) in Drive "4. Logo & Brand" (it will name the files). Check the profile picture reads well in Facebook's circular crop. Until they're there, use "Logo – gold (FINAL, K on D).png", the newest one (8 Nov, 18:05; the halfway logo).
+   - Profile picture and cover: Drive "4. Logo & Brand" → **"Facebook profile picture (1080x1080).png"** and **"Facebook cover (1640x624).png"**. Check the profile picture reads well in Facebook's circular crop.
    - Address: 23–25 Tolbooth Street, Kirkcaldy KY1 1RW.
    - Website: kirkcaldydental.co.uk.
    - Email: info@kirkcaldydental.co.uk.
