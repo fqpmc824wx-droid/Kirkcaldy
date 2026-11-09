@@ -18,7 +18,7 @@ Upload into the right subfolder and **trash the old version** (no "FINAL v2/v3" 
 
 ## Approved wording (owner Nas)
 - Headline: **NEW NHS DENTAL PRACTICE** / *Opening Soon!* (gold italic, diamond flourishes)
-- Strip: **BE FIRST IN LINE** / JOIN OUR WAITING LIST (owner decision 8 Nov – keep it; print v3)
+- Strip: **REGISTER YOUR INTEREST** / JOIN OUR WAITING LIST (owner 9 Nov ~15:00: same wording everywhere, matches the website; banner v8, leaflet v10)
 - Location line: full address everywhere: **23–25 Tolbooth Street, Kirkcaldy KY1 1RW** (owner wants the full address, not just "Tolbooth Street")
 - CTA: Join waiting list · kirkcaldydental.co.uk/register · info@kirkcaldydental.co.uk
 - Phone: **01592 214225** (ONSIM virtual landline, inbound calls only, diverts to the clinic mobile; NOT textable, so never say "text us"). Printed as "or call 01592 214225" on the banner (banner line below it: "NHS & PRIVATE DENTAL CARE", capitals, owner 9 Nov) and leaflet (front and back).
