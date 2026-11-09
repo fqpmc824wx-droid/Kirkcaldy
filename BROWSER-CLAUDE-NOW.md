@@ -51,7 +51,42 @@ Images are in Google Drive → "Kirkcaldy Dental – Print files & marketing" �
 3. Name each file `YYYY-MM-DD – Supplier – £amount.pdf`.
 4. Add a row to the Waiting List sheet's **"Costs"** tab if it exists: Date / Channel / Item / Cost ex VAT / VAT / Total / Invoice ref. If the tab doesn't exist, leave it and tell the owner; the leaflet chat creates it.
 
-## 5. When the website is live (later)
+## 5. Safety settings (from the Launch-safety chat; full detail in SAFETY-PLAN.md parts 4 and 6)
+1. **Two-step login** with an authenticator app (not SMS only) on:
+   - Facebook (the owner's account);
+   - the Business portfolio: switch on "Require 2FA for everyone";
+   - Google Workspace info@;
+   - ClickSend, GitHub and Hostinger.
+   The owner prints the backup codes for the clinic safe. Never put codes or passwords in the sheet or the chat.
+2. **A second admin** with full control on the Page, the Business portfolio and the ad account. Ask the owner for a name; if there isn't one yet, leave it and note it.
+3. **Meta billing:** add a backup payment method, and set the ad account **spending limit to about £900**.
+4. **healthchecks.io** (the owner's PERSONAL email):
+   - Project "Kirkcaldy Dental" with 3 checks:
+     - **poller:** period 5 min, grace 15 min;
+     - **daily:** period 1 day, grace 2 h;
+     - **backup:** period 1 day, grace 3 h.
+   - Add email plus one phone-push integration (Telegram is easiest).
+   - Save the 3 ping URLs for setup night (Script Properties HEALTH_PING_POLLER / _DAILY / _BACKUP). They'll show "new/down" until the scripts run, which is expected.
+5. **UptimeRobot** (owner's personal email): create the account, install the phone app and add alert contacts.
+   - Check the terms allow business use; if not, pick the cheapest paid plan.
+   - **Don't add website monitors until Hostinger is live.**
+6. **Gmail filter in info@:** mail from `apps-scripts-notifications@google.com` → forward to the owner's personal email. Confirm the forwarding address first.
+7. Store the new logins in the owner's password manager. Write down (no secrets) who the admins are and where the backup codes are kept.
+
+## 6. Legal paperwork (from the Legal chat)
+The owner signs in and clicks every Accept or Pay button themselves. Save each item as a dated PDF or screenshot in Drive **"11. Legal & compliance"**. The details are in that folder's docs 5 and 6.
+1. **Google Admin** (as info@): Account → Account settings → Legal and compliance → **Cloud Data Processing Addendum**. Add info@ as the data-protection contact, the owner accepts, then screenshot "Accepted".
+2. **ClickSend:** find the DPA (under Account/Legal, or on ClickSend's legal pages) and save the PDF. If there's no UK IDTA Addendum, draft a support message asking for "your DPA with the UK International Data Transfer Addendum". Don't send it until the owner says OK.
+3. **Meta:**
+   - Go to facebook.com/ads/leadgen/tos and screenshot the accepted Lead Ads Terms (accept them for the clinic Page if they aren't accepted yet).
+   - Save the Meta Data Processing Terms page as a PDF.
+4. **Hostinger:** save its Data Processing Agreement page as a PDF.
+5. **ICO:**
+   - First search the ICO public register by company name to see whether the company is already registered.
+   - Then on ico.org.uk/fee, do the **self-assessment only** and screenshot the tier result. **Don't pay.**
+   - Report the tier and whether the company is already registered.
+
+## 7. When the website is live (later)
 Follow BROWSER-CLAUDE-LAUNCH.md §1. Then go back to step 1.7 (Sign-up button) and step 2.5 (Instagram link) if they were skipped.
 
 ## Report back
