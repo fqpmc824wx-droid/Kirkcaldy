@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<title>Kirkcaldy Dental – Banner 180x60cm</title>
+<style>
+@font-face{font-family:"InterS";font-weight:700;src:url(inter-700.woff2) format("woff2");}
+@font-face{font-family:"InterS";font-weight:800;src:url(inter-800.woff2) format("woff2");}
+@font-face{font-family:"InterS";font-weight:900;src:url(inter-900.woff2) format("woff2");}
+@font-face{font-family:"Playfair";font-weight:800;src:url(playfair-800.woff2) format("woff2");}
+@font-face{font-family:"Playfair";font-weight:900;src:url(playfair-900.woff2) format("woff2");}
+@font-face{font-family:"PlayfairI";font-weight:800;font-style:italic;src:url(playfair-display-latin-800-italic.woff2) format("woff2");}
+</style>
+<style>
+  /* B = bleed (mm), set by the render script via ?bleed= */
+  :root { --b: 10mm; --cream:#F6F2EA; --gold:#8A6A2C; --ink:#262B30; --panel:#30363B; }
+  @page { margin: 0; }
+  html,body { margin:0; padding:0; }
+  body { width: calc(1800mm + 2*var(--b)); height: calc(600mm + 2*var(--b)); position: relative;
+         background: var(--cream); font-family: "InterS", sans-serif; overflow: hidden; }
+  /* everything below is positioned in FINISHED-size mm, offset by the bleed */
+  .abs { position:absolute; }
+  .left  { left:0; top:0; width: calc(1300mm + var(--b)); height:100%; background: var(--cream); }
+  .right { left: calc(1300mm + var(--b)); top:0; right:0; height:100%; background: var(--panel); }
+  .logo { left: calc(var(--b) + 650mm - 325mm); top: calc(var(--b) + 44mm); width:650mm; }
+  .head { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 192mm); text-align:center;
+          color: var(--ink); font-family:'Playfair',serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; }
+  .head div { white-space:nowrap; line-height:1.0; }
+  .head .l2 { color: var(--gold); margin-top: 0mm; font-family:'PlayfairI',serif; font-style:italic; text-transform:none; letter-spacing:0; }
+  .strip { left:0; width: calc(1300mm + var(--b)); top: calc(var(--b) + 410mm); bottom:0; background: var(--gold); }
+  .striptext { left: calc(var(--b) + 50mm); width:1200mm; top: calc(var(--b) + 410mm); height:190mm;
+               display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:6mm; box-sizing:border-box; color:#fff; font-family:'Playfair',serif; font-weight:900;
+               text-transform:uppercase; white-space:nowrap; line-height:1; }
+  .striptext #st1 { letter-spacing:0.03em; }
+  .striptext #st2 { font-family:'InterS',sans-serif; font-weight:700; letter-spacing:0.16em; color:#FBF3E2; margin-top:12mm; }
+  .scan { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 64mm); text-align:center;
+          color:#fff; font-family:"Playfair",serif; font-weight:800; text-transform:uppercase; line-height:1.05; font-size:40mm; letter-spacing:0.02em; }
+  .scan span { color:#D9BD82; }
+  .tile { left: calc(1300mm + var(--b) + 90mm); top: calc(var(--b) + 135mm); width:320mm; height:320mm;
+          background:#fff; border-radius:12mm; }
+  .qr { left: calc(1300mm + var(--b) + 100mm); top: calc(var(--b) + 145mm); width:300mm; height:300mm; }
+  .url { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 465mm); text-align:center;
+         color:#fff; font-weight:700; font-size:21mm; white-space:nowrap; line-height:1; }
+  .addr { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 501mm); text-align:center; color:#D9BD82; font-weight:700; white-space:nowrap; line-height:1; }
+  .phone { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 484mm); text-align:center; color:#fff; font-weight:700; white-space:nowrap; line-height:1; display:none; }
+  .phone b { color:#D9BD82; }
+  .mixed { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 521mm); text-align:center; color:#fff; font-weight:700; font-size:16mm; letter-spacing:0.08em; text-transform:uppercase; white-space:nowrap; line-height:1; }
+  .divider { left: calc(1300mm + var(--b) - 4mm); top:0; width:8mm; height:100%; background:#B8964F; }
+  .flour { height:3.6mm; top:0; }
+  .flour.l { background: linear-gradient(90deg, rgba(138,106,44,0), var(--gold)); }
+  .flour.r { background: linear-gradient(270deg, rgba(138,106,44,0), var(--gold)); }
+  .dia { width:14mm; height:14mm; background: var(--gold); transform: rotate(45deg); }
+  .dia.o { width:7mm; height:7mm; }
+  .sline { left:0; width: calc(1300mm + var(--b)); height:1.6mm; background: rgba(246,242,234,.55); }
+  .pframe { left: calc(1300mm + var(--b) + 45mm); top: calc(var(--b) + 45mm); width:410mm; height:510mm;
+            border:2mm solid #B8964F; border-radius:6mm; box-sizing:border-box; }
+</style></head>
+<body>
+  <div class="abs left"></div>
+  <div class="abs right"></div>
+  <div class="abs divider"></div>
+  <img class="abs logo" src="logo-horizontal.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
+  <div class="abs head" id="head"><div class="l1">New NHS Dental Practice</div><div class="l2"><span id="os">Opening Soon!</span></div></div>
+  <div class="abs strip"></div>
+  <div class="abs pframe"></div>
+  <div class="abs flour l" id="fl"></div><div class="abs flour r" id="fr"></div>
+  <div class="abs dia" id="dl"></div><div class="abs dia" id="dr"></div><div class="abs dia o" id="dl2"></div><div class="abs dia o" id="dr2"></div>
+  <div class="abs striptext" id="strip"><span id="st1">Register your interest</span><span id="st2">Join our waiting list</span></div>
+  <div class="abs scan" id="scan"><div id="sc1">Scan to join</div><div id="sc2"><span>our waiting list</span></div></div>
+  <div class="abs tile"></div>
+  <img class="abs qr" src="qr.svg" alt="QR code to the waiting-list page">
+  <div class="abs url" id="url">kirkcaldydental.co.uk/register</div>
+  <div class="abs addr" id="addr">23–25 Tolbooth Street, Kirkcaldy KY1 1RW</div>
+  <div class="abs phone" id="phone">or call <b id="phoneno"></b></div>
+  <div class="abs mixed" id="mixed">NHS &amp; private dental care</div>
+<script>
+  const p=new URLSearchParams(location.search); document.documentElement.style.setProperty('--b',(p.get('bleed')||'10')+'mm');
+  // fit a single-line element to a target width (mm) by scaling font-size
+  const MM=96/25.4;
+  function fit(el, targetMm, maxMm){ el.style.fontSize=maxMm+'mm';
+    const rg=document.createRange(); rg.selectNodeContents(el); const w=rg.getBoundingClientRect().width/MM; if(w>targetMm) el.style.fontSize=(maxMm*targetMm/w)+'mm'; }
+  window.layout=async()=>{ await document.fonts.ready;
+    fit(document.querySelector('.head .l1'),1200,150);
+    document.querySelector('.head .l2').style.fontSize=(parseFloat(document.querySelector('.head .l1').style.fontSize)*1.3)+'mm';
+    const s=document.getElementById('st1'), s2=document.getElementById('st2');
+    s.style.fontSize='84mm'; let w=s.getBoundingClientRect().width/MM; if(w>1150) s.style.fontSize=(84*1150/w)+'mm';
+    s2.style.fontSize='44mm'; w=s2.getBoundingClientRect().width/MM; if(w>1000) s2.style.fontSize=(44*1000/w)+'mm';
+    // phone number (render.js "01592 …"): smaller QR so the number fits in the panel
+    const PHONE=p.get('phone')||'';
+    if(PHONE){ document.getElementById('phoneno').textContent=PHONE; const ph=document.getElementById('phone'); ph.style.display='block';
+      const set=(sel,prop,v)=>document.querySelector(sel).style[prop]=v;
+      set('.tile','left','calc(1300mm + var(--b) + 110mm)'); set('.tile','top','calc(var(--b) + 130mm)'); set('.tile','width','280mm'); set('.tile','height','280mm');
+      set('.qr','left','calc(1300mm + var(--b) + 120mm)'); set('.qr','top','calc(var(--b) + 140mm)'); set('.qr','width','260mm'); set('.qr','height','260mm');
+      set('.url','top','calc(var(--b) + 425mm)'); set('.addr','top','calc(var(--b) + 459mm)');
+      fit(ph,360,24); }
+    fit(document.getElementById('mixed'),340,16); fit(document.getElementById('url'),360,24); fit(document.getElementById('addr'),360,15.5); fit(document.getElementById('sc2'),350,26.5); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
+    // flourishes either side of "Opening Soon!"
+    { const r=document.getElementById('os').getBoundingClientRect(), b=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--b'));
+      const L=r.left/MM, R=r.right/MM, cy=(r.top+r.height*0.56)/MM, x0=b+70, x1=b+1230, g=26, d=14, d2=7;
+      const put=(id,l,t,w)=>{const e=document.getElementById(id); e.style.left=l+'mm'; e.style.top=t+'mm'; if(w!==undefined) e.style.width=w+'mm';};
+      put("fl",x0,cy-1.8,(L-g-d-14)-x0); put("fr",R+g+d+14,cy-1.8,x1-(R+g+d+14));
+      put('dl',L-g-d,cy-d/2); put('dr',R+g,cy-d/2);
+      put("dl2",L-g-d-15,cy-d2/2); put("dr2",R+g+d+8,cy-d2/2); }
+    return {head:document.querySelector('.head .l1').style.fontSize, strip:s.style.fontSize+' / '+s2.style.fontSize,
+            headBottom:(document.getElementById('head').getBoundingClientRect().bottom/MM).toFixed(1)}; };
+</script>
+</body></html>

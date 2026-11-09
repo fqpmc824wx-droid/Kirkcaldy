@@ -2,6 +2,8 @@
 
 Text is converted to outlines so the SVG needs no fonts installed.
 Usage: python3 makelogo.py <fonts_dir> <out_dir>
+Current logo (K sitting on the D): KD_STYLE=overlap K_SX=1.0 D_DX=0.66 D_DY=0.095 KNOCK=0.028 D_LIFT=0.0466667 (D raised halfway, owner-approved 8 Nov) [K_FILL=#262B30 light / #F4EDE3 dark]
+Fonts: Cormorant Garamond 700 (cormorantb.ttf), Cinzel wght 650 (cinzel650.ttf = instance of Cinzel[wght].ttf, owner-approved 9 Nov), Lato 900 (lato900.ttf) at the original size. GOLD env sets the colour (#8E6B2E deep gold); K_FILL for two-tone.
 """
 import os
 import sys
@@ -72,9 +74,35 @@ def draw_text(face, txt, size, tracking, cx, baseline):
     return d, x0 + left, x0 + right
 
 
+
+def vector_knockout(d_path, k_path, knock, lift):
+    """Return the D outline with a gap of `knock` cut around the K, as plain vector path data (no masks)."""
+    import pathops
+    from fontTools.svgLib.path import parse_path
+    from fontTools.pens.transformPen import TransformPen
+
+    def to_pathops(d, dy=0.0):
+        pth = pathops.Path()
+        pen = pth.getPen()
+        parse_path(d, TransformPen(pen, (1, 0, 0, 1, 0, dy)) if dy else pen)
+        return pth
+
+    D = to_pathops(d_path, -lift)
+    K = to_pathops(k_path)
+    halo = to_pathops(k_path)
+    halo.stroke(2 * knock, pathops.LineCap.BUTT_CAP, pathops.LineJoin.ROUND_JOIN, 4)
+    cut = pathops.op(K, halo, pathops.PathOp.UNION)
+    res = pathops.op(D, cut, pathops.PathOp.DIFFERENCE)
+    out = SVGPathPen(None)
+    res.draw(out)
+    return out.getCommands()
+
+
 mono = Face(f"{FD}/cormorantb.ttf")
-word = Face(f"{FD}/cinzel600.ttf")
-sans = Face(f"{FD}/lato.ttf")
+word = Face(f"{FD}/" + os.environ.get("WORD_FONT", "cinzel650.ttf"))   # owner-approved 9 Nov: Cinzel at wght 650 (instance of the variable font)
+sans = Face(f"{FD}/" + os.environ.get("TAG_FONT", "lato900.ttf"))       # owner-approved 9 Nov: Lato 900 (Black)
+TAG_SCALE = float(os.environ.get("TAG_SCALE", "1.0"))                   # tagline at its original size
+GOLD = os.environ.get("GOLD", GOLD)
 
 
 def monogram(cx, top, cap_h):
@@ -89,7 +117,7 @@ def monogram(cx, top, cap_h):
     d_w = (d_b[2] - d_b[0]) * s
     # Offsets measured from the original artwork (relative to cap height)
     d_dx = float(os.environ.get("D_DX", "0.64")) * cap_h          # D starts this far right of K's left edge
-    d_dy = 0.355 * cap_h         # D sits this much lower than K
+    d_dy = float(os.environ.get("D_DY", "0.355")) * cap_h  # D sits this much lower than K
     total_w = d_dx + d_w
     kx = cx - total_w / 2 - k_b[0] * s * K_SX
     k_base = top + cap_h
@@ -103,7 +131,20 @@ def monogram(cx, top, cap_h):
     clip_id = f"kclip{int(cx)}{int(top)}"
     clip = (f'<clipPath id="{clip_id}"><rect x="{-big}" y="{-big}" width="{big + d_left + 1:.1f}" height="{2 * big}"/>'
             f'<rect x="{-big}" y="{-big}" width="{2 * big}" height="{big + d_top + 1:.1f}"/></clipPath>')
-    svg_frag = (f'<defs>{clip}</defs><path clip-path="url(#{clip_id})" d="{k_path}"/><path d="{d_path}"/>')
+    if os.environ.get("KD_STYLE") == "overlap":
+        # K sits on the D: no clipping, D drawn first, K on top (two-tone: K colour set by K_FILL)
+        kf = os.environ.get("K_FILL")
+        kattr = f' fill="{kf}"' if kf else ""
+        knock = float(os.environ.get("KNOCK", "0")) * cap_h
+        lift = float(os.environ.get("D_LIFT", "0")) * cap_h
+        if knock > 0:
+            # vector cut-out: subtract a thin halo around the K from the D (pure paths, prints as vector)
+            d_cut = vector_knockout(d_path, k_path, knock, lift)
+            svg_frag = f'<path d="{d_cut}"/><path data-kd="K"{kattr} d="{k_path}"/>'
+        else:
+            svg_frag = f'<path d="{d_path}"/><path data-kd="K"{kattr} d="{k_path}"/>'
+    else:
+        svg_frag = (f'<defs>{clip}</defs><path clip-path="url(#{clip_id})" d="{k_path}"/><path d="{d_path}"/>')
     return svg_frag, total_w, cap_h + d_dy
 
 
@@ -111,6 +152,14 @@ def rule_with_dot(x1, x2, y, dot_at, r=4.2, w=2.6):
     cx = x1 if dot_at == "left" else x2
     return (f'<line x1="{x1:.1f}" y1="{y:.1f}" x2="{x2:.1f}" y2="{y:.1f}" stroke="{GOLD}" stroke-width="{w}"/>'
             f'<circle cx="{cx:.1f}" cy="{y:.1f}" r="{r}" fill="{GOLD}"/>')
+
+
+def rules_pair(wl, wr, tl, tr, ry, gap, inset):
+    """Flourish lines either side of the tagline, shortened to fit; dropped if there is no room."""
+    a1, a2, b1, b2 = wl + inset, tl - gap, tr + gap, wr - inset
+    if a2 - a1 < 60:   # too short to read as a flourish: leave the tagline clean
+        return ""
+    return rule_with_dot(a1, a2, ry, "left") + rule_with_dot(b1, b2, ry, "right")
 
 
 def svg(w, h, body, title):
@@ -127,11 +176,12 @@ def stacked(fill=GOLD):
     pad = 40
     md, mw, mh = monogram(cx, pad, 300)
     wd, wl, wr = draw_text(word, "KIRKCALDY", 112, 0.30, cx, pad + mh + 40 + 80)
-    tag_base = pad + mh + 40 + 80 + 78
-    td, tl, tr = draw_text(sans, "DENTAL & IMPLANT CLINIC", 46, 0.0, cx, tag_base)
-    ry = tag_base - 46 * 0.36
+    ts = 46 * TAG_SCALE
+    tag_base = pad + mh + 40 + 80 + 78 + (ts - 46) * 0.9
+    td, tl, tr = draw_text(sans, "DENTAL & IMPLANT CLINIC", ts, 0.0, cx, tag_base)
+    ry = tag_base - ts * 0.36
     gap = 34
-    rules = rule_with_dot(wl + 10, tl - gap, ry, "left") + rule_with_dot(tr + gap, wr - 10, ry, "right")
+    rules = rules_pair(wl, wr, tl, tr, ry, gap, 10)
     H = tag_base + pad
     body = (f'<g fill="{fill}">{md}<path d="{wd}"/><path d="{td}"/></g>' + rules.replace(GOLD, fill))
     return svg(W, H, body, TITLE)
@@ -153,10 +203,11 @@ def horizontal(fill=GOLD):
     wcx = tx0 + word_w / 2
     w_base = pad + cap * 0.55
     wd, wl, wr = draw_text(word, "KIRKCALDY", size, 0.30, wcx, w_base)
-    t_base = w_base + 92
-    td, tl, tr = draw_text(sans, "DENTAL & IMPLANT CLINIC", 52, 0.0, wcx, t_base)
-    ry = t_base - 52 * 0.36
-    rules = rule_with_dot(wl + 8, tl - 34, ry, "left") + rule_with_dot(tr + 34, wr - 8, ry, "right")
+    ts = 52 * TAG_SCALE
+    t_base = w_base + 92 + (ts - 52) * 0.9
+    td, tl, tr = draw_text(sans, "DENTAL & IMPLANT CLINIC", ts, 0.0, wcx, t_base)
+    ry = t_base - ts * 0.36
+    rules = rules_pair(wl, wr, tl, tr, ry, 34, 8)
     W = wr + pad
     H = pad + mh + pad
     body = (f'<g fill="{fill}">{md}<path d="{wd}"/><path d="{td}"/></g>' + rules.replace(GOLD, fill))
