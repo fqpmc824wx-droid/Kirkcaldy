@@ -22,7 +22,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 
 ## Only the owner can do these (most urgent first)
 
-1. **Pick the dates.** Facebook set-up day, setup night, the day the ads start and the day you order print. Everything else is planned back from these.
+1. **Pick the dates.** Facebook set-up day, setup night, the day the ads start and the day you order print. Everything else is planned back from these. Also say yes or no to a first test of 2,000 leaflets, delivered on 16 and 23 Nov (row 47).
 2. **Website hosting.** Choose who hosts it (Arsalan/Abdullah, or a 1-month plan) by Monday midday. Then tell the website chat "yes, fix it".
 3. **Open ClickSend and ask for the sender name "KirkDental".** Approval takes days. Without it, no texts go out.
 4. **Pay the ICO data protection fee.** Send us the company's legal name, company number, registered office and ICO number. They go on the privacy page.
