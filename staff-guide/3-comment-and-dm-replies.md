@@ -86,4 +86,4 @@ Check the hidden comments twice a day (page 7). Someone in pain still gets the p
 
 **Instant reply** (first message from someone new, any time):
 
-> Thanks for getting in touch with Kirkcaldy Dental & Implant Clinic. We're a new NHS dental practice opening soon. Join our waiting list at kirkcaldydental.co.uk/register. We'll reply here soon.
+> Thanks for your message! We're a new NHS dental practice opening soon at 23-25 Tolbooth Street, Kirkcaldy. You can join our waiting list at kirkcaldydental.co.uk/register and we'll be in touch before we open. Please don't send health details here.
