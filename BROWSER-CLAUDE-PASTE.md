@@ -62,6 +62,10 @@ Use the existing Page; do NOT create a new one.
 4. Intro: "New NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy. NHS & private dental care. Join our waiting list."
 5. Address: 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. Email: info@kirkcaldydental.co.uk. Website: https://kirkcaldydental.co.uk/?src=fb-page. Phone: EMPTY. Hours: none, or "Opening soon".
 6. Messenger instant reply: "Thanks for your message! We're a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy. You can join our waiting list at kirkcaldydental.co.uk/register and we'll be in touch before we open. Please don't send health details here."
+6b. Away message (Inbox → Automations; outside 8am–9pm): "Thanks for your message! Our team replies between 8am and 9pm. To join our waiting list, go to kirkcaldydental.co.uk/register. If you're in pain, please contact your current dentist or phone NHS 24 on 111."
+6c. Comment moderation (Page settings → Moderation):
+   - blocked words: 07, +44, 01592, @, abscess, swelling, swollen, antibiotics, bleeding, infection, broken tooth, toothache, pregnant, scam, fraud;
+   - profanity filter: strong.
 7. The "Sign up" button (→ https://kirkcaldydental.co.uk/register/?src=fb-page) waits until the website is live.
 8. Don't post or boost anything.
 
