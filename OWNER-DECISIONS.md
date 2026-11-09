@@ -33,10 +33,13 @@ Where it says "owner's words", that is what the owner actually said in the ads c
 - **Binning old copies:** owner's words (8 Nov, ads chat): "Yes, you can bin all the older copies." Earlier, the owner denied some deletions and said "You don't need to delete the files". If in doubt, move old files into an "Old versions – not used" folder instead.
 - The owner is **not technical**. Explain in short, plain sentences with no jargon. Owner's words: "Stop asking permission." Just do sensible things, but never ask for passwords or keys.
 
+### Answered 8–9 Nov (via the leaflet and website chats)
+- **Mixed practice: YES.** Print says "NHS & private dental care" / "We'll offer NHS and private dental care." The ads already say "We'll offer NHS and private dental care".
+- **NHS places for adults AND children: YES.** The line "Adults, children and families can all join our waiting list" stays, and may be used in the ads.
+- **"BE FIRST IN LINE" stays** (owner correction after a brief switch to "Be the first to know").
+- **Forms, latest owner instruction to the website chat (~23:15):** "add email now as required, and postcode optional". The website now has name*, phone*, email*, postcode (optional), how many people* (1/2/3/4+). The to-do chat is confirming with the owner whether email is required on BOTH forms. Until it answers, the Facebook form isn't published.
+
 ## Still waiting for the owner
-1. **Mixed practice?** Will the practice also offer private treatment (e.g. implants)? If yes, the GDC requires ads, banner and leaflet to say "NHS and private dental care".
-2. **Adults and children:** will the NHS take both? This decides whether to keep the line "Adults, children and families can all join our waiting list".
-3. **"Be first in line":** is it OK only if people are invited in sign-up order, with households kept together? Otherwise it changes to "Join our waiting list".
 4. **Critical problem alerts by text?** Should the owner's phone get a text when something important breaks (not for every lead, and never 10pm–7am)?
 5. **GitHub repository private?** The owner has to click it: Settings → Change visibility.
 6. **A deputy and a backup caller**, by name.

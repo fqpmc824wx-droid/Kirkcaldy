@@ -113,7 +113,22 @@ function metaLookup(phone, email) {
     var t = tc === -1 ? null : data[i][tc];
     if (t instanceof Date && Date.now() - t.getTime() < 864e5) out.recent = true;
   }
+  if (!out.blocked && metaOnDncList(target, mail)) out.blocked = true;   // the "Do-not-contact list" tab counts too (even if the row was deleted)
   return out;
+}
+// True if the phone (last 10 digits) or email is on the "Do-not-contact list" tab (same rule as the website script).
+function metaOnDncList(target, mail) {
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Do-not-contact list");
+  if (!sh || sh.getLastRow() < 2) return false;
+  var data = sh.getDataRange().getValues(), h = data[0].map(String);
+  var pc = -1; for (var k = 0; k < h.length; k++) if (/^Phone/.test(h[k])) { pc = k; break; }
+  var ec = h.indexOf("Email");
+  var digits = function (v) { var d = String(v || "").replace(/\D/g, ""); return d.length >= 10 ? d.slice(-10) : d; };
+  for (var i = 1; i < data.length; i++) {
+    if (target.length >= 10 && pc !== -1 && digits(data[i][pc]) === target) return true;
+    if (mail && ec !== -1 && String(data[i][ec]).trim().toLowerCase() === mail) return true;
+  }
+  return false;
 }
 function metaRepeatText(first) {
   return "Hi " + first + ", good news - you're already on the Kirkcaldy Dental waiting list, so there's nothing more to do. We'll be in touch.";
