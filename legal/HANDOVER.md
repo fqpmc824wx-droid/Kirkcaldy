@@ -18,6 +18,12 @@
 - Privacy page (website chat): complaints route, 12-month retention, processor categories, controller details. Trimmed to the legal minimum on the owner's instruction.
 - Browser Claude was given 9 steps (save the data agreements, screenshots showing the ads' AI options off, save a copy of the NHS Fife approval, a Gmail DRAFT of the Fife Council email). The ICO steps were removed on the owner's instruction.
 
+### Added 9 Nov (merged chats)
+- **Practice policies:** all 40 Word files plus the combined manual are now in Drive "11. Legal & compliance" → "Practice policies (Word)": https://drive.google.com/drive/folders/1sfR9YUxA9vH3f0i4O7U19DUAskt9s5JB. New doc 9 lists every [bracket] fill-in and the open questions (Data Protection Officer, HIS registration, inspection checklist).
+- **Meta Pixel:** added to the DPIA (section 6a), the processor list and the folder checklist.
+- **Staff guide:** pages 4 and 5 are updated to "Register your interest", in Drive "8. Waiting list – staff guide".
+- **Launch safety:** taken over. The plan is in GitHub branch claude/launch-safety (SAFETY-PLAN.md) and the Drive "Launch safety plan" doc. On the list for setup night: the names table and the 8-step fire drill. The ads chat owns health.gs.
+
 ## 2. Pending
 - The ads chat: make the Facebook lead script check the Do-not-contact list tab too (asked on 9 Nov; no confirmation yet).
 - Browser Claude results: which agreements and screenshots were saved. Not reported back yet.
@@ -26,8 +32,9 @@
 - Real deletion in the purge: only after the owner signs doc 4.
 
 ## 3. Waiting on Hamza / the owner for exactly this
+0. **Merged-chat items:** (a) fill in doc 9: the roles register, outside companies and practice decisions; (b) appoint a **Data Protection Officer** (not the owner); (c) OK to ask Healthcare Improvement Scotland whether a mixed practice needs to register; (d) sign off staff guide pages 4 and 5; (e) fill in the names table in the Launch safety plan (deputy, backup caller, staff checker, weekend cover) before setup night.
 1. Owner sign-off sheet (doc 1): only the **target opening month** and the **name of the AI image tool** are still open. Mixed practice (yes) and adults and children (yes) are already answered.
-6. **Wording conflict to settle:** OWNER-DECISIONS.md says "Be first in line" stays. The 9 Nov merge note says it has been replaced by "Register your interest" everywhere. I've gone with the newer note. The staff guide (pages 4 and 5) still says "Be first in line" stays, so update it once confirmed.
+6. (Settled 9 Nov: "Register your interest" confirmed by Hamza.) Old note: OWNER-DECISIONS.md says "Be first in line" stays. The 9 Nov merge note says it has been replaced by "Register your interest" everywhere. I've gone with the newer note. The staff guide (pages 4 and 5) still says "Be first in line" stays, so update it once confirmed.
 2. Name one person (plus a backup) for data-protection complaints, data requests and breaches.
 3. Sign doc 4 (retention). Until then the purge only reports and deletes nothing.
 4. Click "Accept" on the Google, ClickSend, Meta and Hostinger data agreements (browser Claude prepares them; the owner clicks).
