@@ -19,8 +19,10 @@ To explain clearly how patients book, cancel and are recalled, what happens when
 - Opening hours: [to be decided]. Displayed at the entrance, on the website and in the patient leaflet.
 
 ## 3. Cancellations and missed appointments
-- Please give at least **[24] hours' notice** to cancel or change an appointment, so the time can be offered to another patient.
-- Missed appointments are recorded. After **[two]** missed appointments without notice, the practice may write to the patient. [Practice decision: charge for missed private appointments of £[amount]; NHS rules on charging for missed appointments to be checked with NHS Fife before any charge is applied.]
+- Please give at least **48 hours' notice** to cancel or change an appointment, so the time can be offered to another patient. (Same rule as the other Saint Visage Dental Group practices.)
+- Late cancellations (less than 48 hours' notice) and missed appointments are recorded in Dentally.
+- A patient who cancels with less than 48 hours' notice **three times** and fails to attend **twice** without notice may be deregistered, following the deregistration policy (47). The practice writes to the patient first to explain the rule.
+- [Practice decision: any charge for missed private appointments, £[amount]. NHS rules on charging for missed appointments to be checked with NHS Fife before any charge is applied.]
 - We consider each case fairly, including vulnerable patients and children (missed appointments for children may be a safeguarding indicator – see policy 12).
 
 ## 4. Recall

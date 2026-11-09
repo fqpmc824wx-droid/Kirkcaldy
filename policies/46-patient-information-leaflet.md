@@ -36,7 +36,7 @@ We provide **NHS and private dental care** for adults and children.
 NHS patients register with a named dentist. Registration with us ends any registration you have with another practice. Please bring a list of your medicines.
 
 ## Appointments, cancellations and missed appointments
-Please give at least [24] hours' notice if you cannot attend. See our cancellation policy at reception.
+Please give at least 48 hours' notice if you cannot attend. Repeated late cancellations or missed appointments may lead to deregistration (see our deregistration policy at reception and on our website).
 
 ## Emergencies and out of hours
 - During opening hours: phone us on 01592 214225.

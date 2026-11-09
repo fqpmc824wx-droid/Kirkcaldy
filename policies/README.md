@@ -72,6 +72,7 @@ lists the PSM templates to download and adapt, and ends with an inspection check
 | 43 | [Disciplinary, Dismissal and Grievance Procedure](43-disciplinary-dismissal-and-grievance.md) | Staff / patient information | Practice Owner |
 | 44 | [NHSmail Mailbox Policy](44-nhsmail-mailbox-policy.md) | Staff / patient information | Practice Manager [Name] |
 | 45 | [Appointments, Cancellations, Recall and Out-of-Hours Policy](45-appointments-cancellations-recall-and-out-of-hours.md) | Staff / patient information | Practice Manager [Name] |
+| 47 | [Patient Deregistration Policy](47-patient-deregistration-policy.md) | Staff / patient information | Practice Manager [Name] |
 | 46 | [Patient Information Leaflet (draft content)](46-patient-information-leaflet.md) | Staff / patient information | Practice Manager [Name] |
 
 Branded Word versions of every policy (logo header, gold headings, page numbers, A4) and a combined manual with a cover page are in [`word/`](word/).
