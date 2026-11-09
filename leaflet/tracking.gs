@@ -90,7 +90,7 @@ function trkFindDuplicate(phone, email) {
 var TRK_OUTCOME_STATUS = {
   "No answer": "No answer", "Voicemail": "No answer", "Busy/declined": "No answer",
   "Reached - booked": "Booked", "Reached - call back": "Called", "Reached - on list": "Called",
-  "Reached - not interested": "Not interested", "Already has dentist": "Not interested",
+  "Reached - not interested": "Not interested", "Found another dentist - leave list": "Not interested",
   "Wrong number": "Wrong number", "Withdrew": "Withdrew", "DO NOT CONTACT": "DO NOT CONTACT"
 };
 var TRK_ATTEMPT_STATUSES = ["Called", "No answer", "Booked", "Not interested", "Wrong number"];
@@ -157,7 +157,7 @@ function trkApplyOutcome(row, C, v, now) {
   if (!status) return null;                                   // unknown value: leave it for a person to fix
   var n = trkAttempt(row, C, now);
   var noAnswer = status === "No answer";
-  var reached = /^Reached/.test(v) || v === "Already has dentist" || v === "Withdrew";
+  var reached = /^Reached/.test(v) || v === "Found another dentist - leave list" || v === "Withdrew";
   if (reached) trkSetIfEmpty(row, C, "First reached at", now);
   if (status === "Booked") trkSet(row, C, "Booked at", now);
   if (v === "DO NOT CONTACT") trkSet(row, C, "Notes", (row[C["Notes"]] ? row[C["Notes"]] + " | " : "") + "DNC " + trkFmt(now, "dd/MM") + " – reason?");
@@ -346,7 +346,7 @@ function trkDailySnapshot() {
     if (!isToday(v[0])) return;
     attempts++;
     if (v[5] === "No answer" || v[5] === "Unreachable") noAns++;
-    if (/^Reached|Already has dentist|^Status: (Called|Booked|Not interested)/.test(String(v[4]))) reached++;
+    if (/^Reached|Found another dentist - leave list|^Status: (Called|Booked|Not interested)/.test(String(v[4]))) reached++;
     if (v[5] === "Booked") booked++;
   });
   var smsSent = 0, smsFailed = 0, sms = SpreadsheetApp.getActive().getSheetByName(TRK_SMS_TAB);
