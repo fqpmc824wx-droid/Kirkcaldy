@@ -59,7 +59,7 @@ function doGet(e) {
 }
 
 // Sources the website may send (?src=…); anything else is saved as "website"
-var WEB_SOURCES = ["website", "home", "leaflet", "banner", "fb-page", "ig-bio", "fb-form-done", "fb-dm", "facebook", "instagram", "google", "gbp", "email", "phone", "other"];
+var WEB_SOURCES = ["website", "home", "direct", "leaflet", "banner", "fb-page", "ig-bio", "fb-form-done", "fb-dm", "facebook", "instagram", "google", "gbp", "email", "phone", "other"];
 
 function websiteHandlePost(e) {
   var p = (e && e.parameter) || {};
