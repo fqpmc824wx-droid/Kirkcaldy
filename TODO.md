@@ -1,7 +1,7 @@
 # Kirkcaldy Dental – launch to-do list
 
 The one master list for the waiting-list launch. Kept by the To-do chat.
-Last updated: 9 Nov 2026, 01:00. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
+Last updated: 9 Nov 2026, 01:05. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
 
 Row numbers match research/TODO-whats-left.md, so every chat talks about the same row.
 
@@ -26,8 +26,8 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 2. **Website hosting.** Choose who hosts it (Arsalan/Abdullah, or a 1-month plan) by Monday midday. Then tell the website chat "yes, fix it".
 3. **Open ClickSend and ask for the sender name "KirkDental".** Approval takes days. Without it, no texts go out.
 4. **Pay the ICO data protection fee.** Send us the company's legal name, company number, registered office and ICO number. They go on the privacy page.
-5. **Answer 4 questions.** (a) **Email on the sign-up forms: required or optional?** You told the website chat "required", but the plan said optional, so sign-ups stay quick. Both forms must match, and the Facebook form can't be changed once it's published. (b) Will you also offer private treatment, such as implants? (c) Will the NHS side take both adults and children? (d) Will people be invited in the order they signed up, with households kept together? (If not, "Be first in line" comes off the ads and print.)
-6. **Name the people, with their email addresses.** A backup caller; a deputy who gets the alarm emails when you're away; and a person (plus a backup) who handles complaints, data requests and data breaches. Also choose the one work phone number the callers ring from.
+5. **Answer 5 questions.** (a) **Email on the sign-up forms: required or optional?** You told the website chat "required", but the plan said optional, so sign-ups stay quick. Both forms must match, and the Facebook form can't be changed once it's published. (b) Will you also offer private treatment, such as implants? (c) Will the NHS side take both adults and children? (d) Will people be invited in the order they signed up, with households kept together? (If not, "Be first in line" comes off the ads and print.) (e) If something important breaks, should your phone also get a text (never 10pm–7am), or just an email?
+6. **Name the people, with their email addresses.** A backup caller (by 16 Nov); a deputy who gets the alarm emails when you're away; and a person (plus a backup) who handles complaints, data requests and data breaches. Also choose the one work phone number the callers ring from.
 7. **Read and sign off:** the staff guide in Drive folder 8 (11 documents, now ready) (call script, text templates, comment replies, invitation plan), and the owner sign-off sheet in Drive folder 11.
 8. **GitHub:** make the project private (Settings → Change visibility). Click "merge" when the chats say they're ready.
 
@@ -65,9 +65,9 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 14 | Call script uses the exact sheet choices for call outcomes. Callers ask postcode, household size, adult/child, current dentist and "how did you hear". | Waiting-list chat + Leaflet chat | Before setup night | Done in the staff guide. The "Found another dentist – leave list" rename is with the leaflet chat |
 | 15 | Check the call-tracking script and fill in the budget and spend columns. | Leaflet chat | Before setup night | Done. The ads chat found one load-order bug and sent it to the leaflet chat |
 | 16 | Lock the header rows on the other sheet tabs; fix 4 dashboard formulas, so a blank household size counts as 1. | Leaflet chat | Before setup night | Done |
-| 17 | Health checks, outside monitor and a fire drill. | Safety chat (or Ads chat – asked who) | Before setup night | health.gs built and tested (ads chat). Outside monitor and fire drill: Safety chat, Asked |
+| 17 | Health checks, outside monitor and a fire drill. | Ads chat (code); Browser Claude (set-up) | Before setup night | Done: health.gs written and tested; the Safety chat checked it. Set-up on setup night: rows 73–75 |
 | 18 | Owner answers before ads or print: private treatment, adults and children, invitation order. (No NHS letter and no model releases are needed.) | Owner | Before setup night | Waiting for owner (owner list #5) |
-| 19 | ~~Draft a new NHS Fife letter~~. **Dropped**: approval already exists. Just save a copy of it in Drive folder 11 (#26). | Owner | Before ads start | Waiting for owner |
+| 19 | ~~Draft a new NHS Fife letter~~. **Dropped**: approval already exists. Just save a copy of it in Drive folder 11 (#26); the health check links to it. | Owner | Before ads start | Waiting for owner |
 | 20 | ClickSend account and sender name "KirkDental". | Owner | Days before setup night | Waiting for owner (owner list #3) |
 | 21 | Pay the ICO fee (or update the company's existing entry) and save the certificate in Drive 11; send the company details to the website chat. | Owner | Before the first sign-up | Waiting for owner (owner list #4) |
 | 22 | Make the GitHub project private. | Owner | Before setup night | Waiting for owner (owner list #8) |
@@ -86,8 +86,18 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 30 | Share the sheet with each caller and test call tracking from a phone. | Browser Claude | Setup night | In the runbook; needs each caller's email address from the owner |
 | 31 | Email safety settings (DMARC), force the secure website address, domain auto-renew. | Browser Claude + Owner | Setup night | Step being added to the runbook (ads chat) |
 | 32 | Old domain kirkcaldydentist.co.uk: forward its email and website. | Owner + Browser Claude | Setup night | Not started |
-| 33 | info@ account: recovery phone and email, and a second admin. | Owner | Setup night | Not started |
+| 33 | info@ account: recovery phone and email, and a second admin. | Owner | Setup night | Not started. Also: a backup payment card, second admins on every account, backup codes in the safe |
 | 34 | Accept and save the supplier data agreements in Drive 11: ClickSend (plus the UK transfer add-on), Google, Meta lead-ads terms, Hostinger. | Browser Claude + Owner | Setup night | Step being added to the runbook (ads chat) |
+
+## Setup night – safety checks (from the Safety chat; steps in SAFETY-PLAN.md parts 3–4)
+
+| # | What | Who | When | Status |
+|---|---|---|---|---|
+| 73 | Install the health checks: add the missing headers, paste health.gs, set the HEALTH_* settings. | Browser Claude | Setup night | Ready (code done) |
+| 74 | Outside monitors: healthchecks.io (3 checks) and UptimeRobot (5 monitors; the website ones once hosting is live). | Browser Claude | Setup night | Ready |
+| 75 | Fire drill (8 steps) with the owner watching, then put the test settings back. | Browser Claude + Owner | Setup night, before the ads go live | Ready |
+| 76 | Facebook automatic rules: tell us at £5 per lead, pause at £8, plus the frequency, "£15 spent and 0 leads" and daily-leads rules. | Browser Claude | Setup night | Ready |
+| 77 | Safety re-check after everything is merged into main. | Safety chat | Before setup night | Waiting for the merge |
 
 ## Before the ads start
 
@@ -95,7 +105,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 |---|---|---|---|---|
 | 35 | Caller rota 8am–9pm, 7 days. Start with 1–2 callers plus a backup; add one per 20–25 new sign-ups a day. (Callers are not a limit.) | Owner | Before ads start | Waiting for owner (owner list #6) |
 | 36 | One work number for all calls, also in the thank-you text and email. | Owner | Before launch | Waiting for owner (owner list #6) |
-| 37 | Name the daily-checks person and a deputy for alarm emails. | Owner | Before launch | Waiting for owner (owner list #6) |
+| 37 | Name the daily-checks person and a deputy for alarm emails. | Owner | Before launch | Waiting for owner (owner list #6). Fill in the who-covers-what table in the Safety plan |
 | 38 | One-page owner card: daily 5 minutes, Monday 15 minutes, "if this alarm, do this". Alarms: £5 warning, £8 pause. | Ads chat + Metrics chat | Before launch | Done. In Drive 7 as "USE THIS – updated 9 Nov". Alarm card in progress (ads chat) |
 | 39 | Caller training pack and confidentiality note; the owner runs a short session. | Waiting-list chat; Owner runs it | Before the first call | Done (staff guide page 6, with a confidentiality note to sign). The owner runs the session |
 | 40 | Data protection papers: risk check, complaints steps, how long we keep data, "delete one person everywhere". | Legal chat drafts; Owner signs | Before launch | Drafts in Drive 11; owner to sign |
@@ -123,7 +133,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 57 | Small Facebook script fix, so a text status never lands on the wrong row. | Ads chat | Week 1 | Done |
 | 58 | Safe "update everyone" text sender, and the first update around 1 Dec. | Ads or Leaflet chat; Waiting-list chat (wording); Owner | Week 1 | Not started |
 | 59 | "Remove someone" steps and a do-not-contact list. | Ads chat; Owner names the person | Week 1 | Do-not-contact check done. "Remove someone" steps: Asked |
-| 60 | Weekly test sign-up through the ad and the leaflet QR code. | Safety chat / Ads chat | Week 1 | In progress (ads chat) |
+| 60 | Weekly test sign-up through the ad and the leaflet QR code. | Staff checker (Safety plan §8) | Every Monday | Planned. One website and one Facebook test sign-up; check the row, the text and the caller alert; then delete |
 | 61 | Plan for a sudden rush of sign-ups. | Ads chat + Owner | Week 1 | In progress (ads chat) |
 | 62 | Google Maps listing "opening soon", linked to /register/. | Owner + Browser Claude | Week 1 | Not started |
 
