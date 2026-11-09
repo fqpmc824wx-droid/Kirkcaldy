@@ -180,7 +180,7 @@ Related policies in this set:
 - `04-zero-tolerance-violent-patients.md`
 - `05-nhs-registration-deregistration-change-of-dentist.md`
 - `03-consent-policy.md`
-- Data protection and disability access policies (see the full policy index)
+- [10 Data protection](10-data-protection-confidentiality-information-security.md), [11 Privacy notices](11-privacy-notices.md) and [09 Disability equality](09-disability-equality-reasonable-adjustments.md)
 
 ## 9. Inspection checklist
 

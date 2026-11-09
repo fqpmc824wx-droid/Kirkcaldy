@@ -146,7 +146,7 @@ Related policies in this set:
 - `05-nhs-registration-deregistration-change-of-dentist.md`
 - `01-complaints-feedback-procedure.md`
 - `07-raising-concerns-whistleblowing.md`
-- Health and safety (risk assessment, lone working) and medical emergencies policies (see the full policy index)
+- [17 Health and safety](17-health-and-safety-policy.md) (risk assessment, lone working) and [34 Medical emergencies](34-medical-emergencies-policy.md)
 
 ## 9. Inspection checklist
 

@@ -149,7 +149,7 @@ Related policies in this set:
 - `03-consent-policy.md`
 - `05-nhs-registration-deregistration-change-of-dentist.md`
 - `02-duty-of-candour-procedure.md`
-- Radiation protection, record keeping, data protection and safeguarding policies (see the full policy index)
+- [35 Radiation protection](35-radiation-protection-policy.md), [36 Record-keeping](36-clinical-record-keeping-and-retention.md), [10 Data protection](10-data-protection-confidentiality-information-security.md) and [12 Child and adult protection](12-child-and-adult-protection.md)
 
 ## 9. Inspection checklist
 

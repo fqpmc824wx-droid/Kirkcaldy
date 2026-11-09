@@ -184,7 +184,7 @@ Related policies in this set:
 - `06-referrals-protocol.md`
 - `01-complaints-feedback-procedure.md`
 - `02-duty-of-candour-procedure.md`
-- Safeguarding (child and adult protection) and medical emergencies policies (see the full policy index)
+- [12 Child and adult protection](12-child-and-adult-protection.md) and [34 Medical emergencies](34-medical-emergencies-policy.md)
 
 ## 9. Inspection checklist
 

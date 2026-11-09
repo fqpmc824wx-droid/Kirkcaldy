@@ -177,7 +177,7 @@ Related policies in this set:
 - `01-complaints-feedback-procedure.md`
 - `07-raising-concerns-whistleblowing.md`
 - `03-consent-policy.md`
-- Significant event analysis and medical emergencies policies (see the full policy index)
+- [37 Risk management and significant events](37-risk-management-and-significant-events.md) and [34 Medical emergencies](34-medical-emergencies-policy.md)
 
 ## 9. Inspection checklist
 

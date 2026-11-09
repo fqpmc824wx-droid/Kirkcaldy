@@ -183,7 +183,7 @@ Related policies in this set:
 - `01-complaints-feedback-procedure.md`
 - `02-duty-of-candour-procedure.md`
 - `04-zero-tolerance-violent-patients.md`
-- Grievance, disciplinary and safeguarding policies (see the full policy index)
+- [12 Child and adult protection](12-child-and-adult-protection.md); grievance and disciplinary procedures [practice HR documents – not part of this PSM set]
 
 ## 9. Inspection checklist
 
