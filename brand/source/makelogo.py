@@ -3,7 +3,7 @@
 Text is converted to outlines so the SVG needs no fonts installed.
 Usage: python3 makelogo.py <fonts_dir> <out_dir>
 Current logo (K sitting on the D): KD_STYLE=overlap K_SX=1.0 D_DX=0.66 D_DY=0.095 KNOCK=0.028 D_LIFT=0.0466667 (D raised halfway, owner-approved 8 Nov) [K_FILL=#262B30 light / #F4EDE3 dark]
-Fonts: Cormorant Garamond 700 (cormorantb.ttf), Cinzel 800 (cinzel800.ttf; bolder wordmark, owner 9 Nov), Lato 700 (lato.ttf) at TAG_SCALE 1.45. GOLD env sets the colour (#8E6B2E deep gold); K_FILL for two-tone.
+Fonts: Cormorant Garamond 700 (cormorantb.ttf), Cinzel wght 650 (cinzel650.ttf = instance of Cinzel[wght].ttf, owner-approved 9 Nov), Lato 900 (lato900.ttf) at the original size. GOLD env sets the colour (#8E6B2E deep gold); K_FILL for two-tone.
 """
 import os
 import sys
@@ -99,9 +99,9 @@ def vector_knockout(d_path, k_path, knock, lift):
 
 
 mono = Face(f"{FD}/cormorantb.ttf")
-word = Face(f"{FD}/" + os.environ.get("WORD_FONT", "cinzel800.ttf"))   # bolder wordmark (owner, 9 Nov): Cinzel 800
-sans = Face(f"{FD}/" + os.environ.get("TAG_FONT", "lato.ttf"))          # Lato 700
-TAG_SCALE = float(os.environ.get("TAG_SCALE", "1.45"))                  # tagline 1.45x the original size (owner, 9 Nov)
+word = Face(f"{FD}/" + os.environ.get("WORD_FONT", "cinzel650.ttf"))   # owner-approved 9 Nov: Cinzel at wght 650 (instance of the variable font)
+sans = Face(f"{FD}/" + os.environ.get("TAG_FONT", "lato900.ttf"))       # owner-approved 9 Nov: Lato 900 (Black)
+TAG_SCALE = float(os.environ.get("TAG_SCALE", "1.0"))                   # tagline at its original size
 GOLD = os.environ.get("GOLD", GOLD)
 
 
@@ -180,7 +180,7 @@ def stacked(fill=GOLD):
     tag_base = pad + mh + 40 + 80 + 78 + (ts - 46) * 0.9
     td, tl, tr = draw_text(sans, "DENTAL & IMPLANT CLINIC", ts, 0.0, cx, tag_base)
     ry = tag_base - ts * 0.36
-    gap = 26
+    gap = 34
     rules = rules_pair(wl, wr, tl, tr, ry, gap, 10)
     H = tag_base + pad
     body = (f'<g fill="{fill}">{md}<path d="{wd}"/><path d="{td}"/></g>' + rules.replace(GOLD, fill))
@@ -207,7 +207,7 @@ def horizontal(fill=GOLD):
     t_base = w_base + 92 + (ts - 52) * 0.9
     td, tl, tr = draw_text(sans, "DENTAL & IMPLANT CLINIC", ts, 0.0, wcx, t_base)
     ry = t_base - ts * 0.36
-    rules = rules_pair(wl, wr, tl, tr, ry, 26, 8)
+    rules = rules_pair(wl, wr, tl, tr, ry, 34, 8)
     W = wr + pad
     H = pad + mh + pad
     body = (f'<g fill="{fill}">{md}<path d="{wd}"/><path d="{td}"/></g>' + rules.replace(GOLD, fill))
