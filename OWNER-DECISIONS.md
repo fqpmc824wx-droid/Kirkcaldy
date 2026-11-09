@@ -28,6 +28,7 @@ Where it says "owner's words", that is what the owner actually said in the ads c
 - No outside marketing agency. The family's agency charges about £2k/month; the owner chose to do it with Claude.
 
 ### Drive and working style
+- **ICO / fees (9 Nov):** owner's words: "We don't need to pay anything for ICO yet. We don't need to pay anything." No ICO fee tasks, self-assessments or payments in anyone's list.
 - **FULL PERMISSION, NO APPROVAL REQUESTS (9 Nov, owner's words):** "Stop asking me for approval, you have full permission to take over" and "across the board… stop asking me for approval to delete stuff". Every chat: bin old/superseded versions in your own folders without asking. Never ask for passwords or keys.
 - **Each chat organises its own Drive folder** once all reviews, agents and fixes are done.
 - **Binning old copies:** owner's words (8 Nov, ads chat): "Yes, you can bin all the older copies." Earlier, the owner denied some deletions and said "You don't need to delete the files". If in doubt, move old files into an "Old versions – not used" folder instead.

@@ -81,10 +81,6 @@ The owner signs in and clicks every Accept or Pay button themselves. Save each i
    - Go to facebook.com/ads/leadgen/tos and screenshot the accepted Lead Ads Terms (accept them for the clinic Page if they aren't accepted yet).
    - Save the Meta Data Processing Terms page as a PDF.
 4. **Hostinger:** save its Data Processing Agreement page as a PDF.
-5. **ICO:**
-   - First search the ICO public register by company name to see whether the company is already registered.
-   - Then on ico.org.uk/fee, do the **self-assessment only** and screenshot the tier result. **Don't pay.**
-   - Report the tier and whether the company is already registered.
 
 ## 7. When the website is live (later)
 Follow BROWSER-CLAUDE-LAUNCH.md §1. Then go back to step 1.7 (Sign-up button) and step 2.5 (Instagram link) if they were skipped.
