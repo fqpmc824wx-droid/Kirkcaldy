@@ -50,8 +50,7 @@
   footer a { color: var(--gold-dark); }
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .notice { font-size: .88rem; color: var(--muted); margin: 14px 0 0; }
-  .notice a, .paused a { color: var(--gold-dark); }
-  .paused { display: none; text-align: center; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 28px 20px; }
+  .notice a { color: var(--gold-dark); }
 </style>
 </head>
 <body>
@@ -84,12 +83,8 @@
 
     <button type="submit" id="btn">Join Waiting List</button>
     <div class="err" id="err" role="alert"></div>
-    <p class="notice">By joining, you're asking Kirkcaldy Dental &amp; Implant Clinic to add you to our waiting list. We'll text and call you about your request, 8am–9pm, and email you to confirm. We won't send you marketing unless you opt in above. See our <a href="/privacy/">privacy policy</a>.</p>
+    <p class="notice">By joining, you're asking us to add you to our waiting list. We'll contact you about it and email you to confirm. We won't send you marketing unless you opt in above. See our <a href="/privacy/">privacy policy</a>.</p>
   </form>
-
-  <div class="paused" id="paused" role="status">
-    <p>Thank you for the amazing response. We've paused new sign-ups for a few days while we contact everyone who has joined. Please check back soon.</p>
-  </div>
 
   <div class="thanks" id="thanks" role="status">
     <div class="tick">✓</div>
@@ -101,7 +96,6 @@
 
 <script>
   var ENDPOINT = "PASTE_APPS_SCRIPT_URL_HERE";
-  var PAUSED = false;
   var CONSENT_VERSION = "2026-11-08";
 
   var form = document.getElementById("reg"), err = document.getElementById("err"), btn = document.getElementById("btn");
@@ -111,8 +105,6 @@
   var live = /^https:\/\/script\.google\.com\/macros\/s\/[^\/]+\/exec$/.test(ENDPOINT);
 
   function show(msg) { err.textContent = msg; err.style.display = "block"; }
-
-  if (PAUSED) { form.style.display = "none"; document.getElementById("paused").style.display = "block"; }
 
   if (live) {
     try { fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams({ action: "visit", source: source, vid: vid }) }); } catch (e) {}
