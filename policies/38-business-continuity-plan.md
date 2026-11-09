@@ -131,7 +131,7 @@ PSM pages:
 ### 5.7 Loss of staff
 
 1. If one person is absent, use the multi-skilled team and deputies named in each policy. The Practice Manager checks that at least two trained people are present whenever treatment is planned (see 34-medical-emergencies-policy.md). If not, treatment does not go ahead.
-2. A dental nurse must be present for clinical treatment [practice decision, as per GDC guidance on chairside support]. If none is available, cancel and rebook.
+2. [Practice decision – a dental nurse or other appropriately trained team member is present for all clinical treatment, in line with GDC standards on chairside support.] If none is available, cancel and rebook.
 3. Agency and locum contacts: [agency name, phone]; [locum dentist list]. Check GDC registration, indemnity, PVG and immunisation before any locum starts (see 13-pvg-scheme-and-safe-recruitment.md and 30-health-clearance-and-immunisation.md).
 4. Key roles must not depend on one person: at least [two] people can run decontamination daily tests, open and close the building, use Dentally admin functions, restore back-ups and run the weekly emergency drugs check.
 5. Long-term absence of the Practice Owner / Principal Dentist: [practice decision – named associate or locum arrangement; inform NHS Fife about patient continuity and the dental list; indemnity provider].
@@ -183,7 +183,7 @@ The Continuity Lead checks the box every [6 months] and after use.
 
 ### 5.12 Key contacts
 
-Kept up to date by the Continuity Lead. A printed copy is in the emergency box and off site.
+Kept up to date by the Continuity Lead. A printed copy is in the emergency box and off site. Check every public number below is still correct before printing.
 
 | Contact | Name / organisation | Phone | Other |
 |---|---|---|---|
