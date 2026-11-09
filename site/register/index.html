@@ -100,16 +100,13 @@
 <footer>© 2026 Kirkcaldy Dental &amp; Implant Clinic · 23–25 Tolbooth Street, Kirkcaldy KY1 1RW · <a href="mailto:info@kirkcaldydental.co.uk">info@kirkcaldydental.co.uk</a> · <a href="/privacy/">Privacy</a></footer>
 
 <script>
-  // Paste the Google Apps Script web-app URL (ends in /exec) here. See leaflet/README.md, step 2.
   var ENDPOINT = "PASTE_APPS_SCRIPT_URL_HERE";
-  // Set to true to show the "sign-ups paused" notice instead of the form.
   var PAUSED = false;
   var CONSENT_VERSION = "2026-11-08";
 
   var form = document.getElementById("reg"), err = document.getElementById("err"), btn = document.getElementById("btn");
   var params = new URLSearchParams(location.search);
   var source = params.get("src") || params.get("utm_source") || "website";
-  // Random ID for this page load only (kept in memory, no cookie), so a QR scan can be matched to its sign-up.
   var vid = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
   var live = /^https:\/\/script\.google\.com\/macros\/s\/[^\/]+\/exec$/.test(ENDPOINT);
 
@@ -117,7 +114,6 @@
 
   if (PAUSED) { form.style.display = "none"; document.getElementById("paused").style.display = "block"; }
 
-  // Count this visit (e.g. a QR scan): sends only the source tag and the random ID. No cookies, nothing personal.
   if (live) {
     try { fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams({ action: "visit", source: source, vid: vid }) }); } catch (e) {}
   }
@@ -142,7 +138,6 @@
       website: f.website.value, consent_version: CONSENT_VERSION, source: source, vid: vid
     });
     btn.disabled = true; btn.textContent = "Sending…";
-    // Only show "thank you" when the sheet confirms it saved the details ("ok").
     fetch(ENDPOINT, { method: "POST", body: data })
       .then(function (r) { return r.text(); })
       .then(function (t) {
