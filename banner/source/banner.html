@@ -40,6 +40,8 @@
   .url { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 465mm); text-align:center;
          color:#fff; font-weight:700; font-size:21mm; white-space:nowrap; line-height:1; }
   .addr { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 501mm); text-align:center; color:#D9BD82; font-weight:700; white-space:nowrap; line-height:1; }
+  .phone { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 484mm); text-align:center; color:#fff; font-weight:700; white-space:nowrap; line-height:1; display:none; }
+  .phone b { color:#D9BD82; }
   .mixed { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 525mm); text-align:center; color:#fff; font-weight:700; font-size:13mm; white-space:nowrap; line-height:1; }
   .divider { left: calc(1300mm + var(--b) - 4mm); top:0; width:8mm; height:100%; background:#B8964F; }
   .flour { height:3.6mm; top:0; }
@@ -67,6 +69,7 @@
   <img class="abs qr" src="qr.svg" alt="QR code to the waiting-list page">
   <div class="abs url" id="url">kirkcaldydental.co.uk/register</div>
   <div class="abs addr" id="addr">23–25 Tolbooth Street, Kirkcaldy KY1 1RW</div>
+  <div class="abs phone" id="phone">or call <b id="phoneno"></b></div>
   <div class="abs mixed" id="mixed">NHS &amp; private dental care</div>
 <script>
   const p=new URLSearchParams(location.search); document.documentElement.style.setProperty('--b',(p.get('bleed')||'10')+'mm');
@@ -80,6 +83,14 @@
     const s=document.getElementById('st1'), s2=document.getElementById('st2');
     s.style.fontSize='84mm'; let w=s.getBoundingClientRect().width/MM; if(w>1150) s.style.fontSize=(84*1150/w)+'mm';
     s2.style.fontSize='44mm'; w=s2.getBoundingClientRect().width/MM; if(w>1000) s2.style.fontSize=(44*1000/w)+'mm';
+    // phone number (render.js "01592 …"): smaller QR so the number fits in the panel
+    const PHONE=p.get('phone')||'';
+    if(PHONE){ document.getElementById('phoneno').textContent=PHONE; const ph=document.getElementById('phone'); ph.style.display='block';
+      const set=(sel,prop,v)=>document.querySelector(sel).style[prop]=v;
+      set('.tile','left','calc(1300mm + var(--b) + 110mm)'); set('.tile','top','calc(var(--b) + 130mm)'); set('.tile','width','280mm'); set('.tile','height','280mm');
+      set('.qr','left','calc(1300mm + var(--b) + 120mm)'); set('.qr','top','calc(var(--b) + 140mm)'); set('.qr','width','260mm'); set('.qr','height','260mm');
+      set('.url','top','calc(var(--b) + 425mm)'); set('.addr','top','calc(var(--b) + 459mm)');
+      fit(ph,360,24); }
     fit(document.getElementById('url'),360,24); fit(document.getElementById('addr'),360,15.5); fit(document.getElementById('sc2'),350,26.5); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
     // flourishes either side of "Opening Soon!"
     { const r=document.getElementById('os').getBoundingClientRect(), b=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--b'));

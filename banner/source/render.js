@@ -1,9 +1,10 @@
 const { chromium } = require('playwright');
 const { execFileSync } = require('child_process');
 (async () => {
+  const phone = process.argv[2] || '';   // node render.js "01592 …" adds the phone line
   const b = await chromium.launch(); const p = await b.newPage();
   for (const bleed of [10, 0]) {
-    await p.goto('file://' + __dirname + '/banner.html?bleed=' + bleed, { waitUntil: 'networkidle' });
+    await p.goto('file://' + __dirname + '/banner.html?bleed=' + bleed + '&phone=' + encodeURIComponent(phone), { waitUntil: 'networkidle' });
     const info = await p.evaluate(() => window.layout()); console.log('bleed', bleed, info);
     const W = 1800 + 2*bleed, H = 600 + 2*bleed;
     const out = bleed ? '../kirkcaldy-dental-banner-180x60cm-PRINT-with-10mm-bleed.pdf' : '../kirkcaldy-dental-banner-180x60cm-finished-size.pdf';
