@@ -175,7 +175,7 @@ Do the same if you see a "stop" request by text, email, Facebook or Instagram.
 
 **"Do you do implants or private treatment?"**
 
-> "Yes, we offer private treatment too. It's completely separate and never affects your place on the NHS waiting list."
+> "Yes, we'll offer NHS and private dental care. Private treatment is completely separate and never affects your place on the NHS waiting list."
 
 Don't say more unless they ask. Don't offer prices or deals.
 

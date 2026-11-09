@@ -1,13 +1,14 @@
 # 4. Invitation plan for opening
 
-*Draft, 8 Nov 2026. Not for use until the owner approves it. Rules marked "owner" need the owner's decision first (see page 5).*
+*Draft, 9 Nov 2026. Owner decision (9 Nov): invitations go in **sign-up order, households together**, and "Be first in line" stays.*
 
 ## The basic rule
 
 - We invite people **in stages** as appointments become available.
 - **Households stay together.** One invitation covers everyone in the household.
 - A household's place is the date of its **earliest** sign-up. Signing up twice doesn't change it.
-- Inside the practice, we invite in **sign-up order**, unless the owner decides a different rule with NHS Fife.
+- We invite in **sign-up order** (the owner's rule). Adults and children can both join.
+- **Any exception is logged** in Notes with the date, the reason and who agreed it (for example a reasonable adjustment for a disability). No other exceptions.
 - People who confirmed they still want a place go before people who never replied. If a non-replier gets back in touch, they go back to their original date.
 - Being in pain, or paying for private care, **never** moves anyone up.
 - We never publish how many we're inviting, or when.
@@ -25,9 +26,9 @@ Our ads, banner and leaflet say **"Be first in line"**. That's only fair if:
 1. The waiting list is the **only way in**. No walk-in sign-ups, no public release of appointments.
 2. Invitations follow **sign-up order** (by household).
 
-**If the owner confirms sign-up order:** keep "Be first in line".
+The owner has chosen sign-up order, so **"Be first in line" stays**.
 
-**If the owner chooses another order** (for example children first, or priority areas): stop using "Be first in line" on anything new. Use "Join our waiting list" instead, and tell the ads, leaflet and website chats. Make the change **before** the first invitations go out.
+If that rule ever changes (for example to children first), stop using "Be first in line" on anything new **before** the next invitations, use "Join our waiting list", and tell the ads, leaflet and website chats.
 
 ## How many to invite each week
 
@@ -44,7 +45,7 @@ Use our real numbers from week 2 onwards. Don't overbook until we know our real 
 
 | Stage | Who | Why |
 |---|---|---|
-| Test week (owner) | A small group, logged | Test booking, forms and texts before real patients |
+| Test week | A small group, each one logged as an exception | Test booking, forms and texts before real patients |
 | Wave 1 | The first 50-100 households on the list | Check invite, booking, reminders and attendance work |
 | Wave 2 onwards | Next households in order, every week | Size each wave with the formula above |
 

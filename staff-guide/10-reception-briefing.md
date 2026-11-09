@@ -4,7 +4,7 @@
 
 ## The facts
 
-- **Kirkcaldy Dental & Implant Clinic** is a new NHS dental practice **opening soon** at **23-25 Tolbooth Street, Kirkcaldy KY1 1RW**.
+- **Kirkcaldy Dental & Implant Clinic** is a new NHS dental practice **opening soon**, offering NHS and private dental care, at **23-25 Tolbooth Street, Kirkcaldy KY1 1RW**.
 - People join a **waiting list** at **kirkcaldydental.co.uk/register** or through our Facebook and Instagram ads.
 - Joining is free. We never ask for payment to join or for the first exam.
 - We have **no opening date** to share yet.

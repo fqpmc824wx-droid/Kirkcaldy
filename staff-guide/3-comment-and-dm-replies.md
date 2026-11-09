@@ -56,7 +56,7 @@ Private message:
 
 ### 9. "Do you do implants / private treatment?"
 
-> Yes, we'll offer private treatment too, including implants. It's completely separate from the NHS waiting list and never affects your place on it.
+> Yes, we'll offer NHS and private dental care, including implants. Private treatment is completely separate from the NHS waiting list and never affects your place on it.
 
 ### 10. "Is this real? Do I have to pay?"
 
