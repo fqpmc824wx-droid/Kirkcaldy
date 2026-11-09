@@ -1,7 +1,7 @@
 # Kirkcaldy Dental – launch to-do list
 
 The one master list for the waiting-list launch. Kept by the To-do chat.
-Last updated: 9 Nov 2026, 01:10. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
+Last updated: 9 Nov 2026, 01:15. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
 
 Row numbers match research/TODO-whats-left.md, so every chat talks about the same row.
 
@@ -45,6 +45,15 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 
 ---
 
+## Tonight – browser Claude is working now (list: BROWSER-CLAUDE-NOW.md / Drive "Browser Claude – jobs to do NOW")
+
+| # | What | Who | When | Status |
+|---|---|---|---|---|
+| 78 | Facebook Page: rename it, add the profile picture and cover (row 23), fill in the details (full address, email, "opening soon"). | Browser Claude + Owner | Tonight, 9 Nov | In progress |
+| 79 | Instagram: set up the account and link it to the Facebook Page. | Browser Claude + Owner | Tonight, 9 Nov | In progress |
+| 80 | Check the SIM/phone service the owner has just paid for. If it works, it can become the one work number for calls (row 36). | Browser Claude + Owner | Tonight, 9 Nov | In progress |
+| 81 | Save every receipt to Drive "12. Receipts & invoices" and add it to the Costs tab. | Browser Claude | Tonight, then every new cost | In progress |
+
 ## Before setup night
 
 | # | What | Who | When | Status |
@@ -71,7 +80,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 20 | ClickSend account and sender name "KirkDental". | Owner | Days before setup night | Waiting for owner (owner list #3) |
 | 21 | Pay the ICO fee (or update the company's existing entry) and save the certificate in Drive 11; send the company details to the website chat. | Owner | Before the first sign-up | Waiting for owner (owner list #4) |
 | 22 | Make the GitHub project private. | Owner | Before setup night | Waiting for owner (owner list #8) |
-| 23 | Square profile picture and a cover image for the Facebook Page. | Leaflet chat + Ads chat | Before setup night | Not started. The leaflet chat will make them; the To-do chat has asked |
+| 23 | Square profile picture and a cover image for the Facebook Page. | Leaflet chat + Ads chat | Before setup night | Asked the leaflet chat to make them. **Needed tonight** for row 78 |
 | 24 | Replace or bin the old Drive doc "READ ME – How to order & set up". | Leaflet chat | Before setup night | Done (new "READ ME – which file to send to the printer") |
 | 25 | One final website package in Drive "5. Website"; bin the old zips. | Website chat | After #2–#5 | Not started |
 | 26 | Legal papers in Drive "11. Legal & compliance": the NHS approval, the ICO certificate, the AI photo tool's name and terms, the supplier agreements. | Legal chat; Owner files the papers | Before setup night | Folder made; papers waiting for owner |
