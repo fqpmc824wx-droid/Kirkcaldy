@@ -68,7 +68,7 @@ lists the PSM templates to download and adapt, and ends with an inspection check
 | 39 | [Quality improvement and audit](39-quality-improvement-and-audit.md) | Quality Improvement | Practice Owner |
 | 40 | [Sustainability](40-sustainability-policy.md) | Sustainability | Practice Manager |
 
-Word versions of every policy (for printing and the policy folder) are in [`word/`](word/).
+Branded Word versions of every policy (logo header, gold headings, page numbers, A4) and a combined manual with a cover page are in [`word/`](word/).
 Rebuild them after any change with `python3 policies/build-word.py`.
 
 ## Roles register (fill in before opening)
