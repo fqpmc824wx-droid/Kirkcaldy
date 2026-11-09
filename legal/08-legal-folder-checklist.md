@@ -32,6 +32,8 @@ The folder is private: info@ only.
 - [ ] **Processor agreements**: ClickSend DPA + UK IDTA Addendum, Google Workspace CDPA, Meta Lead Ads Terms + Data Processing Terms, Hostinger DPA (and later VoIP and Dentally)
 - [ ] ClickSend transfer risk note (Australia)
 - [ ] Privacy page – a PDF copy of each published version, with the date
+- [ ] Cookie banner: a screenshot showing that the Meta Pixel does not load before "Accept", and the Meta Business Tools Terms
+- [ ] **Practice policies** (40 Word files and the combined manual), signed by the owner, with the staff sign-off sheets
 
 ## Banner and building
 

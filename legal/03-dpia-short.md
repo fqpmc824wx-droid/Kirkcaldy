@@ -56,6 +56,14 @@ Before the practice opens, people join a waiting list. Later we invite them to r
 
 Google Workspace, ClickSend (Australia), Meta (Facebook/Instagram lead forms) and Hostinger (website). See the processor agreements list. ClickSend is in Australia, so we need the UK International Data Transfer Addendum, and a short note on why the transfer is safe.
 
+## 6a. Meta Pixel on the website (added 9 November 2026)
+
+- The website has a Meta (Facebook) Pixel. It **only loads after the visitor clicks "Accept"** on the cookie banner.
+- It sends Meta two events only: "PageView" and "Lead" (someone signed up). It **never** sends the form answers (name, phone, email).
+- Legal reason: **consent** (PECR reg. 6 for the cookie, UK GDPR Art. 6(1)(a)). Meta and the practice are joint controllers for this, under the Meta Business Tools Terms.
+- Risks: the visit of someone who signs up is linked to their Facebook account. Low impact, because it only shows that they visited a dental waiting-list page.
+- Checks: "Reject" must work as easily as "Accept"; no pixel before consent; the privacy page explains it (#cookies section); never upload the waiting list to Meta as a Custom Audience without advice.
+
 ## 7. Breach plan (72 hours)
 
 A breach is any time personal data is lost, seen by the wrong person, or changed by mistake.

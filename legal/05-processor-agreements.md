@@ -31,7 +31,7 @@ Do this signed in as info@kirkcaldydental.co.uk. Never share passwords with anyo
 - **Accept and save:**
   - [ ] **Lead Ads Terms** (accepted the first time a lead form is created; can be viewed at facebook.com/ads/leadgen/tos). Screenshot of the accepted page.
   - [ ] **Meta Data Processing Terms** (Meta acts as our processor for lead form data). Save a PDF of the current terms page with the date.
-  - [ ] If the Meta Pixel is ever used on the website: the **Meta Business Tools Terms** too, and the pixel must only load after the visitor agrees to cookies.
+  - [ ] **Meta Pixel is now on the website** (added 9 Nov 2026, behind the cookie banner): accept and save the **Meta Business Tools Terms** (Events Manager → Settings). The pixel loads only after "Accept" and sends PageView and Lead only, never form answers.
 - **Settings to check:** delete leads from Leads Center within 30 days; do not upload the list as a Custom Audience without legal advice.
 
 ## 4. Hostinger (website)
