@@ -42,7 +42,7 @@
   .addr { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 501mm); text-align:center; color:#D9BD82; font-weight:700; white-space:nowrap; line-height:1; }
   .phone { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 484mm); text-align:center; color:#fff; font-weight:700; white-space:nowrap; line-height:1; display:none; }
   .phone b { color:#D9BD82; }
-  .mixed { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 525mm); text-align:center; color:#fff; font-weight:700; font-size:13mm; white-space:nowrap; line-height:1; }
+  .mixed { left: calc(1300mm + var(--b)); width:500mm; top: calc(var(--b) + 521mm); text-align:center; color:#fff; font-weight:700; font-size:16mm; letter-spacing:0.08em; text-transform:uppercase; white-space:nowrap; line-height:1; }
   .divider { left: calc(1300mm + var(--b) - 4mm); top:0; width:8mm; height:100%; background:#B8964F; }
   .flour { height:3.6mm; top:0; }
   .flour.l { background: linear-gradient(90deg, rgba(138,106,44,0), var(--gold)); }
@@ -91,7 +91,7 @@
       set('.qr','left','calc(1300mm + var(--b) + 120mm)'); set('.qr','top','calc(var(--b) + 140mm)'); set('.qr','width','260mm'); set('.qr','height','260mm');
       set('.url','top','calc(var(--b) + 425mm)'); set('.addr','top','calc(var(--b) + 459mm)');
       fit(ph,360,24); }
-    fit(document.getElementById('url'),360,24); fit(document.getElementById('addr'),360,15.5); fit(document.getElementById('sc2'),350,26.5); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
+    fit(document.getElementById('mixed'),340,16); fit(document.getElementById('url'),360,24); fit(document.getElementById('addr'),360,15.5); fit(document.getElementById('sc2'),350,26.5); document.getElementById('sc1').style.fontSize=document.getElementById('sc2').style.fontSize; document.getElementById('sc1').style.whiteSpace='nowrap'; document.getElementById('sc2').style.whiteSpace='nowrap';
     // flourishes either side of "Opening Soon!"
     { const r=document.getElementById('os').getBoundingClientRect(), b=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--b'));
       const L=r.left/MM, R=r.right/MM, cy=(r.top+r.height*0.56)/MM, x0=b+70, x1=b+1230, g=26, d=14, d2=7;
