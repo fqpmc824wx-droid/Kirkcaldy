@@ -27,7 +27,7 @@ We provide **NHS and private dental care** for adults and children.
 | [Name] | Practice Manager | – | – |
 
 ## Opening hours
-[To be decided]
+8:30am–7pm (provisional – days and weekend opening to confirm)
 
 ## Access
 [Step-free access / ramp / nearest accessible parking – to confirm]. Please tell us if you need any help or adjustments, such as a hearing loop, large print or extra time.

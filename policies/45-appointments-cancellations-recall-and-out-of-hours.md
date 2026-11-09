@@ -16,7 +16,7 @@ To explain clearly how patients book, cancel and are recalled, what happens when
 ## 2. Booking
 - Appointments are booked by phone (01592 214225), in person, or [online – if offered] and recorded in Dentally.
 - Reminders are sent by [text/email] [24–48 hours] before the appointment.
-- Opening hours: [to be decided]. Displayed at the entrance, on the website and in the patient leaflet.
+- Opening hours: 8:30am–7pm (provisional – days and weekend opening to confirm). Displayed at the entrance, on the website and in the patient leaflet.
 
 ## 3. Cancellations and missed appointments
 - Please give at least **48 hours' notice** to cancel or change an appointment, so the time can be offered to another patient. (Same rule as the other Saint Visage Dental Group practices.)
