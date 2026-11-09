@@ -134,7 +134,7 @@ In **Call outcome** (column Y), pick one of these. The sheet then sets Status, c
 | Reached - call back | They asked you to ring back (tomorrow 10am) | Called |
 | Reached - booked | They booked an appointment (after opening) | Booked |
 | Reached - not interested | They don't want a place | Not interested |
-| Already has dentist | They've found another dentist and want to leave the list. *(May be renamed "Found another dentist - leave list".)* | Not interested |
+| Found another dentist - leave list | They've found another dentist and want to leave the list | Not interested |
 | No answer | It rang out | No answer |
 | Voicemail | You left the voicemail | No answer |
 | Busy/declined | It was busy or they rejected the call | No answer |
@@ -142,7 +142,7 @@ In **Call outcome** (column Y), pick one of these. The sheet then sets Status, c
 | Withdrew | They want to come off the list for another reason (e.g. moved away) | Withdrew |
 | DO NOT CONTACT | They asked us to stop contacting them | DO NOT CONTACT |
 
-- Someone who **has** a dentist but still wants to join is "Reached - on list", not "Already has dentist". Having a dentist never counts against anyone.
+- Someone who **has** a dentist but still wants to join is "Reached - on list", not "Found another dentist - leave list". Having a dentist never counts against anyone.
 - Don't type "Call 8am" or "Duplicate". The scripts set those.
 - A row left blank or on "Call 8am" counts as **not called yet**, so always pick an outcome.
 
