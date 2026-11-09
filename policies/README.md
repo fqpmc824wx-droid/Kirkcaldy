@@ -67,6 +67,12 @@ lists the PSM templates to download and adapt, and ends with an inspection check
 | 38 | [Business continuity plan](38-business-continuity-plan.md) | Risk Management | Practice Manager |
 | 39 | [Quality improvement and audit](39-quality-improvement-and-audit.md) | Quality Improvement | Practice Owner |
 | 40 | [Sustainability](40-sustainability-policy.md) | Sustainability | Practice Manager |
+| 41 | [Recruitment, Selection and Equal Opportunities Policy](41-recruitment-selection-and-equal-opportunities.md) | Staff / patient information | Practice Owner |
+| 42 | [Contracts, Induction, Appraisal and Staff Support Policy](42-contracts-induction-appraisal-and-staff-support.md) | Staff / patient information | Practice Manager [Name] |
+| 43 | [Disciplinary, Dismissal and Grievance Procedure](43-disciplinary-dismissal-and-grievance.md) | Staff / patient information | Practice Owner |
+| 44 | [NHSmail Mailbox Policy](44-nhsmail-mailbox-policy.md) | Staff / patient information | Practice Manager [Name] |
+| 45 | [Appointments, Cancellations, Recall and Out-of-Hours Policy](45-appointments-cancellations-recall-and-out-of-hours.md) | Staff / patient information | Practice Manager [Name] |
+| 46 | [Patient Information Leaflet (draft content)](46-patient-information-leaflet.md) | Staff / patient information | Practice Manager [Name] |
 
 Branded Word versions of every policy (logo header, gold headings, page numbers, A4) and a combined manual with a cover page are in [`word/`](word/).
 Rebuild them after any change with `python3 policies/build-word.py`.
