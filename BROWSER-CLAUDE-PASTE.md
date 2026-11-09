@@ -66,6 +66,10 @@ Use the existing Page; do NOT create a new one.
 6c. Comment moderation (Page settings → Moderation):
    - blocked words: 07, +44, 01592, @, abscess, swelling, swollen, antibiotics, bleeding, infection, broken tooth, toothache, pregnant, scam, fraud;
    - profanity filter: strong.
+   - Instagram too: Settings → Privacy → Hidden words → Hide comments ON + Advanced comment filtering ON → add the same words.
+   - Instant reply and away message: platforms Messenger AND Instagram. Business hours 08:00–21:00 every day, NOT "Always open".
+   - Test: from a second account, message the Page (the instant reply should arrive), then post a test comment containing "toothache" (it should be hidden). Delete the test comment.
+   - Don't reply to or delete anyone else's comments or messages.
 7. The "Sign up" button (→ https://kirkcaldydental.co.uk/register/?src=fb-page) waits until the website is live.
 8. Don't post or boost anything.
 
