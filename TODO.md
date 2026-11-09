@@ -1,7 +1,7 @@
 # Kirkcaldy Dental – launch to-do list
 
 The one master list for the waiting-list launch. Kept by the To-do chat.
-Last updated: 9 Nov 2026, 00:55. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
+Last updated: 9 Nov 2026, 01:00. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
 
 Row numbers match research/TODO-whats-left.md, so every chat talks about the same row.
 
@@ -55,7 +55,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 4 | Only say "Thank you" when the sign-up is really saved; otherwise show the email address to use. | Website chat | With #2 | Done in PR #2 (thank-you shown only on "ok") |
 | 5 | Rewrite the privacy page: no Zapier, calls and texts 8am–9pm, "waiting list" wording, a "delete your data" section, complaints, company details. | Website chat drafts; Owner gives details (owner list #4) and approves | Before setup night | Fixes done in PR #2; company and ICO details still needed from the owner |
 | 6 | "How the waiting list works" page. No longer a blocker: the Facebook button goes to the home page. | Website chat | Before launch (nice to have) | Not started |
-| 7 | One chat per file, so two chats never edit the same file. | Ads chat | Now | Not started |
+| 7 | One chat per file, so two chats never edit the same file. | Ads chat | Now | Done. BRAND.md's ownership table is the rule: one owner chat per file, and the others message it |
 | 8 | Pick the dates. | Owner | Now | Waiting for owner (owner list #1) |
 | 9 | Facebook prep day, 2–5 days before setup night: use the existing Page and ad account (create nothing new), set a £900 account spending limit, set up the business account, the app, App Review and verification. | Owner + Browser Claude; Ads chat fixes the runbook first | 2–5 days before setup night | Runbook steps being rewritten (ads chat, in progress) |
 | 10 | App Review pack and a launch-night backup plan (leads on the phone app, copied in by hand). | Ads chat | Before setup night | In progress (ads chat) |
@@ -74,7 +74,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 23 | Square profile picture and a cover image for the Facebook Page. | Leaflet chat + Ads chat | Before setup night | Not started. The leaflet chat will make them; the To-do chat has asked |
 | 24 | Replace or bin the old Drive doc "READ ME – How to order & set up". | Leaflet chat | Before setup night | Done (new "READ ME – which file to send to the printer") |
 | 25 | One final website package in Drive "5. Website"; bin the old zips. | Website chat | After #2–#5 | Not started |
-| 26 | Legal papers in Drive "11. Legal & compliance": the NHS approval, the ICO certificate, the AI photo tool's name and terms, the supplier agreements. | Legal chat set it up; Owner files the papers | Before setup night | Folder made; papers waiting for owner |
+| 26 | Legal papers in Drive "11. Legal & compliance": the NHS approval, the ICO certificate, the AI photo tool's name and terms, the supplier agreements. | Legal chat; Owner files the papers | Before setup night | Folder made; papers waiting for owner |
 | 27 | OK the staff guide drafts. | Owner | Before setup night | Waiting for owner (owner list #7) |
 | 28 | Merge everything on GitHub, in the order the chats give. | Owner (chats say when) | After the fixes above | Nothing merged yet |
 | 29 | LAST: each chat tidies its own Drive folder and bins old copies. | All chats | After all fixes | Done: leaflet (folders 2–4), ads (folder 1), staff guide (folder 8). Website: Asked |
@@ -98,7 +98,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 37 | Name the daily-checks person and a deputy for alarm emails. | Owner | Before launch | Waiting for owner (owner list #6) |
 | 38 | One-page owner card: daily 5 minutes, Monday 15 minutes, "if this alarm, do this". Alarms: £5 warning, £8 pause. | Ads chat + Metrics chat | Before launch | Done. In Drive 7 as "USE THIS – updated 9 Nov". Alarm card in progress (ads chat) |
 | 39 | Caller training pack and confidentiality note; the owner runs a short session. | Waiting-list chat; Owner runs it | Before the first call | Done (staff guide page 6, with a confidentiality note to sign). The owner runs the session |
-| 40 | Data protection papers: risk check, complaints steps, how long we keep data, "delete one person everywhere". | Ads chat drafts; Owner signs | Before launch | Asked |
+| 40 | Data protection papers: risk check, complaints steps, how long we keep data, "delete one person everywhere". | Legal chat drafts; Owner signs | Before launch | Drafts in Drive 11; owner to sign |
 | 41 | Weekly and KPI tabs in the sheet, so the Monday email and overspend alarm work. | Leaflet chat builds; Metrics chat checks | Before launch | Not done yet (KPIs, Weekly, scorecard) |
 | 42 | Website legal details: phone, dentists' names and GDC numbers, company name in the footer. | Owner → Website chat | Before launch | Partly done |
 | 43 | Website look matches the leaflet (fonts, colours, logo). | Website chat | Before launch | Not started |
