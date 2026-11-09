@@ -31,6 +31,7 @@ Where it says "owner's words", that is what the owner actually said in the ads c
 - No outside marketing agency. The family's agency charges about £2k/month; the owner chose to do it with Claude.
 
 ### Drive and working style
+- **COSTS are separate from the Waiting List (9 Nov):** owner's words: "The cost tab should be a totally different thing. It's not related to the waiting list sheet." All spending goes in the separate "Expenses to be reimbursed" / Costs spreadsheet in "6. Sheets & Trackers", never in the Waiting List sheet. Entries so far: ONSIM £6 (Hamza) and domain kirkcaldydental.co.uk £10 (invoice in langtounsmiles@gmail.com).
 - **The owner is Hamza** (not Nas). Address him as Hamza.
 - **Not now (9 Nov):** the safety settings (2FA, second admin, healthchecks.io/UptimeRobot) and the legal papers (data agreements, council email) are on hold. Don't put them in browser Claude's current list.
 - **ICO / fees (9 Nov):** owner's words: "We don't need to pay anything for ICO yet. We don't need to pay anything." No ICO fee tasks, self-assessments or payments in anyone's list.

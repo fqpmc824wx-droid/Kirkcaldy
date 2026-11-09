@@ -55,7 +55,7 @@ PART 2 – LEAFLET PRINT ORDER (only after Part 1 is OK and Hamza says go)
 4. In the preview: nothing important touches the cut line, and both QR codes are whole.
 5. Delivery: Hamza's address (or Kingdom Distribution's, if Hamza says so). Choose the fast option (about Wed 11 Nov, ~£13.49), NOT the free 23 Nov one.
 6. STOP at payment. Hamza pays.
-7. Save the order confirmation as PDF to Drive "12. Receipts & invoices" (create the folder if needed), named "YYYY-MM-DD – Vistaprint – £amount.pdf". Add a row to the sheet's Costs tab.
+7. Save the order confirmation as PDF to Drive "12. Receipts & invoices" (create the folder if needed), named "YYYY-MM-DD – Vistaprint – £amount.pdf". Add a row to the separate "Expenses to be reimbursed" spreadsheet, not the Waiting List.
 NOTE: the leaflet has no phone number yet. If Hamza wants the 01592/ONSIM number on it, stop and tell him: the leaflet chat re-exports the file first.
 
 ==============================
@@ -96,7 +96,7 @@ PART 5 – RECEIPTS
 ==============================
 For every invoice found in Part 1 step 8:
 - save it as PDF to Drive "12. Receipts & invoices", named "YYYY-MM-DD – Supplier – £amount.pdf";
-- add a row to the Costs tab if it isn't there yet;
+- add a row to the separate "Expenses to be reimbursed" spreadsheet (Drive "6. Sheets & Trackers"), NEVER the Waiting List sheet;
 - if someone paid personally, also add it to the "Expenses to be reimbursed" sheet in "6. Sheets & Trackers".
 
 ==============================
