@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join Our Waiting List – Kirkcaldy Dental &amp; Implant Clinic</title>
+<meta name="description" content="Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon on Tolbooth Street, Kirkcaldy. Join our waiting list – it's free and quick.">
+<meta name="theme-color" content="#8A6A2C">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preload" href="/assets/fonts/playfair-900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="hero">
+  <a href="/"><img class="hero-logo" src="/assets/logo-stacked.svg" alt="Kirkcaldy Dental &amp; Implant Clinic"></a>
+  <div class="hero-photo">
+    <img src="/assets/family.jpg" alt="A smiling mother and daughter" width="1400" height="981" fetchpriority="high">
+    <svg class="hero-curve" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,100 L0,40 C260,105 620,95 1000,0 L1000,100 Z" fill="#F6F2EA"/></svg>
+  </div>
+</header>
+
+<main>
+  <div class="head">
+    <h1 class="kicker">New NHS Dental Practice</h1>
+    <div class="flourish"><b></b><i>Opening Soon!</i><b></b></div>
+    <p class="address">23–25 Tolbooth Street · Kirkcaldy KY1 1RW</p>
+  </div>
+
+  <div class="band">
+    <h2>Be first in line</h2>
+    <p>Join our waiting list</p>
+  </div>
+
+  <div class="wrap">
+    <p class="intro"><strong>Kirkcaldy Dental &amp; Implant Clinic</strong> is a new NHS dental practice opening soon on Tolbooth Street. It's free to join, there's no obligation, and we'll invite people in stages as appointments become available.</p>
+
+    <div class="steps">
+      <div class="step"><div class="n">1</div><p>Add your details</p></div>
+      <div class="step"><div class="n">2</div><p>We'll confirm by text &amp; email</p></div>
+      <div class="step"><div class="n">3</div><p>We'll call you to book</p></div>
+    </div>
+
+    <section class="card" id="join">
+      <form id="reg" novalidate>
+        <h3>Join our waiting list</h3>
+        <p class="sub">it's free &amp; quick</p>
+
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required></div>
+        <div class="field"><label for="postcode">Postcode <span class="opt">(optional)</span></label><input id="postcode" name="postcode" type="text" autocomplete="postal-code" autocapitalize="characters"></div>
+
+        <fieldset><legend>How many people? <span class="opt">(optional)</span></legend>
+          <div class="choices">
+            <label><input type="radio" name="people" value="1"><span>1</span></label>
+            <label><input type="radio" name="people" value="2"><span>2</span></label>
+            <label><input type="radio" name="people" value="3"><span>3</span></label>
+            <label><input type="radio" name="people" value="4+"><span>4+</span></label>
+          </div></fieldset>
+
+        <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" type="text" name="website" tabindex="-1" autocomplete="off"></div>
+
+        <label class="tick"><input type="checkbox" name="marketing" value="yes">
+          <span>Yes, also send me news and offers from Kirkcaldy Dental by text and email. I can opt out at any time. <span class="opt">(optional)</span></span></label>
+
+        <button type="submit" class="btn" id="btn">Join the waiting list</button>
+        <div class="err" id="err" role="alert"></div>
+        <p class="notice">By joining, you're asking us to add you to our waiting list. We'll contact you about it and email you to confirm. We won't send you marketing unless you opt in above. See our <a href="/privacy/">privacy policy</a>.</p>
+      </form>
+
+      <div class="thanks" id="thanks" role="status">
+        <div class="ok">✓</div>
+        <h3>Thank you!</h3>
+        <p>You're on our waiting list. We'll be in touch soon.</p>
+      </div>
+    </section>
+
+    <p class="call">Prefer to talk? Call <a href="tel:+441592214225">01592 214225</a></p>
+  </div>
+</main>
+
+<footer>
+  <div class="brand">Kirkcaldy Dental &amp; Implant Clinic</div>
+  23–25 Tolbooth Street, Kirkcaldy KY1 1RW<br>
+  <a href="mailto:info@kirkcaldydental.co.uk">info@kirkcaldydental.co.uk</a> · <a href="/privacy/">Privacy</a>
+</footer>
+
+<script>
+  var ENDPOINT = "PASTE_APPS_SCRIPT_URL_HERE";
+  var CONSENT_VERSION = "2026-11-08";
+
+  var form = document.getElementById("reg"), err = document.getElementById("err"), btn = document.getElementById("btn");
+  var params = new URLSearchParams(location.search);
+  var source = params.get("src") || params.get("utm_source") || "website";
+  var vid = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+  var live = /^https:\/\/script\.google\.com\/macros\/s\/[^\/]+\/exec$/.test(ENDPOINT);
+
+  function show(msg) { err.textContent = msg; err.style.display = "block"; }
+
+  if (live) {
+    try { fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams({ action: "visit", source: source, vid: vid }) }); } catch (e) {}
+  }
+
+  function reset() { btn.disabled = false; btn.textContent = "Join the waiting list"; }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    err.style.display = "none";
+    var f = form.elements;
+    if (!live) return show("Sign-ups open shortly – please call 01592 214225 or email info@kirkcaldydental.co.uk and we'll add you to the list.");
+    var phone = f.phone.value.replace(/[^\d+]/g, "");
+    var email = f.email.value.trim(), postcode = f.postcode.value.trim();
+    if (!f.name.value.trim()) return show("Please enter your name.");
+    if (phone.replace(/\D/g, "").length < 10) return show("Please enter a valid phone number.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("Please enter a valid email address.");
+    if (postcode && !/^[A-Za-z]{1,2}\d[A-Za-z\d]?\s*\d[A-Za-z]{2}$/.test(postcode)) return show("Please check your postcode, or leave it blank.");
+
+    var data = new URLSearchParams({
+      name: f.name.value.trim(), phone: phone, email: email, postcode: postcode.toUpperCase(),
+      people: f.people.value, marketing: f.marketing.checked ? "yes" : "no",
+      website: f.website.value, consent_version: CONSENT_VERSION, source: source, vid: vid
+    });
+    btn.disabled = true; btn.textContent = "Sending…";
+    fetch(ENDPOINT, { method: "POST", body: data })
+      .then(function (r) { return r.text(); })
+      .then(function (t) {
+        if (String(t).trim() === "ok") {
+          form.style.display = "none"; document.getElementById("thanks").style.display = "block";
+          document.getElementById("join").scrollIntoView({ behavior: "smooth", block: "start" });
+        } else { reset(); show("Sorry, we couldn't save your details. Please try again, or call 01592 214225."); }
+      })
+      .catch(function () { reset(); show("Sorry, we couldn't confirm your sign-up. Please try again, or call 01592 214225."); });
+  });
+</script>
+</body>
+</html>

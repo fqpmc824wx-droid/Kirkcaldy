@@ -1,0 +1,12 @@
+# Clean addresses: no ".html" shown. Short links and common typos reach the waiting-list page.
+# /b, /l and /privacy also work as folders (b/index.html, l/index.html, privacy/index.html) if this file is ignored.
+Options -Indexes
+RewriteEngine On
+RewriteRule ^b/?$ /register/?src=banner [R=302,L]
+RewriteRule ^l/?$ /register/?src=leaflet [R=302,L]
+RewriteRule ^register$ /register/ [R=301,L]
+RewriteRule ^privacy(\.html)?$ /privacy/ [R=301,L]
+RewriteRule ^(waitinglist|waiting_list|join|signup|sign-up)/?$ /register/ [R=302,L,NC]
+# Someone typing .../index.html is sent to the clean folder address (keeps any ?src= tag).
+RewriteCond %{THE_REQUEST} \s/+((?:[^?\s]*/)?)index\.html[\s?]
+RewriteRule ^ /%1 [R=301,L]

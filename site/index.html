@@ -3,41 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kirkcaldy Dental &amp; Implant Clinic – New NHS Dental Practice Opening in Kirkcaldy</title>
-<meta name="description" content="Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon in Kirkcaldy, Fife.">
-<link rel="icon" href="assets/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root { --gold: #c3a363; --gold-dark: #9a7a3f; --soft: #f6efe3; --ink: #2f2f2f; --muted: #6b6b6b; }
-  * { box-sizing: border-box; }
-  html, body { height: 100%; }
-  body { margin: 0; font-family: "Lato", system-ui, sans-serif; color: var(--ink); line-height: 1.6;
-         background: linear-gradient(180deg, var(--soft), #fff 70%); display: flex; flex-direction: column; }
-  main { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 56px 20px; }
-  .inner { max-width: 720px; }
-  img.logo { width: min(340px, 72vw); height: auto; margin-bottom: 32px; }
-  .badge { display: inline-block; border: 1px solid var(--gold); color: var(--gold-dark); border-radius: 999px; padding: 6px 16px;
-           font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 20px; }
-  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.12; margin: 0 0 18px; font-size: clamp(2.3rem, 6.5vw, 3.8rem); }
-  h1 span { color: var(--gold); }
-  p.lead { font-size: 1.2rem; color: var(--muted); margin: 0 auto; max-width: 560px; }
-  footer { text-align: center; padding: 20px; font-size: .85rem; color: var(--muted); }
-  footer a { color: var(--gold-dark); }
-</style>
+<title>Kirkcaldy Dental &amp; Implant Clinic – New NHS Dental Practice Opening Soon</title>
+<meta name="description" content="Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy. Join our waiting list – it's free and quick.">
+<meta name="theme-color" content="#8A6A2C">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preload" href="/assets/fonts/playfair-900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
+<header class="hero">
+  <img class="hero-logo" src="/assets/logo-stacked.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
+  <div class="hero-photo">
+    <img src="/assets/family.jpg" alt="A smiling mother and daughter" width="1400" height="981" fetchpriority="high">
+    <svg class="hero-curve" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,100 L0,40 C260,105 620,95 1000,0 L1000,100 Z" fill="#F6F2EA"/></svg>
+  </div>
+</header>
+
 <main>
-  <div class="inner">
-    <img class="logo" src="assets/logo-stacked.svg" alt="Kirkcaldy Dental &amp; Implant Clinic">
-    <div><span class="badge">Coming soon</span></div>
-    <h1>New NHS Dental Practice<br><span>Opening in Kirkcaldy</span></h1>
-    <p class="lead">Our website is coming soon. Follow us on Facebook and Instagram for opening news.</p>
+  <div class="head">
+    <h1 class="kicker">New NHS Dental Practice</h1>
+    <div class="flourish"><b></b><i>Opening Soon!</i><b></b></div>
+    <p class="address">23–25 Tolbooth Street · Kirkcaldy KY1 1RW</p>
+  </div>
+
+  <div class="band">
+    <h2>Be first in line</h2>
+    <p>Join our waiting list</p>
+  </div>
+
+  <div class="wrap">
+    <p class="intro"><strong>Kirkcaldy Dental &amp; Implant Clinic</strong> is a new NHS dental practice opening soon on Tolbooth Street. We'll offer NHS and private dental care. It's free to join our waiting list, there's no obligation, and we'll invite people in stages as appointments become available.</p>
+    <p class="intro" style="margin-top:10px;color:var(--gold-3);font-weight:700">Adults, children and families can all join.</p>
+
+    <a class="btn" href="/register/" style="margin:24px 0 0">Join our waiting list</a>
+    <p class="call">or call <a href="tel:+441592214225">01592 214225</a></p>
   </div>
 </main>
+
 <footer>
-  © 2026 Kirkcaldy Dental &amp; Implant Clinic · <a href="mailto:info@kirkcaldydentist.co.uk">info@kirkcaldydentist.co.uk</a> · <a href="privacy.html">Privacy, complaints &amp; regulation</a>
+  <div class="brand">Kirkcaldy Dental &amp; Implant Clinic</div>
+  23–25 Tolbooth Street, Kirkcaldy KY1 1RW<br>
+  <a href="mailto:info@kirkcaldydental.co.uk">info@kirkcaldydental.co.uk</a> · <a href="/privacy/">Privacy, complaints &amp; regulation</a>
 </footer>
+
+<script>
+  (function () {
+    var ENDPOINT = "PASTE_APPS_SCRIPT_URL_HERE";
+    if (!/^https:\/\/script\.google\.com\/macros\/s\/[^\/]+\/exec$/.test(ENDPOINT)) return;
+    var src = new URLSearchParams(location.search).get("src") || "home";
+    var vid = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    try { fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams({ action: "visit", source: src, vid: vid }) }); } catch (e) {}
+  })();
+</script>
 </body>
 </html>
