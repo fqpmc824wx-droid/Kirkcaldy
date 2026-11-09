@@ -392,6 +392,10 @@ Use the **draft campaign and ad set from §4** (Ads Manager → the draft), and 
 - **Tell the owner:** ads with the text-code check run **only on mobile** Facebook and Instagram placements (Feeds, Stories and Reels; no desktop). In the placement preview, check that the 9:16 Stories/Reels videos are offered. If Stories/Reels are missing, tell the ads chat.
 - Before publishing, show the owner the ad previews **and the form preview** and get a clear "yes".
 - **Automated rule** (Ads Manager → Rules → Create rule): campaign, condition **Leads (today) is greater than 25 × the number of callers on shift** (e.g. 50 with two callers; raise it whenever callers are added) → action **Turn off campaign** + notify. Check every 30 minutes. It's a safety valve if the ad goes viral. The daily-jobs person switches the campaign back on at 8am **only if the overnight leads have been called**.
+- **Two cost-per-lead rules** (same place). Time range: last 3 days. Only apply once at least £30 has been spent.
+  - (a) Cost per result **greater than £5** → **notification only**.
+  - (b) Cost per result **greater than £8** → **turn off campaign** + notify.
+  - These match the owner's levels and the script's email alarms. They're a backup in case the script is down.
 - **Launch day, within 2 hours of the ads going live:** compare the number of leads in **Leads Center** (Business Suite → All tools → Leads Center, or Ads Manager) with the facebook/instagram rows in the sheet since launch.
   - If any are missing: check the app is still **Live** (§5.1) and **Leads access** includes the app and the System User (§5.3).
   - Then download the missing leads from Leads Center (CSV) and add each one to the Waiting list by hand: a real Signup Time, Source facebook (or instagram), Notes "added by hand – no auto text". The caller rings them first. Tell the ads chat.
