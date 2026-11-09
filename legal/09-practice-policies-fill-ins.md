@@ -36,6 +36,14 @@ These are now in the policies. Please check them once a year.
 
 **Still blank, because only you know them:** staff names, outside companies you choose, account numbers and practice decisions (below). Not published online: the NHS Fife Waste Management Officer (ask NHS Fife; NHS Fife collects dental clinical waste under the PCA(D)5 scheme, so you may not need a private waste contractor).
 
+**From the team's WhatsApp (9 Nov), now in the business continuity plan – please confirm:**
+- Insurance broker: Premierline, 0333 320 6009 (insurer and policy number still needed). Ask them to cover employers' liability, public liability, contents, cyber, and the pressure-vessel inspections (autoclave, compressor).
+- Dental supplies: Wrights (Wright Cottrell), 0800 66 88 99.
+- Autoclave and washer-disinfector: Eschmann, service contract, 01903 753322 (Zain to confirm). Needed for the policies: make, model, serial numbers, install date and validation certificates.
+- Broadband and phones: Global4, 01403 272910 ("Target" also mentioned – which one?). Keep patient WiFi separate from practice computers.
+- Website: the existing site and its legal pages are managed by the website chat. If Hassan works on it, please keep the sign-up form, privacy page and cookie banner as they are.
+- Possible opening date: beginning of December (suggested, not agreed yet).
+
 **Suggestions you can choose from (not chosen for you):**
 - Radiation Protection Adviser: UKHSA Dental X-ray Protection Services is used by over 2,500 UK practices. Or ask your X-ray supplier who they use.
 - Clinical waste: NHS Fife (PCA(D)5 scheme) – ask NHS Fife to set up collections.

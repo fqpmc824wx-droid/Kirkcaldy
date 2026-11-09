@@ -206,15 +206,15 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Electricity supplier (account) | [supplier] | [phone] | Account [no.] |
 | Water | Scottish Water | 0800 0778 778 | |
 | Gas emergency | Gas Emergency Line | 0800 111 999 | |
-| Telephone / broadband provider | [provider] | [phone] | Account [no.] |
+| Telephone / broadband provider | Global4 (being set up – confirm) | 01403 272910 (support: option 2, then 1) | Account [no.] |
 | Dentally support | Dentally | [phone / support portal] | |
 | IT support | [company] | [phone] | |
 | Imaging software / X-ray engineer | [company] | [phone] | |
 | Dental equipment engineer (chairs, compressor, suction) | [company] | [phone] | Contract [no.] |
-| Decontamination equipment engineer | [company] | [phone] | Contract [no.] |
+| Decontamination equipment engineer (autoclave, washer-disinfector) | Eschmann (service contract – confirm) | 01903 753322 | Contract [no.] |
 | Medical gas / oxygen supplier | [company] | [phone] | |
 | Clinical waste contractor | [company] | [phone] | |
-| Dental supplies | [supplier] | [phone] | Account [no.] |
+| Dental supplies | Wrights (Wright Cottrell), Dundee | 0800 66 88 99 | Account [no.] |
 | Dental laboratory | [lab] | [phone] | |
 | Implant system supplier | [company] | [phone] | |
 | Landlord / building manager | [Name] | [phone] | |
@@ -222,7 +222,7 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Electrician | [company] | [phone] | |
 | Locksmith / glazier | [company] | [phone] | |
 | Security alarm company | [company] | [phone] | |
-| Practice insurer | [company] | [phone] | Policy [no.] |
+| Practice insurer (via broker) | Premierline (broker) – insurer [company] | 0333 320 6009 | Policy [no.] |
 | Indemnity provider(s) | [company] | [phone] | |
 | Locum / agency staff | [agency] | [phone] | |
 | Reciprocal practice | [practice name] | [phone] | |
