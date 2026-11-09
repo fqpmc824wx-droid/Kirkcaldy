@@ -21,6 +21,7 @@ Upload into the right subfolder and **trash the old version** (no "FINAL v2/v3" 
 - Strip: **BE FIRST IN LINE** / JOIN OUR WAITING LIST (owner decision 8 Nov – keep it; print v3)
 - Location line: full address everywhere: **23–25 Tolbooth Street, Kirkcaldy KY1 1RW** (owner wants the full address, not just "Tolbooth Street")
 - CTA: Join waiting list · kirkcaldydental.co.uk/register · info@kirkcaldydental.co.uk
+- Phone: **01592 214225** (ONSIM virtual landline, inbound calls only, diverts to the clinic mobile; NOT textable, so never say "text us"). Printed as "or call 01592 214225" on the banner and leaflet (front and back).
 - Mixed practice (owner, 8 Nov): print carries "NHS & private dental care" (banner panel) / "We’ll offer NHS and private dental care." (leaflet back)
 - Family line (Ad B / leaflet): For Kirkcaldy families · "Adults, children and families can all join"
 - NOT allowed: "taking on / accepting / registering NHS patients", "limited places", "first come first served", NHS logo.
