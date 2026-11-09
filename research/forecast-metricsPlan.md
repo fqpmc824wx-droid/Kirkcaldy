@@ -163,8 +163,8 @@ Notes on the table:
 |---|---|---|---|---|---|---|
 | M59 | Visits by source | COUNTIFS(Visits!B, src, period) | Visits (Hostinger as a cross-check) | Daily / weekly | yes | 0 leaflet scans 3 days after a drop → test the printed QR code |
 | M60 | Visit → sign-up conversion | Sign-ups ÷ visits per src (exact match once Visit ID exists) | Visits + WL | Weekly | partly | 30% or more. Below 15% with 20+ visits → test /register/ on a phone. |
-| M61 | Leaflet response and cost per sign-up, per drop | Sign-ups ÷ leaflets delivered; (print + distribution) ÷ sign-ups | WL + Costs | Weekly, and 14 days after each drop | no | S13 |
-| M62 | Banner scans and cost per sign-up | Banner visits a week; (print + fitting) ÷ sign-ups | Visits + WL + Costs | Weekly | partly | 5+ scans a week. Fewer than 5 after 2 weeks → move it or enlarge the QR. |
+| M61 | Leaflet response and cost per sign-up, per drop | Sign-ups ÷ leaflets delivered; (print + distribution) ÷ sign-ups | WL + Costs sheet | Weekly, and 14 days after each drop | no | S13 |
+| M62 | Banner scans and cost per sign-up | Banner visits a week; (print + fitting) ÷ sign-ups | Visits + WL + Costs sheet | Weekly | partly | 5+ scans a week. Fewer than 5 after 2 weeks → move it or enlarge the QR. |
 | M63 | Website and tagged links | Visits and sign-ups for src fb-page, ig-bio, fb-form-done, fb-dm, home, website | Visits + WL + Hostinger | Weekly | partly | A rise is the ads' wider effect. Don't credit it to Meta. |
 | M64 | Inbound calls (once the 01592 number is live) | Answered ÷ received; missed calls; median callback time; Source=phone rows ÷ new callers; Meta `click_to_call_call_confirm` | Phone provider log + WL + Ads | Daily | no | 90% or more answered; callbacks within 60 min. Alarm: below 80%, or callbacks over 4h. |
 
@@ -178,10 +178,10 @@ Notes on the table:
 ### B9. Cost roll-ups (KPIs tab)
 | ID | Metric | Formula | Source → tab | Freq | Now | Target / alarm |
 |---|---|---|---|---|---|---|
-| M68 | CPL by channel; blended CPL; total acquisition cost | Channel cost ÷ channel sign-ups; all costs ÷ all unique sign-ups | Ads + Costs + SMS log + LA | Weekly | no | S13 |
+| M68 | CPL by channel; blended CPL; total acquisition cost | Channel cost ÷ channel sign-ups; all costs ÷ all unique sign-ups | Ads + Costs sheet + SMS log + LA | Weekly | no | S13 |
 | M69 | Cost per reached lead, by ad and source | Spend ÷ reached leads (cohort) | Ads + LA | Weekly | no | S9 |
 | M70 | Cost per booked lead / per booked person | Spend ÷ Booked; ÷ SUM(People booked) | Ads + WL | Weekly cohort | no | £8 or less / £4.50 or less. Alarm: above £12 a booked lead. |
-| M71 | Cost per attended / per registered person | Ads only, and fully loaded (Meta inc VAT + texts + print + caller hours x rate) ÷ people attended or registered | Ads + Costs + Daily log + Dentally match | Monthly (weekly once open) | no | Ads only £6 or less per attended person; fully loaded £12 or less. Alarm: above £10 / £20, or above M84. |
+| M71 | Cost per attended / per registered person | Ads only, and fully loaded (Meta inc VAT + texts + print + caller hours x rate) ÷ people attended or registered | Ads + Costs sheet + Daily log + Dentally match | Monthly (weekly once open) | no | Ads only £6 or less per attended person; fully loaded £12 or less. Alarm: above £10 / £20, or above M84. |
 
 ### B10. Social and reputation (manual first)
 | ID | Metric | Formula | Source → tab | Freq | Now | Target / alarm |
@@ -401,7 +401,8 @@ Group or hide N–X and Z–AH so callers see A–M, Y and AI–AM.
     - A 24 x 7 heat map.
     - A funnel pivot by Ad name x Source: leads → attempted → reached → booked, people per lead, cost per reached lead.
 - **Weekly:** B1 holds `=TODAY()-WEEKDAY(TODAY(),3)-1` (last Sunday). Every number in Section D is calculated for B1−6 to B1 and for the week before.
-- **Manual tabs** (with dropdowns): Costs, Change log, Daily checks, Complaints (columns in C4).
+- **Manual tabs** (with dropdowns): Change log, Daily checks, Complaints (columns in C4).
+- **Costs are not in this sheet** (owner, 9 Nov). They live in the separate sheet "Kirkcaldy Dental – Costs & Expenses" (id `11MG9ErGdpZcGczFl1TARUt9MiUGtY7B_tNPNAT__mSg`), tab "All costs": Date / Channel / Item / Qty printed / Qty delivered / Route / Cost ex VAT / VAT / Total (col I) / Invoice ref / Paid by / Monthly? / Notes. The KPIs tab pulls it with `IMPORTRANGE("11MG9ErGdpZcGczFl1TARUt9MiUGtY7B_tNPNAT__mSg","All costs!A4:M")` for M61, M62, M68, M71 and the blended CPL (S13). The owner clicks "Allow access" once.
 - **Later tabs:** Capacity, Dentally.
 - **`trkWeeklyEmail()`, Monday 07:30:** emails the Weekly tab to OWNER_EMAIL as an HTML table with the sheet link.
 
@@ -528,7 +529,7 @@ breakdowns: none on the daily table (breakdowns go in the weekly pull)
 | Caller shift hours and who worked | Daily checks (copied into Daily log) | caller | end of shift |
 | Complaints from any channel | Complaints: Date / Channel (phone, email, FB comment, DM, in person, NHS Fife) / Lead ID / Type / Formal? / Summary / Action / Owner / Closed date | owner | same day; any opt-out → DO NOT CONTACT the same day |
 | Opt-outs by email or phone | WL Status DO NOT CONTACT, reason in Notes | whoever receives it | same day |
-| Print and distribution invoices, quantities printed and delivered, route or sectors, banner print and fitting, ClickSend top-ups, caller hourly cost | Costs: Date / Channel / Item / Qty printed / Qty delivered / Route / Cost ex VAT / VAT / Total / Invoice ref / Notes | owner | on each invoice |
+| Print and distribution invoices, quantities printed and delivered, route or sectors, banner print and fitting, ClickSend top-ups, caller hourly cost | "Kirkcaldy Dental – Costs & Expenses" sheet, tab "All costs": Date / Channel / Item / Qty printed / Qty delivered / Route / Cost ex VAT / VAT / Total / Invoice ref / Paid by / Monthly? / Notes | owner (browser Claude logs receipts) | on each invoice |
 | Leaflet drops, banner going up, phone number live, wording changes, opening date announced | Change log (Source = manual) | owner / ads chat | on the day |
 | Ad Library check of Fife dental advertisers (weekly); count of NHS Fife practices accepting (monthly) | Change log (Source = market) | ads chat / owner | weekly / monthly |
 | Hostinger page views for /, /register/, /l and /b | KPIs input cells | owner | Monday |
@@ -539,7 +540,7 @@ breakdowns: none on the daily table (breakdowns go in the weekly pull)
 - **P0, before the ads go live.** These can't be back-filled later.
   1. Leaflet chat: columns N–AR and dropdowns; tracking.gs (`trkFindDuplicate`, `trkNewLeadId`, `trkLogSms`, `trkOnSheetEdit`, Call log); `sendSms` returns and logs; new `doPost` values.
   2. Ads chat: `pollMetaLeads` fields and the new `handleLead` values.
-  3. Owner: Costs, Change log, Daily checks and Complaints tabs, with the print run and banner entered.
+  3. Owner: Change log, Daily checks and Complaints tabs; print run and banner entered in the separate Costs & Expenses sheet.
   4. Test:
      - Create a lead with the Lead Ads Testing Tool and do a website sign-up. All new columns should fill.
      - Set Call outcome to "No answer". Expect: attempts 1, the timestamps, Next call due set, a Call log row, Status "No answer", and the outcome cell cleared.
