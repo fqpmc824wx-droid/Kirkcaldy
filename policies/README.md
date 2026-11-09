@@ -88,6 +88,11 @@ Rebuild them after any change with `python3 policies/build-word.py`.
 | Radiation Protection Supervisor (RPS) | [Name] | |
 | Radiation Protection Adviser (RPA) | [Company] | – |
 | Raising Concerns contact | [Name] | |
+| Health & safety competent person (external adviser, if used) | [Company] | – |
+| First-aid appointed person | [Name] | |
+| Fire wardens | [Names] | |
+| Mental health / wellbeing lead | [Name] | |
+| Laser Protection Adviser / Supervisor (only if a laser is used) | [Company] / [Name] | |
 
 ## Before-opening checklist (from the PSM)
 
