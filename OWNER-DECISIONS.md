@@ -22,7 +22,7 @@ Where it says "owner's words", that is what the owner actually said in the ads c
 - The wording is a **waiting list** for a new NHS practice that's opening soon. Owner: "We're not saying be registered on the waiting list." Never say "accepting / taking on / registering NHS patients", "first come first served", "limited places", "free NHS dentist" or "guaranteed".
 
 ### Ads and budget
-- **LOGO (9 Nov, final):** keep the logo exactly as it is (KD and KIRKCALDY unchanged). The ONLY change: "DENTAL & IMPLANT CLINIC" a little bolder (Lato 900), same size. The leaflet chat regenerates the pack; ads, banner, leaflet, website and social then update. Print is on hold until it's in.
+- **LOGO (9 Nov, final):** KD unchanged; KIRKCALDY Cinzel weight 650 (was 600); "DENTAL & IMPLANT CLINIC" Lato 900 (was 700), same size. The leaflet chat regenerates the pack; ads, banner, leaflet, website and social then update. Print is on hold until it's in.
 - **Budget:** start at **£20/day with 2 ads** (the family suggested £10/day; that's the cautious alternative) and build up over 4 weeks.
 - **Expected cost per lead:** the owner expects about **£5 per lead**. The forecast agents estimate about £1.50, because it's a free NHS waiting list with very few NHS places locally. Alarms are set to the owner's expectation: **warning above £5, pause above £8** (3-day average, after at least £30 spent).
 - **Ad design:** keep the owner-approved design: the gold kicker line, the "JOIN WAITING LIST →" button, punchy wording matching the banner and leaflet, the full address "23–25 Tolbooth Street · Kirkcaldy KY1 1RW", and the final all-gold "K on D" logo with the halfway drop. The owner **did not like** the creative-review layout (flat button, squashed Stories), so it was reverted.
