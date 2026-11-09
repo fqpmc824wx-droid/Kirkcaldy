@@ -34,6 +34,7 @@
 
 - Search Facebook and Instagram for "Kirkcaldy Dental" copycat pages. Report any to the owner.
 - Scan the banner's QR code with your phone. Check it opens the sign-up page.
+- **Mystery-shopper test:** sign up once on the website and once on the Facebook form, using your own details. Check that the row appears in the sheet, the text arrives and the caller gets the alert. Then delete both test rows. Anything missing: tell the owner (page 8).
 
 ---
 
@@ -45,4 +46,4 @@ Same as above, with these changes:
 - **Midday (2 minutes):** quick look at the inbox. Hide anything with personal or health details.
 - **8:30pm:** steps 6 and 7 as normal.
 - Saturday and Sunday calls are 8am to 9pm, unless the owner picks a 9am start.
-- If anything is broken and you can't reach the owner, call the **deputy** (names on page 5).
+- If anything is broken and you can't reach the owner, call the **deputy** (names in the Launch safety plan, see page 5).

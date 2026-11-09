@@ -2,16 +2,9 @@
 
 *8 Nov 2026. Staff can't use pages 0-10 until these are settled and the owner approves the wording. Already answered by the owner: NHS approval (keep the NHS Fife email or letter on file), calling hours 8am-9pm, callers are not a limit, short forms, invitations in sign-up order with households together, "Be first in line" stays, mixed NHS and private practice, adults and children can join.*
 
-## Who covers what (please fill in)
+## Who covers what
 
-| Role | Name | Work mobile | Has access to | Trained? |
-|---|---|---|---|---|
-| Deputy (decides when the owner can't) | | | Ads budget, Apps Script, alert emails | |
-| Caller 1 | | | Sheet, phone app, call card | |
-| Backup caller (needed before 16 Nov) | | | Sheet, phone app, call card | |
-| Staff checker (daily checklist) | | | Ads Manager (partial), Page inbox | |
-| Weekend cover | | | Page inbox, sheet | |
-| Second Facebook admin | | | Page, ads, app | |
+Fill in the names **once**, in the "who covers what" table in the [Launch safety plan](https://docs.google.com/document/d/1Pq8xtwQcC6wErrxMkSWoC6Nz8OtPm5tnWaMEXR0fajU/edit) (Drive folder "10. Launch safety"). This guide uses the same names: deputy, caller, backup caller (needed before 16 Nov), staff checker, weekend cover and second Facebook admin.
 
 ## Needs NHS Fife or the owner
 

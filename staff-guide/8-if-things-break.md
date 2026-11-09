@@ -5,7 +5,7 @@
 ## Golden rules
 
 - **Don't change any settings**, scripts or keys. Don't delete rows. Don't create new Facebook pages or ad accounts.
-- **Tell the owner first, then the deputy** (names and numbers on page 5). Say what you saw and when.
+- **Tell the owner first, then the deputy** (names in the Launch safety plan, see page 5). Say what you saw and when.
 - **Keep calling.** People still need their call even when the system has a problem.
 
 ## Manual mode (when texts or alerts aren't working)
