@@ -68,7 +68,7 @@ PSM pages:
 
 1. Safety of patients, staff and visitors.
 2. Patients mid-treatment (e.g. under local anaesthetic, mid-implant surgery or with temporary restorations) are made safe and given follow-up arrangements.
-3. Access to urgent care for patients in pain, swelling, trauma or bleeding – NHS patients are signposted to NHS Fife urgent dental care arrangements [number/service] if the practice cannot see them.
+3. Access to urgent care for patients in pain, swelling, trauma or bleeding – NHS patients are signposted to the Fife Dental Advice Line 01592 226555 (Mon–Fri 8.30am–5pm) or NHS 24 on 111 out of hours if the practice cannot see them.
 4. Protection of patient records and data.
 5. Restore normal service.
 
@@ -190,7 +190,7 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Emergency services | Police, fire, ambulance | 999 | |
 | Police non-emergency | Police Scotland | 101 | |
 | NHS 24 | NHS 24 | 111 | |
-| Practice main line | Kirkcaldy Dental & Implant Clinic | [practice phone – not yet set] | info@kirkcaldydental.co.uk |
+| Practice main line | Kirkcaldy Dental & Implant Clinic | 01592 214225 | info@kirkcaldydental.co.uk |
 | Practice Owner / Principal Dentist | Nas [surname] | [mobile] | |
 | Practice Manager (Continuity Lead) | [Name] | [mobile] | |
 | Deputy | [Name] | [mobile] | |
@@ -198,10 +198,10 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Radiation Protection Supervisor | [Name] | [mobile] | |
 | Radiation Protection Adviser | [Company] | [phone] | |
 | Data Protection Lead | [Name] | [mobile] | |
-| NHS Fife – primary care dental services | NHS Fife | [phone] | [email] |
-| NHS Fife urgent dental care (for patients) | [service] | [phone] | |
+| NHS Fife – primary care dental services | NHS Fife | 01592 643355 (switchboard) | |
+| NHS Fife urgent dental care (for patients) | Fife Dental Advice Line (Mon–Fri 8.30am–5pm); out of hours NHS 24 | 01592 226555 · 111 | fife.dentaladviceline@nhs.scot |
 | NHS Fife Controlled Drugs Accountable Officer | [Name] | [phone] | [email] |
-| Practitioner Services (NSS) | NHS National Services Scotland | [phone] | |
+| Practitioner Services (NSS) | NHS National Services Scotland | 0345 034 2458 | nss.psddental@nhs.scot |
 | Electricity – power cuts | SP Energy Networks | 105 | |
 | Electricity supplier (account) | [supplier] | [phone] | Account [no.] |
 | Water | Scottish Water | 0800 0778 778 | |

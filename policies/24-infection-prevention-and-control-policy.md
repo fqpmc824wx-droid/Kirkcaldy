@@ -147,7 +147,7 @@ The PSM lists the areas a practice IPC policy (or policies) must cover. This pra
 ### 5.8 Outbreaks and incidents
 
 1. Any suspected link between the practice and an infection in a patient or staff member is reported to the Practice Owner at once.
-2. The Practice Owner seeks advice from NHS Fife (Health Protection Team / Dental Practice Adviser) [contact number] and follows it.
+2. The Practice Owner seeks advice from NHS Fife (East Region Health Protection Team 0300 790 6264, Mon–Fri 9am–6pm; out of hours, NHS Fife switchboard 01592 643355 and ask for the on-call public health doctor) and follows it.
 3. IPC incidents (e.g. a decontamination failure, a sharps injury, a missed DUWL flush) are recorded and reviewed as significant events (see 37-risk-management-and-significant-events.md).
 
 ## 6. Records and monitoring

@@ -100,7 +100,7 @@ Speed matters, because post-exposure treatment may be time-critical. Follow thes
 2. **Record the details accurately in the practice accident book**: date, time, place, name of injured person, how it happened, the type of sharp or fluid, whether the sharp was used/contaminated, first aid given, the source patient's identifier (not in the accident book entry itself if this would breach confidentiality – record a reference instead), and witnesses.
 3. **Refer to the clinical record of the source patient** to identify any risk factors (e.g. known HIV, hepatitis B, hepatitis C). The treating dentist may ask the source patient, sensitively and with their consent, about risk factors and whether they would agree to a blood test through Occupational Health or their GP. The patient's information remains confidential.
 4. **Contact the local Occupational Health Service (OHS) without delay** to discuss the incident and ask for advice and follow-up, for example post-exposure prophylaxis, hepatitis B booster, and **serological surveillance**.
-   - NHS Fife Occupational Health Service: [phone number, hours]
+   - NHS Fife Occupational Health Service: via NHS Fife switchboard 01592 643355 (office hours)
    - Out of hours: [NHS Fife emergency department – Victoria Hospital, Kirkcaldy / NHS 24 111 – confirm the route with NHS Fife OHS]
 5. Where there is a risk of exposure to BBVs or other serious infection, **arrange counselling** if the injured person feels it would help.
 6. **Investigate** the incident (IPC Lead) to see whether changes to practice would reduce the risk of future injuries, and **amend procedures**.
@@ -191,7 +191,7 @@ Related policies:
 
 **2. Tell** the Practice Owner [Nas] or [deputy] straight away.
 
-**3. Phone** NHS Fife Occupational Health: [number]. Out of hours: [route].
+**3. Phone** NHS Fife Occupational Health via switchboard 01592 643355. Out of hours: go to the Emergency Department, Victoria Hospital, Kirkcaldy, as soon as possible (ideally within 1 hour).
 
 **4. Record** in the accident book.
 

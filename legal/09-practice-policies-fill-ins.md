@@ -12,8 +12,25 @@ The policies have about 440 [square-bracket] gaps. Most repeat. Fill in the answ
 - Practice phone: 01592 214225
 - Address: 23–25 Tolbooth Street, Kirkcaldy KY1 1RW
 - Mixed practice: NHS and private; NHS for adults and children
-- Company (legal entity): as shown on the website's privacy page
+- Company (legal entity): Lang Toun Smiles Ltd
 - Website: kirkcaldydental.co.uk
+
+## Filled in from public sources (checked online, 9 Nov 2026)
+These are now in the policies. Please check them once a year.
+- NHS Fife Patient Experience (complaints): fife.patientexperience@nhs.scot, 01592 648153
+- NHS Fife switchboard: 01592 643355 (child protection team, occupational health, information governance, out-of-hours public health)
+- Fife Dental Advice Line (urgent care, Mon–Fri 8.30am–5pm): 01592 226555, fife.dentaladviceline@nhs.scot · out of hours: NHS 24 on 111
+- East Region Health Protection Team: 0300 790 6264 (Mon–Fri 9am–6pm)
+- Fife Council Social Work Contact Centre (children): 03451 55 15 03 · Adult Protection Phone Line: 01383 602200 · out of hours: 03451 55 00 99
+- Fife Child Protection Committee: fifechildprotection.org.uk
+- NHS Fife Speak Up (whistleblowing): fife.speak-up@nhs.scot, voicemail 01383 674016
+- INWO: 0800 008 6112 · GDC: 020 7167 6000 · Dental Complaints Service (private): 020 8253 0800
+- Practitioner Services (NSS): 0345 034 2458, nss.psddental@nhs.scot
+- Healthcare Improvement Scotland: 0131 623 4300, his.ihcregulation@nhs.scot
+- Disclosure Scotland (PVG): 0300 020 0040
+- Practice phone 01592 214225 and the company name (Lang Toun Smiles Ltd) are filled in everywhere.
+
+**Still blank, because only you know them:** staff names, outside companies you choose, account numbers and practice decisions (below). No direct number was published for NHS Fife Occupational Health or Information Governance, so the policies use the switchboard for now.
 
 ## 1. People (the roles register) – please give a name for each
 | Role | Name | Deputy |
@@ -58,7 +75,7 @@ The policies have about 440 [square-bracket] gaps. Most repeat. Fill in the answ
 
 ## 4. Open questions to check (we can draft the emails)
 1. **Data Protection Officer.** NHS dental practices must appoint one, and the PSM says it should not be the owner. Options: a trained staff member, or an outside DPO service. Please choose one.
-2. **Healthcare Improvement Scotland (HIS).** A fully private dental clinic must register with HIS. For a **mixed** NHS and private practice it is not clear, so please ask HIS before private treatment starts. Contact (from 2017, please check it): hcis.clinicregulation@nhs.net, 0131 623 4342.
+2. **Healthcare Improvement Scotland (HIS).** A fully private dental clinic must register with HIS. For a **mixed** NHS and private practice it is not clear, so please ask HIS before private treatment starts. Contact: his.ihcregulation@nhs.scot, 0131 623 4300. HIS says a service that needs registering must not trade until it is registered.
 3. **Combined Practice Inspection checklist.** Before the NHS Fife inspection, check the policies against the latest checklist on the Scottish Dental website (scottishdental.nhs.scot). Ask NHS Fife which version they will use.
 4. **Duty of Candour:** for NHS patients, is the "responsible person" the practice or NHS Fife?
 5. **NHS Fife contacts:** complaints, child protection, waste and occupational health (to put in the policies).

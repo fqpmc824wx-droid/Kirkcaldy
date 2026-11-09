@@ -167,7 +167,7 @@ If a complainant becomes violent or abusive, follow `04-zero-tolerance-violent-p
 
 ### 5.8 Unresolved NHS complaints
 
-- Either the patient or the practice may ask **NHS Fife** to assist. NHS Fife's Feedback and Complaints team (Patient Experience) [contact details – check current] can act as "honest broker" to help communication but has no responsibility to investigate. Mediation may be considered if both parties agree. Where agreement cannot be reached, NHS Fife decides how the complaint should be managed.
+- Either the patient or the practice may ask **NHS Fife** to assist. NHS Fife's Feedback and Complaints team (Patient Experience) NHS Fife Patient Experience Team: fife.patientexperience@nhs.scot, 01592 648153 can act as "honest broker" to help communication but has no responsibility to investigate. Mediation may be considered if both parties agree. Where agreement cannot be reached, NHS Fife decides how the complaint should be managed.
 - If the person is unhappy with the outcome or with how the complaint was handled, they may ask the **Scottish Public Services Ombudsman (SPSO)** to investigate. The SPSO normally only considers a complaint once it has been through the practice procedure. It must be made in writing with copies of all previous correspondence, normally within **1 year** of the event.
 - The SPSO cannot look at complaints that go to court or tribunal, or at private treatment complaints.
 
@@ -202,7 +202,7 @@ Also record feedback, comments and concerns in the feedback log [location].
 
 - **Quarterly**: complaints information to NHS Fife's Feedback and Complaints Manager.
 - **Annually**: feedback, comments and concerns information.
-- The Complaints Lead keeps NHS Fife's Feedback and Complaints Team contact details at reception and in this file: [contact details – check current].
+- The Complaints Lead keeps NHS Fife's Feedback and Complaints Team contact details at reception and in this file: NHS Fife Patient Experience Team: fife.patientexperience@nhs.scot, 01592 648153.
 
 ### 6.3 Learning
 
@@ -256,7 +256,7 @@ Related policies in this set:
 
 We want to hear from you. Your feedback, comments, concerns and complaints help us improve.
 
-**How to contact us.** You can tell any member of staff in person, phone us on [practice phone – not yet set], email info@kirkcaldydental.co.uk, or write to the Feedback and Complaints Officer, [Name], Kirkcaldy Dental & Implant Clinic, 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. Someone else can complain for you if you give your consent. You can also complain anonymously, although we may not be able to reply to you.
+**How to contact us.** You can tell any member of staff in person, phone us on 01592 214225, email info@kirkcaldydental.co.uk, or write to the Feedback and Complaints Officer, [Name], Kirkcaldy Dental & Implant Clinic, 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. Someone else can complain for you if you give your consent. You can also complain anonymously, although we may not be able to reply to you.
 
 **Stage 1 – Early resolution.** We will try to sort out your complaint straight away, or within 5 working days. Sometimes we may ask you to agree to a further 5 working days.
 
@@ -264,7 +264,7 @@ We want to hear from you. Your feedback, comments, concerns and complaints help 
 
 **Help and support.** The Patient Advice and Support Service (PASS) gives free, confidential advice and can help you make a complaint. NHS Inform has information about making a complaint about NHS care. Ask us if you need an interpreter, large print or other help.
 
-**If you are still not happy – NHS treatment.** You can ask NHS Fife's Feedback and Complaints team to help [contact details – check current]. If you remain unhappy after our final response, you can ask the Scottish Public Services Ombudsman (SPSO) to look at your complaint, normally within 12 months of the event. Contact the SPSO at [check current contact details].
+**If you are still not happy – NHS treatment.** You can ask NHS Fife's Feedback and Complaints team to help NHS Fife Patient Experience Team: fife.patientexperience@nhs.scot, 01592 648153. If you remain unhappy after our final response, you can ask the Scottish Public Services Ombudsman (SPSO) to look at your complaint, normally within 12 months of the event. Contact the SPSO at [check current contact details].
 
 **If you are still not happy – private treatment.** You can contact the GDC Dental Complaints Service (dcs.gdc-uk.org) or Healthcare Improvement Scotland.
 

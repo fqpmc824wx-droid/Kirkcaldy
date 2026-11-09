@@ -122,11 +122,11 @@ You can raise a concern with an external contact if it is not appropriate to rai
 
 | Contact | Details |
 |---|---|
-| NHS Fife Whistleblowing Champion | [check current contact details] |
-| NHS Fife confidential contact | [check current contact details] |
-| Healthcare Improvement Scotland – Responding to Concerns | [check current contact details] |
-| Independent National Whistleblowing Officer (INWO), SPSO | [check current contact details] |
-| General Dental Council (fitness to practise concerns) | [check current contact details] |
+| NHS Fife Whistleblowing Champion | via the NHS Fife Speak Up service: fife.speak-up@nhs.scot |
+| NHS Fife confidential contact | fife.speak-up@nhs.scot · confidential voicemail 01383 674016 (Mon–Fri) |
+| Healthcare Improvement Scotland | 0131 623 4300 · healthcareimprovementscotland.scot |
+| Independent National Whistleblowing Officer (INWO), SPSO | Freephone 0800 008 6112 · inwo.spso.org.uk |
+| General Dental Council (fitness to practise concerns) | 020 7167 6000 · gdc-uk.org |
 
 ### 5.7 If you are not satisfied
 

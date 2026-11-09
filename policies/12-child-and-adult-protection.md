@@ -75,17 +75,17 @@ PSM pages:
 |---|---|
 | Practice Safeguarding Lead | [Name], [extension/mobile] |
 | Deputy | [Name], [extension/mobile] |
-| NHS Fife Child Protection team (advice for health staff) | [phone] [email] |
-| NHS Fife Adult Support and Protection advice | [phone] |
-| Fife Council Social Work – children (referrals) | [phone] – check myscot.gov / Fife Council website |
-| Fife Council Social Work – adults (referrals) | [phone] |
-| Out-of-hours Social Work emergency service | [phone] |
+| NHS Fife Child Protection team (advice for health staff) | via NHS Fife switchboard 01592 643355 – ask for the child protection team |
+| NHS Fife Adult Support and Protection advice | Adult Protection Phone Line 01383 602200 |
+| Fife Council Social Work – children (referrals) | Social Work Contact Centre 03451 55 15 03 (Mon–Fri 9am–5pm) |
+| Fife Council Social Work – adults (referrals) | Adult Protection Phone Line 01383 602200 |
+| Out-of-hours Social Work emergency service | 03451 55 00 99 |
 | Police Scotland | Emergency 999; non-emergency 101 |
 | NHS Fife Dental Practice Adviser | [Name, phone] |
 | NHS Fife Dental Administrator | [phone] |
 | Indemnity provider advice line | [Name, phone] |
-| Fife Child Protection Committee procedures | [web link] |
-| Fife Adult Protection Committee procedures | [web link] |
+| Fife Child Protection Committee procedures | fifechildprotection.org.uk |
+| Fife Adult Protection Committee procedures | fife.gov.uk → Social care → Help for adults → Adult support and protection |
 
 The PSM notes that procedures for reporting concerns may vary across Scotland. For advice, contact the NHS Fife dental practice adviser or Dental Administrator.
 
@@ -156,7 +156,7 @@ What to do:
 3. Where possible, speak to the adult alone and ask what they would like to happen. Respect their wishes where they have capacity, unless others are at risk or there is a serious crime.
 4. Record as in 5.5.
 5. Share the concern the same day with the Safeguarding Lead.
-6. Refer to Fife Council Adult Social Work [phone] or the police, following the Fife adult protection procedure. [Check current guidance: the 2007 Act places duties on public bodies, including health bodies, to co-operate and report concerns.]
+6. Refer to Fife Council Adult Social Work (Adult Protection Phone Line 01383 602200) or the police, following the Fife adult protection procedure. [Check current guidance: the 2007 Act places duties on public bodies, including health bodies, to co-operate and report concerns.]
 7. If the adult may lack capacity for treatment decisions, follow the Adults with Incapacity procedures in 03-consent-policy.md.
 
 ### 5.7 Concerns about a member of staff

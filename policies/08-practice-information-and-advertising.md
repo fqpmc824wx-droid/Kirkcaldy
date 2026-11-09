@@ -66,7 +66,7 @@ The practice produces a patient information leaflet containing **at least** the 
 
 **Contact information, hours and access:**
 
-- address and telephone numbers of the practice (and the registered name and address if the practice is a corporate body): Kirkcaldy Dental & Implant Clinic, 23–25 Tolbooth Street, Kirkcaldy KY1 1RW; [practice phone – not yet set]; info@kirkcaldydental.co.uk; [registered company name and address if applicable];
+- address and telephone numbers of the practice (and the registered name and address if the practice is a corporate body): Kirkcaldy Dental & Implant Clinic, 23–25 Tolbooth Street, Kirkcaldy KY1 1RW; 01592 214225; info@kirkcaldydental.co.uk; [registered company name and address if applicable];
 - address for correspondence;
 - opening hours, including the days and hours each dentist is usually at the practice;
 - arrangements for care if the patient's registered dentist is not available;

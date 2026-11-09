@@ -98,7 +98,7 @@ Respect privacy at reception. Discuss medical information, payment and exemption
 
 1. Follow SDCEP *Emergency Dental Care* for advising and treating emergency patients.
 2. [Practice decision: number of emergency slots held each day, and triage questions used by reception.]
-3. Out-of-hours: give NHS patients the NHS Fife out-of-hours arrangements [check current – NHS 24 on 111] on the answerphone, website and leaflet.
+3. Out-of-hours: give NHS patients the NHS Fife out-of-hours arrangements NHS 24 on 111 on the answerphone, website and leaflet.
 4. Private patients: the practice must have its own policy for private emergencies and communicate it to staff. [Practice decision: e.g. private emergency phone line, out-of-hours arrangements for implant patients after surgery.] Base it on the SDCEP guidance, adapting any parts not relevant to private patients.
 5. Arrangements for care when the patient's registered dentist is not available: [practice decision – seen by another practice dentist].
 

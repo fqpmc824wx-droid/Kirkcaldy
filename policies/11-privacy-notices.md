@@ -72,7 +72,7 @@ Review at least yearly and whenever processing changes (for example if CCTV is i
 *Last updated: [date]*
 
 **Who we are**
-Kirkcaldy Dental & Implant Clinic, 23–25 Tolbooth Street, Kirkcaldy KY1 1RW, provides NHS dental care (under NHS Fife) and private dental care, including dental implants. The data controller is [legal entity name], owned by Nas [surname], Principal Dentist. Contact: info@kirkcaldydental.co.uk, [practice phone]. ICO registration number: [number].
+Kirkcaldy Dental & Implant Clinic, 23–25 Tolbooth Street, Kirkcaldy KY1 1RW, provides NHS dental care (under NHS Fife) and private dental care, including dental implants. The data controller is Lang Toun Smiles Ltd, owned by Nas [surname], Principal Dentist. Contact: info@kirkcaldydental.co.uk, 01592 214225. ICO registration number: [number].
 
 **Our Data Protection Officer**
 You can contact our Data Protection Officer about anything in this notice: [dpo email], [address/phone].
@@ -144,7 +144,7 @@ You have the right to:
 If you are aged 12 or over, you can usually make a request about your own records yourself.
 
 **Complaints**
-Please contact us or our Data Protection Officer first. You also have the right to complain to the Information Commissioner's Office: ico.org.uk, 0303 123 1113 [check current contact details], Information Commissioner's Office – Scotland, [address].
+Please contact us or our Data Protection Officer first. You also have the right to complain to the Information Commissioner's Office: ico.org.uk, 0303 123 1113, Information Commissioner's Office – Scotland, [address].
 
 ---
 
@@ -198,7 +198,7 @@ Tell us, or ask a grown-up to help you. You can also contact the Information Com
 *Last updated: [date]*
 
 **Who we are**
-The data controller is [legal entity name], trading as Kirkcaldy Dental & Implant Clinic, 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. Contact: Practice Manager [Name], info@kirkcaldydental.co.uk, [practice phone]. Data Protection Officer: [dpo email / provider].
+The data controller is Lang Toun Smiles Ltd, trading as Kirkcaldy Dental & Implant Clinic, 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. Contact: Practice Manager [Name], info@kirkcaldydental.co.uk, 01592 214225. Data Protection Officer: [dpo email / provider].
 
 This notice covers employees, self-employed associates, hygienists and therapists, trainees, locums, and job applicants.
 
