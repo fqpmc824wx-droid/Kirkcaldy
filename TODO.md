@@ -1,7 +1,7 @@
 # Kirkcaldy Dental – launch to-do list
 
 The one master list for the waiting-list launch. Kept by the To-do chat.
-Last updated: 9 Nov 2026, 01:25. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
+Last updated: 9 Nov 2026, 03:05. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
 
 Row numbers match research/TODO-whats-left.md, so every chat talks about the same row.
 
@@ -27,7 +27,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 3. **Open ClickSend and ask for the sender name "KirkDental".** Approval takes days. Without it, no texts go out.
 4. **Company details for the privacy page:** the company's legal name, company number and registered office.
 5. **Answer 4 questions.** (a) Will you also offer private treatment, such as implants? (b) Will the NHS side take both adults and children? (c) Will people be invited in the order they signed up, with households kept together? (If not, "Be first in line" comes off the ads and print.) (d) If something important breaks, should your phone also get a text (never 10pm–7am), or just an email?
-6. **Name the people, with their email addresses.** A backup caller (by 16 Nov); a deputy who gets the alarm emails when you're away; and a person (plus a backup) who handles complaints, data requests and data breaches. Also choose the one work phone number the callers ring from.
+6. **Name the people, with their email addresses.** A backup caller (by 16 Nov); a deputy who gets the alarm emails when you're away; and a person (plus a backup) who handles complaints, data requests and data breaches. Also: should callers ring out from 01592 214225? That needs the £10/month outgoing plan.
 7. **Read and sign off:** the staff guide in Drive folder 8 (11 documents, now ready) (call script, text templates, comment replies, invitation plan), and the owner sign-off sheet in Drive folder 11.
 8. **GitHub:** make the project private (Settings → Change visibility). Click "merge" when the chats say they're ready.
 
@@ -52,7 +52,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 |---|---|---|---|---|
 | 78 | Facebook Page: rename it, add the profile picture and cover (row 23), fill in the details (full address, email, "opening soon"). | Browser Claude + Owner | Tonight, 9 Nov | In progress |
 | 79 | Instagram: set up the account and link it to the Facebook Page. | Browser Claude + Owner | Tonight, 9 Nov | In progress |
-| 80 | Check the SIM/phone service the owner has just paid for. If it works, it can become the one work number for calls (row 36). | Browser Claude + Owner | Tonight, 9 Nov | In progress |
+| 80 | Check the SIM/phone service the owner has just paid for. If it works, it can become the one work number for calls (row 36). | Browser Claude + Owner | Tonight, 9 Nov | Done. Clinic number 01592 214225 is live (calls in only; diverts to the clinic mobile) |
 | 81 | Save every receipt to Drive "12. Receipts & invoices" and add it to the Costs tab. | Browser Claude | Tonight, then every new cost | In progress |
 
 ## Before setup night
@@ -114,13 +114,13 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | # | What | Who | When | Status |
 |---|---|---|---|---|
 | 35 | Caller rota 8am–9pm, 7 days. Start with 1–2 callers plus a backup; add one per 20–25 new sign-ups a day. (Callers are not a limit.) | Owner | Before ads start | Waiting for owner (owner list #6) |
-| 36 | One work number for all calls, also in the thank-you text and email. | Owner | Before launch | Waiting for owner (owner list #6) |
+| 36 | One work number for all calls, also in the thank-you text and email. | Owner | Before launch | Waiting for owner: 01592 214225 takes calls in only. For callers to ring out from it, add the £10/month outgoing plan; or callers ring from the clinic mobile |
 | 37 | Name the daily-checks person and a deputy for alarm emails. | Owner | Before launch | Waiting for owner (owner list #6). Fill in the who-covers-what table in the Safety plan |
 | 38 | One-page owner card: daily 5 minutes, Monday 15 minutes, "if this alarm, do this". Alarms: £5 warning, £8 pause. | Ads chat + Metrics chat | Before launch | Done. In Drive 7 as "USE THIS – updated 9 Nov". Alarm card in progress (ads chat) |
 | 39 | Caller training pack and confidentiality note; the owner runs a short session. | Waiting-list chat; Owner runs it | Before the first call | Done (staff guide page 6, with a confidentiality note to sign). The owner runs the session |
 | 40 | Data protection papers: risk check, complaints steps, how long we keep data, "delete one person everywhere". | Legal chat drafts; Owner signs | Before launch | Drafts in Drive 11; owner to sign |
 | 41 | Weekly and KPI tabs in the sheet, so the Monday email and overspend alarm work. | Leaflet chat builds; Metrics chat checks | Before launch | Not done yet (KPIs, Weekly, scorecard) |
-| 42 | Website legal details: phone, dentists' names and GDC numbers, company name in the footer. | Owner → Website chat | Before launch | Partly done |
+| 42 | Website legal details: phone, dentists' names and GDC numbers, company name in the footer. | Owner → Website chat | Before launch | Partly done. Phone 01592 214225 to add (owner to pass to the website chat) |
 | 43 | Website look matches the leaflet (fonts, colours, logo). | Website chat | Before launch | Not started |
 | 44 | Facebook comments and messages: check the reply bank, blocked words, away message. | Waiting-list chat + Browser Claude | Before launch | Done (staff guide page 3). Browser Claude sets it up on the Page |
 | 45 | Print: test proofs, scan both QR codes on iPhone and Android, one test sign-up each. | Owner → Leaflet chat → Owner | Before ordering print | Print files final. Proofs and QR scans not started |
@@ -130,7 +130,7 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 | 49 | A4 door notice, and a one-page briefing for reception at the other practices. | Leaflet chat + Waiting-list chat | Before launch | Reception briefing done (staff guide page 10). Door notice: leaflet chat, Asked |
 | 50 | What callers say to people from outside the area and to patients of the other practices. | Owner | Before launch | Waiting for owner |
 | 51 | Old Interest List and old Zapier links: switch off, bring the old leads in. | Owner + Leaflet chat | Before launch | Waiting for owner |
-| 52 | Plan for a public 01592 number (who answers, voicemail). | Owner | Before publishing a number | Waiting for owner |
+| 52 | Public clinic phone number. | Owner | Before publishing a number | Done. 01592 214225 is on all 8 ads; leaflet and banner being updated (leaflet chat) |
 
 ## Week 1
 
