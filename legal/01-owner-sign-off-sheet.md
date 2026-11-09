@@ -9,19 +9,13 @@ Your answers change the wording on the ads, banner, leaflet and website.
 
 ---
 
-## 1. Mixed practice (NHS and private)
+## 1. Mixed practice (NHS and private) – answered
 
-Will the practice also offer private treatment, for example implants?
+**Yes.** The owner has confirmed it (recorded in OWNER-DECISIONS.md). Wording everywhere: "NHS and private dental care". Implants stay out of the waiting-list ads.
 
-- [ ] **Yes.** Ads, banner, leaflet and website must say "NHS and private dental care". (The GDC asks every practice to say if it is NHS, mixed or private.) Implants stay out of the waiting-list ads.
-- [ ] **No.** NHS only. The wording stays "New NHS dental practice".
+## 2. NHS places for adults and children – answered
 
-## 2. NHS places for adults and children
-
-Will NHS places be open to both adults and children?
-
-- [ ] **Yes, both.** We keep the line "Adults, children and families can all join our waiting list".
-- [ ] **No.** Tell us who it is for: ______________________. We change the family line everywhere.
+**Yes, both.** The owner has confirmed it. The line "Adults, children and families can all join our waiting list" stays.
 
 ## 3. Invitation order – settled
 

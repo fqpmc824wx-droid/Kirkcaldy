@@ -26,15 +26,17 @@
 - Real deletion in the purge: only after the owner signs doc 4.
 
 ## 3. Waiting on Hamza / the owner for exactly this
-1. Sign the owner sign-off sheet (doc 1): mixed practice yes/no, NHS for adults and children yes/no, target opening month, name of the AI image tool.
+1. Owner sign-off sheet (doc 1): only the **target opening month** and the **name of the AI image tool** are still open. Mixed practice (yes) and adults and children (yes) are already answered.
+6. **Wording conflict to settle:** OWNER-DECISIONS.md says "Be first in line" stays. The 9 Nov merge note says it has been replaced by "Register your interest" everywhere. I've gone with the newer note. The staff guide (pages 4 and 5) still says "Be first in line" stays, so update it once confirmed.
 2. Name one person (plus a backup) for data-protection complaints, data requests and breaches.
 3. Sign doc 4 (retention). Until then the purge only reports and deletes nothing.
 4. Click "Accept" on the Google, ClickSend, Meta and Hostinger data agreements (browser Claude prepares them; the owner clicks).
 5. Fill in the dates in the Fife Council email, add a photo, and click Send. Send the landlord note.
 
 ## 4. Files and links
+- Taken over (9 Nov): the Waiting list staff guide (handover: https://docs.google.com/document/d/1a-t1b0LCRvSEJIR0WqKSQw0Lynv8DVSCiY_oO7ffM98/edit), Launch safety, Practice policies. The safety and policies handovers are still to appear in "Kirkcaldy – Handovers".
 - Legal folder: https://drive.google.com/drive/folders/1bAgNBHi7uVMAYypPK5yiGzKB0z7kvhTs
-- Doc 1 Sign-off sheet: https://docs.google.com/document/d/1ivZFm7wEo2vEsVh82Aa8ZDNNckkE-uSM0E8v_Aui7bc/edit (the text is updated in GitHub; refresh the Doc from legal/01)
+- Doc 1 Sign-off sheet: see the latest '1. Owner sign-off sheet' in the legal folder
 - Doc 2 Complaints: https://docs.google.com/document/d/1V0lQrsDhO8BFjdFFxJW2uWsV9qKj9zAtNqReNfbIjFc/edit
 - Doc 3 DPIA: https://docs.google.com/document/d/11bAHDVDZlSOIWNzPFdozBYdn1SgKdCGKdkgKQAsYHOQ/edit
 - Doc 4 Retention: https://docs.google.com/document/d/1CCdGBu0ctWWg6waaHfI5fYBwlapDXROpNq8hoi9klDs/edit
@@ -42,7 +44,6 @@
 - Doc 6 ICO fee (parked): https://docs.google.com/document/d/1VFOmtqqgGpDRNiCQa1ib4f-DbeKHZtMC5DM6KCpbogw/edit
 - Doc 7 Banner emails: https://docs.google.com/document/d/1QAOkzm_2xACiQQgXqQpy0Yjrrk03VpiZ10k_-BMbOQE/edit
 - Doc 8 Folder checklist: https://docs.google.com/document/d/1xVsn2I0Nn2Dl-yQjIa0iL89bdsI2gTIG2MSuuRJoKIk/edit
-- Old copies to bin (replaced): the earlier Doc 5 (1WT7dP-Fp6p43yCY7RkEaGx1j6Gev5kEIV28IHiVuUao) and the earlier Doc 8 (1eDF5Zhm1wLgzE53jC3wVibY20Wb1iLQxr6_Aa35CDvk)
 - GitHub: fqpmc824wx-droid/Kirkcaldy, branch claude/legal-compliance, PR #6
 - Sources used: OWNER-DECISIONS.md, BRAND.md, research/TODO-agent-tasks-now.json, research/premortem-final.md (I, K, P), research/waitlist-critique.md, research/meta-playbook.md §7
 
