@@ -16,7 +16,7 @@ The owner says callers are not a limit. We add callers as sign-ups grow: about *
 - [ ] Your **own** Google login for the Waiting List sheet. Never share a login.
 - [ ] Two-step sign-in turned on for that login.
 - [ ] Edit access to the sheet, and the "To call" filter view.
-- [ ] The practice phone app on your **work** phone, with the practice number showing.
+- [ ] Access to the practice mobile. Calls to **01592 214225** divert to it. When you call out, people see the 07 number, so you always start with "This is Kirkcaldy Dental calling".
 - [ ] Your work mobile number added to the alert list by the owner or deputy.
 - [ ] A test: the manager sends a test sign-up, you get the alert, you find the row, then the manager deletes it.
 

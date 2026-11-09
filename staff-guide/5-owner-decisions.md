@@ -23,19 +23,18 @@ Fill in the names **once**, in the "who covers what" table in the [Launch safety
 
 ## Phones and texts
 
-10. **The 01592 practice number.** Templates use [PRACTICE NUMBER] until it exists.
-11. **Two-way text number?** "KirkDental" can't receive replies. A two-way number would let people reply YES or STOP.
-12. **Weekend start time.** 8am is allowed. 9am is kinder.
-13. **Festive cover** (page 9) by 1 Dec.
+10. **Two-way text number?** "KirkDental" can't receive replies. A two-way number would let people reply YES or STOP.
+11. **Weekend start time.** 8am is allowed. 9am is kinder.
+12. **Festive cover** (page 9) by 1 Dec.
 
 ## Data protection
 
-14. **ICO fee** paid, in the practice's name.
-15. **DPIA** (a written check of the risks). The sheet can hold health details, which need extra care.
-16. **How long we keep data** for people who never register (privacy page says up to 12 months after opening). After that, keep only a short "do not contact" list.
-17. **Processor agreements** with Meta, Google, ClickSend (Australian, needs a UK transfer agreement) and Hostinger. A data-sharing agreement if other group practices are separate companies.
-18. **Sheet access** by name only. Each caller uses their own login.
-19. **Data protection complaints process** (required since 19 June 2026). Reply within 30 days.
-20. **Cookie consent** before any Meta Pixel loads on the website.
-21. **Medical forms** must not be stored in Google Sheets.
-22. **Marketing consent** covers Kirkcaldy only, not the other group practices.
+13. **ICO fee** paid, in the practice's name.
+14. **DPIA** (a written check of the risks). The sheet can hold health details, which need extra care.
+15. **How long we keep data** for people who never register (privacy page says up to 12 months after opening). After that, keep only a short "do not contact" list.
+16. **Processor agreements** with Meta, Google, ClickSend (Australian, needs a UK transfer agreement) and Hostinger. A data-sharing agreement if other group practices are separate companies.
+17. **Sheet access** by name only. Each caller uses their own login.
+18. **Data protection complaints process** (required since 19 June 2026). Reply within 30 days.
+19. **Cookie consent** before any Meta Pixel loads on the website.
+20. **Medical forms** must not be stored in Google Sheets.
+21. **Marketing consent** covers Kirkcaldy only, not the other group practices.

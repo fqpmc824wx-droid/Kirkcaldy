@@ -7,6 +7,8 @@ Call **8am to 9pm only**. Start your last call by **8:45pm**. Order: Call 8am ro
 
 ## Every call: say these
 
+People see our **07 mobile number**, not 01592. Start with: **"This is Kirkcaldy Dental calling."** Our number for call-backs: **01592 214225** (it diverts to the practice mobile).
+
 1. **Your name**, "**Kirkcaldy Dental & Implant Clinic**", and why: "You joined our waiting list."
 2. "We're a **new NHS dental practice opening soon** on Tolbooth Street."
 3. "Joining the list **isn't registration**."

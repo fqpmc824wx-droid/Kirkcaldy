@@ -10,7 +10,7 @@ These are for everything **after** the instant confirmation text. The instant te
 - **Plain characters only.** Straight apostrophes ('), plain hyphens (-), no long dashes, no curly quotes, no emoji. One fancy character makes the text cost 3 times as much.
 - Send only **8am to 9pm**.
 - Use links on our own website (kirkcaldydental.co.uk), never short links.
-- **[PRACTICE NUMBER]** stays as it is until the real 01592 number exists. Never use any other number.
+- The practice number is **01592 214225**. Never use any other number (not the number Dentally shows, and not a staff mobile).
 - Never send a text to anyone marked **DO NOT CONTACT**.
 
 ## Service texts vs marketing
@@ -21,17 +21,17 @@ These are for everything **after** the instant confirmation text. The instant te
 
 ## A note on replies
 
-Our texts come from the name "KirkDental". **People can't reply to a name.** So these texts ask people to call or use a link. If the owner gets a two-way text number later, we can add "Reply YES" options.
+Our texts come from the name "KirkDental". **People can't reply to a name**, and they can't text 01592 214225 either. So these texts ask people to call or use a link. If the owner gets a two-way text number later, we can add "Reply YES" options.
 
 ## The templates
 
 ### M1. Missed-call text (after the first missed call)
 
-> Kirkcaldy Dental tried to call you about our waiting list. No need to call back, we'll try again. You're still on the list. Questions? Call [PRACTICE NUMBER]
+> Kirkcaldy Dental tried to call you about our waiting list. No need to call back, we'll try again. You're still on the list. Questions? Call 01592 214225
 
 ### U1. Service update (every 3 weeks, to everyone)
 
-> Kirkcaldy Dental update: [short fact, e.g. the fit-out is finished]. You're still on our waiting list. Nothing to do now. Next update by [date]. Call [PRACTICE NUMBER]
+> Kirkcaldy Dental update: [short fact, e.g. the fit-out is finished]. You're still on our waiting list. Nothing to do now. Next update by [date]. Call 01592 214225
 
 *The fact must be admin only, e.g. "our dentists are confirmed" or "the building work is done". Never an offer. Never a date we can't keep.*
 
@@ -41,43 +41,43 @@ Our texts come from the name "KirkDental". **People can't reply to a name.** So 
 
 ### R1. "Still want your place?"
 
-> Kirkcaldy Dental: do you still want your place on our waiting list? Please tell us by [date] at [LINK] or call [PRACTICE NUMBER]. Thank you.
+> Kirkcaldy Dental: do you still want your place on our waiting list? Please tell us by [date] at [LINK] or call 01592 214225. Thank you.
 
 *Send 2 reminders, 48 hours apart (R1 again). Then the caller phones. Nobody is removed just for not replying.*
 
 ### I1. Invitation (one text per household)
 
-> Kirkcaldy Dental: it's your turn to book your first NHS exam. Please book by [date] at [LINK] or call [PRACTICE NUMBER]. No payment needed.
+> Kirkcaldy Dental: it's your turn to book your first NHS exam. Please book by [date] at [LINK] or call 01592 214225. No payment needed.
 
 ### I2. Invitation follow-up (day 4, if not booked)
 
-> Kirkcaldy Dental: would [Day] at [time] suit you for your first NHS exam? Call [PRACTICE NUMBER] or see [LINK]. If not, you keep your place.
+> Kirkcaldy Dental: would [Day] at [time] suit you for your first NHS exam? Call 01592 214225 or see [LINK]. If not, you keep your place.
 
 ### B1. Booking confirmation
 
-> Booked: [names], [Day DD Mon] at [time], Kirkcaldy Dental, 23-25 Tolbooth St. Medical form: [LINK]. To change, call [PRACTICE NUMBER]
+> Booked: [names], [Day DD Mon] at [time], Kirkcaldy Dental, 23-25 Tolbooth St. Medical form: [LINK]. To change, call 01592 214225
 
 ### B2. Reminder, 3 days before
 
-> Reminder: [names], Kirkcaldy Dental, [Day DD Mon] at [time]. Can't come? Please call [PRACTICE NUMBER] so we can give the time to someone else.
+> Reminder: [names], Kirkcaldy Dental, [Day DD Mon] at [time]. Can't come? Please call 01592 214225 so we can give the time to someone else.
 
 ### B3. Reminder, 1 day before
 
-> See you tomorrow at [time], 23-25 Tolbooth Street. Please arrive 10 mins early to sign your NHS forms. Can't come? Call [PRACTICE NUMBER] to rebook.
+> See you tomorrow at [time], 23-25 Tolbooth Street. Please arrive 10 mins early to sign your NHS forms. Can't come? Call 01592 214225 to rebook.
 
 ### B4. Missed appointment (same day)
 
-> We missed you today, [first name]. We'd still like to see you. Please call [PRACTICE NUMBER] and we'll find another time. Kirkcaldy Dental
+> We missed you today, [first name]. We'd still like to see you. Please call 01592 214225 and we'll find another time. Kirkcaldy Dental
 
 *We never charge for a missed first exam.*
 
 ### B5. Cancellation slot (one household at a time, standby list only)
 
-> Kirkcaldy Dental: a first exam is free on [Day] at [time]. Want it? Call [PRACTICE NUMBER] by [time]. If not, no problem, you keep your place.
+> Kirkcaldy Dental: a first exam is free on [Day] at [time]. Want it? Call 01592 214225 by [time]. If not, no problem, you keep your place.
 
 ## Checked lengths
 
-Counted with sample details filled in: name "Alexandra", names "Alexandra +2", date "Wed 14 Jan", time "10:30am", number "01592 000000", link "kirkcaldydental.co.uk/book". All are 160 characters or less and use plain characters only.
+Counted with sample details filled in: name "Alexandra", names "Alexandra +2", date "Wed 14 Jan", time "10:30am", number "01592 214225", link "kirkcaldydental.co.uk/book". All are 160 characters or less and use plain characters only.
 
 | Template | Characters |
 |---|---|

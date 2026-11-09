@@ -9,7 +9,8 @@
 - People who join after 9pm show **Call 8am** in the sheet. Call them first thing the next morning.
 - **Call order:** Call 8am rows first, then blank rows (oldest first), then call-backs that are due (**Next call due**).
 - **Each new sign-up is sent to one caller.** If there are 2 or more of you, sign-ups take turns. Only call the ones sent to you. Put your name in **Assigned to** before you dial, so nobody else rings the same person.
-- Call from the practice phone or app, not your own mobile.
+- Call from the practice mobile, not your own phone. Calls to the practice number **01592 214225** divert to that mobile.
+- **When you ring people, they see a 07 mobile number, not 01592.** So say "this is Kirkcaldy Dental calling" straight away, and always give 01592 214225 as the number to call back.
 - Rows marked **Duplicate** are repeat sign-ups. Don't call them. Check the earlier row named in Notes.
 - Never sell private treatment on these calls. Only answer questions if the person asks.
 
@@ -25,7 +26,7 @@ The sign-up form only asks for a name, phone and email. **Ask every person these
 
 **1. Say who you are and why you're calling.**
 
-> "Hi, is that [first name]? It's [your name] from Kirkcaldy Dental & Implant Clinic. We're a new NHS dental practice opening soon on Tolbooth Street. You joined our waiting list, so I'm calling to take a few details. Have you got two minutes?"
+> "Hi, is that [first name]? This is Kirkcaldy Dental calling. It's [your name] from Kirkcaldy Dental & Implant Clinic. We're a new NHS dental practice opening soon on Tolbooth Street. You joined our waiting list, so I'm calling to take a few details. Have you got two minutes?"
 
 **2. Who's in the household?**
 
@@ -114,7 +115,7 @@ The sheet works out **Next call due** for you.
 
 ### Voicemail (after attempt 1 only)
 
-> "Hi, it's [your name] from Kirkcaldy Dental & Implant Clinic. You joined our waiting list and I'm calling to take a few details. There's no need to call back. We'll try you again. You're still on the list. Thanks."
+> "Hi, this is Kirkcaldy Dental calling. It's [your name] from Kirkcaldy Dental & Implant Clinic. You joined our waiting list and I'm calling to take a few details. We'll try you again, or you can call us on 01592 214225. You're still on the list. Thanks."
 
 Don't leave health details or other family members' names on a voicemail.
 
