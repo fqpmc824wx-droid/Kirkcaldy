@@ -25,7 +25,7 @@ var TRK_DAILY_HEADERS = ["Date", "Sign-ups gross", "Unique", "Meta unique", "Org
 
 // ---------- installer ----------
 function trkInstallTriggers() {
-  var mine = ["trkOnSheetEdit", "trkRetryCheck", "trkPullSmsHistory", "trkScanBounces", "trkDailySnapshot", "trkWeeklyEmail"];
+  var mine = ["trkOnSheetEdit", "trkRetryCheck", "trkPullSmsHistory", "trkScanBounces", "trkDailySnapshot", "trkWeeklyEmail", "trkWeeklyBackup", "trkPurgeReport"];
   ScriptApp.getProjectTriggers().forEach(function (t) { if (mine.indexOf(t.getHandlerFunction()) !== -1) ScriptApp.deleteTrigger(t); });
   var ss = SpreadsheetApp.getActive();
   ScriptApp.newTrigger("trkOnSheetEdit").forSpreadsheet(ss).onEdit().create();
@@ -33,6 +33,8 @@ function trkInstallTriggers() {
   ScriptApp.newTrigger("trkPullSmsHistory").timeBased().atHour(6).nearMinute(15).everyDays(1).inTimezone("Europe/London").create();
   ScriptApp.newTrigger("trkScanBounces").timeBased().atHour(6).nearMinute(45).everyDays(1).inTimezone("Europe/London").create();
   ScriptApp.newTrigger("trkDailySnapshot").timeBased().atHour(21).nearMinute(10).everyDays(1).inTimezone("Europe/London").create();
+  ScriptApp.newTrigger("trkWeeklyBackup").timeBased().onWeekDay(ScriptApp.WeekDay.SUNDAY).atHour(23).nearMinute(30).inTimezone("Europe/London").create();
+  ScriptApp.newTrigger("trkPurgeReport").timeBased().onMonthDay(1).atHour(7).nearMinute(0).inTimezone("Europe/London").create();
   ScriptApp.newTrigger("trkWeeklyEmail").timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(7).nearMinute(30).inTimezone("Europe/London").create();
   trkTab(TRK_LOG_TAB, TRK_CALL_LOG_HEADERS); trkTab(TRK_SMS_TAB, TRK_SMS_HEADERS); trkTab(TRK_DAILY_TAB, TRK_DAILY_HEADERS);
 }
@@ -349,12 +351,13 @@ function trkDailySnapshot() {
     if (v[4] === "SUCCESS") smsSent++; else smsFailed++;
   });
   var backlog = typeof metaBacklog === "function" ? metaBacklog() : { waiting: "", oldestMins: "" };
-  var budget = "", spend = "";
+  var sp = PropertiesService.getScriptProperties();
+  var budget = sp.getProperty("ADS_DAILY_BUDGET") || "", spend = sp.getProperty("ADS_TODAY_SPEND") || "";   // set by meta-ads.gs if present
   var ads = SpreadsheetApp.getActive().getSheetByName("Ad status");
   if (ads && ads.getLastRow() > 1) {
     var ah = ads.getRange(1, 1, 1, ads.getLastColumn()).getValues()[0].map(String), last = ads.getRange(ads.getLastRow(), 1, 1, ah.length).getValues()[0];
     var bi = ah.indexOf("Daily budget"), si = ah.indexOf("Spend today");
-    if (bi !== -1) budget = last[bi]; if (si !== -1) spend = last[si];
+    if (bi !== -1 && budget === "") budget = last[bi]; if (si !== -1 && spend === "") spend = last[si];
   }
   var shift = "", dc = SpreadsheetApp.getActive().getSheetByName("Daily checks");
   if (dc && dc.getLastRow() > 1) {
@@ -381,4 +384,48 @@ function trkWeeklyEmail() {
     try { MailApp.sendEmail({ to: e, subject: "Kirkcaldy Dental – weekly numbers", htmlBody: html, body: "Open the sheet: " + ss.getUrl() }); }
     catch (err) { console.error("Weekly email failed: " + err); }
   });
+}
+
+// ---------- weekly backup (Sun 23:30): a dated copy of the whole sheet, view-only, last 8 kept ----------
+function trkWeeklyBackup() {
+  var ss = SpreadsheetApp.getActive(), file = DriveApp.getFileById(ss.getId());
+  var parent = file.getParents().hasNext() ? file.getParents().next() : DriveApp.getRootFolder();
+  var it = parent.getFoldersByName("Backups"), folder = it.hasNext() ? it.next() : parent.createFolder("Backups");
+  var copy = file.makeCopy(ss.getName() + " – backup " + trkFmt(new Date(), "yyyy-MM-dd"), folder);
+  copy.getEditors().forEach(function (u) { try { copy.removeEditor(u); } catch (x) {} });   // nobody edits a backup by accident
+  var old = [], files = folder.getFiles();
+  while (files.hasNext()) { var f = files.next(); if (/ – backup \d{4}-\d{2}-\d{2}$/.test(f.getName())) old.push(f); }
+  old.sort(function (a, b) { return b.getDateCreated() - a.getDateCreated(); });
+  old.slice(8).forEach(function (f) { f.setTrashed(true); });
+}
+
+// ---------- retention: REPORT ONLY (1st of the month, 07:00) ----------
+// Counts rows past the retention periods in the legal schedule and writes them to the "Purge report" tab.
+// It deletes NOTHING. Real deletion is switched on only after the owner signs the retention schedule.
+//   Waiting list: 12 months from sign-up (or from "Re-confirmed at" if they asked to stay on)
+//   Call log, SMS log: 12 months · Visits: 90 days · Failed sign-ups: 30 days
+var TRK_RETENTION = [
+  { tab: LEADS_TAB, dateCols: ["Re-confirmed at", "Signup Time"], days: 365 },
+  { tab: "Call log", dateCols: ["Timestamp"], days: 365 },
+  { tab: "SMS log", dateCols: ["Sent at"], days: 365 },
+  { tab: "Visits", dateCols: ["Visit Time"], days: 90 },
+  { tab: "Failed sign-ups", dateCols: ["Time"], days: 30 }
+];
+function trkPurgeReport() {
+  var ss = SpreadsheetApp.getActive(), now = new Date(), out = [];
+  TRK_RETENTION.forEach(function (r) {
+    var sh = ss.getSheetByName(r.tab), due = 0, oldest = "";
+    if (sh && sh.getLastRow() > 1) {
+      var data = sh.getDataRange().getValues(), h = data[0].map(String);
+      var cols = r.dateCols.map(function (c) { return h.indexOf(c); }).filter(function (c) { return c !== -1; });
+      for (var i = 1; i < data.length; i++) {
+        var d = null;
+        for (var k = 0; k < cols.length && !d; k++) if (data[i][cols[k]] instanceof Date) d = data[i][cols[k]];
+        if (d && (now - d) / 864e5 > r.days) { due++; if (!oldest || d < oldest) oldest = d; }
+      }
+    }
+    out.push([now, r.tab, r.days, due, oldest, "report only – nothing deleted"]);
+  });
+  var rep = trkTab("Purge report", ["Checked at", "Tab", "Keep (days)", "Rows past the limit", "Oldest such row", "Action"]);
+  rep.getRange(rep.getLastRow() + 1, 1, out.length, out[0].length).setValues(out);
 }

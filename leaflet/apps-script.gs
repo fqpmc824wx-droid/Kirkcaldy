@@ -156,7 +156,21 @@ function websiteLookup(phone, email) {
     var t = tc === -1 ? null : data[i][tc];
     if (t instanceof Date && Date.now() - t.getTime() < 864e5) res.recent = true;
   }
+  if (!res.blocked && websiteOnDncList(target, mail)) res.blocked = true;   // the "Do-not-contact list" tab counts too
   return res;
+}
+// True if the phone (last 10 digits) or email is on the "Do-not-contact list" tab
+function websiteOnDncList(target, mail) {
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Do-not-contact list");
+  if (!sh || sh.getLastRow() < 2) return false;
+  var data = sh.getDataRange().getValues(), h = data[0].map(String);
+  var pc = h.findIndex(function (x) { return /^Phone/.test(x); }), ec = h.indexOf("Email");
+  var digits = function (v) { var d = String(v || "").replace(/\D/g, ""); return d.length >= 10 ? d.slice(-10) : d; };
+  for (var i = 1; i < data.length; i++) {
+    if (target.length >= 10 && pc !== -1 && digits(data[i][pc]) === target) return true;
+    if (mail && ec !== -1 && String(data[i][ec]).trim().toLowerCase() === mail) return true;
+  }
+  return false;
 }
 // Same wording as metaRepeatText() in meta-leads.gs (service message only, no offers)
 function websiteRepeatText(first) {

@@ -127,3 +127,18 @@ Setting Status directly still counts as an attempt (Called, No answer, Booked, N
 - If saving a sign-up fails, the details go to the **Failed sign-ups** tab, the owner is emailed (P1), and the form gets the reply "error".
 - `…/exec?action=ping` returns `pong <version>` for uptime checks.
 - Only known sources are kept (website, home, leaflet, leaflet-<area>, banner, banner-<n>, gbp, fb-page, ig-bio, fb-form-done, fb-dm, facebook, instagram, google, email, phone, other). Anything else is saved as "website".
+
+## Do-not-contact, backups, retention
+- Anyone on the **Do-not-contact list** tab (phone or email) is blocked, as well as rows with Status `DO NOT CONTACT`.
+- `trkWeeklyBackup` runs Sunday 23:30. It saves a dated, view-only copy of the whole sheet in a "Backups" folder next to it and keeps the last 8.
+- `trkPurgeReport` runs on the 1st of each month. It only *counts* rows past the retention periods and writes the counts to the **Purge report** tab. It deletes nothing.
+
+  | Tab | Kept for |
+  |---|---|
+  | Waiting list | 12 months from sign-up, or from **Re-confirmed at** if they asked to stay on |
+  | Call log, SMS log | 12 months |
+  | Visits | 90 days |
+  | Failed sign-ups | 30 days |
+
+  Real deletion is switched on only after the owner signs the retention schedule.
+- Daily log budget/spend come from Script Properties `ADS_DAILY_BUDGET` / `ADS_TODAY_SPEND` (set by the ads script), or from an "Ad status" tab.
