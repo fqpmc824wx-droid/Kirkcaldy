@@ -12,7 +12,7 @@ They use their real name and number, so the caller treats it like any other lead
 
 ## Test A: the Facebook form
 1. Find our ad on Facebook or Instagram and tap **Sign up**. If it doesn't show up within a few minutes of scrolling, the owner sends them the ad's preview link (Ads Manager → the ad → Preview → Share).
-2. Check the form: name and phone already filled in, email optional, the news-and-offers box **not** ticked. Leave it unticked.
+2. Check the form: name and phone already filled in, email as the form shows it, the news-and-offers box **not** ticked. Leave it unticked.
 3. Submit and enter the code sent by text.
 4. Thank-you screen: tap **View website**. It should open the clinic's home page.
 

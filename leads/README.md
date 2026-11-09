@@ -7,9 +7,9 @@ Every minute it pulls new Facebook/Instagram Instant Form leads from Meta and, f
 - texts the lead straight away, at any hour (it's the confirmation they've just asked for)
 - texts ONE caller "NEW LEAD – call now", 8am–9pm (`CALL_HOURS` default `8-21`). With two or more callers, leads go to the next caller in turn (`ALERT_MODE` `rotate`). The owner gets an email copy (`OWNER_EMAIL`), not a text.
 - after 9pm nobody is called: the lead's text says "our team will call you from 8am to confirm your details", the row is marked "Call 8am", and the caller gets an 8am summary
-- emails the lead a confirmation, if they gave an email (email is optional on the form)
+- emails the lead a confirmation, if they gave an email (whether email is required is pending the owner's decision, see OWNER-DECISIONS.md)
 
-The form itself asks only for full name, phone (both required) and email (optional), plus one optional news-and-offers box. The spec is HANDOFF.md Step 2. Postcode, No. of People, Adult/Child/Family and Currently Registered? stay blank until the caller fills them in.
+The forms ask for name and phone (required) and email (required or optional: the owner is deciding, see OWNER-DECISIONS.md), plus one optional news-and-offers box. The website also asks postcode (optional) and how many people. The Facebook spec is HANDOFF.md Step 2. The caller fills in whatever is blank.
 
 **Costs:** £0 for the software. You only pay for the texts, a few pence each through ClickSend, or switch `sendSms()` to Twilio.
 **Speed:** a lead reaches the team within about 1–2 minutes.
@@ -36,7 +36,7 @@ The form itself asks only for full name, phone (both required) and email (option
    - Paste the code in, then add the Script Properties `META_PAGE_TOKEN` and `META_FORM_IDS`.
    - The ClickSend keys and `ONCALL_MOBILE` are shared with the website form. Team alert settings (Script Properties):
 - `ONCALL_MOBILE`: the callers' mobiles, comma-separated. Start with 1–2 callers and add more as sign-ups grow (about one caller per 20–25 new sign-ups a day).
-- `ALERT_MODE`: leave empty with one caller; **`rotate`** with two or more (each lead goes to the next caller in turn, so two people never ring the same lead). Don't use `all`: the owner decided each lead alert goes to ONE caller.
+- `ALERT_MODE`: **`rotate`** (always, even with one caller, so adding a second caller can never double-alert; each lead goes to the next caller in turn). Don't use `all` (the code's default if this is left empty): the owner decided each lead alert goes to ONE caller.
 - `OWNER_MOBILE`: leave **empty**. The owner chose email copies instead of text copies.
 - `OWNER_EMAIL`: `info@kirkcaldydental.co.uk`. Gets a free EMAIL copy of every alert; the Gmail app on the owner's phone has notifications on. If self-sent emails don't notify, add a Gmail filter in info@ (Subject contains "NEW LEAD" → Never send to Spam, Mark as important).
 - `CALL_HOURS`: `8-21` (default and owner decision – no calls after 9pm). Use `24h` only for a test, then set it back.
@@ -82,7 +82,7 @@ Watches the whole lead pipeline and emails/texts the owner in plain English when
 **Setup night, in this order:**
 0. **Row 1 first.** As soon as `health.gs` is pasted, the Facebook lead checker and the website form check row 1 of the Waiting list and **stop** if any of these 22 headers is missing (website sign-ups then go to the "Failed sign-ups" tab): Signup Time, Name, Phone, Email, Postcode, No. of People, Adult/Child/Family, Source, Status, Assigned to, Marketing consent, Notes, Lead ID, Logged at, Ad ID, Form ID, Duplicate of, SMS ID, SMS status, Email status, Call outcome, Status changed at. The original sheet has 11 columns, so straight after pasting run **`healthCheckHeaders()`** (lists what's missing, changes nothing) and **`healthAddMissingHeaders()`** (adds the missing ones at the right-hand end of row 1, moves nothing; it refuses if a header is typed twice or almost right, e.g. "Lead ID " with a space).
 1. Paste `health.gs` (+ Add file "health"), set `HEALTH_VERSION` at the top to `<date>-<commit>`, save, then step 0.
-2. Script Properties: `HEALTH_EMAIL` (**required**: the owner's personal email first, then info@kirkcaldydental.co.uk), `HEALTH_SMS` (the owner's mobile; blank = no alert texts – owner decision still pending), `HEALTH_PING_POLLER` / `HEALTH_PING_DAILY` / `HEALTH_PING_BACKUP` (healthchecks.io), `META_PAGE_ID`, `HEALTH_EXEC_ID`, `HEALTH_SITE` (once the site is live), `CALLER_SHIFT` / `CALLER_DAYS` (e.g. `9-17` / `Mon-Sat`), `HEALTH_BACKLOG` `5`, `HEALTH_BALANCE_WARN` / `HEALTH_BALANCE_CRIT`. The full list is at the top of `health.gs`.
+2. Script Properties: `HEALTH_EMAIL` (**required**: the owner's personal email first, then info@kirkcaldydental.co.uk), `HEALTH_SMS` (the owner's mobile; blank = no alert texts – owner decision still pending), `HEALTH_PING_POLLER` / `HEALTH_PING_DAILY` / `HEALTH_PING_BACKUP` (healthchecks.io), `META_PAGE_ID`, `HEALTH_EXEC_ID`, `HEALTH_SITE` (once the site is live), `CALLER_SHIFT` / `CALLER_DAYS` (e.g. `8-21` / `Mon-Sun`, the owner's calling hours; leave empty to use CALL_HOURS every day), `HEALTH_BACKLOG` `5`, `HEALTH_BALANCE_WARN` / `HEALTH_BALANCE_CRIT`. The full list is at the top of `health.gs`.
 3. Run **`healthInstallTriggers()`** once: 4 triggers (13 + 4 = 17 of Google's 20; it refuses above 18, or while row 1 isn't ready). Until launch day the project has 14 (the 3 ad triggers come with `adsInstallTriggers()`); the daily check knows this.
 4. Fire drill step 1: run **`healthTestAlert()`** → a text, an email to the personal address, and a healthchecks.io "down" then "up". Then the rest of the fire drill (premortem-final.md §3.6).
 

@@ -40,9 +40,9 @@ The scripts email you when something needs a person. Find the email's subject be
 
 | Subject | Do this |
 |---|---|
-| Cost per lead is high: £… | Only matters if it's above £5 (3-day average). Don't add money. Forward to the ads chat for a fresher ad or form. The ads keep running. |
+| Cost per lead is high: £… | This only comes when the 3-day average is above £5. Don't add money. Forward to the ads chat for a fresher ad or form. The ads keep running. |
 | PAUSE the ads: cost per lead over £8 (…) | Ads Manager → campaign → Off today. Ask browser Claude to set ADS_PAUSED_UNTIL. Forward to the ads chat. |
-| (no email) under £4 a lead for 3 days | Good news. On Monday, raise the budget 20% if there are enough callers and no "leads waiting" emails. |
+| (no email) under £4 a lead for 3 days | Good news. Raise the budget 20% (no more than once every 3–4 days, never 25 Nov–2 Dec), if there are enough callers and no "leads waiting" emails. |
 
 Our rule: a warning above £5, a pause only above £8 (both over the last 3 days, once at least £30 has been spent).
 
@@ -61,7 +61,7 @@ Our rule: a warning above £5, a pause only above £8 (both over the last 3 days
 | … leads waiting over 1h, oldest … | Add a caller today ("Adding a caller – checklist"). Callers ring the oldest first. Lower the budget only if nobody at all can call. |
 | No calls logged … and … leads waiting | Phone the caller. If they're off, move the alerts to the backup caller. |
 | … overnight lead(s) still not called at 10am (or 12pm) | Check the caller has started. If not, move the alerts to the backup. |
-| Add a caller: … sign-ups yesterday for … caller(s) | More than 25 sign-ups a day per caller. Add a caller this week. |
+| Add a caller: … sign-ups yesterday for … caller(s) | More than 25 sign-ups a day per caller. Add a caller today (callers are not a limit). |
 
 ## Meta error 190 (the Facebook key has stopped working)
 | Subject | Do this |
@@ -104,3 +104,6 @@ Our rule: a warning above £5, a pause only above £8 (both over the last 3 days
 | Ad account spending limit nearly reached (£… left) | Raise the limit in Billing & payments if you're happy with the spend. |
 | NEW LEAD (…) - call now: … | Your copy of a caller alert. Nothing to do. |
 | Today: … new waiting-list sign-ups – Kirkcaldy Dental | The 9pm summary. Read it. |
+| Facebook ads are live but NHS_FIFE_LETTER_ID / CALL_CARD_APPROVED is not recorded | Ask browser Claude to put the Drive file ID of the saved NHS Fife approval copy (no new letter is needed) / today's date into Script Properties. |
+| Setting wrong: … | Ask browser Claude to fix the named Script Property. |
+| Christmas cover not set (FESTIVE_COVER) | Decide the festive plan by 1 Dec (runbook §8). |

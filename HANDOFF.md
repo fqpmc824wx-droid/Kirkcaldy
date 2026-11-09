@@ -21,7 +21,7 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 - Leaflet A5: `leaflet/` (Drive: 3. Leaflet A5). Send the printer the PRINT PDF (3 mm bleed).
 - Waiting List Google Sheet (owned by info@kirkcaldydental.co.uk, Drive: 6. Sheets & Trackers): https://docs.google.com/spreadsheets/d/1WxadIcaibszu3YYR3eqNMjaQQ0V3LJ_Mvdsx_I2KBQI/edit
   Columns: Signup Time | Name | Phone | Email | Postcode | No. of People | Currently Registered? | Adult/Child/Family | Source | Status | Assigned to | Marketing consent | Notes, then the tracking columns (Lead ID … Call outcome …).
-  Both forms ask only for name, phone and (optional) email. The caller fills in Postcode, No. of People, Currently Registered? and Adult/Child/Family on the call.
+  The forms ask for name and phone (required) and email (required or optional: the owner is deciding, see OWNER-DECISIONS.md). The website also asks postcode (optional) and how many people. The caller fills in whatever is blank.
   The old Interest List sheet (https://docs.google.com/spreadsheets/d/1YBtbcdnAKaPAr3MyNEJFKimbGt2bJ_AB9d-1jppuTDM/edit, in a different Google account) keeps the earlier leads. Point new Facebook leads at the new sheet.
 - Weekly trackers: see `tracker/README.md` (Drive: 6. Sheets & Trackers).
 - Ads (in the GitHub repo fqpmc824wx-droid/Kirkcaldy, folder `ads/`, 2160 px wide):
@@ -39,14 +39,15 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 6. ~~Emails → create mailbox~~ **SKIP:** info@kirkcaldydental.co.uk is already a Google Workspace mailbox. Don't create a Hostinger mailbox or change MX/SPF/nameservers.
 
 ## Step 2 – Meta lead form (final spec v1, 8 Nov)
-*Copied from research/FORMS-meta-instant-form.md (the owner's fields: name and phone required, email optional). One change from that file: the owner says NHS approval already exists, so no new NHS Fife letter is needed. Keep a copy of the existing approval instead (gate 1 below).*
+*Copied from research/FORMS-meta-instant-form.md (the owner's fields: name and phone required; email optional, pending owner decision, see OWNER-DECISIONS.md). One change from that file: the owner says NHS approval already exists, so no new NHS Fife letter is needed. Keep a copy of the existing approval instead (gate 1 below).*
 
 Build it in **Ads Manager**, during ad creation: Destination → Instant form → Create form. Don't use Business Suite. The order is in BROWSER-CLAUDE-LAUNCH.md §4 (draft campaign and ad set first). **Save as DRAFT.** Show the owner the phone preview and publish only after a clear "yes". A published form can't be edited, only duplicated, and the copy gets a new Form ID.
 
-**Don't publish the form until all three are true:**
+**Don't publish the form until all four are true:**
 1. A copy of the existing **NHS Fife approval** (email or letter) is saved in Drive "11. Legal & compliance". No new letter is needed (owner: "We've got approval").
 2. https://kirkcaldydental.co.uk/privacy.html loads on mobile data and already shows the updated text (website spec, privacy section).
 3. The owner has said "yes" to the draft preview.
+4. The owner has said whether email is Required or Optional on the Facebook form (OWNER-DECISIONS.md).
 
 **Form type**
 - Form name: `KDIC waiting list v1 – Nov 2026`
@@ -57,7 +58,7 @@ Build it in **Ads Manager**, during ad creation: Destination → Instant form �
 - Background image: **Use the image from your ad.**
 - Greeting: **On.**
 - Headline (49 of 60 characters): **Join our waiting list – opening soon in Kirkcaldy**
-- Description (Paragraph): **"Kirkcaldy Dental & Implant Clinic is a new NHS dental practice, also offering private treatments, opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. It's free to join our waiting list, and one sign-up covers your whole household. We'll keep you updated about your place and our opening. Joining doesn't register you with the practice yet, and doesn't guarantee an appointment or a place on our patient list. Please sign up here rather than calling in at the practice."**
+- Description (Paragraph): **"Kirkcaldy Dental & Implant Clinic is a new NHS dental practice, also offering private treatments, opening soon at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW. It's free to join our waiting list, and one sign-up covers your whole household. We'll keep you updated about your place and our opening. Joining doesn't register you with the practice yet, and doesn't promise an appointment or a place on our patient list. Please sign up here rather than calling in at the practice."**
   - If the editor says the text is too long, delete the last sentence only.
 
 **Questions**
@@ -67,7 +68,7 @@ Build it in **Ads Manager**, during ad creation: Destination → Instant form �
 - Contact information (+ Add category). Use exactly these three fields, in this order:
   1. User information → **Full name**: **Required.** One Full name field, not First + Last. The caller greets them by name, and the text uses the first name.
   2. Contact fields → **Phone number** (never "Work phone number"): **Required.** If the editor shows it as "optional", switch that off. Every text, caller alert, call and repeat check depends on it, and Required is what makes the text-code check available.
-  3. Contact fields → **Email**: **Optional** if the editor offers it. If not, leave it Required (the owner accepted either). Leave "Collect work email address" **off**.
+  3. Contact fields → **Email**: Required or Optional, pending owner decision, see OWNER-DECISIONS.md (the owner accepted either). Leave "Collect work email address" **off**.
 - **Do NOT add:** Post code, First/Last name, "How many people", "Who is this for?", "Are you currently registered…", or anything else. The caller collects all of those on the call.
 - Settings → **Field names: leave the defaults** (full_name, phone_number, email). The script finds the fields by these names.
 
@@ -121,7 +122,7 @@ The automatic texts are **service messages**: replies to the person's own reques
 2. **NHS wording:** "waiting list" only. Never "accepting / taking on / registering NHS patients", "free NHS dentist" or "guaranteed".
 3. **Calls and caller alerts only 8am–9pm** (`CALL_HOURS` 8-21; nobody is called after 9pm). The one exception is the lead's own confirmation text: it goes at any hour, straight after they sign up, because it's the reply they've just asked for. After 9pm it says "our team will call you from 8am".
 4. **Marketing texts or emails** (e.g. opening offers) go **only** to people who ticked the optional consent box. Every marketing message needs an opt-out: "To stop, email info@kirkcaldydental.co.uk" or a reply number. Alphanumeric senders like "KirkDental" can't receive replies.
-5. **Opt-outs:** if anyone asks to stop, pick "DO NOT CONTACT" in Call outcome (column Y; Status then shows DO NOT CONTACT) the same day, and never text or call them again.
+5. **Opt-outs:** if anyone asks to stop, pick "DO NOT CONTACT" in Call outcome (column Y; Status then shows DO NOT CONTACT) the same day, and add their phone (last 10 digits) and email to the "Do-not-contact list" tab, so a deleted row never forgets the request, and never text or call them again.
 6. **Privacy policy** (privacy.html) must list everyone who handles the data:
    - Meta (form), Google (sheet, Apps Script, Gmail), ClickSend (texts) and Hostinger (website).
    - It must also say we text and call about the request, and keep the data up to 12 months after opening.
@@ -173,10 +174,10 @@ Full click-by-click steps are in BROWSER-CLAUDE-LAUNCH.md section 7. Summary:
 - Stories/Reels primary text: "New NHS dental practice opening soon in Kirkcaldy. Be first in line – join our waiting list 👇 NHS and private dental care at 23–25 Tolbooth Street, Kirkcaldy KY1 1RW."
 - Headlines (load all three): "Free to join our waiting list" / "New NHS dental practice – opening soon" / "Opening soon on Tolbooth Street". Description: "NHS & private dental care · 23–25 Tolbooth Street, Kirkcaldy KY1 1RW". CTA: **Sign up**.
 - Owner must confirm before launch:
-  - the "NHS and private" line (GDC: publicity must say NHS / mixed / private);
+  - the "NHS and private" line (GDC: publicity must say NHS / mixed / private). The owner confirmed it's a mixed practice (NHS and private), so keep this line;
   - a copy of the existing NHS Fife approval (email or letter) is saved in Drive "11. Legal & compliance". The owner says the approval exists and an inspection comes later, so no new letter is needed;
   - the photos' AI tool or stock licence is noted in the same folder (no model release is needed for AI-generated people);
-  - "Be first in line" only if invitations really follow sign-up order, with households kept together.
+  - "Be first in line" stays (owner decision). Invitations follow sign-up order, with households kept together.
 - After about 7 days, pause the ad whose cost per lead is 30% or more worse.
 
 ## Step 6 – Banner, leaflet and QR sign-up page

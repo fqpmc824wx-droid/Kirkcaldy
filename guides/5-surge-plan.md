@@ -10,14 +10,14 @@
 
 ## Step 1. Check it's real people (10 minutes)
 - Look at the newest rows: real-looking names, mostly local numbers and KY postcodes, spread over time, and sources that match the story (for example lots of "website" after a newspaper link).
-- If it looks like junk (the same few numbers, nonsense names, hundreds in minutes), it's spam, not a surge. Follow runbook R8 instead and **don't** raise the text limits.
+- If it looks like junk (the same few numbers, nonsense names, hundreds in minutes), it's spam, not a surge. Follow R8 "Form spam" in research/premortem-final.md instead (it sets WEB_SMS_PAUSED) and **don't** raise the text limits.
 
 ## Step 2. Call in the standby callers (first hour)
 - Keep a **standby list** of 3 to 5 trained people, each already with their own Google login, sheet access and the call card (see "Adding a caller – checklist"). The owner has staff available, so callers are not a limit.
 - Rule of thumb: **one caller for every 20 to 25 new sign-ups a day**. 100 sign-ups a day needs 4 to 5 callers; 500 needs 20 to 25.
 - Add them to ONCALL_MOBILE (comma-separated), ALERT_MODE `rotate`, BACKLOG_ALERT `15`, and raise the Ads Manager daily-leads rule to 25 × callers on shift.
 - Callers ring the oldest first. Calling stays 8am to 9pm only.
-- Anyone not reached after 72 hours gets one service text: "Sorry for the wait - you're on our list, no need to do anything. We'll call you between 8am and 9pm."
+- Anyone not reached after 72 hours gets one service text: "Sorry for the wait - you're on our list, no need to do anything. We'll call you between 8am and 9pm." (send by hand from ClickSend only after the ads chat approves the wording; never to DO NOT CONTACT rows)
 
 ## Step 3. Raise the text limits (only for real people)
 Each sign-up uses about 2 texts: the thank-you text and the caller alert. The normal limits are **SMS_DAILY_MAX 300** (about 150 sign-ups a day) and **SMS_HOURLY_MAX 40** (about 20 sign-ups an hour). When a limit is reached, all texts stop until it resets, including Facebook thank-you texts and caller alerts.
@@ -58,9 +58,7 @@ Never say: "list full", "last chance", "hurry", "limited places", "first come fi
 
 ## Step 6. If a journalist calls: holding statement
 Only the owner speaks to the press. Say this, or email it, and nothing more:
-> Kirkcaldy Dental & Implant Clinic is a new NHS dental practice opening soon at 23–25 Tolbooth Street, Kirkcaldy. We're delighted by the interest from local people. We are keeping a waiting list for the new practice, and our team is contacting everyone who has joined. Joining the waiting list is free and doesn't register anyone with the practice yet. We'll share our opening date once it's confirmed. People can join at kirkcaldydental.co.uk/register. Media enquiries: info@kirkcaldydental.co.uk.
-
-If the owner confirms the practice also offers private treatment, add "also offering private treatment" after "new NHS dental practice" (the same as the Facebook form).
+> Kirkcaldy Dental & Implant Clinic is a new NHS dental practice, also offering private treatment, opening soon at 23–25 Tolbooth Street, Kirkcaldy. We're delighted by the interest from local people. We are keeping a waiting list for the new practice, and our team is contacting everyone who has joined. Joining the waiting list is free and doesn't register anyone with the practice yet. We'll share our opening date once it's confirmed. People can join at kirkcaldydental.co.uk/register. Media enquiries: info@kirkcaldydental.co.uk.
 
 Don't give numbers of places, an opening date, how many people have joined, or anything about other practices or NHS Fife. Tell the ads chat and the waiting-list chat the same day, so the replies on the Page say the same thing.
 

@@ -16,6 +16,8 @@ Work through the steps in order with the owner watching. The **Meta pre-work day
 
 **Ask the owner before anything that costs money, publishes ads, or sends a message to a real person.** Test messages to the owner's own phone are fine. Follow BRAND.md wording exactly. Say "waiting list" only. Never say "accepting / taking on / registering NHS patients", "limited places", "first come, first served", "free NHS dentist" or "guaranteed", and never use the NHS logo. Never use or print the Dentally placeholder phone number.
 
+**Guides for setup night and after:** Drive "1. Meta Ads → Setup-night & how-to guides" (App Review pack, Launch-day fallback card, Adding a caller, Weekly mystery-shopper test, Surge plan, If this email arrives).
+
 Repo: `fqpmc824wx-droid/Kirkcaldy`. Where things are until the PRs are merged:
 - **Website pages:** all on branch `claude/brave-allen-i14xnx` (PR #1): `site/index.html`, `site/privacy.html`, `site/register/index.html`, `site/b/index.html`, `site/l/index.html`.
   - PR #2 (`claude/hostinger-plugin-install-eyvjb3`) only adds the new halfway logo files in `site/assets/`.
@@ -34,7 +36,7 @@ Do this with the owner 2–5 days before setup night. Meta can take days to revi
 3. **Check what Meta needs for the app.** App Dashboard → **App Review → Permissions and features**. Write down the access level shown for each of these, and whether it says App Review is required:
    `leads_retrieval`, `pages_manage_ads`, `pages_read_engagement`, `pages_show_list`, `pages_manage_metadata`, `business_management`, `ads_read`.
    - Save a screenshot in Drive "11. Legal & compliance" and send the list to the ads chat.
-   - **If any of them needs Advanced access or App Review, submit the request the same day**, using the ads chat's App Review pack (Drive "11. Legal & compliance"). Meta asks for Business Verification as part of this, so start it today (step 4).
+   - **If any of them needs Advanced access or App Review, submit the request the same day**, using the App Review pack (Drive "1. Meta Ads → Setup-night & how-to guides", doc 1). Meta asks for Business Verification as part of this, so start it today (step 4).
    - Why: Meta's lead-ads guide says reading leads through the API needs App Review and then Business Verification (developers.facebook.com/docs/marketing-api/guides/lead-ads/; research/meta-playbook.md §6). Some vendors say your own Page doesn't need it. Check, don't assume.
 4. **Start Business Verification** today (§3.10).
 5. If the owner agrees: open the ClickSend account and register the sender ID **KirkDental** now (§2.3), so it's approved before setup night.
@@ -57,9 +59,9 @@ Do this with the owner 2–5 days before setup night. Meta can take days to revi
 | Clinic phone number 01592 … (optional; can be added later) | owner |
 
 Waiting List sheet: https://docs.google.com/spreadsheets/d/1WxadIcaibszu3YYR3eqNMjaQQ0V3LJ_Mvdsx_I2KBQI/edit
-- Tabs: **Dashboard** (first; don't write to it), **Waiting list**, **Visits**, Call log, SMS log, Daily log, Lead analysis, Daily checks, Costs, Change log, Complaints, plus tabs the scripts add (e.g. Failed sign-ups).
+- Tabs: **Dashboard** (first; don't write to it), **Waiting list**, **Visits**, Call log, SMS log, Daily log, Lead analysis, Daily checks, Costs, Change log, Complaints, Do-not-contact list, plus tabs the scripts add (e.g. Failed sign-ups).
 - Waiting list columns: Signup Time, Name, Phone, Email, Postcode, No. of People, Currently Registered?, Adult/Child/Family, Source, Status, Assigned to, Marketing consent, Notes, then the tracking columns from N (Lead ID …; **Call outcome** is column Y).
-- Both forms ask only for name, phone and (optional) email. **The caller fills in Postcode, No. of People, Currently Registered? and Adult/Child/Family on the call.**
+- The forms ask for name and phone (required) and email (required or optional: the owner is deciding, see OWNER-DECISIONS.md). The website also asks postcode (optional) and how many people. **The caller fills in whatever is blank** (Postcode, No. of People, Currently Registered?, Adult/Child/Family).
 
 ---
 
@@ -99,10 +101,10 @@ Waiting List sheet: https://docs.google.com/spreadsheets/d/1WxadIcaibszu3YYR3eqN
    - Tell the owner to send the same edits to the website chat so the repo matches.
    - **Don't publish ads until this page passes.**
 7. **/register/ form check** (spec: research/FORMS-website-register-form.md). The page must show:
-   - only **Full name** (required), **Phone number** (required; landlines allowed) and **Email (optional)**. No postcode, no "How many people", no "Who is this for?", no "registered with a dentist?" question.
+   - the fields in OWNER-DECISIONS.md "Forms, latest owner instruction" (phone allows landlines). No "Who is this for?" and no "registered with a dentist?" question.
    - **(a)** this notice, not a tick box: "By tapping "Join waiting list", you're asking Kirkcaldy Dental & Implant Clinic to add you to our waiting list. Joining doesn't register you with the practice yet. We'll send you a confirmation shortly (by text to a mobile, and by email if you give one), call you about your request between 8am and 9pm, and contact you about your place on the list and our opening. We won't send you marketing unless you tick the box below. Our privacy policy explains how we use your details and how to complain."
    - **(b)** a separate **optional, unticked** box "Yes, also send me news and offers from Kirkcaldy Dental by text and email. I can opt out at any time." (field `marketing`).
-   - If it still makes email required, or has a required "I'm happy … opening news" box, tell the owner. The website and leaflet chats must fix it before leaflets go out. Until then, treat every website row as Marketing consent = No.
+   - If it has a required "I'm happy … opening news" box, tell the owner. The website and leaflet chats must fix it before leaflets go out. Until then, treat every website row as Marketing consent = No.
 8. **The register page saves nothing until Step 5.7 is done.** Finish 5.7 tonight. **Don't hand out leaflets or put up the banner until a test sign-up appears as a row in the sheet.**
 9. **Domain renewal and the old domain** (with the owner):
    - Google Admin → Domains → kirkcaldydental.co.uk: turn on **auto-renew** and check the card on file.
@@ -158,7 +160,7 @@ Budget to tell the owner:
 10. **Business verification** (Business settings → Security Centre → Start verification). Start it on the Meta pre-work day: it can take a few days, and **it can hold up launch**. Meta's lead-ads guide says reading leads through the API needs App Review and then Business Verification (developers.facebook.com/docs/marketing-api/guides/lead-ads/; research/meta-playbook.md §6). A new ad account also has a hidden daily spending limit that rises with verification and good standing.
 11. **Account-wide safety settings. Do these now, because they can take up to 48 hours to apply:**
     - Ad account → Advertising settings → Creating ads → Creative features: **untick "Test new creative features"**.
-    - Advertising settings → Branding / Identity → restricted words: `accepting`, `taking on`, `first come`, `limited places`, `free dentist`, `guaranteed`, `specialist`. This is only a backstop, because Meta doesn't always obey it.
+    - Advertising settings → Branding / Identity → restricted words: `accepting`, `taking on`, `registering`, `first come`, `limited places`, `free dentist`, `free NHS dentist`, `guaranteed`, `specialist`. This is only a backstop, because Meta doesn't always obey it.
     - Optional: Account controls → Placement controls (objective Leads) → exclude **Audience Network**, which can bring cheap junk leads. It applies to every Leads campaign in this ad account.
 
 ## 4. Instant Form (lead form)
@@ -169,15 +171,16 @@ The full spec, with every word to copy, is **HANDOFF.md Step 2** (from research/
 2. In the first ad (Ad A): Destination → **Instant form → Create form**.
 3. Build the form from HANDOFF Step 2:
    - Form name `KDIC waiting list v1 – Nov 2026`. **Form type: More volume** (not Higher intent). **Flexible form delivery: Off** if shown.
-   - **Only three contact fields:** **Full name** (Required), **Phone number** (Required; if the editor shows it as "optional", switch that off; never "Work phone number"), **Email** (Optional if the editor offers it, otherwise Required; "Collect work email address" off).
+   - **Only three contact fields:** **Full name** (Required), **Phone number** (Required; if the editor shows it as "optional", switch that off; never "Work phone number"), **Email** (Required or Optional as the owner decides, see OWNER-DECISIONS.md; "Collect work email address" off).
    - **No** Post code, no multiple-choice questions, no other custom questions. Conditional logic off. Field names: leave the defaults. Only if Meta refuses to save without a custom question, add the one optional fallback question in HANDOFF Step 2.
    - Intro, description box, privacy link, disclaimer, the **one optional, unticked** news-and-offers box and the ending screen: word for word.
    - Ending button: **View website** → `https://kirkcaldydental.co.uk/?src=fb-form-done`. Never "Call business". Never /waiting-list/: the form can't be changed later. "Chat on WhatsApp" and Messenger unticked.
 4. **Save as draft.** In the draft preview, check that Submit works with the box **unticked**. If it doesn't, the box is wrongly Required: click Optional.
-5. **Publish the form only when all three are true:**
+5. **Publish the form only when all four are true:**
    - a copy of the existing NHS Fife approval is saved in Drive "11. Legal & compliance" (no new letter is needed);
    - https://kirkcaldydental.co.uk/privacy.html loads on mobile data with the updated text (§1.6);
-   - the owner has seen the phone preview and said a clear "yes". A published form can't be edited.
+   - the owner has seen the phone preview and said a clear "yes". A published form can't be edited;
+   - the owner has said whether email is Required or Optional on the Facebook form (OWNER-DECISIONS.md). Until then, don't publish the form.
 6. **Publish the form, not the ads.** Copy the **Form ID** (for `META_FORM_IDS`, §5.5). Leave the campaign and both ads unpublished until §7.
 7. Still in Ad A, set the per-ad settings from HANDOFF Step 2 ("Settings on EVERY ad"):
    - Destination: tick **"Require SMS verification to submit form"** (Required if offered). If it's greyed out, Phone number isn't Required on the form.
@@ -231,7 +234,7 @@ The full spec, with every word to copy, is **HANDOFF.md Step 2** (from research/
 | `META_PAGE_ID` | `1421462957723791` (the clinic Page; used for the Page followers count and the health checks) |
 | `META_IG_USER_ID` | the clinic's Instagram account ID, if Instagram is linked (Business settings → Accounts → Instagram accounts). Otherwise leave **empty**. |
 | `ONCALL_MOBILE` | the caller's mobile. Each lead text goes to **one** person. When more callers join, list all their mobiles, comma-separated, and set `ALERT_MODE` to `rotate`. |
-| `ALERT_MODE` | empty with one caller; `rotate` as soon as there are two or more (each lead goes to the next caller in turn). Never `all`: each lead goes to ONE caller (owner decision). |
+| `ALERT_MODE` | `rotate` (always, even with one caller, so adding a second caller can never double-alert; each lead goes to the next caller in turn). Never `all` (the code's default if this is left empty): each lead goes to ONE caller (owner decision). |
 | `OWNER_EMAIL` | `info@kirkcaldydental.co.uk` (owner gets a free **email** copy of every alert; Gmail app on the owner's phone with notifications ON for this account) |
 | `OWNER_MOBILE` | leave **empty** (owner chose email alerts instead of text copies) |
 | `CALL_HOURS` | `8-21` (owner decision: **no calls after 9pm**) |
@@ -241,10 +244,19 @@ The full spec, with every word to copy, is **HANDOFF.md Step 2** (from research/
 | `LAUNCH_DATE` | the day the ads go live, `yyyy-mm-dd` (set it on launch day) |
 | `META_API_VERSION` | leave **empty** (the script uses `v27.0`). If the owner ever gets an email saying the Meta version is deprecated, set it to Meta's newest version, e.g. `v28.0`. |
 | `CPL_ALARM` | `5` (warning level in £ per lead: the owner expects about £5. The pause level is £8, §8.) |
+| `CPL_PAUSE` | `8` (pause level in £; owner decision) |
 | `WEB_SMS_PAUSED` | leave **empty**. Set it to `true` only to stop website texts during a spam attack (rows still save). Delete it to switch texts back on. |
 | `SMS_HOURLY_MAX` | leave **empty** (default 40 texts an hour, a safety cap) |
 | `SMS_DAILY_MAX` | leave **empty** (default 300 texts a day). Raise it on purpose during a real surge. |
-Don't touch `ALERT_NEXT`, `META_SINCE`, `META_SINCE_BY_FORM`, `META_SEEN`, `BACKLOG_LAST`, `REPORT_LAST`, `ADS_DAILY_BUDGET`, `ADS_TODAY_SPEND` or any `*_ERR_LAST`. They're set automatically.
+| `NHS_FIFE_LETTER_ID` | the Drive file ID of the saved NHS Fife approval copy (no new letter is needed). **Required before ads go live if health.gs is used**, or a critical alert (text and email) goes out as soon as the ads are live. |
+| `CALL_CARD_APPROVED` | the date the owner approved the caller script. **Required before ads go live** (same alert). |
+| `ADS_EXPECTED_ON` | `1` on launch day. |
+| `ADS_EXPECTED_BUDGET` | `20` (change it with every agreed budget step; the fallback card and the owner card both say so). |
+| `ADS_ALLOWED_CAMPAIGNS` | the campaign ID, on launch day. |
+| `ADS_PAUSED_UNTIL` | leave **empty**. Set it only when pausing on purpose (`yyyy-mm-dd hh:mm`). |
+| `FESTIVE_COVER` | decide by 1 Dec (§8): who calls 24 Dec–2 Jan, or the lower budget. |
+| `HEALTH_EMAIL` | (health.gs) the owner's **personal** email first, then info@ (see §6 "Owner email alerts"). |
+Don't touch `ALERT_NEXT`, `META_SINCE`, `META_SINCE_BY_FORM`, `META_SEEN`, `BACKLOG_LAST`, `REPORT_LAST`, `ADS_DAILY_BUDGET`, `ADS_TODAY_SPEND`, `ADS_CPL5_LAST`, `ADS_CPL_LAST` or any `*_ERR_LAST`. They're set automatically.
 **Sheet access for callers:**
 - The sheet is currently shared with info@ only, so the caller can't open it.
 - Share → add each caller's Google account by name as **Editor**. Never use "anyone with the link".
@@ -294,7 +306,7 @@ What happens with every lead, wherever it comes from:
   - The text says "…Our team will call you from 8am to confirm your details…".
   - The confirmation text still goes straight away. No caller alert goes out, nobody is called after 9pm, and the row is marked Status "Call 8am".
   - At 8am the caller gets "Good morning – X overnight leads to call."
-- **Status "DO NOT CONTACT"** on any row blocks all future texts, emails and alerts to that number.
+- **Status "DO NOT CONTACT"** on any row blocks all future texts, emails and alerts to that number. Also add their phone (last 10 digits) and email to the "Do-not-contact list" tab, so a deleted row never forgets the request.
 - **Someone signs up twice** (same mobile or email):
   - If it's within 24 hours, or they were already Called / Booked / Not interested: the new row gets Status "Duplicate", there's no caller alert, and they get at most one "you're already on the list" text a day.
   - If they were never reached: the caller gets a "REPEAT – NEW LEAD" alert so they try again.
@@ -311,11 +323,12 @@ What happens with every lead, wherever it comes from:
 
 | Test | How | Expect |
 |---|---|---|
-| Facebook lead – no email, box unticked | developers.facebook.com/tools/lead-ads-testing → pick the Page and form → **Preview form** → the owner's REAL name and mobile, **email deleted**, news-and-offers box **unticked** → submit. ("Create lead" fills dummy data, so no text would arrive.) Only one test lead per form can exist: press **Delete lead** before each new test. | within ~1–2 min: row with Source facebook; **Phone shows the real +447… number**; Email and Email status blank; **Marketing consent No**; Postcode, No. of People, Adult/Child/Family and Currently Registered? **blank** (the caller fills them on the call); Lead ID and Form ID filled; the thank-you text; in calling hours the caller alert, the owner's alert email in info@ (Gmail notification) and "Assigned to" filled. If Submit won't work with the box unticked, the box is wrongly Required: duplicate the form, set the box to Optional, publish the copy (owner's OK) and add its new Form ID (§4). |
+| Facebook lead – no email, box unticked (only if email stays optional) | developers.facebook.com/tools/lead-ads-testing → pick the Page and form → **Preview form** → the owner's REAL name and mobile, **email deleted**, news-and-offers box **unticked** → submit. ("Create lead" fills dummy data, so no text would arrive.) Only one test lead per form can exist: press **Delete lead** before each new test. | within ~1–2 min: row with Source facebook; **Phone shows the real +447… number**; Email and Email status blank; **Marketing consent No**; Postcode, No. of People, Adult/Child/Family and Currently Registered? **blank** (the caller fills them on the call); Lead ID and Form ID filled; the thank-you text; in calling hours the caller alert, the owner's alert email in info@ (Gmail notification) and "Assigned to" filled. If Submit won't work with the box unticked, the box is wrongly Required: duplicate the form, set the box to Optional, publish the copy (owner's OK) and add its new Form ID (§4). |
 | Facebook lead – box ticked | **Delete lead**, then the same with the box **ticked** and the owner's email filled in | **Marketing consent Yes**; Email filled; the confirmation email arrives |
 | Facebook – phone check | on a phone, open Ad A's preview (Ads Manager → the ad → preview on mobile) and go through the form | the text-code step appears and the code arrives by SMS; on the thank-you screen, "View website" opens the home page |
-| Website – no email | on a phone, kirkcaldydental.co.uk/register: the owner's name and mobile, **email blank**, box unticked | the page shows the thank-you; row with Source website, Marketing consent **No**, Email status blank; the thank-you text; caller alert and owner email in calling hours |
+| Website – no email (only if email stays optional) | on a phone, kirkcaldydental.co.uk/register: the owner's name and mobile, **email blank**, box unticked | the page shows the thank-you; row with Source website, Marketing consent **No**, Email status blank; the thank-you text; caller alert and owner email in calling hours |
 | Website – box ticked | the same, with the owner's email and the box ticked | Marketing consent **Yes**; the confirmation email arrives |
+| Website – postcode and people filled | the same, with a postcode and a number of people chosen | Postcode and No. of People saved |
 | Website – landline | a real landline number the owner has (e.g. 01592 …) | a row and a caller alert; no text; the page says it will call instead |
 | Website – number formats | the owner's mobile typed as "+44 (0)7…" | Phone saved as +447…, and the text arrives |
 | Website – bad numbers | a +33 number, then a 070 number | an error under the phone box; no row |
@@ -325,21 +338,21 @@ What happens with every lead, wherever it comes from:
 | **GATE – Real lead (no app role)** | **Don't publish the ads until this passes.** After the app is Live: someone with **no role** on the Page, app or Business (e.g. a family member) submits the form from their own phone, from a live ad preview or the Page's form link | arrives like the test lead. If it doesn't, the app is still in Development mode. Delete the row afterwards |
 | Repeat sign-up | submit the same phone again within 24h | new row Status "Duplicate", Notes "Already on the list…", no alert, no second text |
 | Do not contact | pick `DO NOT CONTACT` in a test row's Call outcome (Status then shows DO NOT CONTACT), then submit again with the same phone via /register | row saved with Status DO NOT CONTACT; no text, alert or email |
-| Call tracking (caller's phone) | on the **caller's phone**, Sheets app → a test row → **Call outcome** (column Y) → pick "No answer" | within a few seconds: Status "No answer", attempt 1, "Next call due" filled, a line in Call history and a new row in the Call log tab; Call outcome clears itself. Then pick "Reached - on list": Status "Called". If nothing happens, `trkInstallTriggers` wasn't run (§5.6) |
+| Call tracking (caller's phone) | on the **caller's phone**, Sheets app → a test row → **Call outcome** (column Y) → pick "No answer" | within a few seconds: Status "No answer", attempt 1, "Next call due" filled, a line in Call history and a new row in the Call log tab; Call outcome clears itself. Then pick "Reached - on list": Status "Called". Also pick "Found another dentist – leave list": Status must become Withdrew. If the dropdown doesn't offer it, use the sheet's list and tell the leaflet chat. If nothing happens, `trkInstallTriggers` wasn't run (§5.6) |
 | Dashboard | open the Dashboard tab | counts by source update |
 | Overload email | set `BACKLOG_ALERT` to `1`; edit a test row's Signup Time to over an hour ago with Status blank; run `backlogCheck()` from the editor (in calling hours or with `CALL_HOURS` 24h) | owner gets "leads waiting over an hour"; then set `BACKLOG_ALERT` back to `10` (one caller) or `15` (two or more) and delete `BACKLOG_LAST`. If health.gs is installed, this check uses its own settings instead: follow its fire drill |
 
 **Afterwards:**
-- Delete every test row **before 8am**, or the 8am summary will text the caller about them: the Waiting list and Visits tabs, and the test rows in **SMS log, Call log, Daily log and Failed sign-ups** (and Failed leads, if that tab exists). Put `CALL_HOURS` back to `8-21` and `ONCALL_MOBILE` back to the caller.
+- Delete every test row **before 8am**, or the 8am summary will text the caller about them: the Waiting list and Visits tabs, and the test rows in **SMS log, Call log, Daily log and Failed sign-ups** (and Failed leads, if that tab exists). Put `CALL_HOURS` back to `8-21` and `ONCALL_MOBILE` back to the caller. Don't leave test numbers in the **Do-not-contact list** tab.
 - After the last Facebook test, **leave that test lead in Meta** (don't press Delete lead) until real leads arrive. A brand-new Page gets a very small allowance for reading leads, and it grows with the leads the Page has.
-- **Owner email alerts:** the script sends from info@ to info@. If the Gmail app doesn't notify for these self-sent emails, add a **Gmail filter in info@**: Subject contains "NEW LEAD" → Never send to Spam, Mark as important. Set the Gmail app's notifications for info@ to "All". Keep `OWNER_EMAIL` as info@ (don't use a personal address).
+- **Owner email alerts:** the script sends from info@ to info@. If the Gmail app doesn't notify for these self-sent emails, add a **Gmail filter in info@**: Subject contains "NEW LEAD" → Never send to Spam, Mark as important. Set the Gmail app's notifications for info@ to "All". Keep `OWNER_EMAIL` as info@ (don't use a personal address). This is about `OWNER_EMAIL` only. `HEALTH_EMAIL` (health.gs) should hold the owner's personal email first, then info@, so critical alerts still reach the owner if info@ breaks.
 - **Errors:** the owner is emailed automatically if Facebook leads stop arriving (e.g. "Meta API 190" = token wrong or expired, so make a new one as in Step 5.2), or if a lead can't be processed (the email includes the person's details so they can be added by hand). Details are in Apps Script → **Executions**.
 
 ## 7. Launch the ads (only with the owner's OK)
 **Owner must confirm first (ask, don't guess):**
 1. A copy of the existing **NHS Fife approval** (email or letter) is saved in Drive "11. Legal & compliance". The owner says the approval exists ("They know that we're opening an NHS practice") and an inspection comes later, so **no new letter is needed**. The copy is proof if anyone questions the word "NHS" in the ads.
-2. The ads say "We'll offer NHS and private dental care". The GDC requires publicity to say whether a practice is NHS, mixed or private. If implants are private, the practice is "mixed".
-3. "Be first in line" stays only if invitations really follow sign-up order (households kept together). Otherwise remove it from the headline options.
+2. The ads say "We'll offer NHS and private dental care". The GDC requires publicity to say whether a practice is NHS, mixed or private. The owner confirmed it's a mixed practice (NHS and private), so keep this line.
+3. "Be first in line" stays (owner decision). Invitations follow sign-up order, with households kept together.
 4. **Photos:** the ad photos are AI/stock images. No model release is needed for AI-generated people. Keep a note of the AI tool or stock licence in Drive "11. Legal & compliance", and never caption or describe the people as real patients.
 
 Use the **draft campaign and ad set from §4** (Ads Manager → the draft), and check every setting below:
@@ -370,6 +383,7 @@ Use the **draft campaign and ad set from §4** (Ads Manager → the draft), and 
 - **Launch day, within 2 hours of the ads going live:** compare the number of leads in **Leads Center** (Business Suite → All tools → Leads Center, or Ads Manager) with the facebook/instagram rows in the sheet since launch.
   - If any are missing: check the app is still **Live** (§5.1) and **Leads access** includes the app and the System User (§5.3).
   - Then download the missing leads from Leads Center (CSV) and add each one to the Waiting list by hand: a real Signup Time, Source facebook (or instagram), Notes "added by hand – no auto text". The caller rings them first. Tell the ads chat.
+  - If leads are missing, use the Launch-day fallback card.
 - **48 hours after launch:** check Breakdown → Delivery → Placement (no junk placements) and that no AI-made variants have appeared. After any edit or duplicate, re-check that Advantage+ creative is still all OFF.
 
 ## 8. The 4-week plan: tell the owner and leave it in writing
@@ -384,7 +398,7 @@ Use the **draft campaign and ad set from §4** (Ads Manager → the draft), and 
 
 **Callers:** the owner has staff, so calling is not a limit. Rule of thumb: **one caller for every ~20–25 new sign-ups a day** (no-answers and call-backs mean about 1.6 calls per lead).
 - Before each budget step, make sure there are enough callers on shift for the extra leads.
-- To add callers: Script Property `ONCALL_MOBILE` = all their mobiles, comma-separated (UK mobiles only); `ALERT_MODE` = `rotate`, so each lead goes to the next caller and no two people ring the same person; `BACKLOG_ALERT` = `15`.
+- To add callers: Script Property `ONCALL_MOBILE` = the mobiles of every caller on shift today (take out anyone who is off), comma-separated (UK mobiles only); `ALERT_MODE` = `rotate`, so each lead goes to the next caller and no two people ring the same person; `BACKLOG_ALERT` = `15`.
 - Add one the same day if the backlog email arrives, sign-ups stay above ~20 a day per caller, or a press story or viral post lands.
 
 **Real cost:** Ads Manager shows the budget before tax. Meta adds a **2% UK location fee** (since 1 Jul 2026, not shown in Ads Manager) and **20% VAT**. Dental care is VAT-exempt, so the clinic normally **can't reclaim** that VAT. £20/day is really about **£24.50/day**. The 4-week plan is about £810 in Ads Manager, or about **£990 all-in**, plus texts (about 9p per lead).
@@ -411,16 +425,16 @@ If opening is more than ~6 weeks away, stay at £15–20/day for longer.
 - 8am: check the ads are running, the card is OK and nothing is rejected. If the daily leads rule switched the campaign off, switch it back on **only once the overnight leads have been called**.
 - Reply to Facebook/Instagram comments and messages within a few hours:
   - Use "waiting list" wording only. Never say "accepting" or "taking on" patients, never promise registration or a date, and never say "first come, first served", "limited places", "free NHS dentist" or "guaranteed".
-  - Ready reply: "Thanks for your interest! We're a new NHS dental practice opening soon at 23–25 Tolbooth Street. Please join our waiting list using the Sign up button or at kirkcaldydental.co.uk/register and we'll be in touch before we open."
+  - Ready reply: "Thanks for your interest! We're a new NHS dental practice, also offering private treatment, opening soon at 23–25 Tolbooth Street. Please join our waiting list using the Sign up button or at kirkcaldydental.co.uk/register and we'll be in touch before we open."
   - **Hide** any comment where someone posts their phone number, address or health details, and reply asking them to use the form.
-  - Anyone asking to stop → pick "DO NOT CONTACT" in their row's Call outcome (Status then shows DO NOT CONTACT) the same day.
+  - Anyone asking to stop → pick "DO NOT CONTACT" in their row's Call outcome (Status then shows DO NOT CONTACT) the same day, and add their phone (last 10 digits) and email to the "Do-not-contact list" tab, so a deleted row never forgets the request.
 - **After every call, pick a value from Call outcome (column Y)**, including on rows that say "Call 8am". **Status fills itself; notes go in Notes**, never in Call outcome. Don't type over Status.
   - The values: No answer, Voicemail, Busy/declined, Reached - booked, Reached - call back, Reached - on list, Reached - not interested, Found another dentist – leave list, Wrong number, Withdrew, DO NOT CONTACT. This matches the waiting-list chat's caller script and the leaflet chat's tracking.gs.
   - Before the practice opens, pick "Reached - on list", not "Reached - booked".
   - People still registered at another practice who want to join stay on the list: write their practice in "Current practice" (or Notes if there's no such column). Use "Found another dentist – leave list" only if they want to come off.
   - The script then sets Status, counts the attempt, sets "Next call due" and logs the call. A row left blank or on "Call 8am" counts as not yet called in the 8am summary, the overload email and the 9pm report.
   - Rows marked "Duplicate" are repeat sign-ups and don't need a call; check the earlier row named in Notes.
-- **After reaching someone, fill in** Postcode, No. of People, Adult/Child/Family and Currently Registered? (neither form asks them). For rows with Source website, also ask how they heard about us.
+- **After reaching someone, fill in** whichever of Postcode, No. of People, Adult/Child/Family and Currently Registered? are still blank. For rows with Source website, also ask how they heard about us.
 - **What callers must say on every call:** their name, "Kirkcaldy Dental & Implant Clinic" and why they're calling (the person joined the waiting list). Then:
   - joining isn't registration;
   - in Scotland, registering with a new practice ends their registration at their old one, but nothing changes until we invite them;

@@ -27,7 +27,7 @@ Upload into the right subfolder and **trash the old version** (no "FINAL v2/v3" 
 - Location line: full address everywhere: **23–25 Tolbooth Street, Kirkcaldy KY1 1RW** (owner wants the full address, not just "Tolbooth Street")
 - CTA: Join waiting list · kirkcaldydental.co.uk/register · info@kirkcaldydental.co.uk
 - Family line (Ad B / leaflet): For Kirkcaldy families · "Adults, children and families can all join"
-- NOT allowed: "taking on / accepting / registering NHS patients", "limited places", "first come first served", NHS logo.
+- NOT allowed: "taking on / accepting / registering NHS patients", "limited places", "first come first served", "free NHS dentist", "guaranteed", NHS logo.
 
 ## Look
 - Cream `#F6F2EA` · deep gold `#8A6A2C` / `#8E6B2E` · light gold `#B8964F` / `#D9BD82` · charcoal `#30363B` · ink `#262B30`

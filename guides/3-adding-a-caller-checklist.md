@@ -17,7 +17,7 @@ Tick each line. Don't switch the alerts to the new caller until steps 1 to 5 are
 
 ## Switch the alerts on (Apps Script → Project Settings → Script Properties)
 6. **ONCALL_MOBILE** = the mobiles of **every caller on shift**, UK mobiles only (07… or +447…), comma-separated, for example `+447700900111,+447700900222`. Each lead alert goes to ONE caller. If someone is off for a day, take their number out for that day, or ask browser Claude to set ONCALL_MOBILE_UNTIL for a temporary change. **Never leave ONCALL_MOBILE blank:** a blank number stops every alert without any warning text.
-7. **ALERT_MODE** = `rotate` (as soon as there are two or more callers). Each lead goes to the next caller in turn, so no two people ring the same person.
+7. **ALERT_MODE** = `rotate` (always, even with one caller, so adding a second caller can never double-alert). Each lead goes to the next caller in turn, so no two people ring the same person.
 8. **BACKLOG_ALERT** = `15` (two or more callers).
 9. **OWNER_MOBILE** stays empty. The owner gets email copies, not texts.
 
