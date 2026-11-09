@@ -249,7 +249,7 @@ Procedure:
 4. **Report to the ICO within 72 hours** of becoming aware, if the breach is likely to result in a risk to individuals. Include the DPO's name and contact. If all the facts are not yet known, report what is known and follow up. It may help to talk to the indemnity provider first, but do not miss the 72-hour deadline.
 5. **Tell the individuals** without undue delay if the breach is likely to result in a high risk to them (for example identity theft or breach of confidentiality).
 6. If a processor (for example Dentally, Google, ClickSend) has a breach, they must tell us as soon as they are aware; we then report to the ICO within 72 hours.
-7. **NHS breaches**: also inform NHS Fife Information Governance (via switchboard 01592 643355) where NHS systems or NHS patient data are involved.
+7. **NHS breaches**: also inform NHS Fife Information Governance (fife.dataprotection@nhs.scot; switchboard 01592 643355) where NHS systems or NHS patient data are involved.
 8. **Record every breach**, including those not reported to the ICO, in the breach log: what happened, data and people affected, actions, whether reported and why or why not, and lessons learned. Discuss at a practice meeting and treat it as a significant event (see 37-risk-management-and-significant-events.md).
 
 Failure to report a notifiable breach can lead to a fine, in addition to a fine for the breach itself.
@@ -344,7 +344,7 @@ Patients' contact details and medical histories are checked at each appointment.
 2. Disconnect the affected device from the network (unplug the cable / turn off Wi-Fi). Do not switch it off unless told to by IT support.
 3. **Within 30 minutes of discovery (ideally):**
    - Contact **Practitioner Services Division (PSD)** on 0345 034 2458 (nss.psddental@nhs.scot) to report it and have the CAT20/SWAN connection cut to protect the NHS network. If NSS cannot disable it remotely straight away, unplug the SWAN router.
-   - Phone the **NHS Fife Information Governance Lead** (via NHS Fife switchboard 01592 643355) immediately. (If the owner has practices in other Board areas, tell them too.)
+   - Phone the **NHS Fife Information Governance Lead** (fife.dataprotection@nhs.scot; switchboard 01592 643355) immediately. (If the owner has practices in other Board areas, tell them too.)
    - Phone the **IT support company** [phone] to report the attack and arrange cleansing of the systems.
 4. Contact **Dentally** support [phone/email] (and other software suppliers) to report the attack and discuss recovering data once the system is clean.
 5. Report to **Police Scotland** (101) if applicable.

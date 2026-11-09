@@ -202,7 +202,7 @@ Midazolam is the only controlled drug that a primary care dental practice is jus
 
 1. The Practice Owner / Principal Dentist [Nas] is the dentist with overall responsibility for midazolam.
 2. The practice adopts the **Controlled Drug Standard Operating Procedure (SOP) Template for GDPs** (CDAO Network, NHS Scotland). It covers obtaining, recording, security, storage and denaturing, and names who does what. Adopted on [date].
-3. NHS Fife CDAO contact details: [name, phone, email] – kept in the SOP and in the key contacts list (38-business-continuity-plan.md).
+3. NHS Fife CDAO (Director of Pharmacy and Medicines) via the Fife Controlled Drugs Governance Team: fife.cd@nhs.scot, 01383 565351 – kept in the SOP and in the key contacts list (38-business-continuity-plan.md).
 4. Emergency midazolam is kept in the emergency drugs box with the other emergency drugs, so it can be reached at once. The drugs box is kept [out of public reach / in a staff-only area].
 5. If the practice provides conscious sedation with midazolam, sedation stock is kept in a locked cupboard, and flumazenil (antagonist) is available. [Delete if no sedation.]
 

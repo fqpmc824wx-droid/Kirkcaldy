@@ -157,7 +157,7 @@ The Practice Manager checks the following at the access survey and then [monthly
 - Keep background noise low (sound insulation, quiet areas, soft surfaces where possible).
 - Face the patient, make sure your face is lit, and remove your mask when speaking if it is safe to do so.
 - Offer to write things down. Offer appointment reminders by SMS or email.
-- Book a British Sign Language/English interpreter where needed [via NHS Fife interpreting service – contact: [number]; private patients: [provider]]. Book interpreters when making the appointment. Do not rely on family members, especially children, to interpret clinical information.
+- Book a British Sign Language/English interpreter where needed [via NHS Fife interpreting help: 01592 729130, fife.equalityandhumanrights@nhs.scot (text 07805 800005); Fife Council Deaf Communication Service 03451 55 15 03; private patients: [provider]]. Book interpreters when making the appointment. Do not rely on family members, especially children, to interpret clinical information.
 - Consider Makaton for patients who use it.
 - Induction loop at reception [and in Surgery X] – technical advice needed to install. Staff know how to switch it on and test it [weekly]. A loop sign is displayed.
 - Consider equipment for deaf and hard-of-hearing people, such as a visible light for the door release and visual fire alarm beacons (placed at a height that avoids burns from hot lights).

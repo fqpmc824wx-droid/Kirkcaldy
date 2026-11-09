@@ -18,7 +18,11 @@ The policies have about 440 [square-bracket] gaps. Most repeat. Fill in the answ
 ## Filled in from public sources (checked online, 9 Nov 2026)
 These are now in the policies. Please check them once a year.
 - NHS Fife Patient Experience (complaints): fife.patientexperience@nhs.scot, 01592 648153
-- NHS Fife switchboard: 01592 643355 (child protection team, occupational health, information governance, out-of-hours public health)
+- NHS Fife switchboard: 01592 643355 (child protection team, out-of-hours public health)
+- NHS Fife Occupational Health & Wellbeing: 01592 729401, fife.occhealth@nhs.scot
+- NHS Fife data protection / information governance: fife.dataprotection@nhs.scot
+- NHS Fife Controlled Drugs Governance Team (for the CDAO): fife.cd@nhs.scot, 01383 565351
+- NHS Fife interpreting help: 01592 729130, fife.equalityandhumanrights@nhs.scot · Fife Council Deaf Communication Service: 03451 55 15 03
 - Fife Dental Advice Line (urgent care, Mon–Fri 8.30am–5pm): 01592 226555, fife.dentaladviceline@nhs.scot · out of hours: NHS 24 on 111
 - East Region Health Protection Team: 0300 790 6264 (Mon–Fri 9am–6pm)
 - Fife Council Social Work Contact Centre (children): 03451 55 15 03 · Adult Protection Phone Line: 01383 602200 · out of hours: 03451 55 00 99
@@ -30,7 +34,11 @@ These are now in the policies. Please check them once a year.
 - Disclosure Scotland (PVG): 0300 020 0040
 - Practice phone 01592 214225 and the company name (Lang Toun Smiles Ltd) are filled in everywhere.
 
-**Still blank, because only you know them:** staff names, outside companies you choose, account numbers and practice decisions (below). No direct number was published for NHS Fife Occupational Health or Information Governance, so the policies use the switchboard for now.
+**Still blank, because only you know them:** staff names, outside companies you choose, account numbers and practice decisions (below). Not published online: the NHS Fife Waste Management Officer (ask NHS Fife; NHS Fife collects dental clinical waste under the PCA(D)5 scheme, so you may not need a private waste contractor).
+
+**Suggestions you can choose from (not chosen for you):**
+- Radiation Protection Adviser: UKHSA Dental X-ray Protection Services is used by over 2,500 UK practices. Or ask your X-ray supplier who they use.
+- Clinical waste: NHS Fife (PCA(D)5 scheme) – ask NHS Fife to set up collections.
 
 ## 1. People (the roles register) – please give a name for each
 | Role | Name | Deputy |

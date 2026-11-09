@@ -200,7 +200,7 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Data Protection Lead | [Name] | [mobile] | |
 | NHS Fife – primary care dental services | NHS Fife | 01592 643355 (switchboard) | |
 | NHS Fife urgent dental care (for patients) | Fife Dental Advice Line (Mon–Fri 8.30am–5pm); out of hours NHS 24 | 01592 226555 · 111 | fife.dentaladviceline@nhs.scot |
-| NHS Fife Controlled Drugs Accountable Officer | [Name] | [phone] | [email] |
+| NHS Fife Controlled Drugs Accountable Officer | Director of Pharmacy and Medicines (via CD Governance Team) | 01383 565351 | fife.cd@nhs.scot |
 | Practitioner Services (NSS) | NHS National Services Scotland | 0345 034 2458 | nss.psddental@nhs.scot |
 | Electricity – power cuts | SP Energy Networks | 105 | |
 | Electricity supplier (account) | [supplier] | [phone] | Account [no.] |

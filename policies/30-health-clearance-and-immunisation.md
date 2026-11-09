@@ -57,7 +57,7 @@ PSM pages:
 ### 5.1 Occupational Health arrangements
 
 1. NHS Boards provide occupational health services to dentists with an NHS list number and to staff in practices providing NHS treatment (CDO letter, 2018). Provision may differ between Boards.
-2. The Practice Manager confirms with **NHS Fife OHS** what is available to our staff, eligibility, how to refer, and costs for any private-only staff [contact name, phone, email].
+2. The Practice Manager confirms with **NHS Fife OHS** what is available to our staff, eligibility, how to refer, and costs for any private-only staff [NHS Fife Occupational Health & Wellbeing: 01592 729401, fife.occhealth@nhs.scot].
 3. For any staff not covered by NHS Fife OHS, the practice uses [private OHS provider / the staff member's GP].
 
 ### 5.2 Assessing each post for EPPs
