@@ -148,6 +148,7 @@ function trkOnSheetEdit(e) {
   } finally {
     if (locked) lock.releaseLock();
   }
+  trkMark("trkOnSheetEdit");
 }
 
 // Call outcome picked → attempt, Status, timestamps, Next call due; clears the outcome cell
@@ -218,6 +219,7 @@ function trkRetryCheck() {
   if (Date.now() - last < 2 * 36e5) return;
   p.setProperty("TRK_RETRY_LAST", String(Date.now()));
   alertTeam(n + " call-backs due now - see the Waiting list (Next call due)", false);
+  trkMark("trkRetryCheck");
 }
 function trkOverdueRetries(now) {
   var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String);
@@ -283,6 +285,7 @@ function trkPullSmsHistory() {
     if (!isNaN(bal) && bal < 10) healthNotifyOnce("SMS_BALANCE", "⚠️ ClickSend credit is low (£" + bal.toFixed(2) + ")",
       "Top up ClickSend soon, or texts to new leads will stop.");
   }
+  trkMark("trkPullSmsHistory");
 }
 function trkDeliveryLabel(m) {
   var s = String(m.status || "").toUpperCase();
@@ -308,6 +311,7 @@ function trkScanBounces() {
   if (ec === -1 || xc === -1) return;
   for (var i = 1; i < data.length; i++)
     if (bounced[String(data[i][ec]).trim().toLowerCase()] && data[i][xc] !== "Bounced") sh.getRange(i + 1, xc + 1).setValue("Bounced");
+  trkMark("trkScanBounces");
 }
 
 // ---------- daily snapshot (21:10) ----------
@@ -367,6 +371,7 @@ function trkDailySnapshot() {
   }
   trkTab(TRK_DAILY_TAB, TRK_DAILY_HEADERS).appendRow([trkAt(now, 0, 0, 0), gross, uniq, metaU, organic, attempts, reached, booked, noAns,
     backlog.waiting, backlog.oldestMins, trkOverdueRetries(now), needsUpdate, smsSent, smsFailed, emailBad, dncToday, budget, spend, shift]);
+  trkMark("trkDailySnapshot");
 }
 
 // ---------- weekly email (Mon 07:30) ----------
@@ -384,6 +389,7 @@ function trkWeeklyEmail() {
     try { MailApp.sendEmail({ to: e, subject: "Kirkcaldy Dental – weekly numbers", htmlBody: html, body: "Open the sheet: " + ss.getUrl() }); }
     catch (err) { console.error("Weekly email failed: " + err); }
   });
+  trkMark("trkWeeklyEmail");
 }
 
 // ---------- weekly backup (Sun 23:30): a dated copy of the whole sheet, view-only, last 8 kept ----------
@@ -397,6 +403,7 @@ function trkWeeklyBackup() {
   while (files.hasNext()) { var f = files.next(); if (/ – backup \d{4}-\d{2}-\d{2}$/.test(f.getName())) old.push(f); }
   old.sort(function (a, b) { return b.getDateCreated() - a.getDateCreated(); });
   old.slice(8).forEach(function (f) { f.setTrashed(true); });
+  trkMark("trkWeeklyBackup");
 }
 
 // ---------- retention: REPORT ONLY (1st of the month, 07:00) ----------
@@ -404,8 +411,9 @@ function trkWeeklyBackup() {
 // It deletes NOTHING. Real deletion is switched on only after the owner signs the retention schedule.
 //   Waiting list: 12 months from sign-up (or from "Re-confirmed at" if they asked to stay on)
 //   Call log, SMS log: 12 months · Visits: 90 days · Failed sign-ups: 30 days
+// (literal tab name, not LEADS_TAB: this runs while the file loads, possibly before the file that declares LEADS_TAB)
 var TRK_RETENTION = [
-  { tab: LEADS_TAB, dateCols: ["Re-confirmed at", "Signup Time"], days: 365 },
+  { tab: "Waiting list", dateCols: ["Re-confirmed at", "Signup Time"], days: 365 },
   { tab: "Call log", dateCols: ["Timestamp"], days: 365 },
   { tab: "SMS log", dateCols: ["Sent at"], days: 365 },
   { tab: "Visits", dateCols: ["Visit Time"], days: 90 },
@@ -428,4 +436,8 @@ function trkPurgeReport() {
   });
   var rep = trkTab("Purge report", ["Checked at", "Tab", "Keep (days)", "Rows past the limit", "Oldest such row", "Action"]);
   rep.getRange(rep.getLastRow() + 1, 1, out.length, out[0].length).setValues(out);
+  trkMark("trkPurgeReport");
 }
+
+// Tell the health checks (leads/health.gs) this job finished
+function trkMark(job) { if (typeof healthMark === "function") try { healthMark(job, true); } catch (x) {} }
