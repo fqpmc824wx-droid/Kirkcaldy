@@ -29,7 +29,7 @@ Build it in **Ads Manager**, during ad creation: Destination → Instant form �
 |---|---|---|---|---|
 | 1 | User information → **Full name** | Meta's own "Full name" | **Required** | The caller greets them by name, the text uses the first name, and NHS registration needs it. Use one Full name field, not First + Last. |
 | 2 | Contact fields → **Phone number** (never "Work phone number") | Meta's own "Phone number" | **Required.** If the editor shows it as "optional", switch that off. | Every text, caller alert, call and repeat check depends on it. Required is what makes the text-code check available. |
-| 3 | Contact fields → **Email** | Meta's own "Email" | **Optional** if the editor offers it. If not, leave it Required (the owner accepted either). Leave "Collect work email address" **off**. | For the confirmation email and as a backup contact. Meta fills it in for most people. |
+| 3 | Contact fields → **Email** | Meta's own "Email" | **Required** (owner decision 9 Nov). Leave "Collect work email address" **off**. | For the confirmation email and as a backup contact. Meta fills it in for most people. |
 
 - **Do NOT add:** Post code, First/Last name, "How many people", "Who is this for?", "Are you currently registered…", or anything else. The caller collects all of those on the call.
 - Settings → **Field names: leave the defaults** (full_name, phone_number, email). The script finds the fields by these names.

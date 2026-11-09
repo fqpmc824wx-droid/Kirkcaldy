@@ -39,7 +39,7 @@ Give this whole note to Claude in the browser. Do the steps in order. Ask the ow
 6. ~~Emails → create mailbox~~ **SKIP:** info@kirkcaldydental.co.uk is already a Google Workspace mailbox. Don't create a Hostinger mailbox or change MX/SPF/nameservers.
 
 ## Step 2 – Meta lead form (final spec v1, 8 Nov)
-*Copied from research/FORMS-meta-instant-form.md (the owner's fields: name and phone required; email optional, pending owner decision, see OWNER-DECISIONS.md). One change from that file: the owner says NHS approval already exists, so no new NHS Fife letter is needed. Keep a copy of the existing approval instead (gate 1 below).*
+*Copied from research/FORMS-meta-instant-form.md (the owner's fields: name, phone and email all required (owner decision 9 Nov)). One change from that file: the owner says NHS approval already exists, so no new NHS Fife letter is needed. Keep a copy of the existing approval instead (gate 1 below).*
 
 Build it in **Ads Manager**, during ad creation: Destination → Instant form → Create form. Don't use Business Suite. The order is in BROWSER-CLAUDE-LAUNCH.md §4 (draft campaign and ad set first). **Save as DRAFT.** Show the owner the phone preview and publish only after a clear "yes". A published form can't be edited, only duplicated, and the copy gets a new Form ID.
 
@@ -68,7 +68,7 @@ Build it in **Ads Manager**, during ad creation: Destination → Instant form �
 - Contact information (+ Add category). Use exactly these three fields, in this order:
   1. User information → **Full name**: **Required.** One Full name field, not First + Last. The caller greets them by name, and the text uses the first name.
   2. Contact fields → **Phone number** (never "Work phone number"): **Required.** If the editor shows it as "optional", switch that off. Every text, caller alert, call and repeat check depends on it, and Required is what makes the text-code check available.
-  3. Contact fields → **Email**: Required or Optional, pending owner decision, see OWNER-DECISIONS.md (the owner accepted either). Leave "Collect work email address" **off**.
+  3. Contact fields → **Email**: **Required** (owner decision 9 Nov). Leave "Collect work email address" **off**.
 - **Do NOT add:** Post code, First/Last name, "How many people", "Who is this for?", "Are you currently registered…", or anything else. The caller collects all of those on the call.
 - Settings → **Field names: leave the defaults** (full_name, phone_number, email). The script finds the fields by these names.
 

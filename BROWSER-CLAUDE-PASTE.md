@@ -102,7 +102,7 @@ STRATEGY (from the ads chat; follow exactly):
 - Text: exactly as in BROWSER-CLAUDE-LAUNCH.md §7 / HANDOFF.md Step 5 (primary text A and B, Stories text, 3 headlines, description). Button: Sign up.
 - Advantage+ creative: EVERY enhancement OFF (text variations, image text changes, overlays, music, image expansion, touch-ups, AI variants). Lead capture AI agent OFF. Follow-up chat channels OFF.
 - Instant Form: build it inside Ad A, as in BROWSER-CLAUDE-LAUNCH.md §4.
-  - More volume; fields Full name, Phone (required, with SMS code verification on each ad), Email (required or optional: wait for Hamza's answer).
+  - More volume; fields Full name, Phone (required, with SMS code verification on each ad), Email (REQUIRED – Hamza decided).
   - The disclaimer and optional marketing box exactly as written there. Completion button → https://kirkcaldydental.co.uk/?src=fb-form-done.
   - SAVE THE FORM AS DRAFT ONLY. It can't be published until the privacy page https://kirkcaldydental.co.uk/privacy.html is live, because a published form can't be edited.
 

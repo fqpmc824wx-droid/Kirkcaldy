@@ -5,6 +5,8 @@ Where it says "owner's words", that is what the owner actually said in the ads c
 
 ## Answered
 
+- **FORMS – FINAL (Hamza, 9 Nov, ads chat): EMAIL IS REQUIRED.** Facebook form: Full name*, Phone* (SMS code), Email*. Website: name*, phone*, email*, postcode (optional), how many people. This overrides the "email optional" lines below.
+
 ### Leads, calls and texts
 - **Calling hours: 8am–9pm, no calls after 9pm.** Overnight sign-ups get the instant text and are called from 8am. (Owner: "after 9 p.m. nobody, you shouldn't be calling them.")
 - **Callers are not a limit.** Owner's words: "Caller shouldn't be an issue." Staff are available (around 100 remote staff). Start with 1–2 people. Add callers as sign-ups grow (about one per 20–25 new sign-ups a day). Never cut the budget because of callers unless nobody is available.
