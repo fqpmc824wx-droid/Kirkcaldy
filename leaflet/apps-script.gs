@@ -109,19 +109,22 @@ function websiteHandlePost(e) {
       "How heard": clean(p.heard),
       "Visit ID": (p.vid || p.visit) ? "'" + String(p.vid || p.visit).replace(/[^a-z0-9\-_]/gi, "").slice(0, 40) : ""
     };
+    // Owner/health switch WEB_SMS_PAUSED = true: save the row only – no texts, no caller alert, no emails
+    var paused = /^(1|true|yes|on)$/i.test(String(PropertiesService.getScriptProperties().getProperty("WEB_SMS_PAUSED") || ""));
     if (repeat) values["Notes"] = "Already on the list (same phone/email) - see " + seen.firstId + (seen.recent ? "; no text sent" : "");
     // "new lead" alert (calling hours only) – sent before the row is written so the sheet shows who has it.
-    if (inHours && !blocked && !quiet) values["Assigned to"] = "'" + alertTeam((repeat ? "REPEAT \u2013 " : "") +
+    if (paused && !blocked) values["Notes"] = (values["Notes"] ? values["Notes"] + "; " : "") + "paused - check";
+    if (inHours && !blocked && !quiet && !paused) values["Assigned to"] = "'" + alertTeam((repeat ? "REPEAT \u2013 " : "") +
       "\uD83E\uDDB7 NEW LEAD (" + src + ") \u2013 call now: " + name.slice(0, 40) + " " + String(p.phone || "").slice(0, 20));
 
     // Thank-you text (one SMS) and email – also before the row is written, so SMS/Email status go in the same row
-    var r = null, paused = /^(1|true|yes|on)$/i.test(String(PropertiesService.getScriptProperties().getProperty("WEB_SMS_PAUSED") || ""));
+    var r = null;
     if (paused && !blocked) values["SMS status"] = "Paused";   // owner switch: Script Property WEB_SMS_PAUSED = true
     if (!paused && !blocked && !repeat) r = sendSms(p.phone, leadText(first, inHours));
     if (!paused && repeat && !seen.recent) r = sendSms(p.phone, websiteRepeatText(first));
     if (r && typeof r === "object") { values["SMS ID"] = "'" + String(r.id || ""); values["SMS status"] = r.status === "SUCCESS" ? "Sent" : "Failed: " + r.status; }
     if (!r && !paused && !blocked && !repeat && !/^\+447\d{9}$/.test(ukMobile(p.phone))) values["SMS status"] = "Not sent: not a mobile";   // landlines get a call, not a text
-    if (SEND_EMAIL && !blocked && !repeat && p.email) values["Email status"] = websiteConfirmEmail(p.email, first);
+    if (SEND_EMAIL && !paused && !blocked && !repeat && p.email) values["Email status"] = websiteConfirmEmail(p.email, first);
 
     sh.appendRow(headers.map(function (h) { return values.hasOwnProperty(h) ? values[h] : ""; }));
   } finally {
@@ -129,7 +132,7 @@ function websiteHandlePost(e) {
   }
 
   // In calling hours the owner already got the NEW LEAD alert by email (alertTeam → OWNER_EMAIL), so this note is only sent out of hours
-  if (NOTIFY && !blocked && !quiet && !(inHours && PropertiesService.getScriptProperties().getProperty("OWNER_EMAIL"))) {
+  if (NOTIFY && !paused && !blocked && !quiet && !(inHours && PropertiesService.getScriptProperties().getProperty("OWNER_EMAIL"))) {
     try { MailApp.sendEmail(NOTIFY, "New sign-up (" + src + "): " + first, "A new person joined the waiting list on the website. See the Waiting List sheet."); }
     catch (err) { console.error("Notify email failed: " + err); }
   }
@@ -341,6 +344,7 @@ function smsWithinCaps() {
 // Logs a failed text and tells the owner by email (wrong keys, no credit, sender ID not approved…)
 function smsFailed(detail, status, body) {
   console.error("SMS failed: " + detail);
+  if (typeof healthSmsCheck === "function") return;   // health.gs reports failed texts itself (one P1/P2), so no second email from here
   // no credit, or a caller alert that didn't go out: tell the owner straight away (own keys, so the 3h limit of other errors doesn't hide it)
   if (typeof healthNotifyOnce === "function" && /INSUFFICIENT_CREDIT/.test(String(status)))
     healthNotifyOnce("SMS_ERR_CREDIT", "\u26A0\uFE0F ClickSend is out of credit – texts are not being sent", "Top up ClickSend now.\n\n" + detail.slice(0, 500));

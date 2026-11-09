@@ -95,7 +95,7 @@ var TRK_OUTCOME_STATUS = {
 };
 var TRK_ATTEMPT_STATUSES = ["Called", "No answer", "Booked", "Not interested", "Wrong number"];
 
-function trkOnSheetEdit(e) {
+function trkOnSheetEdit_(e) {
   if (!e || !e.range) return;
   var sh = e.range.getSheet();
   if (sh.getName() !== LEADS_TAB) return;
@@ -148,7 +148,6 @@ function trkOnSheetEdit(e) {
   } finally {
     if (locked) lock.releaseLock();
   }
-  trkMark("trkOnSheetEdit");
 }
 
 // Call outcome picked → attempt, Status, timestamps, Next call due; clears the outcome cell
@@ -210,7 +209,7 @@ function trkSetStatus(row, C, status, now) {
 }
 
 // ---------- call-back reminder (every 15 min, calling hours) ----------
-function trkRetryCheck() {
+function trkRetryCheck_() {
   var w = trkWindow(), now = new Date(), hr = trkHour(now);
   if (hr < w.from || hr >= w.to) return;
   var n = trkOverdueRetries(now);
@@ -219,7 +218,6 @@ function trkRetryCheck() {
   if (Date.now() - last < 2 * 36e5) return;
   p.setProperty("TRK_RETRY_LAST", String(Date.now()));
   alertTeam(n + " call-backs due now - see the Waiting list (Next call due)", false);
-  trkMark("trkRetryCheck");
 }
 function trkOverdueRetries(now) {
   var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String);
@@ -245,7 +243,7 @@ function trkSmsType(body) {
 }
 
 // Daily 06:15: delivery results for the last 3 days from ClickSend, plus a low-balance alarm
-function trkPullSmsHistory() {
+function trkPullSmsHistory_() {
   var p = PropertiesService.getScriptProperties(), user = p.getProperty("CLICKSEND_USER"), key = p.getProperty("CLICKSEND_KEY");
   if (!user || !key) return;
   var auth = { Authorization: "Basic " + Utilities.base64Encode(user + ":" + key) };
@@ -285,7 +283,6 @@ function trkPullSmsHistory() {
     if (!isNaN(bal) && bal < 10) healthNotifyOnce("SMS_BALANCE", "⚠️ ClickSend credit is low (£" + bal.toFixed(2) + ")",
       "Top up ClickSend soon, or texts to new leads will stop.");
   }
-  trkMark("trkPullSmsHistory");
 }
 function trkDeliveryLabel(m) {
   var s = String(m.status || "").toUpperCase();
@@ -296,7 +293,7 @@ function trkDeliveryLabel(m) {
 }
 
 // ---------- email bounces (daily 06:45) ----------
-function trkScanBounces() {
+function trkScanBounces_() {
   var threads = GmailApp.search("from:(mailer-daemon OR postmaster) newer_than:2d"), bounced = {};
   threads.forEach(function (t) {
     t.getMessages().forEach(function (m) {
@@ -311,11 +308,10 @@ function trkScanBounces() {
   if (ec === -1 || xc === -1) return;
   for (var i = 1; i < data.length; i++)
     if (bounced[String(data[i][ec]).trim().toLowerCase()] && data[i][xc] !== "Bounced") sh.getRange(i + 1, xc + 1).setValue("Bounced");
-  trkMark("trkScanBounces");
 }
 
 // ---------- daily snapshot (21:10) ----------
-function trkDailySnapshot() {
+function trkDailySnapshot_() {
   var now = new Date(), today = trkFmt(now, "yyyy-MM-dd");
   var isToday = function (d) { return d instanceof Date && trkFmt(d, "yyyy-MM-dd") === today; };
   var data = leadsSheet().getDataRange().getValues(), h = data[0].map(String);
@@ -371,11 +367,10 @@ function trkDailySnapshot() {
   }
   trkTab(TRK_DAILY_TAB, TRK_DAILY_HEADERS).appendRow([trkAt(now, 0, 0, 0), gross, uniq, metaU, organic, attempts, reached, booked, noAns,
     backlog.waiting, backlog.oldestMins, trkOverdueRetries(now), needsUpdate, smsSent, smsFailed, emailBad, dncToday, budget, spend, shift]);
-  trkMark("trkDailySnapshot");
 }
 
 // ---------- weekly email (Mon 07:30) ----------
-function trkWeeklyEmail() {
+function trkWeeklyEmail_() {
   var ss = SpreadsheetApp.getActive(), wk = ss.getSheetByName("Weekly");
   var to = String(PropertiesService.getScriptProperties().getProperty("OWNER_EMAIL") || "").split(",").map(function (e) { return e.trim(); }).filter(String);
   if (!wk || !to.length) return;
@@ -389,11 +384,10 @@ function trkWeeklyEmail() {
     try { MailApp.sendEmail({ to: e, subject: "Kirkcaldy Dental – weekly numbers", htmlBody: html, body: "Open the sheet: " + ss.getUrl() }); }
     catch (err) { console.error("Weekly email failed: " + err); }
   });
-  trkMark("trkWeeklyEmail");
 }
 
 // ---------- weekly backup (Sun 23:30): a dated copy of the whole sheet, view-only, last 8 kept ----------
-function trkWeeklyBackup() {
+function trkWeeklyBackup_() {
   var ss = SpreadsheetApp.getActive(), file = DriveApp.getFileById(ss.getId());
   var parent = file.getParents().hasNext() ? file.getParents().next() : DriveApp.getRootFolder();
   var it = parent.getFoldersByName("Backups"), folder = it.hasNext() ? it.next() : parent.createFolder("Backups");
@@ -403,7 +397,6 @@ function trkWeeklyBackup() {
   while (files.hasNext()) { var f = files.next(); if (/ – backup \d{4}-\d{2}-\d{2}$/.test(f.getName())) old.push(f); }
   old.sort(function (a, b) { return b.getDateCreated() - a.getDateCreated(); });
   old.slice(8).forEach(function (f) { f.setTrashed(true); });
-  trkMark("trkWeeklyBackup");
 }
 
 // ---------- retention: REPORT ONLY (1st of the month, 07:00) ----------
@@ -419,7 +412,7 @@ var TRK_RETENTION = [
   { tab: "Visits", dateCols: ["Visit Time"], days: 90 },
   { tab: "Failed sign-ups", dateCols: ["Time"], days: 30 }
 ];
-function trkPurgeReport() {
+function trkPurgeReport_() {
   var ss = SpreadsheetApp.getActive(), now = new Date(), out = [];
   TRK_RETENTION.forEach(function (r) {
     var sh = ss.getSheetByName(r.tab), due = 0, oldest = "";
@@ -436,8 +429,25 @@ function trkPurgeReport() {
   });
   var rep = trkTab("Purge report", ["Checked at", "Tab", "Keep (days)", "Rows past the limit", "Oldest such row", "Action"]);
   rep.getRange(rep.getLastRow() + 1, 1, out.length, out[0].length).setValues(out);
-  trkMark("trkPurgeReport");
 }
 
-// Tell the health checks (leads/health.gs) this job finished
-function trkMark(job) { if (typeof healthMark === "function") try { healthMark(job, true); } catch (x) {} }
+// Trigger entry points: run the job and report every finish (ok or failed) to the health checks
+function trkRun(job, fn, args) {
+  var t0 = Date.now();
+  try {
+    var r = fn.apply(null, args);
+    if (typeof healthMark === "function") try { healthMark(job, true, Date.now() - t0); } catch (x) {}
+    return r;
+  } catch (err) {
+    if (typeof healthMark === "function") try { healthMark(job, false, Date.now() - t0, String(err).slice(0, 300)); } catch (x) {}
+    throw err;
+  }
+}
+function trkOnSheetEdit(e) { return trkRun("trkOnSheetEdit", trkOnSheetEdit_, [e]); }
+function trkRetryCheck(e) { return trkRun("trkRetryCheck", trkRetryCheck_, [e]); }
+function trkPullSmsHistory(e) { return trkRun("trkPullSmsHistory", trkPullSmsHistory_, [e]); }
+function trkScanBounces(e) { return trkRun("trkScanBounces", trkScanBounces_, [e]); }
+function trkDailySnapshot(e) { return trkRun("trkDailySnapshot", trkDailySnapshot_, [e]); }
+function trkWeeklyEmail(e) { return trkRun("trkWeeklyEmail", trkWeeklyEmail_, [e]); }
+function trkWeeklyBackup(e) { return trkRun("trkWeeklyBackup", trkWeeklyBackup_, [e]); }
+function trkPurgeReport(e) { return trkRun("trkPurgeReport", trkPurgeReport_, [e]); }

@@ -142,3 +142,5 @@ Setting Status directly still counts as an attempt (Called, No answer, Booked, N
 
   Real deletion is switched on only after the owner signs the retention schedule.
 - Daily log budget/spend come from Script Properties `ADS_DAILY_BUDGET` / `ADS_TODAY_SPEND` (set by the ads script), or from an "Ad status" tab.
+
+**With health.gs installed:** after pasting it, run `healthAddMissingHeaders()` once so row 1 has all the headers it expects. Otherwise doPost replies "error". While `WEB_SMS_PAUSED` is on, website sign-ups are only saved: no text, no caller alert, no emails, and Notes says "paused - check".
