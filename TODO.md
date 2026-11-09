@@ -1,7 +1,7 @@
 # Kirkcaldy Dental – launch to-do list
 
 The one master list for the waiting-list launch. Kept by the To-do chat.
-Last updated: 9 Nov 2026, 01:05. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
+Last updated: 9 Nov 2026, 01:10. Also in Google Drive: "Kirkcaldy Dental – Print files & marketing" → "9. Launch to-do list".
 
 Row numbers match research/TODO-whats-left.md, so every chat talks about the same row.
 
@@ -93,11 +93,11 @@ Row numbers match research/TODO-whats-left.md, so every chat talks about the sam
 
 | # | What | Who | When | Status |
 |---|---|---|---|---|
-| 73 | Install the health checks: add the missing headers, paste health.gs, set the HEALTH_* settings. | Browser Claude | Setup night | Ready (code done) |
-| 74 | Outside monitors: healthchecks.io (3 checks) and UptimeRobot (5 monitors; the website ones once hosting is live). | Browser Claude | Setup night | Ready |
-| 75 | Fire drill (8 steps) with the owner watching, then put the test settings back. | Browser Claude + Owner | Setup night, before the ads go live | Ready |
-| 76 | Facebook automatic rules: tell us at £5 per lead, pause at £8, plus the frequency, "£15 spent and 0 leads" and daily-leads rules. | Browser Claude | Setup night | Ready |
-| 77 | Safety re-check after everything is merged into main. | Safety chat | Before setup night | Waiting for the merge |
+| 73 | Install the health checks: add the missing headers, paste health.gs, set the HEALTH_* settings. | Browser Claude | Setup night | In the runbook (step order set by the ads chat) |
+| 74 | Outside monitors: healthchecks.io (3 checks) and UptimeRobot (5 monitors; the website ones once hosting is live). | Browser Claude | Setup night | In the runbook (step order set by the ads chat) |
+| 75 | Fire drill (8 steps) with the owner watching, then put the test settings back. | Browser Claude + Owner | Setup night, before the ads go live | In the runbook (step order set by the ads chat) |
+| 76 | Facebook automatic rules: tell us at £5 per lead, pause at £8, plus the frequency, "£15 spent and 0 leads" and daily-leads rules. | Browser Claude | Setup night | In the runbook (step order set by the ads chat) |
+| 77 | Safety re-check after everything is merged into main. | Safety chat | Before setup night | In the runbook (top). Waiting for the merge |
 
 ## Before the ads start
 
