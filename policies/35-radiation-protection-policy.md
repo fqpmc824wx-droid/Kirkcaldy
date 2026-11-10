@@ -28,7 +28,7 @@ This policy covers all use of dental X-ray equipment at the practice:
 - intra-oral X-ray units in [number] surgeries: [Surgery 1, Surgery 2, …];
 - digital intra-oral detectors (sensors and/or phosphor plates) and plate reader [model];
 - panoramic (OPG) unit [if applicable – model and room];
-- cone beam CT (CBCT) unit for implant planning [if applicable – model and room];
+- cone beam CT (CBCT) unit for implant planning: the practice has a CBCT scanner [model and room];
 - hand-held X-ray unit [if applicable – normally not used];
 - imaging software and viewing monitors, including integration with Dentally [software name].
 
@@ -87,7 +87,7 @@ PSM pages (all under https://www.psm.sdcep.org.uk/topics/radiation-protection/):
 
 **Radiation Protection Supervisor (RPS) [Name]** – appointed in writing by the Employer (PSM *RPS Appointment Letter* template) to help make sure the practice complies with IRR17, and in particular to oversee the Local Rules. The RPS is a dentist or DCP with appropriate training, knows and understands the Local Rules and IRR17, has enough authority to supervise radiation work, understands the precautions needed and knows what to do in an emergency. Evidence of RPS training is kept in the file. [A second RPS, [Name], is appointed if needed to supervise all radiation work adequately – e.g. for a separate CBCT room or extended hours.]
 
-**Referrer** – a registered healthcare professional entitled by the Employer to refer a patient for a radiograph, following the Employer's referral criteria. A history and clinical examination are required before a radiograph is requested. Usually a dentist; may be a hygienist or therapist. External referrers (e.g. dentists referring for CBCT [if applicable]) must also be entitled under the Employer's Procedure.
+**Referrer** – a registered healthcare professional entitled by the Employer to refer a patient for a radiograph, following the Employer's referral criteria. A history and clinical examination are required before a radiograph is requested. Usually a dentist; may be a hygienist or therapist. External referrers (e.g. dentists referring for CBCT) must also be entitled under the Employer's Procedure.
 
 **IR(ME)R Practitioner** – a registered healthcare professional entitled to justify and authorise the exposure. Usually a dentist; may be a suitably trained hygienist or therapist. For CBCT, justification needs additional training.
 
@@ -129,7 +129,7 @@ The Employer completes the following **before** any X-ray equipment is used:
 1. Each duty holder is assessed against the registration, qualifications, training and experience needed for the tasks they will carry out. This defines their scope of practice.
 2. Entitlement is recorded using the duty holder competency record in example Employer's Procedure **EP1** (Entitlement of Duty Holders), signed by the Employer.
 3. Locums and new staff are entitled before they take, justify or evaluate any radiograph. Evidence of their training is checked first.
-4. CBCT [if applicable]: only duty holders with the additional training to justify, perform or interpret CBCT examinations are entitled for CBCT. Referrers for CBCT do not need extra training but it is advised.
+4. CBCT (the practice has a CBCT scanner): only duty holders with the additional training to justify, perform or interpret CBCT examinations are entitled for CBCT. Referrers for CBCT do not need extra training but it is advised.
 5. The register of entitled staff is reviewed annually and whenever staff change.
 
 ### 5.3 Radiation risk assessment and protection of staff and the public
