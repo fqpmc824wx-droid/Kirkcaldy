@@ -93,7 +93,7 @@ Rebuild them after any change with `python3 policies/build-word.py`.
 | IPC Lead / Decontamination Lead | [Name] | |
 | Medical Emergencies Lead | [Name] | |
 | Radiation Protection Supervisor (RPS) | [Name] | |
-| Radiation Protection Adviser (RPA) | [Company] | – |
+| Radiation Protection Adviser (RPA) | DD Group, 01376 391100 | – |
 | Raising Concerns contact | [Name] | |
 | Health & safety competent person (external adviser, if used) | [Company] | – |
 | First-aid appointed person | [Name] | |

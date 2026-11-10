@@ -196,7 +196,7 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Deputy | [Name] | [mobile] | |
 | IPC / Decontamination Lead | [Name] | [mobile] | |
 | Radiation Protection Supervisor | [Name] | [mobile] | |
-| Radiation Protection Adviser | [Company] | [phone] | |
+| Radiation Protection Adviser | DD Group | 01376 391100 | |
 | Data Protection Lead | [Name] | [mobile] | |
 | NHS Fife – primary care dental services | NHS Fife | 01592 643355 (switchboard) | |
 | NHS Fife urgent dental care (for patients) | Fife Dental Advice Line (Mon–Fri 8.30am–5pm); out of hours NHS 24 | 01592 226555 · 111 | fife.dentaladviceline@nhs.scot |
@@ -209,17 +209,18 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Telephone / broadband provider | [provider – not decided yet] | [phone] | Account [no.] |
 | Dentally support | Dentally | [phone / support portal] | |
 | IT support | [company] | [phone] | |
-| Imaging software / X-ray engineer | [company] | [phone] | |
-| Dental equipment engineer (chairs, compressor, suction) | [company] | [phone] | Contract [no.] |
+| X-ray and clinical equipment engineer | CJS (same as Glenrothes) | [phone – ask Glenrothes] | |
+| Dental equipment engineer (chairs, compressor, suction) | CJS (same as Glenrothes) | [phone – ask Glenrothes] | Contract [no.] |
 | Decontamination equipment engineer (autoclave, washer-disinfector) | Eschmann (service contract – confirm) | 01903 753322 | Contract [no.] |
-| Medical gas / oxygen supplier | [company] | [phone] | |
-| Clinical waste contractor | [company] | [phone] | |
+| Medical gas / oxygen supplier | SOS Oxygen (Speciality Oxygen Service Ltd) | 01257 254525 | office@sosoxygen.co.uk |
+| Clinical waste | NHS Fife (PCA(D)5 scheme) | 01592 643355 (switchboard – waste management officer) | |
 | Dental supplies | Wrights (Wright Cottrell), Dundee | 0800 66 88 99 | Account [no.] |
 | Dental laboratory | [lab] | [phone] | |
 | Implant system supplier | [company] | [phone] | |
 | Landlord / building manager | [Name] | [phone] | |
 | Plumber | [company] | [phone] | |
-| Electrician | [company] | [phone] | |
+| Fire safety (alarm, extinguishers, risk assessment) | Falcon Fire Safety, Glenrothes | [phone – ask Glenrothes] | |
+| Electrician (EICR, PAT) and legionella assessor | Energycert (same as Glenrothes) | [phone – ask Glenrothes] | |
 | Locksmith / glazier | [company] | [phone] | |
 | Security alarm company | [company] | [phone] | |
 | Practice insurer (via broker) | Premierline (broker) – insurer [company] | 0333 320 6009 | Policy [no.] |

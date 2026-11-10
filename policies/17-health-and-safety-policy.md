@@ -140,9 +140,9 @@ All electrical equipment must be built and maintained to prevent danger.
 
 **Formal visual inspection** by a trained competent person [Name]: dismantle plugs to check connections, fuses and casing; check extension leads; check no furniture sits on cables or blocks sockets. Frequency depends on how often the item is moved – for example kettle or vacuum cleaner 6–12 months; computer screen or phone 2–4 years. New appliances are assessed before first use (e.g. items bought from outwith the EU may have reversed polarity). All inspection results are recorded.
 
-**PAT testing** by a competent person or electrical contractor [Company]. Equipment is labelled and a certificate and report is issued. Frequency is 1–5 years, set by our risk assessment (the law does not set a frequency). Not every item needs a PAT test. User checks continue between tests.
+**PAT testing** by a competent person or electrical contractor (Energycert – same as Glenrothes). Equipment is labelled and a certificate and report is issued. Frequency is 1–5 years, set by our risk assessment (the law does not set a frequency). Not every item needs a PAT test. User checks continue between tests.
 
-**Fixed wiring.** An electrical contractor [Company] inspects and tests the mains installation and advises the retest interval. Date of last test: [date]; next due: [date]. We check whether our insurer requires this.
+**Fixed wiring.** An electrical contractor (Energycert – same as Glenrothes) inspects and tests the mains installation and advises the retest interval. Date of last test: [date]; next due: [date]. We check whether our insurer requires this.
 
 ### 5.5 Pressure vessels (sterilizers and compressors)
 

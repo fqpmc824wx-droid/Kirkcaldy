@@ -53,7 +53,7 @@ The practice records the people involved in legionella risk assessment and contr
 | **Dutyholder** | Practice Owner [Nas] | Makes sure a competent risk assessment is carried out and suitable precautions are in place. Appoints the responsible person. |
 | **Responsible person** (day-to-day control) | IPC Lead / Decontamination Lead [Name] | Manages the written control scheme. Makes sure checks are done and recorded. Observes and documents each staff member carrying out control procedures annually. Starts remedial action. Must have enough authority, competence and knowledge of the water systems. |
 | **Deputy responsible person** | [Name] | Covers absence. |
-| **Risk assessor** | [Company / Name] | Competent to BS 8580-1:2019; understands dental chair units and DUWLs. |
+| **Risk assessor** | Energycert (same as Glenrothes) | Competent to BS 8580-1:2019; understands dental chair units and DUWLs. |
 | **Water services contractor** (if used) | [Company] | Temperature monitoring, tank inspection, remedial works, sampling when needed. |
 | Practice Manager | [Name] | Arranges contractors, keeps the legionella file. |
 | Dental nurses | – | Daily and weekly DUWL and outlet procedures; records. |

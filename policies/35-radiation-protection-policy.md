@@ -99,7 +99,7 @@ In dental practice one person is often Referrer, Practitioner and Operator. Each
 
 ### 4.2 External to the practice
 
-**Radiation Protection Adviser (RPA) – [Company], contact [Name, phone, email]** – appointed in writing, with the scope of advice stated in the appointment (as set out in the Guidance Notes). The RPA must be on the RPA2000 list of holders of the Certificate of Core Competence. The RPA advises on: plans for new or modified X-ray equipment; periodic testing of controls and safety features; systems of work; the radiation risk assessment; designation of controlled areas; the dose investigation level; dose assessment and recording; contingency plans; staff training; and QA programmes.
+**Radiation Protection Adviser (RPA) – DD Group (Dental Directory), 01376 391100, contact [Name, email]** – appointed in writing, with the scope of advice stated in the appointment (as set out in the Guidance Notes). The RPA must be on the RPA2000 list of holders of the Certificate of Core Competence. The RPA advises on: plans for new or modified X-ray equipment; periodic testing of controls and safety features; systems of work; the radiation risk assessment; designation of controlled areas; the dose investigation level; dose assessment and recording; contingency plans; staff training; and QA programmes.
 
 **Medical Physics Expert (MPE) – [Name / Company]** – appointed in writing under IR(ME)R, and on the RPA2000 MPE register. The RPA may act as MPE or suggest one. The MPE advises on measuring and optimising patient dose, diagnostic reference levels (DRLs), choice of X-ray and ancillary equipment, equipment QA, and contributes to training.
 

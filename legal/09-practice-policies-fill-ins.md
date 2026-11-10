@@ -44,6 +44,17 @@ These are now in the policies. Please check them once a year.
 - Website: built and run by Hamza.
 - Possible opening date: beginning of December (suggested, not agreed yet).
 
+**Chosen 10 Nov – same companies as the Glenrothes practice (owner's decision):**
+- Fire safety (alarm, extinguishers, risk assessment): Falcon Fire Safety, Glenrothes – phone to get from Glenrothes
+- Electrician (EICR, PAT testing): Energycert – phone to get from Glenrothes
+- Legionella risk assessment: Energycert
+- X-ray and clinical equipment engineer: CJS – phone to get from Glenrothes
+- Radiation Protection Adviser: DD Group (Dental Directory), 01376 391100
+- Clinical waste: NHS Fife (PCA(D)5)
+- Oxygen: SOS Oxygen, 01257 254525, office@sosoxygen.co.uk
+- Autoclave: Eschmann Little Sister SES 3020B (B-type, 23 L), on lease
+- Dental chairs: installation 23 November
+
 **Suggestions you can choose from (not chosen for you):**
 - Radiation Protection Adviser: UKHSA Dental X-ray Protection Services is used by over 2,500 UK practices. Or ask your X-ray supplier who they use.
 - Clinical waste: NHS Fife (PCA(D)5 scheme) – ask NHS Fife to set up collections.

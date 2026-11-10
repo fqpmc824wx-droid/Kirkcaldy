@@ -154,7 +154,7 @@ Each type goes in its **own** container because they go to different treatment f
 ### 5.10 Uplift, carriers and paperwork
 
 1. **Healthcare (special) waste** (orange, yellow, red) is collected by **NHS Fife under the PCA(D)5 scheme** [confirm arrangements with the NHS Fife Waste Management Officer]. If any stream is not covered, we use a registered waste management contractor licensed for that category, under contract [Company, licence no.].
-2. **Black and green stream**: Fife Council or a private waste/recycling contractor [Company].
+2. **Black and green stream**: Fife Council (Cireco, 03451 55 11 33) or a private waste/recycling contractor [Company – to decide].
 3. **Waste transfer notes (WTN)** for black, green and non-special WEEE: one per uplift with the correct EWC code and tonnage, or an annual "blanket" WTN (there is usually a charge).
 4. **SEPA special waste consignment notes (SWCN) and carrier schedules** for every uplift of orange, yellow and red stream waste and special-waste WEEE, confirming the number of containers, EWC code and tonnage.
 5. The Health & Safety Lead checks each note is complete and correct before signing, and files it.

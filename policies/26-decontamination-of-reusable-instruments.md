@@ -54,7 +54,7 @@ Where this policy gives test or cycle details, they must be checked against SHTM
 | Practice Owner [Nas] | Provides a compliant LDU and validated equipment. Signs service, validation and pressure-system contracts. Has overall accountability. |
 | IPC Lead / Decontamination Lead [Name] | Manages the decontamination system. Writes and reviews procedures. Trains staff and signs off competence. Checks test records weekly. Leads on process failures. Keeps the MDDP checklist up to date. |
 | Practice Manager [Name] | Arranges maintenance, validation, PSSR examinations and insurance. Keeps contractor certificates. Manages stock of consumables. |
-| Competent Person (Decontamination) / service engineer [Company] | Installation, commissioning, validation, periodic testing and maintenance of decontamination equipment. |
+| Competent Person (Decontamination) / service engineer (Eschmann, 01903 753322 – Little Sister SES 3020B autoclave, B-type, 23 L) | Installation, commissioning, validation, periodic testing and maintenance of decontamination equipment. |
 | Competent Person (Pressure Systems) [Company] | Written Scheme of Examination and periodic examination of sterilizers (and compressor). |
 | Dental nurses and other LDU staff | Follow the procedures below. Carry out and record daily and weekly tests. Stop and report any failure. |
 | Dentists | Segregate sharps and single-use items at the chairside. Make sure only decontaminated instruments are used. |
