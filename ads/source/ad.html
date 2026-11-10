@@ -31,7 +31,7 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
      box-shadow:0 8px 0 #6B5122}
 .url{left:0;width:1080px;text-align:center;color:#fff;font-weight:700;white-space:nowrap}
 .url b{color:var(--light);font-weight:800}
-.addr{left:0;width:1080px;text-align:center;color:#C9CCD0;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;display:none}
+.addr{left:0;width:1080px;text-align:center;color:#E6E2DA;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;display:none}
 .foot{left:0;width:1080px;text-align:center;color:var(--gold);font-family:Playfair,serif;font-weight:800;text-transform:uppercase;letter-spacing:.18em;font-size:26px;display:none}
 </style></head>
 <body>
@@ -40,7 +40,7 @@ body{width:1080px;position:relative;overflow:hidden;background:var(--cream);font
 <div class="abs logoTile" id="logoTile"><img id="logo" src="logo.svg" alt="Kirkcaldy Dental &amp; Implant Clinic" style="display:block;width:100%"></div>
 <div class="abs kicker" id="kicker"></div>
 <div class="abs head" id="head"><div class="l1" id="l1"></div><div class="l2"><span id="l2"></span></div></div>
-<div class="abs strip" id="strip"><span id="st1">Be first in line</span><span id="st2">Join our waiting list</span></div>
+<div class="abs strip" id="strip"><span id="st1">Register your interest</span><span id="st2">Join our waiting list</span></div>
 <div class="abs flour l" id="fl"></div><div class="abs flour r" id="fr"></div><div class="abs dia" id="dl"></div><div class="abs dia" id="dr"></div><div class="abs dia o" id="dl2"></div><div class="abs dia o" id="dr2"></div>
 <div class="abs panel" id="panel"></div>
 <div class="abs btn" id="btn">Join Waiting List&nbsp;&nbsp;→</div>
@@ -58,7 +58,7 @@ const L={
   story:{H:1920,pT:290,pH:640,logoW:340,logoX:370,logoTop:30,kT:885,hT:930,hMax:80,sT:1150,sH:186,pnT:1336,pnB:1590,bT:1362,bW:660,bH:108,bF:44,uT:1484,uF:32}
 };
 // Practice phone – set when the real number exists (BRAND.md). Empty = not shown.
-const PHONE='';
+const PHONE='01592 214225';
 const q=new URLSearchParams(location.search), c=C[q.get('ad')||'A'], l={...L[q.get('fmt')||'feed']};
 if(q.get('fmt')!=='story') l.logoX=(q.get('ad')==='B')?40:720;
 const $=id=>document.getElementById(id), px=v=>v+'px';
@@ -75,8 +75,8 @@ if(l.pnB){$('panel').style.borderBottom='8px solid var(--gold2)';$('foot').style
 Object.assign($('btn').style,{top:px(l.bT),width:px(l.bW),height:px(l.bH),fontSize:px(l.bF)});
 Object.assign($('url').style,{top:px(l.uT),fontSize:px(l.uF)});
 {const ph=new URLSearchParams(location.search).get('phone')||PHONE; if(ph){$('url').innerHTML='kirkcaldydental.co.uk<b>/register</b> &nbsp;·&nbsp; Call <b>'+ph+'</b>';}}
-if(c.addr){const ad=$('addr');ad.textContent=c.addr;ad.style.display='block';ad.style.top=px(l.uT+l.uF+14);ad.style.fontSize=px(q.get('fmt')==='story'?22:20);}
-function fit(el,target,max){el.style.fontSize=px(max);const w=el.scrollWidth;if(w>target)el.style.fontSize=px(max*target/w);return parseFloat(el.style.fontSize);}
+if(c.addr){const ad=$('addr');ad.textContent=c.addr;ad.style.display='block';ad.style.top=px(l.uT+l.uF+14);ad.style.fontSize=px(q.get('fmt')==='story'?26:24);}
+function fit(el,target,max){el.style.fontSize=px(max);const rg=document.createRange();rg.selectNodeContents(el);const w=rg.getBoundingClientRect().width;if(w>target)el.style.fontSize=px(max*target/w);return parseFloat(el.style.fontSize);}
 
 // ---- video mode: window.setTime(t) poses every element for time t (seconds) ----
 const ease=x=>x<0?0:x>1?1:1-Math.pow(1-x,3);
@@ -90,19 +90,15 @@ window.prepAnim=()=>{
 };
 window.setTime=t=>{
   const set=(id,o,ty,sc)=>{const e=$(id);e.style.opacity=o;e.style.transform=(id==='btn'?'translateX(-50%) ':'')+`translateY(${ty||0}px) scale(${sc||1})`;};
-  $('photo').style.transform=`scale(${1.0+0.07*Math.min(t/8,1)})`;
-  set('logoTile',prog(t,0,.6));
-  set('kicker',prog(t,.5,.5),12*(1-prog(t,.5,.5)));
-  set('l1',prog(t,.7,.6),30*(1-prog(t,.7,.6)));
-  const p2=prog(t,1.2,.6); set('l2',p2,30*(1-p2));
-  const pf=prog(t,1.6,.7);
-  $('fl').style.width=px(ANIM.fl*pf); $('fr').style.width=px(ANIM.fr*pf); $('fr').style.left=px(ANIM.frL+ANIM.fr*(1-pf));
-  for(const id of ['dl','dr','dl2','dr2']) $(id).style.opacity=prog(t,1.6,.4);
-  const ps=prog(t,2.2,.6); $('strip').style.transform=`translateX(${-1080*(1-ps)}px)`;
-  set('st1',prog(t,2.6,.5)); set('st2',prog(t,2.9,.5));
-  const pb=prog(t,3.4,.5); const pulse=t>4.6?1+0.05*Math.max(0,Math.sin((t-4.6)*Math.PI/0.6))*(((t-4.6)%2.0)<0.6?1:0):1;
-  set('btn',pb,0,(0.85+0.15*pb)*pulse);
-  set('url',prog(t,3.9,.5));
+  $('photo').style.transform=`scale(${1.0+0.10*Math.min(t/8,1)})`;
+  const rise=10*(1-prog(t,0,.3));
+  set('logoTile',1); set('kicker',1); set('l1',1,rise); set('l2',1,rise); set('url',1); set('addr',1);
+  for(const id of ['dl','dr','dl2','dr2']) $(id).style.opacity=1;
+  $('strip').style.transform=`translateX(${-1080*(1-prog(t,0,.35))}px)`;
+  set('st1',1); set('st2',1);
+  const k=(t-.4)/.35, pop=k<=0?.85:k<.6?.85+.21*(k/.6):k<1?1.06-.06*((k-.6)/.4):1;
+  const ph=(t-1.5)%1.5, pulse=(t>=1.5&&ph<.6)?1+.05*Math.sin(ph*Math.PI/.6):1;
+  set('btn',Math.min(1,Math.max(0,(t-.4)/.15)),0,pop*pulse);
 };
 window.layout=async()=>{await document.fonts.ready;
   fit($('kicker'),960,28);
