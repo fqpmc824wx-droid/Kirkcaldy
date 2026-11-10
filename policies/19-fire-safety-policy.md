@@ -81,7 +81,7 @@ The five stages are:
 
 ### 5.3 Fire detection, warning and firefighting equipment
 
-1. Fire detection and warning are suitable for the size and layout of the building, as decided in the risk assessment. System: [e.g. automatic fire alarm system / manually operated call points / hand bell]. Fire alarm, extinguisher and fire risk assessment contractor: Falcon Fire Safety, Enterprise Hub Fife, 1 Falkland Gate, Glenrothes KY7 5NS (same as Glenrothes practice) – [phone].
+1. Fire detection and warning are suitable for the size and layout of the building, as decided in the risk assessment. System: [e.g. automatic fire alarm system / manually operated call points / hand bell]. Fire alarm, extinguisher and fire risk assessment contractor: Falcon Fire Safety Ltd, Enterprise Hub Fife, 1 Falkland Gate, Glenrothes KY7 5NS (same as Glenrothes practice) – 03333 399 176, info@falconfiresafety.co.uk.
 2. If there is a fire alarm, the Fire Safety Lead (or deputy) **tests it weekly** – [day and time], using a different call point each week – and checks it can be heard throughout the premises over normal background noise. Where hearing-impaired people may be present, visual alarms are considered.
 3. Enough extinguishers of the right type are in place, prominently sited near fire hazards, with instructions displayed: [list types and locations – e.g. CO2 near electrical equipment and server; water/foam near exits].
 4. Extinguishers are maintained by a competent person in line with BS 5306-3:2017 [Company; annual service date].

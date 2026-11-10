@@ -209,8 +209,8 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Telephone / broadband provider | [provider – not decided yet] | [phone] | Account [no.] |
 | Dentally support | Dentally | [phone / support portal] | |
 | IT support | [company] | [phone] | |
-| X-ray and clinical equipment engineer | CJS (same as Glenrothes) | [phone – ask Glenrothes] | |
-| Dental equipment engineer (chairs, compressor, suction) | CJS (same as Glenrothes) | [phone – ask Glenrothes] | Contract [no.] |
+| X-ray and clinical equipment engineer | CJS Dental Services, Tullibody (same as Glenrothes) | 01259 764 713 | |
+| Dental equipment engineer (chairs, compressor, suction) | CJS Dental Services (same as Glenrothes) | 01259 764 713 | Contract [no.] |
 | Decontamination equipment engineer (autoclave, washer-disinfector) | Eschmann (service contract – confirm) | 01903 753322 | Contract [no.] |
 | Medical gas / oxygen supplier | SOS Oxygen (Speciality Oxygen Service Ltd) | 01257 254525 | office@sosoxygen.co.uk |
 | Clinical waste | NHS Fife (PCA(D)5 scheme) | 01592 643355 (switchboard – waste management officer) | |
@@ -219,8 +219,8 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Implant system supplier | [company] | [phone] | |
 | Landlord / building manager | [Name] | [phone] | |
 | Plumber | [company] | [phone] | |
-| Fire safety (alarm, extinguishers, risk assessment) | Falcon Fire Safety, Glenrothes | [phone – ask Glenrothes] | |
-| Electrician (EICR, PAT) and legionella assessor | Energycert (same as Glenrothes) | [phone – ask Glenrothes] | |
+| Fire safety (alarm, extinguishers, risk assessment) | Falcon Fire Safety Ltd, Glenrothes | 03333 399 176 | info@falconfiresafety.co.uk |
+| Electrician (EICR, PAT) and legionella assessor | Energy Cert Scotland (same as Glenrothes) | 0330 350 1345 | enquiries@energycertscotland.com |
 | Locksmith / glazier | [company] | [phone] | |
 | Security alarm company | [company] | [phone] | |
 | Practice insurer (via broker) | Premierline (broker) – insurer [company] | 0333 320 6009 | Policy [no.] |

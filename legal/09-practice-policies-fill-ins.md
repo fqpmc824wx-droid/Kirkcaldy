@@ -45,10 +45,10 @@ These are now in the policies. Please check them once a year.
 - Possible opening date: beginning of December (suggested, not agreed yet).
 
 **Chosen 10 Nov – same companies as the Glenrothes practice (owner's decision):**
-- Fire safety (alarm, extinguishers, risk assessment): Falcon Fire Safety, Glenrothes – phone to get from Glenrothes
-- Electrician (EICR, PAT testing): Energycert – phone to get from Glenrothes
+- Fire safety (alarm, extinguishers, risk assessment): Falcon Fire Safety Ltd, Glenrothes – 03333 399 176, info@falconfiresafety.co.uk
+- Electrician (EICR, PAT testing): Energy Cert Scotland – 0330 350 1345, enquiries@energycertscotland.com
 - Legionella risk assessment: Energycert
-- X-ray and clinical equipment engineer: CJS – phone to get from Glenrothes
+- X-ray and clinical equipment engineer: CJS Dental Services – 01259 764 713
 - Radiation Protection Adviser: DD Group (Dental Directory), 01376 391100
 - Clinical waste: NHS Fife (PCA(D)5)
 - Oxygen: SOS Oxygen, 01257 254525, office@sosoxygen.co.uk
