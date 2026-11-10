@@ -122,7 +122,7 @@ Note: suction catheters are manufacturer specific. Only use catheters that fit o
 
 ### 5.4 Oxygen supply
 
-1. The practice holds enough oxygen for **at least 30 minutes at 15 litres per minute**: for example two size D, two size CD or one size E cylinder. We hold: [number and size of cylinders].
+1. The practice holds enough oxygen for **at least 30 minutes at 15 litres per minute**: for example two size D, two size CD or one size E cylinder. We hold: 2 size CD cylinders (supplier: SOS Oxygen).
    - Size D: 340 litres, about 22 minutes.
    - Size CD: 460 litres, about 30 minutes.
    - Size E: 680 litres, up to 45 minutes.
