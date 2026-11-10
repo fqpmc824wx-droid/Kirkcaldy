@@ -28,7 +28,7 @@ This policy covers all use of dental X-ray equipment at the practice:
 - intra-oral X-ray units in [number] surgeries: [Surgery 1, Surgery 2, …];
 - digital intra-oral detectors (sensors and/or phosphor plates) and plate reader [model];
 - panoramic (OPG) unit [if applicable – model and room];
-- cone beam CT (CBCT) unit for implant planning: the practice has a CBCT scanner [model and room];
+- cone beam CT (CBCT) unit for implant planning: planned for later – not installed at opening. The RPA checks the room plan and this policy and the Local Rules are updated before it is installed;
 - hand-held X-ray unit [if applicable – normally not used];
 - imaging software and viewing monitors, including integration with Dentally [software name].
 
@@ -129,7 +129,7 @@ The Employer completes the following **before** any X-ray equipment is used:
 1. Each duty holder is assessed against the registration, qualifications, training and experience needed for the tasks they will carry out. This defines their scope of practice.
 2. Entitlement is recorded using the duty holder competency record in example Employer's Procedure **EP1** (Entitlement of Duty Holders), signed by the Employer.
 3. Locums and new staff are entitled before they take, justify or evaluate any radiograph. Evidence of their training is checked first.
-4. CBCT (the practice has a CBCT scanner): only duty holders with the additional training to justify, perform or interpret CBCT examinations are entitled for CBCT. Referrers for CBCT do not need extra training but it is advised.
+4. CBCT (planned for later, not at opening): only duty holders with the additional training to justify, perform or interpret CBCT examinations are entitled for CBCT. Referrers for CBCT do not need extra training but it is advised.
 5. The register of entitled staff is reviewed annually and whenever staff change.
 
 ### 5.3 Radiation risk assessment and protection of staff and the public
