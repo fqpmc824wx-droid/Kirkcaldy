@@ -75,7 +75,7 @@ PSM pages:
 ### 5.3 Loss of premises (fire, flood, structural damage, no access)
 
 1. Evacuate following 19-fire-safety-policy.md. Take the emergency box and the appointment list if safe to do so. Do not re-enter until the fire service, police or building surveyor allows.
-2. Continuity Lead informs the Practice Owner, landlord/building insurer [Name], practice insurer, and NHS Fife primary care dental team.
+2. Continuity Lead informs the Practice Owner, building insurer [Name], practice insurer, and NHS Fife primary care dental team.
 3. Reception staff (working remotely, logging into Dentally from another device) contact patients booked for [the next 2 days], cancel or move appointments, and post a notice on the website and phone message.
 4. Urgent patients are seen at the temporary arrangement: [practice decision – reciprocal arrangement with [nearby practice] / NHS Fife urgent care]. Agreement with [practice] dated [date].
 5. Secure the premises (boarding, alarm, locksmith). Remove or secure medical oxygen, controlled drugs and any paper records when safe.
@@ -96,7 +96,7 @@ PSM pages:
 ### 5.5 Water failure (or water contamination)
 
 1. Without water the practice cannot safely provide hand hygiene, decontamination or toilet facilities. Stop aerosol-generating and wet-handpiece treatment.
-2. Contact **Scottish Water – 0800 0778 778** to check for supply problems or boil notices; contact the plumber/landlord for internal faults.
+2. Contact **Scottish Water – 0800 0778 778** to check for supply problems or boil notices; contact the plumber for internal faults.
 3. Hand hygiene: use alcohol-based hand rub where hands are not visibly soiled. [Practice decision – stock of bottled water for emergency hand washing.]
 4. Dental unit waterlines: use the bottled water system [if fitted]. Follow 28-legionella-and-dental-unit-waterlines.md before reuse after any interruption (flush lines).
 5. Decontamination: stop processing if the RO/distilled water supply or LDU sinks cannot be used. Use the stock of sterile packs for urgent care.
@@ -217,7 +217,7 @@ Kept up to date by the Continuity Lead. A printed copy is in the emergency box a
 | Dental supplies | Wrights (Wright Cottrell), Dundee | 0800 66 88 99 | Account [no.] |
 | Dental laboratory | [lab] | [phone] | |
 | Implant system supplier | [company] | [phone] | |
-| Landlord / building manager | [Name] | [phone] | |
+| Building insurer | [Name] | [phone] | |
 | Plumber | [company] | [phone] | |
 | Fire safety (alarm, extinguishers, risk assessment) | Falcon Fire Safety Ltd, Glenrothes | 03333 399 176 | info@falconfiresafety.co.uk |
 | Electrician (EICR, PAT) and legionella assessor | Energy Cert Scotland (same as Glenrothes) | 0330 350 1345 | enquiries@energycertscotland.com |

@@ -65,7 +65,7 @@ PSM pages:
 ### 5.2 Travel
 
 - Encourage staff and patients to use public transport or active travel (walking, cycling). Kirkcaldy railway station and bus station are [distance] from the practice; this is stated on the website and appointment information.
-- Provide bicycle parking for staff and patients [where the building allows – check with landlord / Fife Council].
+- Provide bicycle parking for staff and patients [where the building allows – check with Fife Council, as the building is listed].
 - Support car sharing among staff.
 - Tell patients about nearby electric vehicle charging points [location].
 - Offer appointments that fit public transport timetables where possible.
