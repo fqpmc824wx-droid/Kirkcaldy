@@ -21,7 +21,7 @@ It is a legal requirement to carry out a legionella risk assessment and to put i
 - All dental chair units and DUWLs (including water bottles, handpiece and 3-in-1 lines, ultrasonic scaler lines and cup fillers) and any surgical irrigation equipment used for implants.
 - All staff, contractors and visitors.
 
-The practice owns the premises, so the practice is the dutyholder for the whole water system.
+The practice owns the ground floor; the floors above belong to other owners. The practice is the dutyholder for its own water system. Where any pipework, tanks or supply are shared with the upper floors, the practice records who is responsible for each part.
 
 ## 3. Legislation and guidance
 
