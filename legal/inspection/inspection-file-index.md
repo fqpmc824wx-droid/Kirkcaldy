@@ -107,7 +107,8 @@
 
 | Document | From | Status |
 |---|---|---|
-| Equipment list with serial numbers | Wright Cottrell sales invoice | ⏳ 23 Nov |
+| Equipment list (models) | Wright Cottrell order confirmation | ✅ |
+| Serial numbers and year of manufacture | Wright Cottrell sales invoice | ⏳ 23 Nov |
 | Chair / suction / compressor service schedule | Wright Cottrell | ❌ |
 | Practice insurance policies | Premierline | ⏳ |
 
@@ -142,5 +143,5 @@
 |---|---|---|
 | Quotes summary | Practice | ✅ |
 | DD Group invoice 8232864 | DD Group | ✅ (to pay) |
-| Wright Cottrell order WHG/LAN0703/MA | Wright Cottrell | ❌ Save copy from Sharaz |
+| Wright Cottrell order WHG/LAN0703/MA (equipment list, page 1) | Wright Cottrell | ✅ docs/Wrights-Order-Confirmation-WHG-LAN0703-MA-p1.png |
 | Eschmann finance application | Performance Finance | ⏳ |
