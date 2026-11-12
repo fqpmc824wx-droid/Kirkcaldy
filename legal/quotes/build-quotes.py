@@ -27,8 +27,8 @@ def para(text, size, color, font, bold=False, italic=False, after=4, align=WD_AL
     p.paragraph_format.space_after = Pt(after)
     return p
 t = para("Quotes Summary", 26, bw.GOLD, bw.HEAD, after=2)
-s = para("Fire safety · Legionella · PAT · Radiation · Oxygen · Equipment · Insurance", 10.5, bw.CHAR, bw.BODY, after=2)
-m = para("Compiled from the info@kirkcaldydental.co.uk inbox · up to 11 November 2026 · Prices exclude VAT unless stated",
+s = para("Fire safety · Legionella · PAT · Radiation · Oxygen · Equipment · Insurance · Asbestos", 10.5, bw.CHAR, bw.BODY, after=2)
+m = para("Compiled from the info@kirkcaldydental.co.uk inbox · up to 12 November 2026 · Prices exclude VAT unless stated",
          8.5, bw.GOLD, bw.BODY, italic=True, after=10)
 bw.border_bottom(m._p.get_or_add_pPr(), bw.LIGHT, 8, 8)
 for p in (t, s, m):

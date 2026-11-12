@@ -1,6 +1,6 @@
 ---
 title: "Kirkcaldy Dental & Implant Clinic – Quotes Summary"
-subtitle: "From the info@ inbox, up to 11 November 2026"
+subtitle: "From the info@ inbox, up to 12 November 2026 (midday)"
 ---
 
 # 1. Fire risk assessment
@@ -23,9 +23,9 @@ subtitle: "From the info@ inbox, up to 11 November 2026"
 | Company | Price | Status |
 |---|---|---|
 | Premier Services (Fife) | No price yet | Can do everything. Tight for 23 Nov |
-| Caledonia Fire & Security | No price yet | With sales director |
+| Caledonia Fire & Security | No price yet | With sales director. Chase |
 | DAC Security | – | Can't do it until end of December |
-| Scottish Security & Fire | – | No reply yet |
+| Scottish Security & Fire | – | No reply yet. Chase or drop |
 
 **Premier Services (Fife)** – Graham Steedman, 01383 720508, graham@premierservicesfife.co.uk
 
@@ -46,10 +46,10 @@ Before quoting they asked:
 | Company | Price | Status |
 |---|---|---|
 | **Mackay Gas & Heating** | **£90 + VAT** | Quoted. Ready to book |
-| Energy Cert Scotland | No price yet | Waiting for reply |
-| FlowAqua | – | No reply yet |
+| Energy Cert Scotland | £295 + VAT | Quoted. Same assessment Glenrothes Dental House had |
+| FlowAqua | – | No reply |
 
-**Mackay Gas & Heating** – Ross Mackay, 07734 377070, info@fifegasandheating.co.uk
+**Mackay Gas & Heating** – Ross Mackay, 07734 377070, info@fifegasandheating.co.uk. Cheapest. Check the price covers 4 surgeries, and book a date after 23 Nov.
 
 **Energy Cert Scotland** – Stephanie, 0330 350 1345, office@energycertscotland.com (they don't do EICRs)
 
@@ -57,14 +57,16 @@ Before quoting they asked:
 
 | Company | Price | Status |
 |---|---|---|
-| **RB Grant** | **£150 + VAT** | Quoted |
+| **Patplus (Mike Povey)** | **£90.50, no VAT** | Quoted. Book after the 23 Nov install |
+| RB Grant | £150 + VAT | Quoted. No date given |
 | DGEC | About £280 + VAT | Quoted. Provisionally booked Thu 10 Dec |
-| Energy Cert Scotland | No price yet | Waiting for reply |
-| Patplus (Mike Povey) | – | No reply yet |
+| Energy Cert Scotland | – | Doesn't quote PAT. Suggests an electrician |
+
+**Patplus** – Mike Povey, mikepovey@aol.com. Quote 112026: £50 call-out incl. first 20 tests, 30 more at 95p, £12 fuel. Retests after repairs £7.50 each. He asked if we're part of a dental group.
 
 **RB Grant Electrical Contractors** – Ronnie Grant, ronnie@rbgrant.co.uk
 
-**DGEC** – 01592 331922, info@dgec.co.uk. Cancel the 10 Dec booking if you go with RB Grant.
+**DGEC** – 01592 331922, info@dgec.co.uk. They wanted an answer by 12 Nov. Release the 10 Dec booking if you go with someone else.
 
 # 5. Radiation Protection Adviser (RPA)
 
@@ -75,6 +77,7 @@ Before quoting they asked:
 - Account **VF5JKI9**, 11 Nov 2026 to 10 Nov 2029. RPA / MPE: Neil Pick and Jonathan Stubbs.
 - Invoice 8232864, prepayment. Bank: sort code 20-97-65, account 10951129.
 - Plan approval takes about 2 days. rps@ddgroup.com, 0800 028 1697 (option 4, then 3).
+- The prior-assessment email is drafted. It goes once the invoice is paid. Fast-track is £79 + VAT if needed before 23 Nov.
 
 # 6. Medical oxygen
 
@@ -111,13 +114,46 @@ Before quoting they asked:
 
 | Company | Price | Status |
 |---|---|---|
-| Wright Cottrell | – | Quote requested 11 Nov |
-| Henry Schein | – | Quote requested 11 Nov |
-| DD Group | – | Quote requested 11 Nov |
+| **Wright Cottrell – Dürr VistaScan Mini Easy 2.0** | **£4,423 + VAT** with plates for 4 surgeries | Quoted. Best for 1–2 surgeries |
+| Wright Cottrell – Dürr VistaScan Mini View 2.0 | £5,988 + VAT with plates for 4 surgeries | Quoted. Recommended for 3+ surgeries |
+| DD Group – Carestream CS7600 | £4,795 + VAT (size 2 plates only) | Quoted QUO-44892-W6Y8G4, valid to 12 Dec |
+| Henry Schein | – | Passed to equipment team |
 | Carestream UK | – | Not contacted. Phone 0800 169 9692 |
+
+**Wright Cottrell** – Mark Wilson, m.wilson@wright-cottrell.co.uk
+
+- Same image quality on both. With 4 surgeries the Mini Easy may mean a queue to scan.
+- Prices without extra plates: Mini View £5,400 + VAT, Mini Easy £3,400 + VAT (plus £435 S1 guide). Extra plates for 4 surgeries £588 + VAT.
+- Finance figures once the final choice is made. Ask: installation and training included? Works with Dentally?
+
+**DD Group** – Diana Hughes, sales@ddgroup.com
+
+- Includes 4 size 2 plates, 300 envelopes, 2 Scan n Go devices, software, 2-year warranty, free delivery.
+- No size 0 or size 1 plates yet – she asked how many to add. Says "remote install"; ask if training is on site.
+- Lease figures through TeleLease (Lloyd Shaw). Orders can't be cancelled once placed.
 
 # 10. Insurance
 
 | Company | Price | Status |
 |---|---|---|
 | Premierline | – | Quote expected |
+
+# 11. Asbestos management survey
+
+| Company | Price | Status |
+|---|---|---|
+| **Asbestos Surveying & Monitoring** | **£320 + VAT** | Quoted ENQ-3983. Can come Fri 13 Nov (pm) or from 30 Nov |
+| ASA | £495 + VAT incl. lab samples | Quoted 261109. No date given |
+| EDP | – | Passed to their asbestos team |
+| Asbestos Risk Control | – | Out of office until 15 Nov |
+| SOCOTEC, DNKA, Life Environmental, Environtec, Bradley | – | Sent 12 Nov. No reply yet |
+| Franks Portlock, Asbestos Building Surveys, Acron | – | Not sent (still drafts) |
+
+**Asbestos Surveying & Monitoring** – Shauni Mankin, shauni.mankin@asbestossm.co.uk
+
+- One day on site. Report within 5 working days. Quote valid 30 days. Access equipment extra.
+- Ask them to confirm sampling and lab analysis are included in the £320.
+
+**ASA** – info@asa-asbestos.uk.com (East Lothian)
+
+- Includes samples, UKAS lab analysis, report, risk assessments, photos and asbestos register. Access above 4.5 m and return visits extra.
