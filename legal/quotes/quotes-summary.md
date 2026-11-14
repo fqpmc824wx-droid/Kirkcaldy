@@ -1,6 +1,6 @@
 ---
 title: "Kirkcaldy Dental & Implant Clinic – Quotes Summary"
-subtitle: "From the info@ inbox, up to 12 November 2026 (midday)"
+subtitle: "From the info@ inbox, up to 14 November 2026"
 ---
 
 # 1. Fire risk assessment
@@ -22,10 +22,10 @@ subtitle: "From the info@ inbox, up to 12 November 2026 (midday)"
 
 | Company | Price | Status |
 |---|---|---|
-| Premier Services (Fife) | No price yet | Can do everything. Tight for 23 Nov |
-| Caledonia Fire & Security | No price yet | With sales director. Chase |
+| **Caledonia Fire & Security** | **£789.80 + VAT** to supply and fit extinguishers and signs | Quoted 54474 |
+| Premier Services (Fife) | No price yet | Asked questions first. Tight for 23 Nov |
 | DAC Security | – | Can't do it until end of December |
-| Scottish Security & Fire | – | No reply yet. Chase or drop |
+| Scottish Security & Fire | – | Wants a site visit first |
 
 **Premier Services (Fife)** – Graham Steedman, 01383 720508, graham@premierservicesfife.co.uk
 
@@ -37,7 +37,13 @@ Before quoting they asked:
 4. The plan mentions "First Floor D2 doors" – does that apply to the clinic?
 5. Is the NHS inspection date confirmed?
 
-**Caledonia Fire & Security** – 01592 655591, helpdesk@caledoniafs.com
+**Caledonia Fire & Security** – Valerie Graham, 01592 655591 (quote 54474)
+
+- Supply and fit extinguishers, stands and signs: **£789.80 + VAT**.
+- Fire alarm: first take-over inspection £81, then servicing £81 a visit (2 a year).
+- Emergency lighting: £135 a visit (3-hour test).
+- Extinguisher servicing: £6.50 per unit + £30 per visit.
+- All + VAT.
 
 **DAC Security** – 01383 820700 · **Scottish Security & Fire** – 01592 654000
 
@@ -117,7 +123,9 @@ Before quoting they asked:
 | **Wright Cottrell – Dürr VistaScan Mini Easy 2.0** | **£4,423 + VAT** with plates for 4 surgeries | Quoted. Best for 1–2 surgeries |
 | Wright Cottrell – Dürr VistaScan Mini View 2.0 | £5,988 + VAT with plates for 4 surgeries | Quoted. Recommended for 3+ surgeries |
 | DD Group – Carestream CS7600 | £4,795 + VAT (size 2 plates only) | Quoted QUO-44892-W6Y8G4, valid to 12 Dec |
-| Henry Schein | – | Passed to equipment team |
+| Henry Schein – Carestream CS 7200 Neo | £4,800 + VAT incl. delivery and remote install | Quoted Q-76255 |
+| Henry Schein – Dürr Mini Easy 2.0 | £4,495 + VAT | Quoted |
+| Henry Schein – Dürr Mini View 2.0 | £6,295 + VAT, or **£5,450 + VAT + free VistaCam iX** in Black Friday week | Quoted |
 | Carestream UK | – | Not contacted. Phone 0800 169 9692 |
 
 **Wright Cottrell** – Mark Wilson, m.wilson@wright-cottrell.co.uk
@@ -130,7 +138,10 @@ Before quoting they asked:
 
 - Includes 4 size 2 plates, 300 envelopes, 2 Scan n Go devices, software, 2-year warranty, free delivery.
 - No size 0 or size 1 plates yet – she asked how many to add. Says "remote install"; ask if training is on site.
-- Lease figures through TeleLease (Lloyd Shaw). Orders can't be cancelled once placed.
+- Lease through TeleLease (Lloyd Shaw, 07436 059335): **£125.90 a month inc. VAT over 5 years** (£151.10 over 4, £193.29 over 3). £199 setup fee, £60 end fee. Wants a call as we're a new company.
+- Orders can't be cancelled once placed.
+
+**Henry Schein** – Tom Hepton, 07971 128097. All units work with Dentally. Finance available but no lease.
 
 # 10. Insurance
 
@@ -143,11 +154,13 @@ Before quoting they asked:
 | Company | Price | Status |
 |---|---|---|
 | **Asbestos Surveying & Monitoring** | **£320 + VAT** | Quoted ENQ-3983. Can come Fri 13 Nov (pm) or from 30 Nov |
+| **Life Environmental** | **£245 + VAT** | Quoted S292418. From next week. Report 3 weeks after |
 | ASA | £495 + VAT incl. lab samples | Quoted 261109. No date given |
-| EDP | – | Passed to their asbestos team |
+| Acron | £550 + VAT incl. sampling and report | Can attend Mon 23 Nov |
+| EDP | – | Fife-based consultant wants to visit / call |
 | Asbestos Risk Control | – | Out of office until 15 Nov |
-| SOCOTEC, DNKA, Life Environmental, Environtec, Bradley | – | Sent 12 Nov. No reply yet |
-| Franks Portlock, Asbestos Building Surveys, Acron | – | Not sent (still drafts) |
+| Environtec, Franks Portlock, Bradley | – | Asked for floor plans / details before quoting |
+| SOCOTEC, DNKA | – | No reply yet |
 
 **Asbestos Surveying & Monitoring** – Shauni Mankin, shauni.mankin@asbestossm.co.uk
 
