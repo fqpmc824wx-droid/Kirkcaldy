@@ -42,6 +42,29 @@ Composite, bond, etch, GIC, temporaries (temp bond, Ionoseal, Calcimol, Dycal), 
 Per surgery (×4): soap, paper towel, glove and cup dispensers; alcohol gel; yellow clinical waste pedal bin; sharps bins (yellow/blue lid); general waste bin; patient safety glasses; visors/masks; aprons; nitrile gloves; surface wipes; pocket mask (adult + child); waste amalgam container.
 Practice: mercury spill kit, body fluid spill kit.
 
+## Storage, organisation and dispensers (per surgery ×4 unless stated)
+
+| Item | Per surgery | Total |
+|---|---|---|
+| Glove box dispensers (wall-mounted, holds S/M/L) | 1 | 4 |
+| Paper towel dispenser | 1 | 4 (+ toilets/LDU: 3) |
+| Soap / hand-wash dispenser | 1 | 4 (+ toilets/LDU: 3) |
+| Alcohol gel dispenser | 1 | 4 (+ reception: 1) |
+| Cup dispenser | 1 | 4 |
+| Mask and apron/visor dispenser | 1 | 4 |
+| Drawer organisers / inserts (for surgery cabinet drawers) | 1 set | 4 sets |
+| Instrument tray / cassette system (colour-coded) | 1 set | 4 sets |
+| Bur block / bur stand | 2 | 8 |
+| Cotton roll dispenser | 1 | 4 |
+| Bur box | 1 | 4 |
+| Material storage boxes / tubs (clear, lidded) | 6 | 24 |
+| Sharps bin wall bracket | 1 | 4 |
+| Clinical waste bin (yellow, pedal) | 1 | 4 |
+| General waste bin (pedal) | 1 | 4 |
+| Wall clock | 1 | 4 |
+
+Note: the surgery cabinets themselves come with the fit-out. Only price the inserts and organisers.
+
 ## Decontamination room (LDU)
 
 Illuminated magnifier; handpiece oil spray (or oiling unit); instrument brushes; washer-disinfector racks/baskets and detergent; steriliser trays; sterilisation pouches (assorted sizes); instrument cassettes/trays; lidded transport boxes; autoclave and washer test devices; logbooks. **RO water system – quote needed (ask Eschmann too).**
