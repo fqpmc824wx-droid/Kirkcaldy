@@ -1,17 +1,17 @@
 # Wrights shopping list – Kirkcaldy Dental & Implant Clinic
 
-4 surgeries: **3 dentist surgeries + 1 therapist surgery**. Add to basket / quote only – **do not check out or pay**.
+4 surgeries: **3 dentist surgeries + 1 therapist surgery**. Realistic starting quantities – top up after the first month. Add to basket / quote only – **do not check out or pay**.
 Already ordered or sorted elsewhere (do NOT add): chairs, suction, X-rays, stools (Wrights order WHG/LAN0703/MA), autoclave and washer (Eschmann), oxygen (SOS), plate scanner (choosing separately).
 
 ## Handpieces and small equipment
 
 | Item | Per dentist surgery | Therapist surgery | Total |
 |---|---|---|---|
-| High-speed handpiece | 5 | 3 | 18 |
-| Slow-speed (contra-angle) handpiece | 5 | 3 | 18 |
-| Straight handpiece | 2 | 1 | 7 |
+| High-speed handpiece | 3 | 3 | 12 |
+| Slow-speed (contra-angle) handpiece | 3 | 3 | 12 |
+| Straight handpiece | 1 | 1 | 4 + 1 practice spare = 5 |
 | Scaler handpiece (fits Satelec Newtron on Belmont chair) | 1 | 1 | 4 |
-| Scaler tips | 5 | 5 | 20 |
+| Scaler tips | 3 | 3 | 12 |
 | Curing light | 1 | 1 | 4 |
 | Endo motor with torque control + apex locator | shared | – | 2 |
 | Amalgamator | shared | – | 1 |
@@ -20,10 +20,10 @@ Already ordered or sorted elsewhere (do NOT add): chairs, suction, X-rays, stool
 
 | Item | Per dentist surgery | Therapist surgery | Total |
 |---|---|---|---|
-| Exam kit (mirror, straight/sickle probe, BPE/WHO probe) | 10 | 10 | 40 |
-| Filling kit (mirror, probes, tweezers, excavators, flat plastic, condenser, burnisher, carver) | 8 | 8 | 32 |
-| Perio set (probes, hand scalers, Gracey curettes) | 1 | 2 | 5 |
-| Extraction set (upper/lower forceps, elevators/luxators, scalpel handle, needle holder, suture scissors, rongeurs) | 1 | children's forceps only | 3 + 1 child set |
+| Exam kit (mirror, straight/sickle probe, BPE/WHO probe) | 8 | 8 | 32 |
+| Filling kit (mirror, probes, tweezers, excavators, flat plastic, condenser, burnisher, carver) | 5 | 5 | 20 |
+| Perio set (probes, hand scalers, Gracey curettes) | 1 | 1 | 4 |
+| Extraction set (upper/lower forceps, elevators/luxators, scalpel handle, needle holder, suture scissors, rongeurs) | shared | children's forceps only | 2 for the practice + 1 child set |
 | Endo hand instruments (locking tweezers, spreaders/pluggers, endo ruler) | 1 | – | 3 |
 | Rubber dam kit (frame, punch, forceps, clamps) | 1 | 1 | 4 |
 | Impression trays (S/M/L, upper and lower), wax knife, Le Cron, Willis gauge | 1 set | 1 set | 4 |
