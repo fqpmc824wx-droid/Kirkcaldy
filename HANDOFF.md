@@ -187,3 +187,6 @@ Full instructions are in `leaflet/README.md` and `banner/README.md`. Short versi
 3. Test by scanning the QR code on the leaflet: a row should appear with Source = leaflet, the page should show the thank-you, and the thank-you text (and the email, if one was given) should arrive.
 4. Phone number: not set yet. Dentally shows a placeholder number: **never use or print it.** When the real 01592 number exists, add it with `cd leaflet/source && node render.js "01592 ..."` and add it to the banner.
 5. Address: 23–25 Tolbooth Street, Kirkcaldy KY1 1RW.
+
+## Standing rule: inspection questionnaire
+Whenever new practice facts come up (staff, suppliers, equipment, dates, insurance, NHS Fife), update the Google Sheet "Clinic Inspection Questionnaire – Kirkcaldy" (1KuUuLIWDO8YMEkAaqd5hu4wq88fMV_S6kEExx8I6p2w, Questionnaire tab, column H) and legal/inspection/Clinic_Inspection_Questionnaire_Kirkcaldy_prefilled.xlsx straight away. The Google Sheet is the master. Practice manager: Abrar Manzur.
